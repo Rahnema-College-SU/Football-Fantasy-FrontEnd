@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import './choosePlayer.css'
-import searchIcon from '../../assets/choosePlayer/searchicon.png';
+import searchIcon from '../../assets/choosePlayer/searchicon.png'
 import up from '../../assets/choosePlayer/up.svg'
 import next from '../../assets/choosePlayer/next.svg'
 import nextLast from '../../assets/choosePlayer/nextl.svg'
@@ -8,24 +8,6 @@ import previous from '../../assets/choosePlayer/previous.svg'
 import PreviousLast from '../../assets/choosePlayer/previousl.svg'
 
 import { Dir } from "fs";
-
-// interface PlayerListItem  {
-    
-// name: string,
-//     clubName: string,
-//     score: number
-    
-    
-// }
-
-// var PlaryerSample: PlayerListItem[] ={
-    
-// }
-// var PlaryerListSample: PlayerListItem[] =[]
-
-// for(var a:number=0;a<10;a++){
-// PlaryerListSample.push(PlaryerSample)
-// }
 
 const myList = [{name:"shakiba",clubName:"bar" ,price:8, performance:8},{name:"messi",clubName:"bar" ,price:8.5, performance:10},]
 

@@ -1,0 +1,32 @@
+.main {
+    background: linear-gradient(269.18deg, #04F3F4 0.06%, #01FC9D 47.08%, #05F4F1 99.26%);
+    display: flex;
+    justify-content: space-between;
+    border-radius: 0 0 16px 16px;
+    position: relative;
+}
+
+.four-players-image {
+    border-radius: 0 0 0 16px;
+    margin-left: 3.8799%;
+}
+
+.curve-lines {
+    position: absolute;
+    right: 0;
+    /*float: right;*/
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin-right: 100px;
+}
+
+.logo-image {
+}
+
+.logo-text {
+    margin-right: 24px;
+}
