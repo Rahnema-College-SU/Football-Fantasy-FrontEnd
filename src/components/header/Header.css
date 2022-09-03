@@ -1,4 +1,4 @@
-.main {
+.main-div {
     background: linear-gradient(269.18deg, #04F3F4 0.06%, #01FC9D 47.08%, #05F4F1 99.26%);
     display: flex;
     justify-content: space-between;
@@ -6,7 +6,7 @@
     position: relative;
 }
 
-.four-players-image {
+.three-players-image {
     border-radius: 0 0 0 16px;
     margin-left: 3.8799%;
 }
@@ -29,4 +29,6 @@
 
 .logo-text {
     margin-right: 24px;
+    font: 900 58px Vazirmatn, serif;
+    color: #37013B;
 }
