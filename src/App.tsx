@@ -1,24 +1,29 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import Header from './components/header/Header';
+import NavigationBar from './components/navigationBar/NavigationBar';
+import {Route, Routes, useNavigate} from "react-router-dom";
+import MyTeam from "./components/myTeam/MyTeam";
+import Transfer from "./components/transfer/Transfer";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        {/*<img src={} className="App-logo" alt="logo" />*/}
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const navigate = useNavigate()
+
+    //TODO: do not change url when refresh page
+    useEffect(() => {
+        navigate('/my-team')
+    }, [])
+
+    return (
+        <div>
+            <Header/>
+            <NavigationBar/>
+
+            <Routes>
+                <Route path={'/my-team'} element={<MyTeam/>}/>
+                <Route path={'/transfers'} element={<Transfer/>}/>
+            </Routes>
+        </div>
+    );
 }
 
 export default App;
