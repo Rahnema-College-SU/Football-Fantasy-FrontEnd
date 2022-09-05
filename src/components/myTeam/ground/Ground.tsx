@@ -1,6 +1,10 @@
+import React from 'react'
+import './Ground.css'
+
 function Ground() {
     return (
-        <h1>Ground</h1>
+        <div id={'main-div'}>
+        </div>
     )
 }
 

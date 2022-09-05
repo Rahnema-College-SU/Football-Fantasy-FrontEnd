@@ -3,14 +3,7 @@ import Header from './components/header/Header';
 import NavigationBar from './components/navigationBar/NavigationBar';
 import {Route, Routes, useNavigate} from "react-router-dom";
 import MyTeam from "./components/myTeam/MyTeam";
-import Transfer from "./components/transfer/Transfer";
-
-import {Header} from './components/header/Header';
-import { RemainingMoney } from './components/remainingMoney/RemainingMoney';
-import { RemainingPlayer } from './components/remainingPlayer/remainingPlayer';
-import MiddleTabBar from './components/middleTabBar/ middleTabBar';
-import ChoosePlayer from './components/choosePlayer/choosePlayer';
-import DateBox from './components/dateBox/dateBox';
+import Transfer from "./components/transfers/Transfer";
 
 function App() {
     const navigate = useNavigate()
