@@ -22,6 +22,7 @@ function App() {
                 <Route path={'/my-team'} element={<MyTeam/>}/>
                 <Route path={'/transfers'} element={<Transfer/>}/>
             </Routes>
+
         </div>
     );
 }
