@@ -1,0 +1,38 @@
+.moneyBox {
+    position: absolute;
+width: 274px;
+height: 122px;
+left: 695px;
+top: 402px;
+background: linear-gradient(266.07deg, #04F4F0 2.18%, #02FDA2 125.43%);
+box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: space-evenly ;  
+    align-items: center;
+    border-radius: 16px 16px 0 0;
+}
+
+#showMoneyText{
+
+width: 10px;
+bottom: 50;
+/* font-family: 'Vazirmatn'; */
+font-style: normal;
+font-weight: 900;
+font-size: 40px;
+line-height: 62px;
+display: flex;
+align-items: center;
+text-align: center;
+color: #3D195B;
+}
+#wallet-and-text{
+    display: flex;
+    flex-direction: column;
+}
+#moneyText{
+color: #3D195B;
+}
+.walletLogo{
+    height: 70px;
+}
