@@ -3,7 +3,6 @@
     display: flex;
     justify-content: space-between;
     border-radius: 0 0 16px 16px;
-    position: relative;
 }
 
 .three-players-image {
@@ -14,7 +13,6 @@
 .curve-lines {
     position: absolute;
     right: 0;
-    /*float: right;*/
 }
 
 .logo-container {
@@ -22,9 +20,6 @@
     flex-direction: row-reverse;
     align-items: center;
     margin-right: 100px;
-}
-
-.logo-image {
 }
 
 .logo-text {
