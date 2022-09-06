@@ -11,17 +11,23 @@ function SignInForm() {
         <Form>
             <div className="SignInForm">
                 <div className="header">
-                    <hr id="line"/>
-                    <div id="headerText">ورود به فانتزی</div>
-                    <hr id="line"/>
+                    <hr className="line"/>
+                    <div className="headerText">ورود به فانتزی</div>
+                    <hr className="line"/>
                 </div>
-                <label htmlFor="username">نام کاربری</label>
-                <input id="username" type="text"/>
-                <label htmlFor="password">رمز عبور</label>
-                <input id="password" type="text"/>
-                <div id="buttonBar">
-                    <button className="signInButton" onClick={() => navigate('/home/my-team')}>ورود</button>
-                    <button className="signUpButton">ثبت نام</button>
+                <div className="inputBar">
+                    <span className="label">نام کاربری</span>
+                    <input className="input" type="text"/>
+                    <span className="label">رمز عبور</span>
+                    <input className="input" type="text"/>
+                </div>
+                <text className="label">نام کاربری</text>
+                <input className="input" type="text"/>
+                <label className="label">رمز عبور</label>
+                <input className="input" type="text"/>
+                <div className="buttonBar">
+                    <button className="button" onClick={() => navigate('/home/my-team')}>ورود</button>
+                    <button className="button">ثبت نام</button>
                 </div>
             </div>
         </Form>

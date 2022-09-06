@@ -4,9 +4,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    row-gap: 16px;
-    /* justify-content: space-between; */
-    /* align-content: center; */
+    row-gap: 1rem;
     flex-wrap: wrap;
 }
 
@@ -19,22 +17,11 @@ label {
     float: right;
     width: fit-content;
 }
-
-tr {
+.inputContainer{
     display: flex;
-    direction: rtl;
+    flex-direction: column;
+    width: 100%;
 }
-
-th {
-    width: 260px;
-    height: 96px;
-}
-
 button {
-    width: 500px;
-}
-
-.itemsHolder {
-    display: flex;
-    flex-direction: row;
+    max-width: 22rem;
 }
