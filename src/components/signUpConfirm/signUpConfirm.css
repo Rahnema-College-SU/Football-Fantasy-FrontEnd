@@ -1,18 +1,20 @@
-#Container{
+#Container {
 
     display: flex;
     flex-direction: column;
     height: 350px;
     justify-content: space-around;
 }
-.signUpConfirm{
+
+.signUpConfirm {
     padding-top: 15%;
 }
-label{
+
+label {
     padding-top: 20px;
     position: absolute;
     text-align: center;
 
-left: 670px;
- top: 145px;
+    left: 670px;
+    top: 145px;
 }

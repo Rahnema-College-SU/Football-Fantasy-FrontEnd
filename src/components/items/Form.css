@@ -1,5 +1,5 @@
 
-.window{
+.window {
     /* height: 600px; */
     position: absolute;
     width: 100%;
@@ -8,35 +8,41 @@
     direction: rtl;
     display: flex;
     flex-direction: row-reverse;
-    }
-    #sidePicture{
-        margin-left: 0%;
-        width: 35.875rem;
-        direction: ltr;
-        display: flex;
-    }
-    #PlayersPhoto{
-    
-    margin-left: 0%;
-    }
-    #logo{
-        position: absolute;
-        width: 8.25rem;
-        margin-top: 485px;
-        margin-left: 8.81%;
-    }
-    .header{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
-    
-    }
-    #line{
+}
+
+#sidePicture {
+    margin-left: 0;
+    width: 35.875rem;
+    direction: ltr;
+    display: flex;
+}
+
+#PlayersPhoto {
+
+    margin-left: 0;
+}
+
+#logo {
+    position: absolute;
+    width: 8.25rem;
+    margin-top: 485px;
+    margin-left: 8.81%;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+}
+
+#line {
     width: 10.875rem;
     border: 3px solid #9B3AF9;
-    }
-    #headerText{
+}
+
+#headerText {
     width: 10.9375rem;
     height: 3.75rem;
     font-weight: 400;
@@ -45,30 +51,33 @@
     display: flex;
     justify-content: center;
     color: #ffff;
-    }
-    label{
+}
+
+label {
 
     height: 24px;
-    font-family: 'Vazirmatn';
+    font-family: Vazirmatn, serif;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 25px;
     color: #EDD8FF;
-    
-    }
-    input{
+
+}
+
+input {
 
     background: #3D185B;
     border: 1px solid #A057DB;
     border-radius: 8px;
     height: 3rem;
-    }
-    button{
+}
+
+button {
     /* width: 270px; */
     height: 48px;
     background: linear-gradient(90deg, #CF31B9 0%, #9B3AF9 73.44%);
-    font-family: 'Vazirmatn';
+    font-family: Vazirmatn, serif;
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
@@ -76,13 +85,14 @@
     border: 2px solid;
     border-image: linear-gradient(270deg, #C847AF 1.65%, #9B3AF9 43.98%);
     border-radius: 8px;
-    }
-    /* #buttonBar{
-        display: flex;
-        flex-direction:row ;
-        justify-content: space-around;
-        column-gap: 1.5rem;
-    } */ 
+}
+
+/* #buttonBar{
+    display: flex;
+    flex-direction:row ;
+    justify-content: space-around;
+    column-gap: 1.5rem;
+} */
 
 
     

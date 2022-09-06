@@ -1,34 +1,40 @@
-.signUpForm{
+.signUpForm {
     margin-top: 10%;
     margin-right: 7%;
     display: flex;
     align-items: center;
-    flex-direction:column;
+    flex-direction: column;
     row-gap: 16px;
     /* justify-content: space-between; */
     /* align-content: center; */
-    flex-wrap:wrap;
+    flex-wrap: wrap;
 }
-input{
+
+input {
     width: 250px;
     height: 48px;
 }
-label{
+
+label {
     float: right;
     width: fit-content;
 }
-tr{
+
+tr {
     display: flex;
     direction: rtl;
 }
-th{
+
+th {
     width: 260px;
     height: 96px;
 }
-button{
+
+button {
     width: 500px;
 }
-.itemsHolder{
+
+.itemsHolder {
     display: flex;
     flex-direction: row;
 }

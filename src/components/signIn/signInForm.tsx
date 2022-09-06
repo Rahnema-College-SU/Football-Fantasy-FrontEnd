@@ -1,32 +1,31 @@
 import React from "react";
-import { Component } from "react";
 import "./signInForm.css";
-import cover from "./assets/cover.svg";
-import logo from "./assets/logo.svg";
 import Form from "../items/Form";
+import {useNavigate} from "react-router-dom";
 
 
-class SignInForm extends Component {
-  render() {
+function SignInForm() {
+    const navigate = useNavigate()
+
     return (
-      <Form>
-          <div className="SignInForm">
-            <div className="header">
-              <hr id="line" />
-              <div id="headerText">ورود به فانتزی</div>
-              <hr id="line" />
+        <Form>
+            <div className="SignInForm">
+                <div className="header">
+                    <hr id="line"/>
+                    <div id="headerText">ورود به فانتزی</div>
+                    <hr id="line"/>
+                </div>
+                <label htmlFor="username">نام کاربری</label>
+                <input id="username" type="text"/>
+                <label htmlFor="password">رمز عبور</label>
+                <input id="password" type="text"/>
+                <div id="buttonBar">
+                    <button className="signInButton" onClick={() => navigate('/home/my-team')}>ورود</button>
+                    <button className="signUpButton">ثبت نام</button>
+                </div>
             </div>
-            <label htmlFor="username">نام کاربری</label>
-            <input id="username" type="text" />
-            <label htmlFor="password">رمز عبور</label>
-            <input id="password" type="text" />
-            <div id="buttonBar">
-              <button className="signInButton">ورود</button>
-              <button className="signUpButton">ثبت نام</button>
-            </div>
-          </div>
-      </Form>
+        </Form>
     );
-  }
 }
+
 export default SignInForm;
