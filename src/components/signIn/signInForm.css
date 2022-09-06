@@ -1,14 +1,13 @@
 
-.SignInForm{
-    margin-right: 7%;
-    margin-top: 9.4%;/*19.4 in figma*/
-    margin-left: 50.8%;
-    margin-bottom: 0%;
+.SignInForm {
+    /*19.4 in figma*/
+    margin: 9.4% 7% 0 50.8%;
     display: flex;
     align-items: center;
-    flex-direction:column;
+    flex-direction: column;
     row-gap: 16px;
 }
+
 /* .header{
     display: flex;
     justify-content: center;
@@ -64,23 +63,24 @@ border: 2px solid;
 border-image: linear-gradient(270deg, #C847AF 1.65%, #9B3AF9 43.98%);
 border-radius: 8px;
 } */
-#buttonBar{
+#buttonBar {
     display: flex;
-    flex-direction:row ;
+    flex-direction: row;
     justify-content: space-around;
     column-gap: 1.5rem;
 }
-.signUpButton{
+
+.signUpButton {
     background: #3D185B;
     border-image: linear-gradient(90deg, #C847AF 1.65%, #9B3AF9 43.98%);
-    border-image-slice:1;
+    /*border-image-slice: 1;*/
 }
 
 @font-face {
     font-family: Vazirmatn;
-    src: url();
+    /*src: url();*/
 }
 
 .font-vazirmatn {
-    font-family: Vazirmatn;
+    font-family: Vazirmatn, serif;
 }

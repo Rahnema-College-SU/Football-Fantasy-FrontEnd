@@ -1,0 +1,39 @@
+
+#tabBarRectangle {
+    position: absolute;
+    width: 272px;
+    height: 40px;
+    left: 400px;
+    top: 460px;
+    /*right: 694;*/
+    display: flex;
+    background: #F7F7F7;
+    justify-content: space-evenly;
+    align-items: center;
+
+    border-radius: 8px;
+}
+
+#tabRectangle {
+    width: 131px;
+    height: 30px;
+    left: 534px;
+    top: 465px;
+    text-align: center;
+    align-items: center;
+    background: #FFFFFF;
+    border-radius: 4px;
+}
+
+#logo {
+
+    position: absolute;
+    width: 75px;
+    height: 72px;
+    left: 497px;
+    top: 402px;
+
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
