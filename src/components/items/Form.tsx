@@ -7,11 +7,11 @@ const Form: FC<{
     children: ReactNode
 }> = ({children}): ReactElement => {
     return <div className="window">
-        <div id="sidePicture">
-            <img id="logo" src={logo} alt=""/>
-            <img id="PlayersPhoto" src={cover} alt=""/>
+        <div className="sidePicture">
+            <img className="logo" src={logo} alt=""/>
+            {/* <img className="PlayersPhoto" src={cover} alt=""/> */}
         </div>
-        <div>{children}</div>
+        {children}
     </div>
 }
 export default Form;
