@@ -3,51 +3,25 @@ import "./SignUpForm.css";
 import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
 
-
 function SignUpForm() {
     const navigate = useNavigate()
+    const inputs=["نام","نام.خانوادگی","ایمیل","کشور","نام کاربری","رمز عبور"]
 
     return (
         <Form>
             <div className="signUpForm">
                 <div className="header">
-                    <hr id="line"/>
-                    <div id="headerText">فرم ثبت نام</div>
-                    <hr id="line"/>
+                    <hr className="line"/>
+                    <div className="headerText">فرم ثبت نام</div>
+                    <hr className="line"/>
                 </div>
-                <table>
-                    <tr>
-                        <th>
-                            <label htmlFor="username">نام</label>
-                            <input id="username" type="text"/>
-                        </th>
-                        <th>
-                            <label htmlFor="password"> نام خانوادگی</label>
-                            <input id="password" type="text"/>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <label htmlFor="username">ایمیل</label>
-                            <input id="username" type="text"/>
-                        </th>
-                        <th>
-                            <label htmlFor="password">کشور</label>
-                            <input id="password" type="text"/>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <label htmlFor="username">نام کاربری</label>
-                            <input id="username" type="text"/>
-                        </th>
-                        <th>
-                            <label htmlFor="password"> رمز عبور</label>
-                            <input id="password" type="text"/>
-                        </th>
-                    </tr>
-                </table>
-                <button onClick={() => navigate('/sign-up-confirm')}>ثبت نام</button>
+                <div className="inputBar">
+                    {inputs.map(i =>(<div className="inputContainer">
+                    <span className="label">{i}</span>
+                    <input className="input" type="text"/>
+                    </div>))}
+                </div>
+                <button className="button" onClick={() => navigate('/sign-up-confirm')}>ثبت نام</button>
             </div>
         </Form>
     );

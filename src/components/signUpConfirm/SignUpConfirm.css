@@ -1,16 +1,23 @@
-#Container {
-
+.Container {
     display: flex;
     flex-direction: column;
     height: 350px;
     justify-content: space-around;
 }
 
+
 .signUpConfirm {
-    padding-top: 15%;
+    width: 100%;
+    margin-top: 7%;
+    margin-right: 7%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 1rem;
 }
 
-label {
+.label {
     padding-top: 20px;
     position: absolute;
     text-align: center;
