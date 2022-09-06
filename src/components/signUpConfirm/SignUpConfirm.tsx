@@ -1,5 +1,5 @@
 import React from "react";
-import "./signUpConfirm.css";
+import "./SignUpConfirm.css";
 import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
 

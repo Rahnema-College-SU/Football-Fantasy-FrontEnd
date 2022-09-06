@@ -1,6 +1,6 @@
 import React from "react";
-import './remainingPlayer.css';
-import logo from '../../../../assets/remainingPlayer/playerLogo.svg'
+import './RemainingPlayer.css';
+import logo from './assets/playerLogo.svg'
 
 
 export function RemainingPlayer() {
