@@ -4,7 +4,7 @@ import SignInForm from "./components/signIn/signInForm";
 import SignUpForm from "./components/signUp/signUpForm";
 import SignUpConfirm from "./components/signUpConfirm/signUpConfirm";
 import Home from "./components/home/Home";
-import {homeTabsEndingUrl, getPascalCase} from "./GlobalVariables";
+import {homeTabsEndingUrl} from "./GlobalVariables";
 import MyTeam from "./components/home/myTeam/MyTeam";
 import Transfers from "./components/home/transfers/Transfers";
 import LatestEvents from "./components/home/latestEvents/LatestEvents";
@@ -13,10 +13,6 @@ import Profile from "./components/home/profile/Profile";
 
 function App() {
     const navigate = useNavigate()
-    const htmlTags = [
-        homeTabsEndingUrl.myTeam: <MyTeam/>,
-
-    ]
 
     useEffect(() => {
         // navigate('/sign-up')
