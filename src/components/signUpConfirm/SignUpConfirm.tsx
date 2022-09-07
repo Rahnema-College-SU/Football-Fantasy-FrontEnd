@@ -9,6 +9,7 @@ function SignUpConfirm() {
 
     return (
         <Form>
+            
             <div className="signUpConfirm">
                 <div className="header">
                     <hr className="line"/>

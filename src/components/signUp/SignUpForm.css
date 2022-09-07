@@ -29,22 +29,6 @@
     flex-direction: column;
     width: 100%;
 }
-/* tr {
-    display: flex;
-    direction: rtl;
-}
-
-th {
-    width: 260px;
-    height: 96px;
-} */
-
 button {
-    /* padding-top: 50px; */
     max-width: 22rem;
 }
-/* 
-.itemsHolder {
-    display: flex;
-    flex-direction: row;
-} */

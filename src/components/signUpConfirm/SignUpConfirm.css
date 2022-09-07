@@ -1,11 +1,9 @@
 .Container {
     display: flex;
     flex-direction: column;
-    height: 350px;
+    height: 21.875rem;
     justify-content: space-around;
 }
-
-
 .signUpConfirm {
     width: 100%;
     margin-top: 7%;
@@ -18,10 +16,9 @@
 }
 
 .label {
-    padding-top: 20px;
+    padding-top: 1.25rem;
     position: absolute;
     text-align: center;
-
-    left: 670px;
-    top: 145px;
+    left: 41.875rem;
+    top: 9.0625rem;
 }

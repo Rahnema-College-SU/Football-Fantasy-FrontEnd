@@ -1,95 +1,53 @@
 
-.SignInForm {
-    /*19.4 in figma*/
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    row-gap: 16px;
-}
 .signInForm {
     width: 100%;
     margin-top: 7%;
     margin-right: 7%;
     display: flex;
     align-items: center;
-    flex-direction: column;
+    flex-direction: column ;
     row-gap: 1rem;
     flex-wrap: wrap;
 }
 
-/* .header{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-
+.SignInInputBar {
+    width: 60%;
+    display: flex ;
+    flex-direction: column;
+    grid-gap: 1.25rem;
+    flex-wrap: nowrap;
 }
-#line{
-    width: 10.875rem;
-border: 3px solid #9B3AF9;
-}
-#headerText{
-width: 10.9375rem;
-height: 3.75rem;
-font-weight: 400;
-font-size: 24px;
-line-height: 2.375rem;
-display: flex;
-justify-content: center;
-color: #ffff;
-}
-label{
-    width: 35.6875rem;
-height: 24px;
-direction: rtl;
-font-family: 'Vazirmatn';
-font-style: normal;
-font-weight: 400;
-font-size: 16px;
-line-height: 25px;
-color: #EDD8FF;
-
-}
-input{
-    width: 35.6875rem;
-height: 48px;
-
-background: #3D185B;
-border: 1px solid #A057DB;
-border-radius: 8px;
-}
-button{
-width: 270px;
-height: 48px;
-background: linear-gradient(90deg, #CF31B9 0%, #9B3AF9 73.44%);
-
-font-family: 'Vazirmatn';
-font-style: normal;
-font-weight: 700;
-font-size: 20px;
-color: #FFFFFF;
-border: 2px solid;
-border-image: linear-gradient(270deg, #C847AF 1.65%, #9B3AF9 43.98%);
-border-radius: 8px;
-} */
-#buttonBar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    column-gap: 1.5rem;
+.input {
+    width: 60% ;
+    height: 3rem;
 }
 
-.signUpButton {
-    background: #3D185B;
-    border-image: linear-gradient(90deg, #C847AF 1.65%, #9B3AF9 43.98%);
-    /*border-image-slice: 1;*/
+.label {
+    position: inherit !important;
+    float: right;
+    width: fit-content;
 }
 
-/* @font-face {
-    font-family: Vazirmatn;
-    /*src: url();
-}
-
-.font-vazirmatn {
+.signInButton {
+    max-width: 22rem;
+    width: 30% ;
+    height: 3rem;
+    background: linear-gradient(90deg, #CF31B9 0%, #9B3AF9 73.44%);
     font-family: Vazirmatn, serif;
-} */
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    color: #FFFFFF;
+    border: 2px solid;
+    border-image: linear-gradient(270deg, #C847AF 1.65%, #9B3AF9 43.98%);
+    border-radius: 8px;
+    
+}
+.buttonBar {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 4%;
+    justify-content: center;
+
+}
