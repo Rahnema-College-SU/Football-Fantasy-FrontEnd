@@ -9,11 +9,11 @@ import DateBax from "./dateBox/dateBox";
 function MyTeam() {
     return (
         <div>
-            {/*<RemainingPlayer/>*/}
-            {/*<RemainingMoney/>*/}
-            {/*<MiddleTabBar/>*/}
-            {/*<ChoosePlayer/>*/}
-            {/*<DateBax/>*/}
+            <RemainingPlayer/>
+            <RemainingMoney/>
+            <MiddleTabBar/>
+            <ChoosePlayer/>
+            <DateBax/>
             <Ground/>
         </div>
     )
