@@ -6,7 +6,7 @@ export const homeTabsEndingUrl = {
     prizes: 'prizes'
 }
 
-const myTeamApiResponse = {
+export const myTeamApiResponse = {
     "data": {
         "username": "mahdi07",
         "fantasyteam": {
