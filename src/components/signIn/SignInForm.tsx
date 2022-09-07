@@ -9,19 +9,24 @@ function SignInForm() {
 
     return (
         <Form>
-            <div className="SignInForm">
+            
+            <div className="signInForm">
                 <div className="header">
-                    <hr id="line"/>
-                    <div id="headerText">ورود به فانتزی</div>
-                    <hr id="line"/>
+                    <hr className="line"/>
+                    <div className="headerText">ورود به فانتزی</div>
+                    <hr className="line"/>
                 </div>
-                <label htmlFor="username">نام کاربری</label>
-                <input id="username" type="text"/>
-                <label htmlFor="password">رمز عبور</label>
-                <input id="password" type="text"/>
-                <div id="buttonBar">
+                
+                <div className="signInInputBar">
+                    <span className="label">نام کاربری</span>
+                    <input className="input" type="text"/>
+                    <span className="label">رمز عبور</span>
+                    <input className="input" type="text"/>
+                </div>
+
+                <div className="buttonBar">
                     <button className="signInButton" onClick={() => navigate('/home/my-team')}>ورود</button>
-                    <button className="signUpButton">ثبت نام</button>
+                    <button className="signInButton">ثبت نام</button>
                 </div>
             </div>
         </Form>
