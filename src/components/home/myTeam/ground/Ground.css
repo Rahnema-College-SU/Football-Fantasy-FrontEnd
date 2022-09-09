@@ -21,32 +21,19 @@
     justify-content: space-evenly;
 }
 
-.player-inactive-div {
-    display: grid;
-    align-items: center;
-    justify-items: center;
-    max-width: fit-content;
-    scale: 0.8;
-}
-
-.player-active-div {
+/*active player*/
+.active-cloth-div {
     display: grid;
     justify-items: right;
     max-width: fit-content;
     scale: 0.8;
 }
 
-.inactive-cloth {
+.delete-icon {
     grid-column-start: 1;
     grid-row-start: 1;
-    z-index: 0;
-    cursor: pointer;
-}
-
-.add-icon {
-    grid-column-start: 1;
-    grid-row-start: 1;
-    z-index: 1;
+    z-index: 2;
+    scale: 0.7;
     cursor: pointer;
 }
 
@@ -54,13 +41,6 @@
     grid-column-start: 1;
     grid-row-start: 1;
     z-index: 0;
-}
-
-.delete-icon {
-    grid-column-start: 1;
-    grid-row-start: 1;
-    z-index: 1;
-    scale: 0.7;
     cursor: pointer;
 }
 
@@ -84,3 +64,50 @@
     border-radius: 0 0 8px 8px;
     padding: 2px 0;
 }
+
+/*inactive player*/
+.inactive-cloth-div {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    max-width: fit-content;
+    scale: 0.8;
+    z-index: 1;
+}
+
+.inactive-cloth {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    z-index: 0;
+    cursor: pointer;
+}
+
+.add-icon {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    z-index: 1;
+    cursor: pointer;
+}
+
+/*selected inactive player*/
+.selected-inactive-cloth-div {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    max-width: fit-content;
+    scale: 0.9;
+}
+
+.selected-cloth {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    cursor: pointer;
+}
+
+/*selected active player*/
+.selected-active-cloth-div {
+    display: grid;
+    justify-items: right;
+    max-width: fit-content;
+    scale: 0.9;
+} /*TODO: duplicate as .active-cloth-div*/

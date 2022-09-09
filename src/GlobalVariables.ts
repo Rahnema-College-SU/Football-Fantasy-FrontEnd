@@ -6,17 +6,6 @@ export const homeTabsEndingUrl = {
     prizes: 'prizes'
 }
 
-export type player = {
-    id: number,
-    web_name: string,
-    position: string,
-    player_week_log: {
-        player_cost: number,
-        player_total_points: number
-    },
-    location_in_ui: number
-}
-
 export const myTeamApiResponse = {
     "data": {
         "username": "mahdi07",
