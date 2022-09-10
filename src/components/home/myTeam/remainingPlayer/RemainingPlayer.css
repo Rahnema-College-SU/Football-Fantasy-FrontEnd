@@ -1,4 +1,4 @@
-.playerBox {
+.player-box {
     position: absolute;
     width: 273px;
     height: 129px;
@@ -14,11 +14,10 @@
     justify-content: space-evenly;
 }
 
-#showPlayerText {
+#show-player-text {
     font-style: normal;
     font-weight: 900;
     font-size: 40px;
-    line-height: 62px;
     display: flex;
     align-items: center;
     text-align: center;
@@ -30,10 +29,11 @@
     flex-direction: column;
 }
 
-#playerText {
+#player-text {
     color: #3D195B;
 }
 
-.playerLogo {
+.player-logo {
     height: 65px;
+    margin-bottom: 5px;
 }

@@ -11,9 +11,9 @@ export function MiddleTabBar() {
     const navigate = useNavigate()
     return (
         <div>
-            <div id="logo">
-                <img src={logo} alt={'team logo'}></img>
-            </div>
+            {/*<div id="logo">*/}
+            {/*    <img src={logo} alt={'team logo'}></img>*/}
+            {/*</div>*/}
             <div id="tabBarRectangle">
                 <div className='tabRectangle' id={selectedTab===1 ? "is-selected": ""} onClick={() => {
                         setSelectedTab(1);

@@ -1,6 +1,5 @@
 import React, {FC, ReactElement, ReactNode} from "react";
 import "./Form.css";
-import cover from "./assets/cover.svg";
 import logo from "./assets/logo.svg";
 
 const Form: FC<{
