@@ -6,6 +6,7 @@ import next from "./assets/next.svg";
 import nextLast from "./assets/nextl.svg";
 import previous from "./assets/previous.svg";
 import PreviousLast from "./assets/previousl.svg";
+import { playersListApiResponse } from "../../../../GlobalVariables";
 
 const myList = [
   { name: "shakiba", clubName: "bar", price: 8, performance: 8 },
@@ -41,13 +42,13 @@ function ChoosePlayer() {
             <img className="upIcon" src={up} alt={"decreasing sort"}></img>
           </div>
           <ul id="playersList">
-            {myList.map((x) => (
+            {playersListApiResponse.data.players_list.map((x) => (
               <li className="playerListItem">
-                <span>{x.price}</span>
-                <span>{x.performance}</span>
+                <span>{x.player_week_log.player_cost}</span>
+                <span>{x.player_week_log.player_total_points}</span>
                 <div id="playerListItemName">
-                  <div>{x.name}</div>
-                  <div id="playerListItemTeam">{x.clubName}</div>
+                  <div>{x.web_name}</div>
+                  <div id="playerListItemTeam">{x.real_team.short_name}</div>
                 </div>
               </li>
             ))}
