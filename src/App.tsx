@@ -5,7 +5,7 @@ import SignInForm from "./components/signIn/SignInForm";
 import SignUpForm from "./components/signUp/SignUpForm";
 import SignUpConfirm from "./components/signUpConfirm/SignUpConfirm";
 import Home from "./components/home/Home";
-import {homeTabsEndingUrl} from "./GlobalVariables";
+import {homeTabsEndingUrl, showingMyTeamTabsEndingUrl} from "./GlobalVariables";
 import MyTeam from "./components/home/myTeam/MyTeam";
 import Transfers from "./components/home/transfers/Transfers";
 import LatestEvents from "./components/home/latestEvents/LatestEvents";
@@ -25,7 +25,7 @@ function App() {
 
     useEffect(() => {
         // navigate('/sign-up')
-        navigate('/home/my-team')
+        navigate('/home/my-team/schematic')
     }, [])
 
     return (
@@ -36,8 +36,11 @@ function App() {
                 <Route path="/sign-in" element={<SignInForm/>}/>
 
 
-                <Route path={`/home/${homeTabsEndingUrl.myTeam}`} element={
-                    <Home showingTab={<MyTeam/>}/>
+                <Route path={`/home/${homeTabsEndingUrl.myTeam}/${showingMyTeamTabsEndingUrl.schematic}`} element={
+                    <Home showingTab={<MyTeam showingTab={'schematic'}/>}/>
+                }/>
+                <Route path={`/home/${homeTabsEndingUrl.myTeam}/${showingMyTeamTabsEndingUrl.list}`} element={
+                    <Home showingTab={<MyTeam showingTab={'list'}/>}/>
                 }/>
                 <Route path={`/home/${homeTabsEndingUrl.transfers}`} element={
                     <Home showingTab={<Transfers/>}/>

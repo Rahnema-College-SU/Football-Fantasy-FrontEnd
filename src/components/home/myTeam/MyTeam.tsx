@@ -1,15 +1,16 @@
 import {Ground, playersState} from "./ground/Ground";
 import React, {useEffect, useState} from "react";
 import {RemainingPlayer, usedPlayerState} from "./remainingPlayer/RemainingPlayer";
-import {remainingMoneyState, RemainingMoney} from "./remainingMoney/RemainingMoney";
+import {RemainingMoney, remainingMoneyState} from "./remainingMoney/RemainingMoney";
 import MiddleTabBar from "./middleTabBar/MiddleTabBar";
 import ChoosePlayer from "./choosePlayer/ChoosePlayer";
 import DateBax from "./dateBox/DateBox";
 import axios from "axios";
 import {fantasyTeamApiResponseType, players, serverUrl} from "../../../GlobalVariables";
 import {useRecoilState} from "recoil";
+import MyPlayersList from "./myPlayersList";
 
-function MyTeam() {
+function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
     const [fantasyTeamApiResponse, setFantasyTeamApiResponse] = useState<fantasyTeamApiResponseType | undefined>(undefined);
     const [, setPlayers] = useRecoilState(playersState)
     const [, setRemainingMoney] = useRecoilState(remainingMoneyState)
@@ -62,7 +63,11 @@ function MyTeam() {
             <MiddleTabBar/>
             <ChoosePlayer/>
             <DateBax/>
-            <Ground updateInfoOfGame={updateInfoOfGame}/>
+
+            {showingTab === 'schematic' ?
+                <Ground updateInfoOfGame={updateInfoOfGame}/> :
+                // so showingTab === 'list'
+                <MyPlayersList updateInfoOfGame={updateInfoOfGame}/>}
         </div>
     )
 }

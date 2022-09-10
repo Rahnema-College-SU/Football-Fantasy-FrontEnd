@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import './Ground.css'
-import {fantasyTeamApiResponseType, player, players, serverUrl} from "../../../../GlobalVariables";
+import {player, players, serverUrl} from "../../../../GlobalVariables";
 import addIcon from './assets/add-icon.svg'
 import deleteIcon from './assets/delete-icon.svg'
 import activeCloth from './assets/active-cloth.svg'
@@ -22,7 +22,7 @@ export const playersState = atom<players>({
 })
 
 export function Ground({updateInfoOfGame}: { updateInfoOfGame: () => void }) {
-    const [players, setPlayers] = useRecoilState(playersState)
+    const [players] = useRecoilState(playersState)
     const [selectedPosition, setSelectedPosition] = useRecoilState(selectedPositionState)
     const [, setModalDisplayState] = useRecoilState(modalsDisplayState)
     const [isDeleteConfirmClicked, setIsDeleteConfirmClicked] = useRecoilState(isDeleteConfirmClickedState)

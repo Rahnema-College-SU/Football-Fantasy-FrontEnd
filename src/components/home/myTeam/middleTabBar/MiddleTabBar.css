@@ -1,5 +1,4 @@
-
-#tabBarRectangle {
+#tab-bar-rectangle {
     position: absolute;
     width: 272px;
     height: 40px;
@@ -13,7 +12,7 @@
     border-radius: 8px;
 }
 
-.tabRectangle {
+.tab-rectangle {
     width: 131px;
     height: 30px;
     left: 534px;
@@ -25,16 +24,12 @@
     display: flex;
     justify-content: center;
 }
-.tabRectangle:hover{
-background-color: rgb(230, 220, 208);
+
+.tab-rectangle:hover {
+    background-color: rgb(230, 220, 208);
 }
 
-#tabBarRectangle:is-selected {
-    background-color: rgba(230, 151, 55, 0.849);
-
-}
 #logo {
-
     position: absolute;
     width: 75px;
     height: 72px;
