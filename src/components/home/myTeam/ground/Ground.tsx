@@ -16,10 +16,10 @@ function Ground() {
             player_cost: number,
             player_total_points: number
         },
-        location_in_ui: number,
+        location_in_ui: number
     }
 
-    const [players, setPlayers] = useState(getInitialState())
+    const [players, setPlayers] = useState(getInitialState(myTeamApiResponse))
     const [selectedPosition, setSelectedPosition] = useState<number | undefined>(undefined)
     // const [currentPlayer, setCurrentPlayer] = React.useState(undefined as player | undefined)
 
@@ -28,8 +28,8 @@ function Ground() {
     const midPositions = [8, 9, 10, 11, 12]
     const attPositions = [13, 14, 15]
 
-    function getInitialState() {
-        return myTeamApiResponse.data.players_list.reduce((map: {
+    function getInitialState(a: typeof myTeamApiResponse) {
+        return a.data.players_list.reduce((map: {
             [key: number]: player
         }, obj) => {
             map[obj.location_in_ui] = {
@@ -49,8 +49,24 @@ function Ground() {
     }
 
     useEffect(() => {
-        console.log(selectedPosition)
-    }, [selectedPosition])
+            fetch('http://178.216.248.39:8000/fantasyteam')
+                .then(res => {
+                    console.log(res)
+                    return res.json()
+                })
+                .then(
+                    (data) => {
+                        console.log(data)
+                        setPlayers(getInitialState(data))
+                    },
+
+                    (error) => {
+                        console.log(error)
+                    }
+                )
+        }, []
+    )
+
 
     function getClothDiv(position: number): JSX.Element {
         function getActiveClothDiv(player: player): JSX.Element {

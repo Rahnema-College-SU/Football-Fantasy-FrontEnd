@@ -3,15 +3,15 @@
 <rect x="10" y="10" width="82.1837" height="100.675" fill="url(#pattern0)" shape-rendering="crispEdges"/>
 </g>
 <defs>
-<filter id="filter0_d_137_341" x="0" y="0" width="102.184" height="120.675" color-interpolation-filters="sRGB">
+<filter id="filter0_d_137_341" x="0" y="0" width="102.184" height="120.675" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset/>
 <feGaussianBlur stdDeviation="5"/>
 <feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix values="0 0 0 0 0.0521181 0 0 0 0 0.549215 0 0 0 0 0.658333 0 0 0 0.93 0"/>
-<feBlend in2="BackgroundImageFix" result="effect1_dropShadow_137_341"/>
-<feBlend in="SourceGraphic" in2="effect1_dropShadow_137_341" result="shape"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.0521181 0 0 0 0 0.549215 0 0 0 0 0.658333 0 0 0 0.93 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_137_341"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_137_341" result="shape"/>
 </filter>
 <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image0_137_341" transform="scale(0.003125 0.00255102)"/>
