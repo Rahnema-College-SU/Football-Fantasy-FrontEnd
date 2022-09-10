@@ -1,22 +1,29 @@
 import {Ground, playersState} from "./ground/Ground";
 import React, {useEffect, useState} from "react";
-import {RemainingPlayer} from "./remainingPlayer/RemainingPlayer";
-import {RemainingMoney} from "./remainingMoney/RemainingMoney";
+import {RemainingPlayer, remainingPlayerState} from "./remainingPlayer/RemainingPlayer";
+import {remainingMoneyState, RemainingMoney} from "./remainingMoney/RemainingMoney";
 import MiddleTabBar from "./middleTabBar/MiddleTabBar";
 import ChoosePlayer from "./choosePlayer/ChoosePlayer";
 import DateBax from "./dateBox/DateBox";
 import axios from "axios";
-import {fantasyTeamApiResponseType, serverUrl, players} from "../../../GlobalVariables";
+import {fantasyTeamApiResponseType, players, serverUrl} from "../../../GlobalVariables";
 import {useRecoilState} from "recoil";
 
 function MyTeam() {
     const [fantasyTeamApiResponse, setFantasyTeamApiResponse] = useState<fantasyTeamApiResponseType | undefined>(undefined);
-    const [players, setPlayers] = useRecoilState(playersState)
+    const [, setPlayers] = useRecoilState(playersState)
+    const [, setRemainingMoney] = useRecoilState(remainingMoneyState)
+    const [, setRemainingPlayer] = useRecoilState(remainingPlayerState)
 
     useEffect(() => updateInfoOfGame(), [])
 
     useEffect(() => {
-        fantasyTeamApiResponse ? setPlayers(convertFantasyTeamApiResponse(fantasyTeamApiResponse)) : setPlayers({})
+        if (!fantasyTeamApiResponse)
+            return
+
+        setPlayers(convertFantasyTeamApiResponse(fantasyTeamApiResponse))
+        setRemainingMoney(fantasyTeamApiResponse.data.fantasyteam.money_remaining)
+        setRemainingPlayer(fantasyTeamApiResponse.data.fantasyteam.number_of_player)
     }, [fantasyTeamApiResponse])
 
     const updateInfoOfGame = () => {
