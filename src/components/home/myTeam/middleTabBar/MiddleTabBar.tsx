@@ -6,9 +6,9 @@ import logo from './assets/logo.svg'
 export function MiddleTabBar() {
     return (
         <div>
-            <div id="logo">
-                <img src={logo} alt={'team logo'}></img>
-            </div>
+            {/*<div id="logo">*/}
+            {/*    <img src={logo} alt={'team logo'}></img>*/}
+            {/*</div>*/}
             <div id="tabBarRectangle">
                 <div id='tabRectangle'>
                     <text>شماتیک ترکیب</text>
