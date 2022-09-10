@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import "./ChoosePlayer.css";
 import searchIcon from "./assets/searchicon.png";
 import up from "./assets/up.svg";
@@ -6,18 +6,29 @@ import next from "./assets/next.svg";
 import nextLast from "./assets/nextl.svg";
 import previous from "./assets/previous.svg";
 import PreviousLast from "./assets/previousl.svg";
+//import { playersListApiResponse } from "../../../../GlobalVariables";
+import http from "../../../items/axiosReq";
 
-const myList = [
-  { name: "shakiba", clubName: "bar", price: 8, performance: 8 },
-  {
-    name: "messi",
-    clubName: "bar",
-    price: 8.5,
-    performance: 10,
-  },
-];
+
+//const myList=http.get('players_list' ,{params: {"List_size":20}}).then(res=>res.data)
+type Player = 
+{"id":Number,"first_name":String,
+"last_name":String,
+"web_name":String,
+"position":{"name":String,"short_name":String},
+"real_team":{"name":String,"short_name":String},
+"player_week_log":{"player_cost":String,"player_total_points":String}}
+
+
 
 function ChoosePlayer() {
+  const [playersList, setPlayersList] = useState<null | Player[]>(null);
+    let getData = async ()=> {
+        await http.get('playerList',{params: {search:'',position:'ALL' ,player_total_points_sort:'DESC',player_cost_sort:'DESC',page_no:1 ,list_size:10}}).then(res=>setPlayersList(res.data.players_list))}
+        useEffect(() => {getData()
+        console.log(playersList)
+        },[])
+    http.get('').then(res=>console.log(res))
   return (
     <div>
       <div className="title">
@@ -41,13 +52,13 @@ function ChoosePlayer() {
             <img className="upIcon" src={up} alt={"decreasing sort"}></img>
           </div>
           <ul id="playersList">
-            {myList.map((x) => (
+            {playersList?.map((x) => (
               <li className="playerListItem">
-                <span>{x.price}</span>
-                <span>{x.performance}</span>
+                <span>{x.position.short_name}</span>
+                <span>{x.player_week_log.player_cost}</span>
                 <div id="playerListItemName">
-                  <div>{x.name}</div>
-                  <div id="playerListItemTeam">{x.clubName}</div>
+                  <div>{x.web_name}</div>
+                  <div id="playerListItemTeam">{x.real_team.short_name}</div>
                 </div>
               </li>
             ))}

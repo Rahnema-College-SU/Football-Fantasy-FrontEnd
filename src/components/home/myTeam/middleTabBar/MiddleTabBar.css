@@ -13,7 +13,7 @@
     border-radius: 8px;
 }
 
-#tabRectangle {
+.tabRectangle {
     width: 131px;
     height: 30px;
     left: 534px;
@@ -22,8 +22,17 @@
     align-items: center;
     background: #FFFFFF;
     border-radius: 4px;
+    display: flex;
+    justify-content: center;
+}
+.tabRectangle:hover{
+background-color: rgb(230, 220, 208);
 }
 
+#tabBarRectangle:is-selected {
+    background-color: rgba(230, 151, 55, 0.849);
+
+}
 #logo {
 
     position: absolute;

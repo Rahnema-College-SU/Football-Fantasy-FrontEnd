@@ -16,7 +16,19 @@ function SignUpForm() {
                     <hr className="line"/>
                 </div>
                 <div className="inputBar">
-                    {inputs.map(i =>(<div className="inputContainer">
+                    {inputs.slice(0,3).map(i =>(<div className="inputContainer">
+                    <span className="label">{i}</span>
+                    <input className="input" type="text"/>
+                    </div>))}
+                    <div  className="inputContainer">
+                    <span className="label">کشور</span>
+                    <select className="chooseCountry">
+                        <option value="Iran">Iran</option>
+                        <option value="Us">Us</option>
+                        <option value="Uk">Uk</option>
+                    </select>
+                    </div>
+                    {inputs.slice(4).map(i =>(<div className="inputContainer">
                     <span className="label">{i}</span>
                     <input className="input" type="text"/>
                     </div>))}
