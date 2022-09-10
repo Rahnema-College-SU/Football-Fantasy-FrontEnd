@@ -15,16 +15,16 @@ export function MiddleTabBar() {
 
     return (
         <div>
-            <div id="logo">
-                <img src={logo} alt={'team logo'}></img>
-            </div>
+            <img id={'logo'} src={logo} alt={'team logo'}></img>
             <div id="tab-bar-rectangle" dir={'rtl'}>
                 {
                     tabs.map(tab => {
-                        return <div className={selectedTab === tab.id ? 'tab-rectangle' : ''} onClick={() => {
-                            setSelectedTab(tab.id)
-                            navigate(`/home/my-team/${tab.urlEndingName}`)
-                        }}>
+                        return <div
+                            className={selectedTab === tab.id ? 'tab-rectangle-select' : 'tab-rectangle-unselect'}
+                            onClick={() => {
+                                setSelectedTab(tab.id)
+                                navigate(`/home/my-team/${tab.urlEndingName}`)
+                            }}>
                             {tab.text}
                         </div>
                     })

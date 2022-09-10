@@ -12,21 +12,22 @@
     border-radius: 8px;
 }
 
-.tab-rectangle {
-    width: 131px;
-    height: 30px;
-    left: 534px;
-    top: 465px;
+#tab-bar-rectangle > div {
     text-align: center;
     align-items: center;
-    background: #FFFFFF;
     border-radius: 4px;
     display: flex;
     justify-content: center;
+    padding: 2px 15px;
+    cursor: pointer;
 }
 
-.tab-rectangle:hover {
-    background-color: rgb(230, 220, 208);
+.tab-rectangle-select {
+    background: #FFFFFF;
+}
+
+.tab-rectangle-unselect:hover {
+    background: rgba(255, 255, 255, 0.7);
 }
 
 #logo {
