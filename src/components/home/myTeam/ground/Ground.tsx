@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import './Ground.css'
-import {myTeamApiResponse} from "../../../../GlobalVariables";
+import {fantasyTeamApiResponseType, serverUrl} from "../../../../GlobalVariables";
 import addIcon from './assets/add-icon.svg'
 import deleteIcon from './assets/delete-icon.svg'
 import activeCloth from './assets/active-cloth.svg'
@@ -19,8 +19,11 @@ function Ground() {
         },
         location_in_ui: number
     }
+    type players = {
+        [key: number]: player
+    }
 
-    const [players, setPlayers] = useState(getInitialState(myTeamApiResponse))
+    const [players, setPlayers] = useState<players>({})
     const [selectedPosition, setSelectedPosition] = useState<number | undefined>(undefined)
     // const [currentPlayer, setCurrentPlayer] = React.useState(undefined as player | undefined)
 
@@ -29,10 +32,23 @@ function Ground() {
     const midPositions = [8, 9, 10, 11, 12]
     const attPositions = [13, 14, 15]
 
-    function getInitialState(a: typeof myTeamApiResponse) {
-        return a.data.players_list.reduce((map: {
-            [key: number]: player
-        }, obj) => {
+    useEffect(() => getTeamPlayers(), []
+    )
+
+    function getTeamPlayers() {
+        axios.get(`${serverUrl}/fantasyteam`)
+            .then(
+                res => setPlayers(convertFantasyTeamApiResponse(res.data)),
+                error => {
+                    console.log(error)
+                    //TODO: create custom alert
+                    alert('خطا در دریافت اطّلاعات تیم')
+                }
+            )
+    }
+
+    function convertFantasyTeamApiResponse(apiResponse: fantasyTeamApiResponseType) {
+        return apiResponse.data.players_list.reduce((map: players, obj) => {
             map[obj.location_in_ui] = {
                 id: obj.id,
                 web_name: obj.web_name,
@@ -41,39 +57,12 @@ function Ground() {
                     player_cost: obj.player_week_log.player_cost / 10,
                     player_total_points: obj.player_week_log.player_total_points / 10
                 },
-                location_in_ui: obj.location_in_ui,
-                // status: 'inactive'
+                location_in_ui: obj.location_in_ui
             }
 
             return map
         }, {})
     }
-
-    useEffect(() => {
-            // fetch('http://178.216.248.39:8000/fantasyteam')
-            //     .then(res => {
-            //         console.log(res)
-            //         return res.json()
-            //     })
-            //     .then(
-            //         (data) => {
-            //             console.log(data)
-            //             setPlayers(getInitialState(data))
-            //         },
-            //
-            //         (error) => {
-            //             console.log(error)
-            //         }
-            //     )
-
-        axios.get('http://178.216.248.39:8000/fantasyteam')
-            .then(res => {
-                console.log(res)
-                setPlayers(getInitialState(res.data))
-            })
-        }, []
-    )
-
 
     function getClothDiv(position: number): JSX.Element {
         function getActiveClothDiv(player: player): JSX.Element {
@@ -97,10 +86,32 @@ function Ground() {
 
         function deletePlayer(player: player) {
             return () => {
-                const dummy = {...players}
-                delete dummy[player.location_in_ui]
-                setPlayers(dummy)
                 selectPosition(player.location_in_ui)()
+                axios(
+                    {
+                        method: 'put',
+                        url: serverUrl + '/fantasyteam/player',
+                        data: {
+                            player_id: player.id
+                        }
+                    }
+                )
+                    .then(
+                        res => {
+                            if (res.data.success) {
+                                getTeamPlayers()
+                            } else {
+                                console.log(res)
+                                //TODO: create custom alert
+                                alert('خطا در حذف بازیکن')
+                            }
+                        },
+                        error => {
+                            console.log(error)
+                            //    TODO: create custom alert
+                            alert('خطا در حذف بازیکن')
+                        }
+                    )
             }
         }
 
