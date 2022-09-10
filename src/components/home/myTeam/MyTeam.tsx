@@ -1,4 +1,4 @@
-import Ground from "./ground/Ground";
+import {Ground} from "./ground/Ground";
 import React from "react";
 import {RemainingPlayer} from "./remainingPlayer/RemainingPlayer";
 import {RemainingMoney} from "./remainingMoney/RemainingMoney";
