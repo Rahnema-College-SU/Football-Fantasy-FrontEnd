@@ -53,3 +53,11 @@ export type fantasyTeamApiResponseType = {
     },
     success: boolean
 }
+
+export function toFarsiNumber(number: number) {
+    const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+
+    return number
+        .toString()
+        .replace(/\d/g, (x: string) => farsiDigits[parseInt(x)]);
+}
