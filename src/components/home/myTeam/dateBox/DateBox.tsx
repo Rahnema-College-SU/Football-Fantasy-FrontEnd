@@ -8,7 +8,7 @@ type DateType = {month_name:String,current_week:String,week_day:String,year:Stri
 export function DateBax() {
     const [date, setDate] = useState<null | DateType>(null);
     let getData = async ()=> {
-        await http.get('weekInf').then(res=>setDate(res.data.data))}
+        await http.get('weekInf').then(res=>setDate(res.data.data), error => alert("خطا در دریافت تاریخ"))}
         useEffect(() => {getData()
         //console.log(date)
         },[])
