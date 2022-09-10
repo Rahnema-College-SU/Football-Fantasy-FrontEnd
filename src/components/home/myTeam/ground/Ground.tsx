@@ -1,39 +1,77 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import './Ground.css'
-import {fantasyTeamApiResponseType, serverUrl} from "../../../../GlobalVariables";
+import {fantasyTeamApiResponseType, player, players, serverUrl} from "../../../../GlobalVariables";
 import addIcon from './assets/add-icon.svg'
 import deleteIcon from './assets/delete-icon.svg'
 import activeCloth from './assets/active-cloth.svg'
 import inactiveCloth from './assets/inactive-cloth.svg'
 import selectedCloth from './assets/selected-cloth.svg'
 import axios from "axios";
+import {atom, useRecoilState} from "recoil";
+import {modalsDisplayState} from "../../../../App";
+import {isDeleteConfirmClickedState} from "../removePlayerModal/RemovePlayerModal";
 
-function Ground() {
-    type player = {
-        id: number,
-        web_name: string,
-        position: string,
-        player_week_log: {
-            player_cost: number,
-            player_total_points: number
-        },
-        location_in_ui: number
-    }
-    type players = {
-        [key: number]: player
-    }
+export const selectedPositionState = atom<number | undefined>({
+    key: 'selectedPositionState',
+    default: undefined
+})
 
-    const [players, setPlayers] = useState<players>({})
-    const [selectedPosition, setSelectedPosition] = useState<number | undefined>(undefined)
-    // const [currentPlayer, setCurrentPlayer] = React.useState(undefined as player | undefined)
+export const playersState = atom<players>({
+    key: 'playersState',
+    default: {}
+})
+
+export function Ground() {
+    const [players, setPlayers] = useRecoilState(playersState)
+    const [selectedPosition, setSelectedPosition] = useRecoilState(selectedPositionState)
+    const [, setModalDisplayState] = useRecoilState(modalsDisplayState)
+    const [isDeleteConfirmClicked, setIsDeleteConfirmClicked] = useRecoilState(isDeleteConfirmClickedState)
 
     const gkPositions = [1, 2]
     const defPositions = [3, 4, 5, 6, 7]
     const midPositions = [8, 9, 10, 11, 12]
     const attPositions = [13, 14, 15]
 
-    useEffect(() => getTeamPlayers(), []
-    )
+    useEffect(() => getTeamPlayers(), [])
+
+    // for delete confirmation modal
+    useEffect(() => {
+        if (!selectedPosition || !players[selectedPosition]) {
+            setIsDeleteConfirmClicked(false)
+            setModalDisplayState('none')
+            return
+        }
+
+        if (isDeleteConfirmClicked) {
+            axios(
+                {
+                    method: 'put',
+                    url: serverUrl + '/fantasyteam/player',
+                    data: {
+                        player_id: players[selectedPosition].id
+                    }
+                }
+            )
+                .then(
+                    res => {
+                        if (res.data.success) {
+                            getTeamPlayers()
+                        } else {
+                            console.log(res)
+                            //TODO: create custom alert
+                            alert('خطا در حذف بازیکن')
+                        }
+                    },
+                    error => {
+                        console.log(error)
+                        //    TODO: create custom alert
+                        alert('خطا در حذف بازیکن')
+                    }
+                )
+            setIsDeleteConfirmClicked(false)
+            setModalDisplayState('none')
+        }
+    }, [isDeleteConfirmClicked])
 
     function getTeamPlayers() {
         axios.get(`${serverUrl}/fantasyteam`)
@@ -87,31 +125,7 @@ function Ground() {
         function deletePlayer(player: player) {
             return () => {
                 selectPosition(player.location_in_ui)()
-                axios(
-                    {
-                        method: 'put',
-                        url: serverUrl + '/fantasyteam/player',
-                        data: {
-                            player_id: player.id
-                        }
-                    }
-                )
-                    .then(
-                        res => {
-                            if (res.data.success) {
-                                getTeamPlayers()
-                            } else {
-                                console.log(res)
-                                //TODO: create custom alert
-                                alert('خطا در حذف بازیکن')
-                            }
-                        },
-                        error => {
-                            console.log(error)
-                            //    TODO: create custom alert
-                            alert('خطا در حذف بازیکن')
-                        }
-                    )
+                setModalDisplayState('block')
             }
         }
 
@@ -194,63 +208,6 @@ function Ground() {
                     {getPlayersDivs(attPositions)}
                 </div>
             </div>
-            {/*<RemovePlayerAlert player={currentPlayer}/>*/}
         </div>
     )
 }
-
-export default Ground
-
-
-// function getClothDiv(player: player | undefined) {
-//     function deletePlayer() {
-//         if (!player)
-//             return
-//
-//         delete players[player.location_in_ui]
-//         setPlayers({...players})
-//         // setCurrentPlayer(player)
-//     }
-//
-//     function getVisibility(visibility: boolean) {
-//         if (visibility)
-//             return 'visible'
-//         else
-//             return 'hidden'
-//     }
-//
-//     function selectPlayer() {
-//         setSelectedPlayer(player)
-//     }
-//
-//     function getPlayerUsingDefault(trueAppending: string, falseString: string): string {
-//         return player ? `${player.status}${trueAppending}` : falseString
-//     }
-//
-//     return (
-//         <div className={player ? 'player-active-div' : 'player-inactive-div'}>
-//             <img className={'delete-icon'} style={{
-//                 visibility: getVisibility(player !== undefined && player.status === 'active')
-//             }} src={deleteIcon} alt={'active cloth'} onClick={deletePlayer}/>
-//             {/*<img className={'inactive-cloth'} style={{visibility: getVisibility(state === 'inactive')}}*/}
-//             {/*     src={inactiveCloth}*/}
-//             {/*     alt={'inactive cloth'}/>*/}
-//             {/*<img className={'active-cloth'} style={{visibility: getVisibility(state === 'active')}}*/}
-//             {/*     src={activeCloth}*/}
-//             {/*     alt={'active cloth'}/>*/}
-//             {/*<img className={'active-cloth'} style={{visibility: getVisibility(state === 'selected')}}*/}
-//             {/*     src={selectedCloth}*/}
-//             {/*     alt={'selected cloth'}/>*/}
-//             <img className={getPlayerUsingDefault('-cloth', 'inactive-cloth')}
-//                  src='./assets/inactive-cloth.svg'
-//                  alt={getPlayerUsingDefault(' cloth', 'inactive cloth')}/>
-//             <img className={'add-icon'}
-//                  style={{visibility: getVisibility(player === undefined || player.status === 'inactive')}}
-//                  src={addIcon} alt={'add icon'}/>
-//             <div className={'player-name'}
-//                  style={{visibility: getVisibility(player !== undefined && player.status === 'active')}}>{player ? player.web_name : ''}</div>
-//             <div className={'power'}
-//                  style={{visibility: getVisibility(player !== undefined && player.status === 'active')}}>{player ? player.player_week_log.player_total_points : 0}</div>
-//         </div>
-//     )
-// }

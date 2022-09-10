@@ -1,6 +1,5 @@
 import React from "react";
 import './MiddleTabBar.css';
-import logo from './assets/logo.svg'
 
 
 export function MiddleTabBar() {

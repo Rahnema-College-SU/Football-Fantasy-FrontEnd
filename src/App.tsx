@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import './App.css';
 import {Route, Routes, useNavigate} from "react-router-dom";
 import SignInForm from "./components/signIn/SignInForm";
 import SignUpForm from "./components/signUp/SignUpForm";
@@ -10,8 +11,16 @@ import Transfers from "./components/home/transfers/Transfers";
 import LatestEvents from "./components/home/latestEvents/LatestEvents";
 import Prizes from "./components/home/prizes/Prizes";
 import Profile from "./components/home/profile/Profile";
+import {RemovePlayerModal} from "./components/home/myTeam/removePlayerModal/RemovePlayerModal";
+import {atom, useRecoilState} from "recoil";
+
+export const modalsDisplayState = atom<'none' | 'block'>({
+    key: 'modalDisplayState',
+    default: 'none'
+});
 
 function App() {
+    const [modalsDisplay] = useRecoilState(modalsDisplayState)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -43,6 +52,10 @@ function App() {
                     <Home showingTab={<Prizes/>}/>
                 }/>
             </Routes>
+
+            <div id={'modals-div'} style={{display: modalsDisplay}}>
+                <RemovePlayerModal/>
+            </div>
         </div>
     );
 }
