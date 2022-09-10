@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {Route, Routes, useNavigate} from "react-router-dom";
-import SignInForm from "./components/signIn/signInForm";
-import SignUpForm from "./components/signUp/signUpForm";
-import SignUpConfirm from "./components/signUpConfirm/signUpConfirm";
+import SignInForm from "./components/signIn/SignInForm";
+import SignUpForm from "./components/signUp/SignUpForm";
+import SignUpConfirm from "./components/signUpConfirm/SignUpConfirm";
 import Home from "./components/home/Home";
 import {homeTabsEndingUrl} from "./GlobalVariables";
 import MyTeam from "./components/home/myTeam/MyTeam";

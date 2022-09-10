@@ -6,6 +6,7 @@ import deleteIcon from './assets/delete-icon.svg'
 import activeCloth from './assets/active-cloth.svg'
 import inactiveCloth from './assets/inactive-cloth.svg'
 import selectedCloth from './assets/selected-cloth.svg'
+import axios from "axios";
 
 function Ground() {
     type player = {
@@ -49,21 +50,27 @@ function Ground() {
     }
 
     useEffect(() => {
-            fetch('http://178.216.248.39:8000/fantasyteam')
-                .then(res => {
-                    console.log(res)
-                    return res.json()
-                })
-                .then(
-                    (data) => {
-                        console.log(data)
-                        setPlayers(getInitialState(data))
-                    },
+            // fetch('http://178.216.248.39:8000/fantasyteam')
+            //     .then(res => {
+            //         console.log(res)
+            //         return res.json()
+            //     })
+            //     .then(
+            //         (data) => {
+            //             console.log(data)
+            //             setPlayers(getInitialState(data))
+            //         },
+            //
+            //         (error) => {
+            //             console.log(error)
+            //         }
+            //     )
 
-                    (error) => {
-                        console.log(error)
-                    }
-                )
+        axios.get('http://178.216.248.39:8000/fantasyteam')
+            .then(res => {
+                console.log(res)
+                setPlayers(getInitialState(res.data))
+            })
         }, []
     )
 
