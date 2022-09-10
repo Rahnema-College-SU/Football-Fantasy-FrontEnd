@@ -1,6 +1,6 @@
 import {Ground, playersState} from "./ground/Ground";
 import React, {useEffect, useState} from "react";
-import {RemainingPlayer, remainingPlayerState} from "./remainingPlayer/RemainingPlayer";
+import {RemainingPlayer, usedPlayerState} from "./remainingPlayer/RemainingPlayer";
 import {remainingMoneyState, RemainingMoney} from "./remainingMoney/RemainingMoney";
 import MiddleTabBar from "./middleTabBar/MiddleTabBar";
 import ChoosePlayer from "./choosePlayer/ChoosePlayer";
@@ -13,7 +13,7 @@ function MyTeam() {
     const [fantasyTeamApiResponse, setFantasyTeamApiResponse] = useState<fantasyTeamApiResponseType | undefined>(undefined);
     const [, setPlayers] = useRecoilState(playersState)
     const [, setRemainingMoney] = useRecoilState(remainingMoneyState)
-    const [, setRemainingPlayer] = useRecoilState(remainingPlayerState)
+    const [, setUsedPlayer] = useRecoilState(usedPlayerState)
 
     useEffect(() => updateInfoOfGame(), [])
 
@@ -23,7 +23,7 @@ function MyTeam() {
 
         setPlayers(convertFantasyTeamApiResponse(fantasyTeamApiResponse))
         setRemainingMoney(fantasyTeamApiResponse.data.fantasyteam.money_remaining)
-        setRemainingPlayer(fantasyTeamApiResponse.data.fantasyteam.number_of_player)
+        setUsedPlayer(fantasyTeamApiResponse.data.fantasyteam.number_of_player)
     }, [fantasyTeamApiResponse])
 
     const updateInfoOfGame = () => {
