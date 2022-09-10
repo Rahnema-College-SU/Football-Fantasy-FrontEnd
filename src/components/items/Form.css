@@ -73,6 +73,16 @@
     border: 1px solid #A057DB;
     border-radius: 8px;
     height: 3rem;
+    font-family: 'Vazirmatn';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    text-align: right;
+
+color: #FFFFFF;
 }
 
 .button {
