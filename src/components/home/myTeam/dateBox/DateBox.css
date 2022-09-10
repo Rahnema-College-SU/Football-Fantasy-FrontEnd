@@ -4,7 +4,6 @@
     height: 35px;
     left: 298px;
     top: 332px;
-
     background: #3D195B;
     border-radius: 8px;
     display: flex;
@@ -34,19 +33,16 @@
 }
 
 #dateText {
-    width: 236px;
-    height: 23px;
-    left: 364px;
-    top: 338px;
-
+    /* width: 236px; */
     font-family: Vazirmatn, serif;
-    font-style: normal;
+    /* font-style: normal; */
     font-weight: 800;
     font-size: 14px;
     line-height: 22px;
     display: flex;
     align-items: center;
     text-align: center;
-
+    direction: rtl;
     color: #F7F7F7;
+
 }
