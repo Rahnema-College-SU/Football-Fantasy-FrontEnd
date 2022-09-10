@@ -1,5 +1,5 @@
 import React from 'react'
-import wallet from '../../../../assets/remainingMoney/wallet.svg'
+import wallet from './assets/wallet.svg'
 import './RemainingMoney.css'
 
 

@@ -1,10 +1,10 @@
 import Ground from "./ground/Ground";
 import React from "react";
-import {RemainingPlayer} from "./remainingPlayer/remainingPlayer";
+import {RemainingPlayer} from "./remainingPlayer/RemainingPlayer";
 import {RemainingMoney} from "./remainingMoney/RemainingMoney";
-import MiddleTabBar from "./middleTabBar/ middleTabBar";
-import ChoosePlayer from "./choosePlayer/choosePlayer";
-import DateBax from "./dateBox/dateBox";
+import MiddleTabBar from "./middleTabBar/MiddleTabBar";
+import ChoosePlayer from "./choosePlayer/ChoosePlayer";
+import DateBax from "./dateBox/DateBox";
 
 function MyTeam() {
     return (

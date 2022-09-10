@@ -1,6 +1,6 @@
 import React from "react";
-import './middleTabBar.css';
-import logo from '../../../../assets/middleTabBar/logo.svg'
+import './MiddleTabBar.css';
+import logo from './assets/logo.svg'
 
 
 export function MiddleTabBar() {
@@ -16,7 +16,6 @@ export function MiddleTabBar() {
                 <div id='tabRectangle'>
                     <text>مشاهده لیست</text>
                 </div>
-                {/* <img className='logo' src={logo}></img> */}
             </div>
         </div>
     );
