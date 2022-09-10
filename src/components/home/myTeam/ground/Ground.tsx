@@ -21,7 +21,7 @@ export const playersState = atom<players>({
     default: {}
 })
 
-export function Ground() {
+export function Ground({updateInfoOfGame}: { updateInfoOfGame: () => void }) {
     const [players, setPlayers] = useRecoilState(playersState)
     const [selectedPosition, setSelectedPosition] = useRecoilState(selectedPositionState)
     const [, setModalDisplayState] = useRecoilState(modalsDisplayState)
@@ -31,8 +31,6 @@ export function Ground() {
     const defPositions = [3, 4, 5, 6, 7]
     const midPositions = [8, 9, 10, 11, 12]
     const attPositions = [13, 14, 15]
-
-    useEffect(() => getTeamPlayers(), [])
 
     // for delete confirmation modal
     useEffect(() => {
@@ -55,7 +53,7 @@ export function Ground() {
                 .then(
                     res => {
                         if (res.data.success) {
-                            getTeamPlayers()
+                            updateInfoOfGame()
                         } else {
                             console.log(res)
                             //TODO: create custom alert
@@ -72,35 +70,6 @@ export function Ground() {
             setModalDisplayState('none')
         }
     }, [isDeleteConfirmClicked])
-
-    function getTeamPlayers() {
-        axios.get(`${serverUrl}/fantasyteam`)
-            .then(
-                res => setPlayers(convertFantasyTeamApiResponse(res.data)),
-                error => {
-                    console.log(error)
-                    //TODO: create custom alert
-                    alert('خطا در دریافت اطّلاعات تیم')
-                }
-            )
-    }
-
-    function convertFantasyTeamApiResponse(apiResponse: fantasyTeamApiResponseType) {
-        return apiResponse.data.players_list.reduce((map: players, obj) => {
-            map[obj.location_in_ui] = {
-                id: obj.id,
-                web_name: obj.web_name,
-                position: obj.position.short_name,
-                player_week_log: {
-                    player_cost: obj.player_week_log.player_cost / 10,
-                    player_total_points: obj.player_week_log.player_total_points / 10
-                },
-                location_in_ui: obj.location_in_ui
-            }
-
-            return map
-        }, {})
-    }
 
     function getClothDiv(position: number): JSX.Element {
         function getActiveClothDiv(player: player): JSX.Element {
