@@ -1,21 +1,80 @@
-import {Ground, playersState} from "./ground/Ground";
+import {Ground, selectedPositionState} from "./ground/Ground";
 import React, {useEffect, useState} from "react";
 import {RemainingPlayer, usedPlayerState} from "./remainingPlayer/RemainingPlayer";
-import {remainingMoneyState, RemainingMoney} from "./remainingMoney/RemainingMoney";
+import {RemainingMoney, remainingMoneyState} from "./remainingMoney/RemainingMoney";
 import MiddleTabBar from "./middleTabBar/MiddleTabBar";
 import ChoosePlayer from "./choosePlayer/ChoosePlayer";
 import DateBax from "./dateBox/DateBox";
 import axios from "axios";
 import {fantasyTeamApiResponseType, players, serverUrl} from "../../../GlobalVariables";
-import {useRecoilState} from "recoil";
+import {atom, useRecoilState} from "recoil";
+import MyPlayersList from "./myPlayersList/MyPlayersList";
+import {isDeleteConfirmClickedState} from "./removePlayerModal/RemovePlayerModal";
+import {modalsDisplayState} from "../../../App";
 
-function MyTeam() {
+export const playersState = atom<players>({
+    key: 'playersState',
+    default: {}
+})
+
+export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
     const [fantasyTeamApiResponse, setFantasyTeamApiResponse] = useState<fantasyTeamApiResponseType | undefined>(undefined);
-    const [, setPlayers] = useRecoilState(playersState)
+    const [players, setPlayers] = useRecoilState(playersState)
     const [, setRemainingMoney] = useRecoilState(remainingMoneyState)
     const [, setUsedPlayer] = useRecoilState(usedPlayerState)
 
+    const [selectedPosition, setSelectedPosition] = useRecoilState(selectedPositionState)
+    const [isDeleteConfirmClicked, setIsDeleteConfirmClicked] = useRecoilState(isDeleteConfirmClickedState)
+    const [, setModalDisplayState] = useRecoilState(modalsDisplayState)
+
     useEffect(() => updateInfoOfGame(), [])
+
+    // for delete confirmation modal
+    useEffect(() => {
+        if (!selectedPosition || !players[selectedPosition]) {
+            setIsDeleteConfirmClicked(false)
+            setModalDisplayState('none')
+            return
+        }
+
+        if (isDeleteConfirmClicked) {
+            axios(
+                {
+                    method: 'put',
+                    url: serverUrl + '/fantasyteam/player',
+                    data: {
+                        player_id: players[selectedPosition].id
+                    },
+                    headers: {
+                        'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1haGRpIiwiaXNfdmVyaWZpZWQiOnRydWUsImlhdCI6MTY2Mjg1OTM1MiwiZXhwIjoxNjYyOTQ1NzUyfQ.p8lDPFIkjphXmQTQN0jSlHjPpnag7u3y4ZLBkpgOOHE'
+                    }
+                }
+            )
+                .then(
+                    res => {
+                        if (res.data.success) {
+                            updateInfoOfGame()
+                        } else {
+                            console.log(res)
+                            //TODO: create custom alert
+                            alert('خطا در حذف بازیکن')
+                        }
+                    },
+                    error => {
+                        console.log(error)
+                        //    TODO: create custom alert
+                        alert('خطا در حذف بازیکن')
+                    }
+                )
+            setIsDeleteConfirmClicked(false)
+            setModalDisplayState('none')
+        }
+    }, [isDeleteConfirmClicked])
+
+    const gkPositions = [1, 2]
+    const defPositions = [3, 4, 5, 6, 7]
+    const midPositions = [8, 9, 10, 11, 12]
+    const attPositions = [13, 14, 15]
 
     useEffect(() => {
         if (!fantasyTeamApiResponse)
@@ -27,7 +86,11 @@ function MyTeam() {
     }, [fantasyTeamApiResponse])
 
     const updateInfoOfGame = () => {
-        axios.get(`${serverUrl}/fantasyteam`)
+        axios.get(`${serverUrl}/fantasyteam`, {
+            headers: {
+                'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1haGRpIiwiaXNfdmVyaWZpZWQiOnRydWUsImlhdCI6MTY2Mjg1OTM1MiwiZXhwIjoxNjYyOTQ1NzUyfQ.p8lDPFIkjphXmQTQN0jSlHjPpnag7u3y4ZLBkpgOOHE'
+            }
+        })
             .then(
                 res => setFantasyTeamApiResponse(res.data),
                 error => {
@@ -55,6 +118,16 @@ function MyTeam() {
         }, {})
     }
 
+    function selectPosition(position: number) {
+        return () => {
+            setSelectedPosition(position)
+        }
+    }
+
+    function deselectPosition() {
+        setSelectedPosition(undefined)
+    }
+
     return (
         <div>
             <RemainingPlayer/>
@@ -62,9 +135,15 @@ function MyTeam() {
             <MiddleTabBar/>
             <ChoosePlayer/>
             <DateBax/>
-            <Ground updateInfoOfGame={updateInfoOfGame}/>
+
+            {showingTab === 'schematic' ?
+                <Ground selectPosition={selectPosition}
+                        deselectPosition={deselectPosition} gkPositions={gkPositions} defPositions={defPositions}
+                        midPositions={midPositions} attPositions={attPositions}/> :
+                // so showingTab === 'list'
+                <MyPlayersList selectPosition={selectPosition}
+                               deselectPosition={deselectPosition} gkPositions={gkPositions} defPositions={defPositions}
+                               midPositions={midPositions} attPositions={attPositions}/>}
         </div>
     )
 }
-
-export default MyTeam
