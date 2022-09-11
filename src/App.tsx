@@ -6,7 +6,7 @@ import SignUpForm from "./components/signUp/SignUpForm";
 import SignUpConfirm from "./components/signUpConfirm/SignUpConfirm";
 import Home from "./components/home/Home";
 import {homeTabsEndingUrl, showingMyTeamTabsEndingUrl} from "./GlobalVariables";
-import MyTeam from "./components/home/myTeam/MyTeam";
+import {MyTeam} from "./components/home/myTeam/MyTeam";
 import Transfers from "./components/home/transfers/Transfers";
 import LatestEvents from "./components/home/latestEvents/LatestEvents";
 import Prizes from "./components/home/prizes/Prizes";
