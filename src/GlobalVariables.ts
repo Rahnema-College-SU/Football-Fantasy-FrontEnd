@@ -6,6 +6,11 @@ export const homeTabsEndingUrl = {
     prizes: 'prizes'
 }
 
+export const showingMyTeamTabsEndingUrl = {
+    schematic: 'schematic',
+    list: 'list'
+}
+
 export const serverUrl = 'http://178.216.248.39:8000';
 
 export type player = {

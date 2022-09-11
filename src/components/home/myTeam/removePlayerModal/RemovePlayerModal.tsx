@@ -2,8 +2,9 @@ import React from 'react';
 import './RemovePlayerModal.css';
 import activeCloth from '../ground/assets/active-cloth.svg';
 import {atom, useRecoilState} from "recoil";
-import {playersState, selectedPositionState} from "../ground/Ground";
+import {selectedPositionState} from "../ground/Ground";
 import {modalsDisplayState} from "../../../../App";
+import {playersState} from "../MyTeam";
 
 export const isDeleteConfirmClickedState = atom<boolean>({
     key: 'isDeleteConfirmClickedState',
