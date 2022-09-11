@@ -4,7 +4,7 @@ import activeCloth from '../ground/assets/active-cloth.svg';
 import {atom, useRecoilState} from "recoil";
 import {selectedPositionState} from "../ground/Ground";
 import {modalsDisplayState} from "../../../../App";
-import {playersState} from "../MyTeam";
+import {myPlayersState} from "../MyTeam";
 
 export const isDeleteConfirmClickedState = atom<boolean>({
     key: 'isDeleteConfirmClickedState',
@@ -12,7 +12,7 @@ export const isDeleteConfirmClickedState = atom<boolean>({
 })
 
 export function RemovePlayerModal() {
-    const [players] = useRecoilState(playersState)
+    const [myPlayers] = useRecoilState(myPlayersState)
     const [selectedPosition] = useRecoilState(selectedPositionState)
     const [, setModalDisplayState] = useRecoilState(modalsDisplayState)
     const [, setIsDeleteConfirmClicked] = useRecoilState(isDeleteConfirmClickedState)
@@ -33,8 +33,8 @@ export function RemovePlayerModal() {
     }
 
     function getText(selectedPosition: number) {
-        return players[selectedPosition] ? 'آیا از حذف ' +
-            players[selectedPosition].web_name +
+        return myPlayers[selectedPosition] ? 'آیا از حذف ' +
+            myPlayers[selectedPosition].web_name +
             ' مطمئن هستید؟'
             :
             closeModal()

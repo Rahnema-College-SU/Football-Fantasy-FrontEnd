@@ -24,8 +24,8 @@ function App() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        // navigate('/sign-up')
-        navigate('/home/my-team/schematic')
+        navigate('/sign-up')
+        // navigate('/home/my-team/schematic')
     }, [])
 
     return (

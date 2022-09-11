@@ -12,14 +12,14 @@ import MyPlayersList from "./myPlayersList/MyPlayersList";
 import {isDeleteConfirmClickedState} from "./removePlayerModal/RemovePlayerModal";
 import {modalsDisplayState} from "../../../App";
 
-export const playersState = atom<players>({
-    key: 'playersState',
+export const myPlayersState = atom<players>({
+    key: 'myPlayersState',
     default: {}
 })
 
 export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
     const [fantasyTeamApiResponse, setFantasyTeamApiResponse] = useState<fantasyTeamApiResponseType | undefined>(undefined);
-    const [players, setPlayers] = useRecoilState(playersState)
+    const [myPlayers, setMyPlayers] = useRecoilState(myPlayersState)
     const [, setRemainingMoney] = useRecoilState(remainingMoneyState)
     const [, setUsedPlayer] = useRecoilState(usedPlayerState)
 
@@ -31,7 +31,7 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
 
     // for delete confirmation modal
     useEffect(() => {
-        if (!selectedPosition || !players[selectedPosition]) {
+        if (!selectedPosition || !myPlayers[selectedPosition]) {
             setIsDeleteConfirmClicked(false)
             setModalDisplayState('none')
             return
@@ -43,10 +43,10 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
                     method: 'put',
                     url: serverUrl + '/fantasyteam/player',
                     data: {
-                        player_id: players[selectedPosition].id
+                        player_id: myPlayers[selectedPosition].id
                     },
                     headers: {
-                        'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1haGRpIiwiaXNfdmVyaWZpZWQiOnRydWUsImlhdCI6MTY2Mjg1OTM1MiwiZXhwIjoxNjYyOTQ1NzUyfQ.p8lDPFIkjphXmQTQN0jSlHjPpnag7u3y4ZLBkpgOOHE'
+                        'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1haGRpMSIsImlzX3ZlcmlmaWVkIjp0cnVlLCJpYXQiOjE2NjI4ODY0MDEsImV4cCI6MTY2Mjk3MjgwMX0.ooVxqZKoAyG9NIQhcAR0Hdavyeiuzbgcg79rwZYW_rg'
                     }
                 }
             )
@@ -76,11 +76,12 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
     const midPositions = [8, 9, 10, 11, 12]
     const attPositions = [13, 14, 15]
 
+    // changing fantasyTeamApiResponse
     useEffect(() => {
         if (!fantasyTeamApiResponse)
             return
 
-        setPlayers(convertFantasyTeamApiResponse(fantasyTeamApiResponse))
+        setMyPlayers(convertFantasyTeamApiResponse(fantasyTeamApiResponse))
         setRemainingMoney(fantasyTeamApiResponse.data.fantasyteam.money_remaining)
         setUsedPlayer(fantasyTeamApiResponse.data.fantasyteam.number_of_player)
     }, [fantasyTeamApiResponse])
@@ -88,7 +89,7 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
     const updateInfoOfGame = () => {
         axios.get(`${serverUrl}/fantasyteam`, {
             headers: {
-                'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1haGRpIiwiaXNfdmVyaWZpZWQiOnRydWUsImlhdCI6MTY2Mjg1OTM1MiwiZXhwIjoxNjYyOTQ1NzUyfQ.p8lDPFIkjphXmQTQN0jSlHjPpnag7u3y4ZLBkpgOOHE'
+                'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1haGRpMSIsImlzX3ZlcmlmaWVkIjp0cnVlLCJpYXQiOjE2NjI4ODY0MDEsImV4cCI6MTY2Mjk3MjgwMX0.ooVxqZKoAyG9NIQhcAR0Hdavyeiuzbgcg79rwZYW_rg'
             }
         })
             .then(

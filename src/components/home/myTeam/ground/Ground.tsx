@@ -8,7 +8,7 @@ import inactiveCloth from './assets/inactive-cloth.svg'
 import selectedCloth from './assets/selected-cloth.svg'
 import {atom, useRecoilState} from "recoil";
 import {modalsDisplayState} from "../../../../App";
-import {playersState} from "../MyTeam";
+import {myPlayersState} from "../MyTeam";
 
 export const selectedPositionState = atom<number | undefined>({
     key: 'selectedPositionState',
@@ -30,7 +30,7 @@ export function Ground({
     midPositions: number[],
     attPositions: number[]
 }) {
-    const [players] = useRecoilState(playersState)
+    const [myPlayers] = useRecoilState(myPlayersState)
     const [selectedPosition] = useRecoilState(selectedPositionState)
     const [, setModalDisplayState] = useRecoilState(modalsDisplayState)
 
@@ -99,9 +99,9 @@ export function Ground({
             <div className={'cloth-div'}>
                 {
                     (selectedPosition && selectedPosition === position) ? (
-                        players[position] ? getSelectedActiveClothDiv(players[position]) : getSelectedInactiveClothDiv()
+                        myPlayers[position] ? getSelectedActiveClothDiv(myPlayers[position]) : getSelectedInactiveClothDiv()
                     ) : (
-                        players[position] ? getActiveClothDiv(players[position]) : getInactiveClothDiv(position)
+                        myPlayers[position] ? getActiveClothDiv(myPlayers[position]) : getInactiveClothDiv(position)
                     )
                 }
             </div>
