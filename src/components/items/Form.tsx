@@ -9,7 +9,10 @@ const Form: FC<{
         <div className="sidePicture">
             <img className="logo" src={logo} alt=""/>
         </div>
-        {children}
+        <div className="container">
+        {children}     
+        </div>
+
     </div>
 }
 export default Form;

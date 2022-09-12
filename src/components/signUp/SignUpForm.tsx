@@ -6,7 +6,6 @@ import {useNavigate} from "react-router-dom";
 function SignUpForm() {
     const navigate = useNavigate()
     const inputs=["نام","نام.خانوادگی","ایمیل","کشور","نام کاربری","رمز عبور"]
-
     return (
         <Form>
             <div className="signUpForm">
