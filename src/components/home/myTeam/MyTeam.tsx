@@ -143,9 +143,9 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
             <ChoosePlayer/>
             <div id={'game-info-div'}>
                 {/*<div id={'header-of-game-info-div'}>*/}
-                    <RemainingPlayer/>
-                    <MiddleTabBar/>
-                    <RemainingMoney/>
+                <RemainingPlayer/>
+                <MiddleTabBar/>
+                <RemainingMoney/>
                 {/*</div>*/}
 
                 {showingTab === 'schematic' ?
