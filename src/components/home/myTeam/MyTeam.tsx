@@ -142,11 +142,11 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
 
             <ChoosePlayer/>
             <div id={'game-info-div'}>
-                <div id={'header-of-game-info-div'}>
+                {/*<div id={'header-of-game-info-div'}>*/}
                     <RemainingPlayer/>
                     <MiddleTabBar/>
                     <RemainingMoney/>
-                </div>
+                {/*</div>*/}
 
                 {showingTab === 'schematic' ?
                     <Ground selectPosition={selectPosition}

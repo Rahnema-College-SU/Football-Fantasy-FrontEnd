@@ -1,5 +1,8 @@
 #main-div-container {
     position: relative;
+
+    grid-column-start: 1;
+    grid-column-end: 4;
 }
 
 #main-div {
