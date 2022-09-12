@@ -1,4 +1,4 @@
-.moneyBox {
+.money-box {
     position: absolute;
     width: 274px;
     height: 122px;
@@ -12,12 +12,10 @@
     border-radius: 16px 16px 0 0;
 }
 
-#showMoneyText {
-    width: 10px;
+#show-money-text {
     font-style: normal;
     font-weight: 900;
     font-size: 40px;
-    line-height: 62px;
     display: flex;
     align-items: center;
     text-align: center;
@@ -29,10 +27,11 @@
     flex-direction: column;
 }
 
-#moneyText {
+#money-text {
     color: #3D195B;
 }
 
-.walletLogo {
+.wallet-logo {
     height: 70px;
+    margin-bottom: 5px;
 }

@@ -1,5 +1,4 @@
-
-#tabBarRectangle {
+#tab-bar-rectangle {
     position: absolute;
     width: 272px;
     height: 40px;
@@ -13,19 +12,25 @@
     border-radius: 8px;
 }
 
-#tabRectangle {
-    width: 131px;
-    height: 30px;
-    left: 534px;
-    top: 465px;
+#tab-bar-rectangle > div {
     text-align: center;
     align-items: center;
-    background: #FFFFFF;
     border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    padding: 2px 15px;
+    cursor: pointer;
+}
+
+.tab-rectangle-select {
+    background: #FFFFFF;
+}
+
+.tab-rectangle-unselect:hover {
+    background: rgba(255, 255, 255, 0.6);
 }
 
 #logo {
-
     position: absolute;
     width: 75px;
     height: 72px;
