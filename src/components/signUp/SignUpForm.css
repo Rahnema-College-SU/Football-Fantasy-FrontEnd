@@ -1,18 +1,19 @@
 .signUpForm {
-    width: 100%;
-    margin-top: 7%;
-    margin-right: 7%;
+    width: 90%;
+    margin-top: 10%;
     display: flex;
     align-items: center;
     flex-direction: column;
     row-gap: 1rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
 }
 .inputBar {
     width: 60%;
     display: grid;
     grid-template-columns: auto auto;
     grid-gap: 1.25rem;
+    box-sizing: border-box;
 }
 .input {
     width: 100%;
@@ -29,22 +30,25 @@
     flex-direction: column;
     width: 100%;
 }
-/* tr {
-    display: flex;
-    direction: rtl;
-}
-
-th {
-    width: 260px;
-    height: 96px;
-} */
-
 button {
-    /* padding-top: 50px; */
     max-width: 22rem;
 }
-/* 
-.itemsHolder {
-    display: flex;
-    flex-direction: row;
-} */
+
+@media only screen and (max-width: 51.875rem) {
+    .inputBar{
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+@media only screen and (max-width: 35.625rem) {
+
+    .signUpForm {
+        width: 100%;
+    }
+    .inputBar{
+        grid-template-columns: auto;
+        gap: 0;
+    }
+}
+

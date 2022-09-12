@@ -9,9 +9,11 @@ const Form: FC<{
     return <div className="window">
         <div className="sidePicture">
             <img className="logo" src={logo} alt=""/>
-            {/* <img className="PlayersPhoto" src={cover} alt=""/> */}
         </div>
-        {children}
+        <div className="container">
+        {children}     
+        </div>
+
     </div>
 }
 export default Form;
