@@ -1,4 +1,4 @@
-#dateBox {
+#date-box {
     position: absolute;
     width: 472px;
     height: 35px;
@@ -13,7 +13,7 @@
 
 }
 
-#weekText {
+#week-text {
     width: 121px;
     height: 23px;
     left: 638px;
@@ -32,10 +32,8 @@
 
 }
 
-#dateText {
-    /* width: 236px; */
+#date-text {
     font-family: Vazirmatn, serif;
-    /* font-style: normal; */
     font-weight: 800;
     font-size: 14px;
     line-height: 22px;

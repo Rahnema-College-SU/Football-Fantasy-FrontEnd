@@ -14,7 +14,7 @@
     width: 50%;
     direction: ltr;
     display: flex;
-    background-image: url("./assets/cover.svg") ;
+    background-image: url("./assets/cover.svg");
     background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -73,7 +73,7 @@
     border: 1px solid #A057DB;
     border-radius: 8px;
     height: 3rem;
-    font-family: 'Vazirmatn';
+    font-family: Vazirmatn, serif;
     font-style: normal;
     font-weight: 300;
     font-size: 14px;
@@ -82,7 +82,7 @@
     align-items: center;
     text-align: right;
 
-color: #FFFFFF;
+    color: #FFFFFF;
 }
 
 .button {

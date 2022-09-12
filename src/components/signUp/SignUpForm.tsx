@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 
 function SignUpForm() {
     const navigate = useNavigate()
-    const inputs=["نام","نام.خانوادگی","ایمیل","کشور","نام کاربری","رمز عبور"]
+    const inputs = ["نام", "نام.خانوادگی", "ایمیل", "کشور", "نام کاربری", "رمز عبور"]
 
     return (
         <Form>
@@ -16,21 +16,21 @@ function SignUpForm() {
                     <hr className="line"/>
                 </div>
                 <div className="inputBar">
-                    {inputs.slice(0,3).map(i =>(<div className="inputContainer">
-                    <span className="label">{i}</span>
-                    <input className="input" type="text"/>
+                    {inputs.slice(0, 3).map(i => (<div className="inputContainer">
+                        <span className="label">{i}</span>
+                        <input className="input" type="text"/>
                     </div>))}
-                    <div  className="inputContainer">
-                    <span className="label">کشور</span>
-                    <select className="chooseCountry">
-                        <option value="Iran">Iran</option>
-                        <option value="Us">Us</option>
-                        <option value="Uk">Uk</option>
-                    </select>
+                    <div className="inputContainer">
+                        <span className="label">کشور</span>
+                        <select className="chooseCountry">
+                            <option value="Iran">Iran</option>
+                            <option value="Us">Us</option>
+                            <option value="Uk">Uk</option>
+                        </select>
                     </div>
-                    {inputs.slice(4).map(i =>(<div className="inputContainer">
-                    <span className="label">{i}</span>
-                    <input className="input" type="text"/>
+                    {inputs.slice(4).map(i => (<div className="inputContainer">
+                        <span className="label">{i}</span>
+                        <input className="input" type="text"/>
                     </div>))}
                 </div>
                 <button className="button" onClick={() => navigate('/sign-up-confirm')}>ثبت نام</button>

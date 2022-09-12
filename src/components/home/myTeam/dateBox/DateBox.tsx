@@ -1,28 +1,38 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import './DateBox.css';
-import http from "../../../items/axiosReq";
+import {atom, useRecoilState} from "recoil";
 
-type DateType = { month_name: String, current_week: String, week_day: String, year: String, day: String, hour: String }
+export type dateType = {
+    month_name: String,
+    current_week: String,
+    week_day: String,
+    year: String,
+    day: String,
+    hour: String
+}
 
-export function DateBax() {
-    const [date, setDate] = useState<null | DateType>(null);
-    let getData = async () => {
-        await http.get('weekInf').then(res => setDate(res.data.data), error => {
-            console.log(error)
-            alert("خطا در دریافت تاریخ")
-        })
-    }
+export const dateState = atom<dateType | undefined>({
+    key: 'dateState',
+    default: undefined
+})
+
+export function DateBax({getDate}: { getDate: () => Promise<dateType> }) {
+    const [date, setDate] = useRecoilState(dateState)
+
     useEffect(() => {
-        getData()
-        //console.log(date)
+        getDate()
+            .then(res => {
+                // console.log(res)
+                setDate(res)
+            })
     }, [])
-    http.get('').then(res => console.log(res))
+
     return (
         <div>
-            <div id="dateBox">
-                <div id="weekText"> {date?.current_week ?? ''}</div>
-                <div id="dateText">{date?.week_day} {date?.day} {date?.month_name} {date?.year}
-                    <div id="dateText"> - ساعت {date?.hour} </div>
+            <div id="date-box">
+                <div id="week-text"> {date?.current_week ?? ''}</div>
+                <div id="date-text">{date?.week_day} {date?.day} {date?.month_name} {date?.year}
+                    <div id="date-text"> - ساعت {date?.hour} </div>
                 </div>
 
             </div>

@@ -1,3 +1,5 @@
+import {AxiosResponse} from "axios";
+
 export const homeTabsEndingUrl = {
     myTeam: 'my-team',
     transfers: 'transfers',
@@ -6,9 +8,16 @@ export const homeTabsEndingUrl = {
     prizes: 'prizes'
 }
 
+export const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1haGRpIiwiaXNfdmVyaWZpZWQiOnRydWUsImlhdCI6MTY2Mjk3NDg2MiwiZXhwIjoxNjYzMDYxMjYyfQ.reJ7nXhAmhbv9MS07cXSG8KyGLNqqHIJRirqds3HEHg'
+
 export const showingMyTeamTabsEndingUrl = {
     schematic: 'schematic',
     list: 'list'
+}
+
+export const errorMessages = {
+    dateError: 'خطا در دریافت تاریخ',
+    loadTeamError: 'خطا در دریافت اطّلاعات تیم',
 }
 
 export const serverUrl = 'http://178.216.248.39:8000';
@@ -65,4 +74,39 @@ export function toFarsiNumber(number: number) {
     return number
         .toString()
         .replace(/\d/g, (x: string) => farsiDigits[parseInt(x)]);
+}
+
+export type onAxiosReturnValues = {
+    success: any,
+    error: any
+}
+
+export function onAxiosSuccess({
+                                   res,
+                                   errorMessage,
+                                   onSuccess,
+                                   returnValues
+                               }: { res: AxiosResponse, errorMessage: string, onSuccess?: () => void, returnValues?: onAxiosReturnValues }) {
+    if (res.data.success) {
+        if (onSuccess)
+            onSuccess()
+
+        return returnValues ? returnValues.success : undefined
+    } else
+        return onAxiosError({
+            error: res,
+            errorMessage: errorMessage,
+            errorReturnValue: returnValues ? returnValues.error : undefined
+        });
+}
+
+export function onAxiosError({
+                                 error,
+                                 errorMessage,
+                                 errorReturnValue
+                             }: { error: any, errorMessage: string, errorReturnValue?: any }) {
+    //TODO: create custom alert
+    console.log(error)
+    alert(errorMessage)
+    return errorReturnValue
 }

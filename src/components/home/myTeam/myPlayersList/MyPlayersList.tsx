@@ -1,6 +1,6 @@
 import React from "react";
 import './MyPlayersList.css';
-import {useRecoilState} from "recoil";
+import {useRecoilValue, useSetRecoilState} from "recoil";
 import {myPlayersState} from "../MyTeam";
 import {selectedPositionState} from "../ground/Ground";
 import activeCloth from './assets/active-cloth.svg'
@@ -9,7 +9,7 @@ import logo from './assets/logo.svg';
 import curveLines from './assets/curve-lines.svg';
 import {player, toFarsiNumber} from "../../../../GlobalVariables";
 import deleteIcon from "./assets/delete-icon.svg";
-import {modalsDisplayState} from "../../../../App";
+import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
 
 function MyPlayersList({
                            selectPosition,
@@ -26,15 +26,16 @@ function MyPlayersList({
     midPositions: number[],
     attPositions: number[]
 }) {
-    const [myPlayers] = useRecoilState(myPlayersState)
-    const [selectedPosition] = useRecoilState(selectedPositionState)
-    const [, setModalDisplayState] = useRecoilState(modalsDisplayState)
+    const myPlayers = useRecoilValue(myPlayersState)
+    const selectedPosition = useRecoilValue(selectedPositionState)
+    const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
 
     function getInfoDiv(): JSX.Element {
         return <div id={'info-div'}>
             <div id={'div-my-players-info-list'}>
                 <img id={'delete-icon-players-list'} src={deleteIcon} alt={'active cloth'}
-                     style={{visibility: (selectedPosition && myPlayers[selectedPosition] ? 'visible' : 'hidden')}} onClick={deletePlayer()}/>
+                     style={{visibility: (selectedPosition && myPlayers[selectedPosition] ? 'visible' : 'hidden')}}
+                     onClick={deletePlayer()}/>
                 <img id={'cloth-my-players-list'}
                      src={selectedPosition ? (myPlayers[selectedPosition] ? activeCloth : inactiveCloth) : inactiveCloth}
                      alt={'specific cloth of players'}/>
@@ -53,7 +54,7 @@ function MyPlayersList({
                 return
 
             selectPosition(myPlayers[selectedPosition].location_in_ui)()
-            setModalDisplayState('block')
+            setRemovePlayerModalDisplay('block')
         }
     }
 
@@ -63,8 +64,10 @@ function MyPlayersList({
                 <div className='row-div' dir={'rtl'} style={{gridRowStart: position + offsetInUi}}
                      onClick={selectPosition(position)}>
                     <text className='row-name active-row-name'>{player.web_name}</text>
-                    <text className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_total_points)}</text>
-                    <text className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_cost)}</text>
+                    <text
+                        className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_total_points)}</text>
+                    <text
+                        className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_cost)}</text>
                 </div>
             )
         }
@@ -74,8 +77,8 @@ function MyPlayersList({
                 <div className='row-div' dir={'rtl'} style={{gridRowStart: position + offsetInUi}}
                      onClick={selectPosition(position)}>
                     <text className='row-name inactive-row-name'>none</text>
-                    <text className='row-number inactive-row-number'>0</text>
-                    <text className='row-number inactive-row-number'>0</text>
+                    <text className='row-number inactive-row-number'>۰</text>
+                    <text className='row-number inactive-row-number'>۰</text>
                 </div>
             )
         }
@@ -85,8 +88,8 @@ function MyPlayersList({
                 <div className='row-div selected-row-div' dir={'rtl'} style={{gridRowStart: position + offsetInUi}}
                      onClick={deselectPosition}>
                     <text className='row-name inactive-row-name'>none</text>
-                    <text className='row-number inactive-row-number'>0</text>
-                    <text className='row-number inactive-row-number'>0</text>
+                    <text className='row-number inactive-row-number'>۰</text>
+                    <text className='row-number inactive-row-number'>۰</text>
                 </div>
             )
         }
@@ -96,8 +99,10 @@ function MyPlayersList({
                 <div className='row-div selected-row-div' dir={'rtl'} style={{gridRowStart: position + offsetInUi}}
                      onClick={deselectPosition}>
                     <text className='row-name active-row-name'>{player.web_name}</text>
-                    <text className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_total_points)}</text>
-                    <text className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_cost)}</text>
+                    <text
+                        className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_total_points)}</text>
+                    <text
+                        className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_cost)}</text>
                 </div>
             )
         }

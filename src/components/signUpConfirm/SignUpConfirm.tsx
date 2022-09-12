@@ -9,7 +9,7 @@ function SignUpConfirm() {
 
     return (
         <Form>
-            
+
             <div className="signUpConfirm">
                 <div className="header">
                     <hr className="line"/>
@@ -18,8 +18,8 @@ function SignUpConfirm() {
                 </div>
                 <div className="Container">
                     <text className="label">لطفا کدی که به ایمیلتان ارسال شده را در کادر زیر وارد کنید</text>
-                    <input className="input" />
-                    <button  className="button" onClick={() => navigate('/sign-in')}>ثبت نام</button>
+                    <input className="input"/>
+                    <button className="button" onClick={() => navigate('/sign-in')}>ثبت نام</button>
                 </div>
             </div>
         </Form>

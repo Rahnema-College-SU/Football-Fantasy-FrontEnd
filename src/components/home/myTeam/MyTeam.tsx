@@ -4,13 +4,20 @@ import {RemainingPlayer, usedPlayerState} from "./remainingPlayer/RemainingPlaye
 import {RemainingMoney, remainingMoneyState} from "./remainingMoney/RemainingMoney";
 import MiddleTabBar from "./middleTabBar/MiddleTabBar";
 import ChoosePlayer from "./choosePlayer/ChoosePlayer";
-import DateBax from "./dateBox/DateBox";
+import DateBax, {dateState, dateType} from "./dateBox/DateBox";
 import axios from "axios";
-import {fantasyTeamApiResponseType, players, serverUrl} from "../../../GlobalVariables";
-import {atom, useRecoilState} from "recoil";
+import {
+    errorMessages,
+    fantasyTeamApiResponseType,
+    onAxiosError,
+    onAxiosSuccess,
+    players,
+    serverUrl,
+    token
+} from "../../../GlobalVariables";
+import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import MyPlayersList from "./myPlayersList/MyPlayersList";
-import {isDeleteConfirmClickedState} from "./removePlayerModal/RemovePlayerModal";
-import {modalsDisplayState} from "../../../App";
+import {isDeleteConfirmClickedState, removePlayerModalDisplayState} from "./removePlayerModal/RemovePlayerModal";
 
 export const myPlayersState = atom<players>({
     key: 'myPlayersState',
@@ -20,56 +27,69 @@ export const myPlayersState = atom<players>({
 export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
     const [fantasyTeamApiResponse, setFantasyTeamApiResponse] = useState<fantasyTeamApiResponseType | undefined>(undefined);
     const [myPlayers, setMyPlayers] = useRecoilState(myPlayersState)
-    const [, setRemainingMoney] = useRecoilState(remainingMoneyState)
-    const [, setUsedPlayer] = useRecoilState(usedPlayerState)
+    const setRemainingMoney = useSetRecoilState(remainingMoneyState)
+    const setUsedPlayer = useSetRecoilState(usedPlayerState)
+    const [date, setDate] = useRecoilState(dateState)
 
     const [selectedPosition, setSelectedPosition] = useRecoilState(selectedPositionState)
-    const [isDeleteConfirmClicked, setIsDeleteConfirmClicked] = useRecoilState(isDeleteConfirmClickedState)
-    const [, setModalDisplayState] = useRecoilState(modalsDisplayState)
+    const isDeleteConfirmClicked = useRecoilValue(isDeleteConfirmClickedState)
+    const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
 
     useEffect(() => updateInfoOfGame(), [])
 
     // for delete confirmation modal
     useEffect(() => {
-        if (!selectedPosition || !myPlayers[selectedPosition]) {
-            setIsDeleteConfirmClicked(false)
-            setModalDisplayState('none')
+        setRemovePlayerModalDisplay('none')
+
+        if (!selectedPosition || !myPlayers[selectedPosition])
             return
-        }
+
 
         if (isDeleteConfirmClicked) {
-            axios(
-                {
-                    method: 'put',
-                    url: serverUrl + '/fantasyteam/player',
-                    data: {
-                        player_id: myPlayers[selectedPosition].id
-                    },
-                    headers: {
-                        'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1haGRpMSIsImlzX3ZlcmlmaWVkIjp0cnVlLCJpYXQiOjE2NjI4ODY0MDEsImV4cCI6MTY2Mjk3MjgwMX0.ooVxqZKoAyG9NIQhcAR0Hdavyeiuzbgcg79rwZYW_rg'
-                    }
-                }
-            )
-                .then(
-                    res => {
-                        if (res.data.success) {
-                            updateInfoOfGame()
-                        } else {
-                            console.log(res)
-                            //TODO: create custom alert
-                            alert('خطا در حذف بازیکن')
-                        }
-                    },
-                    error => {
-                        console.log(error)
-                        //    TODO: create custom alert
-                        alert('خطا در حذف بازیکن')
-                    }
-                )
-            setIsDeleteConfirmClicked(false)
-            setModalDisplayState('none')
+            // axios(
+            //     {
+            //         method: 'put',
+            //         url: serverUrl + '/fantasyteam/player',
+            //         data: {
+            //             player_id: myPlayers[selectedPosition].id
+            //         },
+            //         headers: {
+            //             'x-access-token': token
+            //         }
+            //     }
+            // )
+            //     .then(
+            //         res => {
+            //             if (res.data.success) {
+            //                 updateInfoOfGame()
+            //             } else {
+            //                 console.log(res)
+            //                 //TODO: create custom alert
+            //                 alert('خطا در حذف بازیکن')
+            //             }
+            //         },
+            //         error => {
+            //             console.log(error)
+            //             //    TODO: create custom alert
+            //             alert('خطا در حذف بازیکن')
+            //         }
+            //     )
         }
     }, [isDeleteConfirmClicked])
+
+    async function getDate(): Promise<dateType> {
+        return axios.get(`${serverUrl}/weekInf`).then(
+            res => {
+                return onAxiosSuccess({
+                    res: res, errorMessage: errorMessages.dateError, returnValues: {
+                        success: res.data.data,
+                        error: res.data.error
+                    }
+                })
+            },
+            error => onAxiosError({error: error, errorMessage: errorMessages.dateError})
+        )
+    }
 
     const gkPositions = [1, 2]
     const defPositions = [3, 4, 5, 6, 7]
@@ -89,16 +109,18 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
     const updateInfoOfGame = () => {
         axios.get(`${serverUrl}/fantasyteam`, {
             headers: {
-                'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1haGRpMSIsImlzX3ZlcmlmaWVkIjp0cnVlLCJpYXQiOjE2NjI4ODY0MDEsImV4cCI6MTY2Mjk3MjgwMX0.ooVxqZKoAyG9NIQhcAR0Hdavyeiuzbgcg79rwZYW_rg'
+                'x-access-token': token
             }
         })
             .then(
-                res => setFantasyTeamApiResponse(res.data),
-                error => {
-                    console.log(error)
-                    //TODO: create custom alert
-                    alert('خطا در دریافت اطّلاعات تیم')
-                }
+                res =>
+                    onAxiosSuccess({
+                        res: res,
+                        errorMessage: errorMessages.loadTeamError,
+                        onSuccess: () => setFantasyTeamApiResponse(res.data)
+                    })
+                ,
+                error => onAxiosError({error: error, errorMessage: errorMessages.loadTeamError})
             )
     }
 
@@ -135,7 +157,7 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
             <RemainingMoney/>
             <MiddleTabBar/>
             <ChoosePlayer/>
-            <DateBax/>
+            <DateBax getDate={getDate}/>
 
             {showingTab === 'schematic' ?
                 <Ground selectPosition={selectPosition}

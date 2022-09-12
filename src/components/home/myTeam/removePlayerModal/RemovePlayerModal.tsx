@@ -1,9 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './RemovePlayerModal.css';
 import activeCloth from '../ground/assets/active-cloth.svg';
-import {atom, useRecoilState} from "recoil";
+import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {selectedPositionState} from "../ground/Ground";
-import {modalsDisplayState} from "../../../../App";
 import {myPlayersState} from "../MyTeam";
 
 export const isDeleteConfirmClickedState = atom<boolean>({
@@ -11,25 +10,32 @@ export const isDeleteConfirmClickedState = atom<boolean>({
     default: false
 })
 
-export function RemovePlayerModal() {
-    const [myPlayers] = useRecoilState(myPlayersState)
-    const [selectedPosition] = useRecoilState(selectedPositionState)
-    const [, setModalDisplayState] = useRecoilState(modalsDisplayState)
-    const [, setIsDeleteConfirmClicked] = useRecoilState(isDeleteConfirmClickedState)
+export const removePlayerModalDisplayState = atom<'none' | 'block'>({
+    key: 'removePlayerModalDisplayState',
+    default: 'none'
+})
 
-    function getAvailablePosition(selectedPosition: number) {
+export function RemovePlayerModal() {
+    const myPlayers = useRecoilValue(myPlayersState)
+    const selectedPosition = useRecoilValue(selectedPositionState)
+    const setIsDeleteConfirmClicked = useSetRecoilState(isDeleteConfirmClickedState)
+    const [removePlayerModalDisplay, setRemovePlayerModalDisplay] = useRecoilState(removePlayerModalDisplayState)
+
+    useEffect(() => {
+        if (removePlayerModalDisplay === 'none')
+            setIsDeleteConfirmClicked(false)
+    }, [removePlayerModalDisplay])
+
+    function getActionsSection(selectedPosition: number) {
         return <div>
             <div id={'text'} dir={'rtl'}>{getText(selectedPosition)}</div>
             <div id={'buttons-container'} dir={'rtl'}>
-                <button id='delete-button' onClick={() => setIsDeleteConfirmClicked(true)}>حذف</button>
-                <button id='cancel-button' onClick={() => closeModal()}>لغو</button>
+                <button id='delete-button' onClick={() => setIsDeleteConfirmClicked(true)}>
+                    حذف
+                </button>
+                <button id='cancel-button' onClick={() => setRemovePlayerModalDisplay('none')}>لغو</button>
             </div>
         </div>
-    }
-
-    function closeModal() {
-        setModalDisplayState('none')
-        return 'Unknown Player'
     }
 
     function getText(selectedPosition: number) {
@@ -40,15 +46,24 @@ export function RemovePlayerModal() {
             closeModal()
     }
 
+    function closeModal() {
+        setRemovePlayerModalDisplay('none')
+        return 'Unknown Player'
+    }
+
     return (
-        <div id='modal-div'>
-            <div id='header'>حذف بازیکن</div>
-            <img id='cloth' src={activeCloth} alt={'active cloth'}/>
+        <div id='delete-modal-div' style={{display: removePlayerModalDisplay}}>
             {
-                selectedPosition ?
-                    getAvailablePosition(selectedPosition)
-                    :
-                    closeModal()
+                <div>
+                    <div id='header'>حذف بازیکن</div>
+                    <img id='cloth' src={activeCloth} alt={'active cloth'}/>
+                    {
+                        selectedPosition ?
+                            getActionsSection(selectedPosition)
+                            :
+                            closeModal()
+                    }
+                </div>
             }
         </div>
     )
