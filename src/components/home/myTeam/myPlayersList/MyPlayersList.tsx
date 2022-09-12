@@ -7,7 +7,8 @@ import activeCloth from './assets/active-cloth.svg'
 import inactiveCloth from './assets/inactive-cloth.svg'
 import logo from './assets/logo.svg';
 import curveLines from './assets/curve-lines.svg';
-import {player, toFarsiNumber} from "../../../../GlobalVariables";
+import {toFarsiNumber} from "../../../../global/Variables";
+import {player} from "../../../../global/Types";
 import deleteIcon from "./assets/delete-icon.svg";
 import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
 

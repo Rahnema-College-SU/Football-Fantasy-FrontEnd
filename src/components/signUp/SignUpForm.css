@@ -1,4 +1,4 @@
-.signUpForm {
+.sign-up-form {
     width: 100%;
     margin-top: 7%;
     margin-right: 7%;
@@ -9,7 +9,7 @@
     flex-wrap: nowrap;
 }
 
-.inputBar {
+.input-bar {
     width: 60%;
     display: grid;
     grid-template-columns: auto auto;
@@ -27,7 +27,7 @@
     width: fit-content;
 }
 
-.inputContainer {
+.input-container {
     display: flex;
     flex-direction: column;
     width: 100%;

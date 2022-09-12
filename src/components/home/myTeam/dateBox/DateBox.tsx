@@ -1,15 +1,7 @@
 import React, {useEffect} from "react";
 import './DateBox.css';
 import {atom, useRecoilState} from "recoil";
-
-export type dateType = {
-    month_name: String,
-    current_week: String,
-    week_day: String,
-    year: String,
-    day: String,
-    hour: String
-}
+import {dateType} from "../../../../global/Types";
 
 export const dateState = atom<dateType | undefined>({
     key: 'dateState',
@@ -21,21 +13,24 @@ export function DateBax({getDate}: { getDate: () => Promise<dateType> }) {
 
     useEffect(() => {
         getDate()
-            .then(res => {
-                // console.log(res)
-                setDate(res)
-            })
+            .then(res => setDate(res))
     }, [])
 
     return (
         <div>
-            <div id="date-box">
-                <div id="week-text"> {date?.current_week ?? ''}</div>
-                <div id="date-text">{date?.week_day} {date?.day} {date?.month_name} {date?.year}
-                    <div id="date-text"> - ساعت {date?.hour} </div>
-                </div>
-
-            </div>
+            {
+                date ?
+                    <div id='date-box'>
+                        <div id='week-text'>{date.current_week ?? ''}</div>
+                        <div id='date-text'>
+                            {date.week_day} {date.day} {date.month_name} {date.year} - ساعت {date.hour}
+                        </div>
+                    </div>
+                    :
+                    <div id='date-box'>
+                        {'لود تاریخ'}
+                    </div>
+            }
         </div>
     );
 }

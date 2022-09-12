@@ -4,7 +4,7 @@ import React, {ReactElement} from "react";
 
 function Home({showingTab}: { showingTab: ReactElement }) {
     return (
-        <div>
+        <div id={'home-main-div'}>
             <Header/>
             <NavigationBar/>
 

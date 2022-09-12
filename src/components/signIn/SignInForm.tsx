@@ -2,7 +2,7 @@ import React from "react";
 import "./SignInForm.css";
 import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
-import {homeTabsEndingUrl, showingMyTeamTabsEndingUrl} from "../../GlobalVariables";
+import {homeTabsEndingUrl, showingMyTeamTabsEndingUrl} from "../../global/Variables";
 
 
 function SignInForm() {
@@ -11,7 +11,7 @@ function SignInForm() {
     return (
         <Form>
 
-            <div className="signInForm">
+            <div className="sign-in-form">
                 <div className="header">
                     <hr className="line"/>
                     <div className="headerText">ورود به فانتزی</div>
@@ -25,11 +25,11 @@ function SignInForm() {
                     <input className="input" type="text"/>
                 </div>
 
-                <div className="buttonBar">
-                    <button className="signInButton"
+                <div className="button-bar">
+                    <button className="sign-in-button"
                             onClick={() => navigate(`/home/${homeTabsEndingUrl.myTeam}/${showingMyTeamTabsEndingUrl.schematic}`)}>ورود
                     </button>
-                    <button className="signInButton">ثبت نام</button>
+                    <button className="sign-in-button">ثبت نام</button>
                 </div>
             </div>
         </Form>

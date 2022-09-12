@@ -1,6 +1,7 @@
 import React from 'react'
 import './Ground.css'
-import {player, toFarsiNumber} from "../../../../GlobalVariables";
+import {toFarsiNumber} from "../../../../global/Variables";
+import {player} from "../../../../global/Types";
 import addIcon from './assets/add-icon.svg'
 import deleteIcon from './assets/delete-icon.svg'
 import activeCloth from './assets/active-cloth.svg'

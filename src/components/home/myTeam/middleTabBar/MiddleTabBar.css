@@ -1,15 +1,19 @@
+#middle-tab-bar-main-div {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+}
+
 #tab-bar-rectangle {
-    position: absolute;
-    width: 272px;
-    height: 40px;
-    left: 400px;
-    top: 460px;
     display: flex;
     background: #F7F7F7;
     justify-content: space-evenly;
     align-items: center;
+    width: 90%;
+    margin: -15px auto auto;
 
     border-radius: 8px;
+    padding: 5px 0;
 }
 
 #tab-bar-rectangle > div {
@@ -18,7 +22,7 @@
     border-radius: 4px;
     display: flex;
     justify-content: center;
-    padding: 2px 15px;
+    padding: 1px 20px;
     cursor: pointer;
 }
 
@@ -31,13 +35,9 @@
 }
 
 #logo {
-    position: absolute;
-    width: 75px;
-    height: 72px;
-    left: 497px;
-    top: 402px;
-
     background: #FFFFFF;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    width: fit-content;
+    margin: auto;
 }

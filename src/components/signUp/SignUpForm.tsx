@@ -9,18 +9,18 @@ function SignUpForm() {
 
     return (
         <Form>
-            <div className="signUpForm">
+            <div className="sign-up-form">
                 <div className="header">
                     <hr className="line"/>
                     <div className="headerText">فرم ثبت نام</div>
                     <hr className="line"/>
                 </div>
-                <div className="inputBar">
-                    {inputs.slice(0, 3).map(i => (<div className="inputContainer">
+                <div className="input-bar">
+                    {inputs.slice(0, 3).map(i => (<div className="input-container">
                         <span className="label">{i}</span>
                         <input className="input" type="text"/>
                     </div>))}
-                    <div className="inputContainer">
+                    <div className="input-container">
                         <span className="label">کشور</span>
                         <select className="chooseCountry">
                             <option value="Iran">Iran</option>
@@ -28,7 +28,7 @@ function SignUpForm() {
                             <option value="Uk">Uk</option>
                         </select>
                     </div>
-                    {inputs.slice(4).map(i => (<div className="inputContainer">
+                    {inputs.slice(4).map(i => (<div className="input-container">
                         <span className="label">{i}</span>
                         <input className="input" type="text"/>
                     </div>))}

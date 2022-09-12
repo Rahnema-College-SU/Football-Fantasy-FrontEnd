@@ -1,13 +1,14 @@
 #main-div-container {
-    max-width: 870px;
+    position: relative;
 }
 
 #main-div {
-    margin: 300px 0 10px 100px;
     background-image: url('assets/ground.svg');
     border-radius: 16px;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
 
 #gk-div {

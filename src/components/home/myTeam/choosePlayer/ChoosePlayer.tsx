@@ -42,7 +42,7 @@ function ChoosePlayer() {
     }, [])
     http.get('').then(res => console.log(res))
     return (
-        <div>
+        <div id={'aaaa'}>
             <div className="title">
                 <div id="titleText">انتخاب بازیکن</div>
             </div>

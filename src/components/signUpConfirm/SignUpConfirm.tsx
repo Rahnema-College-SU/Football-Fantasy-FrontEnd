@@ -10,13 +10,13 @@ function SignUpConfirm() {
     return (
         <Form>
 
-            <div className="signUpConfirm">
+            <div className="sign-up-confirm">
                 <div className="header">
                     <hr className="line"/>
                     <div className="headerText">تایید ثبت نام</div>
                     <hr className="line"/>
                 </div>
-                <div className="Container">
+                <div className="container">
                     <text className="label">لطفا کدی که به ایمیلتان ارسال شده را در کادر زیر وارد کنید</text>
                     <input className="input"/>
                     <button className="button" onClick={() => navigate('/sign-in')}>ثبت نام</button>

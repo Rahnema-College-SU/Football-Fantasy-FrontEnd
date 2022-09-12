@@ -1,23 +1,26 @@
 import {Ground, selectedPositionState} from "./ground/Ground";
 import React, {useEffect, useState} from "react";
+import './MyTeam.css';
 import {RemainingPlayer, usedPlayerState} from "./remainingPlayer/RemainingPlayer";
 import {RemainingMoney, remainingMoneyState} from "./remainingMoney/RemainingMoney";
 import MiddleTabBar from "./middleTabBar/MiddleTabBar";
 import ChoosePlayer from "./choosePlayer/ChoosePlayer";
-import DateBax, {dateState, dateType} from "./dateBox/DateBox";
-import axios from "axios";
-import {
-    errorMessages,
-    fantasyTeamApiResponseType,
-    onAxiosError,
-    onAxiosSuccess,
-    players,
-    serverUrl,
-    token
-} from "../../../GlobalVariables";
+import DateBax, {dateState} from "./dateBox/DateBox";
 import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import MyPlayersList from "./myPlayersList/MyPlayersList";
 import {isDeleteConfirmClickedState, removePlayerModalDisplayState} from "./removePlayerModal/RemovePlayerModal";
+import {
+    deletePlayerError,
+    loadDateError,
+    loadTeamError,
+    onAxiosError,
+    onAxiosSuccess,
+    onBaseError,
+    playerNotFoundError,
+    selectedPlayerNotFoundError
+} from "../../../global/Errors";
+import {dateType, fantasyTeamApiResponseType, players} from "../../../global/Types";
+import {axiosDeletePlayer, axiosFantasyTeam, axiosWeekInf} from "../../../global/ApiCalls";
 
 export const myPlayersState = atom<players>({
     key: 'myPlayersState',
@@ -29,72 +32,26 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
     const [myPlayers, setMyPlayers] = useRecoilState(myPlayersState)
     const setRemainingMoney = useSetRecoilState(remainingMoneyState)
     const setUsedPlayer = useSetRecoilState(usedPlayerState)
-    const [date, setDate] = useRecoilState(dateState)
+    const setDate = useSetRecoilState(dateState)
 
     const [selectedPosition, setSelectedPosition] = useRecoilState(selectedPositionState)
     const isDeleteConfirmClicked = useRecoilValue(isDeleteConfirmClickedState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
 
-    useEffect(() => updateInfoOfGame(), [])
+    const gkPositions = [1, 2]
+    const defPositions = [3, 4, 5, 6, 7]
+    const midPositions = [8, 9, 10, 11, 12]
+    const attPositions = [13, 14, 15]
+
+    useEffect(() => updateGameInfo(), [])
 
     // for delete confirmation modal
     useEffect(() => {
         setRemovePlayerModalDisplay('none')
 
-        if (!selectedPosition || !myPlayers[selectedPosition])
-            return
-
-
-        if (isDeleteConfirmClicked) {
-            // axios(
-            //     {
-            //         method: 'put',
-            //         url: serverUrl + '/fantasyteam/player',
-            //         data: {
-            //             player_id: myPlayers[selectedPosition].id
-            //         },
-            //         headers: {
-            //             'x-access-token': token
-            //         }
-            //     }
-            // )
-            //     .then(
-            //         res => {
-            //             if (res.data.success) {
-            //                 updateInfoOfGame()
-            //             } else {
-            //                 console.log(res)
-            //                 //TODO: create custom alert
-            //                 alert('خطا در حذف بازیکن')
-            //             }
-            //         },
-            //         error => {
-            //             console.log(error)
-            //             //    TODO: create custom alert
-            //             alert('خطا در حذف بازیکن')
-            //         }
-            //     )
-        }
+        if (isDeleteConfirmClicked)
+            deletePLayerApiCall()
     }, [isDeleteConfirmClicked])
-
-    async function getDate(): Promise<dateType> {
-        return axios.get(`${serverUrl}/weekInf`).then(
-            res => {
-                return onAxiosSuccess({
-                    res: res, errorMessage: errorMessages.dateError, returnValues: {
-                        success: res.data.data,
-                        error: res.data.error
-                    }
-                })
-            },
-            error => onAxiosError({error: error, errorMessage: errorMessages.dateError})
-        )
-    }
-
-    const gkPositions = [1, 2]
-    const defPositions = [3, 4, 5, 6, 7]
-    const midPositions = [8, 9, 10, 11, 12]
-    const attPositions = [13, 14, 15]
 
     // changing fantasyTeamApiResponse
     useEffect(() => {
@@ -106,22 +63,51 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
         setUsedPlayer(fantasyTeamApiResponse.data.fantasyteam.number_of_player)
     }, [fantasyTeamApiResponse])
 
-    const updateInfoOfGame = () => {
-        axios.get(`${serverUrl}/fantasyteam`, {
-            headers: {
-                'x-access-token': token
-            }
-        })
-            .then(
-                res =>
-                    onAxiosSuccess({
-                        res: res,
-                        errorMessage: errorMessages.loadTeamError,
-                        onSuccess: () => setFantasyTeamApiResponse(res.data)
-                    })
-                ,
-                error => onAxiosError({error: error, errorMessage: errorMessages.loadTeamError})
-            )
+    function deletePLayerApiCall() {
+        if (!selectedPosition) {
+            onBaseError({myError: selectedPlayerNotFoundError})
+            return
+        } else if (!myPlayers[selectedPosition]) {
+            onBaseError({myError: playerNotFoundError})
+            return
+        }
+
+        axiosDeletePlayer(myPlayers, selectedPosition).then(
+            res =>
+                onAxiosSuccess({
+                    res: res, myError: deletePlayerError, onSuccess: updateGameInfo
+                })
+            ,
+            error =>
+                onAxiosError({axiosError: error, myError: deletePlayerError})
+        )
+    }
+
+    async function getDate(): Promise<dateType> {
+        return axiosWeekInf().then(
+            res => {
+                return onAxiosSuccess({
+                    res: res, myError: loadDateError, onSuccessReturnValue: res.data.data
+                })
+            },
+            error => onAxiosError({axiosError: error, myError: loadDateError})
+        )
+    }
+
+    const updateGameInfo = () => {
+        getDate().then(res => setDate(res))
+
+        axiosFantasyTeam().then(
+            res =>
+                onAxiosSuccess({
+                    res: res,
+                    myError: loadTeamError,
+                    onSuccess: () => setFantasyTeamApiResponse(res.data)
+                }),
+            error => onAxiosError({axiosError: error, myError: loadTeamError})
+        )
+
+        //    TODO: adding choosePlayer
     }
 
     function convertFantasyTeamApiResponse(apiResponse: fantasyTeamApiResponseType) {
@@ -142,9 +128,8 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
     }
 
     function selectPosition(position: number) {
-        return () => {
-            setSelectedPosition(position)
-        }
+        return () => setSelectedPosition(position)
+
     }
 
     function deselectPosition() {
@@ -152,21 +137,28 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
     }
 
     return (
-        <div>
-            <RemainingPlayer/>
-            <RemainingMoney/>
-            <MiddleTabBar/>
-            <ChoosePlayer/>
+        <div id={'my-team-main-div'}>
             <DateBax getDate={getDate}/>
 
-            {showingTab === 'schematic' ?
-                <Ground selectPosition={selectPosition}
-                        deselectPosition={deselectPosition} gkPositions={gkPositions} defPositions={defPositions}
-                        midPositions={midPositions} attPositions={attPositions}/> :
-                // so showingTab === 'list'
-                <MyPlayersList selectPosition={selectPosition}
-                               deselectPosition={deselectPosition} gkPositions={gkPositions} defPositions={defPositions}
-                               midPositions={midPositions} attPositions={attPositions}/>}
+            <ChoosePlayer/>
+            <div id={'game-info-div'}>
+                <div id={'header-of-game-info-div'}>
+                    <RemainingPlayer/>
+                    <MiddleTabBar/>
+                    <RemainingMoney/>
+                </div>
+
+                {showingTab === 'schematic' ?
+                    <Ground selectPosition={selectPosition}
+                            deselectPosition={deselectPosition} gkPositions={gkPositions} defPositions={defPositions}
+                            midPositions={midPositions} attPositions={attPositions}/> :
+                    // so showingTab === 'list'
+                    <MyPlayersList selectPosition={selectPosition}
+                                   deselectPosition={deselectPosition} gkPositions={gkPositions}
+                                   defPositions={defPositions}
+                                   midPositions={midPositions} attPositions={attPositions}/>}
+            </div>
+
         </div>
     )
 }
