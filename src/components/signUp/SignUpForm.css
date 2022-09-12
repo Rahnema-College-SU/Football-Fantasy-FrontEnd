@@ -29,18 +29,15 @@
     flex-direction: column;
     width: 100%;
 }
-button {
-    max-width: 22rem;
-}
-option{
-    color: #EDD8FF;
-}
-select{
+.selectCountry{
+    background: #3D185B;
     border: 1px solid #A057DB;
     border-radius: 8px;
     height: 3rem;
-    background: #3D185B;
-    text-emphasis-color: white; 
+    font-weight: 300;
+    font-size: 14px;
     color: white;
-    
+}
+button {
+    max-width: 22rem;
 }

@@ -20,12 +20,12 @@ function SignUpForm() {
                     <span className="label">{i}</span>
                     <input className="input" type="text"/>
                     </div>))}
-                    <div  className="inputContainer">
+                    <div className="inputContainer">
                     <span className="label">کشور</span>
-                    <select className="chooseCountry">
-                        <option value="Iran">Iran</option>
-                        <option value="Us">Us</option>
-                        <option value="Uk">Uk</option>
+                    <select className="selectCountry">کشور
+                    <option value="Iran">Iran</option>
+                    <option value="US">US</option>
+                    <option value="UK">UK</option>
                     </select>
                     </div>
                     {inputs.slice(4).map(i =>(<div className="inputContainer">

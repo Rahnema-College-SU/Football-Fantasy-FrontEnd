@@ -69,6 +69,8 @@
 }
 
 .input {
+    font-weight: 300;
+    font-size: 14px;
     background: #3D185B;
     border: 1px solid #A057DB;
     border-radius: 8px;
