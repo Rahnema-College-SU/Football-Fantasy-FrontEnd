@@ -1,4 +1,4 @@
-.signUpForm {
+.sign-up-form {
     width: 90%;
     margin-top: 10%;
     display: flex;
@@ -38,7 +38,7 @@ button {
     max-width: 22rem;
 }
 
-.selectCountry{
+.select-country {
     background: #3D185B;
     border: 1px solid #A057DB;
     border-radius: 8px;
@@ -49,19 +49,22 @@ button {
 }
 
 @media only screen and (max-width: 51.875rem) {
-    .inputBar{
+    .input-bar {
         width: 80%;
         margin-left: auto;
         margin-right: auto;
     }
 }
+
 @media only screen and (max-width: 35.625rem) {
 
-    .signUpForm {
+    .sign-up-form {
         width: 100%;
     }
-    .inputBar{
+
+    .input-bar {
         grid-template-columns: auto;
         gap: 0;
     }
 }
+

@@ -14,7 +14,7 @@ function SignInForm() {
             <div className="sign-in-form">
                 <div className="header">
                     <hr className="line"/>
-                    <div className="headerText">ورود به فانتزی</div>
+                    <div className="header-text">ورود به فانتزی</div>
                     <hr className="line"/>
                 </div>
 

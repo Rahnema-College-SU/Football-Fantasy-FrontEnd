@@ -6,11 +6,11 @@ const Form: FC<{
     children: ReactNode
 }> = ({children}): ReactElement => {
     return <div className="window">
-        <div className="sidePicture">
+        <div className="side-picture">
             <img className="logo" src={logo} alt=""/>
         </div>
-        <div className="container">
-        {children}     
+        <div className="form-container">
+            {children}
         </div>
 
     </div>
