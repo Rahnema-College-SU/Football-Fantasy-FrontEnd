@@ -6,7 +6,7 @@ export const homeTabsEndingUrl = {
     prizes: 'prizes'
 }
 
-export const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1haGRpIiwiaXNfdmVyaWZpZWQiOnRydWUsImlhdCI6MTY2Mjk3NDg2MiwiZXhwIjoxNjYzMDYxMjYyfQ.reJ7nXhAmhbv9MS07cXSG8KyGLNqqHIJRirqds3HEHg'
+export const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1haGRpIiwiaXNfdmVyaWZpZWQiOnRydWUsImlhdCI6MTY2MzA2NTcxNywiZXhwIjoxNjYzMTUyMTE3fQ.RFlcz8FzvywqrB24smurswfJspUATiz8t5xYE_jGNf4'
 
 export const showingMyTeamTabsEndingUrl = {
     schematic: 'schematic',

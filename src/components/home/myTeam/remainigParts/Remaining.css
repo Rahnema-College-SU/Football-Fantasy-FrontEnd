@@ -1,5 +1,4 @@
-.money-box {
-    background: linear-gradient(266.07deg, #04F4F0 2.18%, #02FDA2 125.43%);
+.remaining-box {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     display: flex;
     border-radius: 16px 16px 0 0;
@@ -8,7 +7,7 @@
     padding: 10px 0 20px;
 }
 
-#show-money-text {
+#show-remaining-text {
     font-style: normal;
     font-weight: 900;
     font-size: 40px;
@@ -18,16 +17,16 @@
     color: #3D195B;
 }
 
-#wallet-and-text {
+#logo-and-text {
     display: flex;
     flex-direction: column;
 }
 
-#money-text {
-    color: #3D195B;
-}
-
-.wallet-logo {
+.remaining-box-logo {
     height: 70px;
     margin-bottom: 5px;
+}
+
+#remaining-box-text {
+    color: #3D195B;
 }

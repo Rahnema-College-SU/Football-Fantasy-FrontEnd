@@ -1,8 +1,8 @@
 import {Ground, selectedPositionState} from "./ground/Ground";
 import React, {useEffect, useState} from "react";
 import './MyTeam.css';
-import {RemainingPlayer, usedPlayerState} from "./remainingPlayer/RemainingPlayer";
-import {RemainingMoney, remainingMoneyState} from "./remainingMoney/RemainingMoney";
+import {RemainingPlayer, usedPlayerState} from "./remainigParts/RemainingPlayer";
+import {RemainingMoney, remainingMoneyState} from "./remainigParts/RemainingMoney";
 import MiddleTabBar from "./middleTabBar/MiddleTabBar";
 import ChoosePlayer from "./choosePlayer/ChoosePlayer";
 import DateBax, {dateState} from "./dateBox/DateBox";
