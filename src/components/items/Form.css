@@ -71,7 +71,6 @@
     border-radius: 8px;
     height: 3rem;
     font: 300 normal 14px Vazirmatn, serif;
-    line-height: 22px;
     display: flex;
     align-items: center;
     text-align: right;
@@ -88,8 +87,7 @@
     font-weight: 700;
     font-size: 20px;
     color: #FFFFFF;
-    border: 2px solid;
-    border-image: linear-gradient(270deg, #C847AF 1.65%, #9B3AF9 43.98%);
+    border: none;
     border-radius: 8px;
 }
 
@@ -100,12 +98,7 @@
     justify-content: center;
 }
 
-
-@media only screen and (max-width: 51.875rem) {
-
-}
-
-@media only screen and (max-width: 590px) {
+@media only screen and (max-width: 36.875rem) {
     .window {
         flex-direction: column-reverse;
         overflow: scroll;

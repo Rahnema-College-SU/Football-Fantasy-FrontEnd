@@ -1,4 +1,3 @@
-
 .sign-in-form {
     width: 80%;
     margin-top: 7%;
@@ -7,7 +6,6 @@
     flex-direction: column;
     row-gap: 1rem;
     flex-wrap: nowrap;
-
 }
 
 .sign-in-input-bar {
@@ -31,18 +29,7 @@
 
 .sign-in-button {
     max-width: 22rem;
-    width: 30%;
-    height: 3rem;
-    background: linear-gradient(90deg, #CF31B9 0%, #9B3AF9 73.44%);
-    font-family: Vazirmatn, serif;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    color: #FFFFFF;
-    border: 2px solid;
-    border-image: linear-gradient(270deg, #C847AF 1.65%, #9B3AF9 43.98%);
-    border-radius: 8px;
-
+    width: 30% !important;
 }
 
 .button-bar {
@@ -51,5 +38,4 @@
     width: 100%;
     gap: 4%;
     justify-content: center;
-
 }

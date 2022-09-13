@@ -43,9 +43,8 @@ button {
     border: 1px solid #A057DB;
     border-radius: 8px;
     height: 3rem;
-    font-weight: 300;
+    font: 300 14px Vazirmatn, serif;
     color: white;
-    font-size: 14px;
 }
 
 @media only screen and (max-width: 51.875rem) {
@@ -57,7 +56,6 @@ button {
 }
 
 @media only screen and (max-width: 35.625rem) {
-
     .sign-up-form {
         width: 100%;
     }

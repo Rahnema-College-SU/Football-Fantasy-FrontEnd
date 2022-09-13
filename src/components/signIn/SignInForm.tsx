@@ -18,7 +18,7 @@ function SignInForm() {
                     <hr className="line"/>
                 </div>
 
-                <div className="signInInputBar">
+                <div className="sign-in-input-bar">
                     <span className="label">نام کاربری</span>
                     <input className="input" type="text"/>
                     <span className="label">رمز عبور</span>
@@ -26,10 +26,10 @@ function SignInForm() {
                 </div>
 
                 <div className="button-bar">
-                    <button className="sign-in-button"
+                    <button className="sign-in-button button"
                             onClick={() => navigate(`/home/${homeTabsEndingUrl.myTeam}/${showingMyTeamTabsEndingUrl.schematic}`)}>ورود
                     </button>
-                    <button className="sign-in-button">ثبت نام</button>
+                    <button className="sign-in-button button">ثبت نام</button>
                 </div>
             </div>
         </Form>
