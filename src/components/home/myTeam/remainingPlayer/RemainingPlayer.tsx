@@ -2,7 +2,7 @@ import React from "react";
 import './RemainingPlayer.css';
 import logo from './assets/playerLogo.svg'
 import {atom, useRecoilState} from "recoil";
-import {toFarsiNumber} from "../../../../GlobalVariables";
+import {toFarsiNumber} from "../../../../global/Variables";
 
 export const usedPlayerState = atom({
     key: 'usedPlayerState',

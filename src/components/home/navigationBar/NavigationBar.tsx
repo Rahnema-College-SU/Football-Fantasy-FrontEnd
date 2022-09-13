@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './NavigationBar.css';
 import {Link, useNavigate} from "react-router-dom";
-import {homeTabsEndingUrl, showingMyTeamTabsEndingUrl} from "../../../GlobalVariables";
+import {homeTabsEndingUrl, showingMyTeamTabsEndingUrl} from "../../../global/Variables";
 
 function NavigationBar() {
     const tabs = [

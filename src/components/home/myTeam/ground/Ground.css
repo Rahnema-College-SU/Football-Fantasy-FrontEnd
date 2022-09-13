@@ -1,22 +1,28 @@
 #main-div-container {
-    max-width: 870px;
+    margin-top: -16px;
+
+    grid-column-start: 1;
+    grid-column-end: 4;
 }
 
 #main-div {
-    margin: 300px 0 10px 100px;
     background-image: url('assets/ground.svg');
     border-radius: 16px;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
 
 #gk-div {
+    /*position: relative;*/
     padding: 20px 210px 0;
     display: flex;
     justify-content: space-evenly;
 }
 
 #def-div, #mid-div, #att-div {
+    /*position: relative;*/
     display: flex;
     justify-content: space-evenly;
 }
@@ -70,7 +76,7 @@
     display: grid;
     align-items: center;
     justify-items: center;
-    max-width: fit-content;
+    /*max-width: fit-content;*/
     scale: 0.8;
     z-index: 1;
 }
@@ -110,4 +116,6 @@
     justify-items: right;
     max-width: fit-content;
     scale: 0.9;
-} /*TODO: duplicate as .active-cloth-div*/
+}
+
+/*TODO: duplicate as .active-cloth-div*/

@@ -1,9 +1,13 @@
+#aaaa {
+    grid-row-start: 2;
+}
+
 .title {
-    position: absolute;
-    width: 273px;
+    /*position: absolute;*/
+    /*width: 273px;*/
     height: 50px;
-    left: 993px;
-    top: 402px;
+    /*left: 993px;*/
+    /*top: 402px;*/
     display: flex;
     background: #3D195B;
     border-radius: 16px 16px 0 0;
@@ -29,11 +33,11 @@
     display: flex;
     column-gap: 10px;
     flex-direction: column;
-    position: absolute;
-    width: 273px;
-    height: 828px;
-    left: 993px;
-    top: 450px;
+    /*position: absolute;*/
+    /*width: 273px;*/
+    /*height: 828px;*/
+    /*left: 993px;*/
+    /*top: 450px;*/
 
     background: #ffffff;
 }
@@ -56,7 +60,7 @@
 }
 
 #searchIcon {
-    position: absolute;
+    /*position: absolute;*/
     left: 8.33%;
     right: 12.5%;
     top: 8.33%;
@@ -126,7 +130,7 @@
 #showPlayersFrame {
     margin-top: 20px;
     width: 240px;
-    height: 620px;
+    /*height: 620px;*/
     left: 1010px;
     top: 631px;
     border-radius: 8px;
@@ -177,7 +181,7 @@
 }
 
 #playersList {
-    height: 85%;
+    /*height: 85%;*/
     list-style-type: none;
 }
 

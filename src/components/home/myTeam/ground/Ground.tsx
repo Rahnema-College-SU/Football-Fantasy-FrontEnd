@@ -1,14 +1,15 @@
 import React from 'react'
 import './Ground.css'
-import {player} from "../../../../GlobalVariables";
+import {toFarsiNumber} from "../../../../global/Variables";
+import {player} from "../../../../global/Types";
 import addIcon from './assets/add-icon.svg'
 import deleteIcon from './assets/delete-icon.svg'
 import activeCloth from './assets/active-cloth.svg'
 import inactiveCloth from './assets/inactive-cloth.svg'
 import selectedCloth from './assets/selected-cloth.svg'
-import {atom, useRecoilState} from "recoil";
-import {modalsDisplayState} from "../../../../App";
-import {playersState} from "../MyTeam";
+import {atom, useRecoilValue, useSetRecoilState} from "recoil";
+import {myPlayersState} from "../MyTeam";
+import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
 
 export const selectedPositionState = atom<number | undefined>({
     key: 'selectedPositionState',
@@ -30,9 +31,9 @@ export function Ground({
     midPositions: number[],
     attPositions: number[]
 }) {
-    const [players] = useRecoilState(playersState)
-    const [selectedPosition] = useRecoilState(selectedPositionState)
-    const [, setModalDisplayState] = useRecoilState(modalsDisplayState)
+    const myPlayers = useRecoilValue(myPlayersState)
+    const selectedPosition = useRecoilValue(selectedPositionState)
+    const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
 
     function getClothDiv(position: number): JSX.Element {
         function getActiveClothDiv(player: player): JSX.Element {
@@ -43,7 +44,7 @@ export function Ground({
                     <img className={'active-cloth'} src={activeCloth} alt={'active cloth'}
                          onClick={selectPosition(player.location_in_ui)}/>
                     <div className={'player-name'}>{player.web_name}</div>
-                    <div className={'power'}>{player.player_week_log.player_total_points}</div>
+                    <div className={'power'}>{toFarsiNumber(player.player_week_log.player_total_points)}</div>
                 </div>
             )
         }
@@ -51,7 +52,7 @@ export function Ground({
         function deletePlayer(player: player) {
             return () => {
                 selectPosition(player.location_in_ui)()
-                setModalDisplayState('block')
+                setRemovePlayerModalDisplay('block')
             }
         }
 
@@ -64,7 +65,7 @@ export function Ground({
                          onClick={selectPosition(position)}/>
                     <img className={'add-icon'} src={addIcon} alt={'add icon'} onClick={selectPosition(position)}/>
                     <div className={'player-name'} style={{visibility: 'hidden'}}>dummy</div>
-                    <div className={'power'} style={{visibility: 'hidden'}}>0</div>
+                    <div className={'power'} style={{visibility: 'hidden'}}>۰</div>
                 </div>
             )
         }
@@ -77,7 +78,7 @@ export function Ground({
                     <img className={'selected-cloth'} src={selectedCloth} alt={'selected cloth'}
                          onClick={deselectPosition}/>
                     <div className={'player-name'} style={{visibility: 'hidden'}}>dummy</div>
-                    <div className={'power'} style={{visibility: 'hidden'}}>0</div>
+                    <div className={'power'} style={{visibility: 'hidden'}}>۰</div>
                 </div>
             )
         }
@@ -90,20 +91,20 @@ export function Ground({
                     <img className={'selected-cloth'} src={selectedCloth} alt={'selected cloth'}
                          onClick={deselectPosition}/>
                     <div className={'player-name'}>{player.web_name}</div>
-                    <div className={'power'}>{player.player_week_log.player_total_points}</div>
+                    <div className={'power'}>{toFarsiNumber(player.player_week_log.player_total_points)}</div>
                 </div>
             )
         }
 
         return (
             <div className={'cloth-div'}>
-                {
+                 {
                     (selectedPosition && selectedPosition === position) ? (
-                        players[position] ? getSelectedActiveClothDiv(players[position]) : getSelectedInactiveClothDiv()
+                        myPlayers[position] ? getSelectedActiveClothDiv(myPlayers[position]) : getSelectedInactiveClothDiv()
                     ) : (
-                        players[position] ? getActiveClothDiv(players[position]) : getInactiveClothDiv(position)
+                        myPlayers[position] ? getActiveClothDiv(myPlayers[position]) : getInactiveClothDiv(position)
                     )
-                }
+                 }
             </div>
         )
     }

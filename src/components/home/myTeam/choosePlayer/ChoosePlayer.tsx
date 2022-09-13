@@ -13,7 +13,7 @@ import http from "../../../items/axiosReq";
 //const myList=http.get('players_list' ,{params: {"List_size":20}}).then(res=>res.data)
 type Player =
     {
-        "id": Number, "first_name": String,
+        "id": number, "first_name": string,
         "last_name": String,
         "web_name": String,
         "position": { "name": String, "short_name": String },
@@ -23,7 +23,7 @@ type Player =
 
 
 function ChoosePlayer() {
-    const [playersList, setPlayersList] = useState<null | Player[]>(null);
+    const [playersList, setPlayersList] = useState<undefined | Player[]>(undefined);
     let getData = async () => {
         await http.get('playerList', {
             params: {
@@ -42,7 +42,7 @@ function ChoosePlayer() {
     }, [])
     http.get('').then(res => console.log(res))
     return (
-        <div>
+        <div id={'aaaa'}>
             <div className="title">
                 <div id="titleText">انتخاب بازیکن</div>
             </div>

@@ -1,9 +1,14 @@
 #my-players-list {
-    margin: 300px 0 10px 80px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     border-radius: 16px;
-    width: fit-content;
+    background-color: white;
+    margin-top: -16px;
+
+    position: relative;
+    grid-column-start: 1;
+    grid-column-end: 4;
 }
 
 #first-divider {
@@ -16,10 +21,11 @@
 /*info section*/
 #info-div {
     display: grid;
-    width: fit-content;
     background: #3D195B;
     border-radius: 16px 0 0 16px;
     align-content: start;
+
+    grid-column-start: 1;
 }
 
 #div-my-players-info-list {
@@ -70,6 +76,8 @@
 
 #curve-lines-my-players-list {
     padding-top: 40px;
+    width: 100%;
+    object-fit: cover;
 
     grid-row-start: 3;
     grid-column-start: 1;
@@ -81,8 +89,10 @@
 #players-div {
     display: grid;
     grid-template-columns: 1fr 1fr 2fr;
-    /*height: fit-content;*/
     padding: 25px;
+
+    grid-column-start: 2;
+    /*grid-column-end: 4;*/
 }
 
 #point, #price {

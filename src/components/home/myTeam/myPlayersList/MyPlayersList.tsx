@@ -1,15 +1,16 @@
 import React from "react";
 import './MyPlayersList.css';
-import {useRecoilState} from "recoil";
-import {playersState} from "../MyTeam";
+import {useRecoilValue, useSetRecoilState} from "recoil";
+import {myPlayersState} from "../MyTeam";
 import {selectedPositionState} from "../ground/Ground";
 import activeCloth from './assets/active-cloth.svg'
 import inactiveCloth from './assets/inactive-cloth.svg'
 import logo from './assets/logo.svg';
 import curveLines from './assets/curve-lines.svg';
-import {player} from "../../../../GlobalVariables";
+import {toFarsiNumber} from "../../../../global/Variables";
+import {player} from "../../../../global/Types";
 import deleteIcon from "./assets/delete-icon.svg";
-import {modalsDisplayState} from "../../../../App";
+import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
 
 function MyPlayersList({
                            selectPosition,
@@ -26,22 +27,23 @@ function MyPlayersList({
     midPositions: number[],
     attPositions: number[]
 }) {
-    const [players] = useRecoilState(playersState)
-    const [selectedPosition] = useRecoilState(selectedPositionState)
-    const [, setModalDisplayState] = useRecoilState(modalsDisplayState)
+    const myPlayers = useRecoilValue(myPlayersState)
+    const selectedPosition = useRecoilValue(selectedPositionState)
+    const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
 
     function getInfoDiv(): JSX.Element {
         return <div id={'info-div'}>
             <div id={'div-my-players-info-list'}>
                 <img id={'delete-icon-players-list'} src={deleteIcon} alt={'active cloth'}
-                     style={{visibility: (selectedPosition && players[selectedPosition] ? 'visible' : 'hidden')}} onClick={deletePlayer()}/>
+                     style={{visibility: (selectedPosition && myPlayers[selectedPosition] ? 'visible' : 'hidden')}}
+                     onClick={deletePlayer()}/>
                 <img id={'cloth-my-players-list'}
-                     src={selectedPosition ? (players[selectedPosition] ? activeCloth : inactiveCloth) : inactiveCloth}
+                     src={selectedPosition ? (myPlayers[selectedPosition] ? activeCloth : inactiveCloth) : inactiveCloth}
                      alt={'specific cloth of players'}/>
             </div>
             <img id={'logo-my-players-list'} src={logo} alt={'logo of premier league'}/>
             <div id={'info-name'}>
-                {selectedPosition && players[selectedPosition] ? players[selectedPosition].web_name : 'none'}
+                {selectedPosition && myPlayers[selectedPosition] ? myPlayers[selectedPosition].web_name : 'none'}
             </div>
             <img id={'curve-lines-my-players-list'} src={curveLines} alt={"curve lines it's somehow the second logo"}/>
         </div>
@@ -49,11 +51,11 @@ function MyPlayersList({
 
     function deletePlayer() {
         return () => {
-            if (!selectedPosition || !players[selectedPosition])
+            if (!selectedPosition || !myPlayers[selectedPosition])
                 return
 
-            selectPosition(players[selectedPosition].location_in_ui)()
-            setModalDisplayState('block')
+            selectPosition(myPlayers[selectedPosition].location_in_ui)()
+            setRemovePlayerModalDisplay('block')
         }
     }
 
@@ -63,8 +65,10 @@ function MyPlayersList({
                 <div className='row-div' dir={'rtl'} style={{gridRowStart: position + offsetInUi}}
                      onClick={selectPosition(position)}>
                     <text className='row-name active-row-name'>{player.web_name}</text>
-                    <text className='row-number active-row-number'>{player.player_week_log.player_total_points}</text>
-                    <text className='row-number active-row-number'>{player.player_week_log.player_cost}</text>
+                    <text
+                        className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_total_points)}</text>
+                    <text
+                        className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_cost)}</text>
                 </div>
             )
         }
@@ -74,8 +78,8 @@ function MyPlayersList({
                 <div className='row-div' dir={'rtl'} style={{gridRowStart: position + offsetInUi}}
                      onClick={selectPosition(position)}>
                     <text className='row-name inactive-row-name'>none</text>
-                    <text className='row-number inactive-row-number'>0</text>
-                    <text className='row-number inactive-row-number'>0</text>
+                    <text className='row-number inactive-row-number'>۰</text>
+                    <text className='row-number inactive-row-number'>۰</text>
                 </div>
             )
         }
@@ -85,8 +89,8 @@ function MyPlayersList({
                 <div className='row-div selected-row-div' dir={'rtl'} style={{gridRowStart: position + offsetInUi}}
                      onClick={deselectPosition}>
                     <text className='row-name inactive-row-name'>none</text>
-                    <text className='row-number inactive-row-number'>0</text>
-                    <text className='row-number inactive-row-number'>0</text>
+                    <text className='row-number inactive-row-number'>۰</text>
+                    <text className='row-number inactive-row-number'>۰</text>
                 </div>
             )
         }
@@ -96,17 +100,19 @@ function MyPlayersList({
                 <div className='row-div selected-row-div' dir={'rtl'} style={{gridRowStart: position + offsetInUi}}
                      onClick={deselectPosition}>
                     <text className='row-name active-row-name'>{player.web_name}</text>
-                    <text className='row-number active-row-number'>{player.player_week_log.player_total_points}</text>
-                    <text className='row-number active-row-number'>{player.player_week_log.player_cost}</text>
+                    <text
+                        className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_total_points)}</text>
+                    <text
+                        className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_cost)}</text>
                 </div>
             )
         }
 
         return (
             (selectedPosition && selectedPosition === position) ? (
-                players[position] ? getSelectedActiveRowDiv(players[position]) : getSelectedInactiveRowDiv()
+                myPlayers[position] ? getSelectedActiveRowDiv(myPlayers[position]) : getSelectedInactiveRowDiv()
             ) : (
-                players[position] ? getActiveRowDiv(players[position]) : getInactiveRowDiv(position)
+                myPlayers[position] ? getActiveRowDiv(myPlayers[position]) : getInactiveRowDiv(position)
             )
         )
     }

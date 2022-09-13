@@ -1,32 +1,39 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import {Route, Routes, useNavigate} from "react-router-dom";
 import SignInForm from "./components/signIn/SignInForm";
 import SignUpForm from "./components/signUp/SignUpForm";
 import SignUpConfirm from "./components/signUpConfirm/SignUpConfirm";
 import Home from "./components/home/Home";
-import {homeTabsEndingUrl, showingMyTeamTabsEndingUrl} from "./GlobalVariables";
+import {homeTabsEndingUrl, showingMyTeamTabsEndingUrl} from "./global/Variables";
 import {MyTeam} from "./components/home/myTeam/MyTeam";
 import Transfers from "./components/home/transfers/Transfers";
 import LatestEvents from "./components/home/latestEvents/LatestEvents";
 import Prizes from "./components/home/prizes/Prizes";
 import Profile from "./components/home/profile/Profile";
-import {RemovePlayerModal} from "./components/home/myTeam/removePlayerModal/RemovePlayerModal";
-import {atom, useRecoilState} from "recoil";
-
-export const modalsDisplayState = atom<'none' | 'block'>({
-    key: 'modalDisplayState',
-    default: 'none'
-});
+import {
+    RemovePlayerModal,
+    removePlayerModalDisplayState
+} from "./components/home/myTeam/removePlayerModal/RemovePlayerModal";
+import {useRecoilValue} from "recoil";
 
 function App() {
-    const [modalsDisplay] = useRecoilState(modalsDisplayState)
+    const removePlayerModalDisplay = useRecoilValue(removePlayerModalDisplayState)
     const navigate = useNavigate()
+    const [modalsDivDisplay, setModalsDivDisplay] = useState<'none' | 'block'>('none')
 
     useEffect(() => {
         // navigate('/sign-up')
         navigate('/home/my-team/schematic')
     }, [])
+
+    useEffect(() => {
+        if (removePlayerModalDisplay === 'block') {
+            setModalsDivDisplay('block')
+        } else {
+            setModalsDivDisplay('none')
+        }
+    }, [removePlayerModalDisplay])
 
     return (
         <div>
@@ -56,7 +63,7 @@ function App() {
                 }/>
             </Routes>
 
-            <div id={'modals-div'} style={{display: modalsDisplay}}>
+            <div id={'modals-div'} style={{display: modalsDivDisplay}}>
                 <RemovePlayerModal/>
             </div>
         </div>

@@ -4,21 +4,22 @@
     margin-top: 7%;
     display: flex;
     align-items: center;
-    flex-direction: column ;
+    flex-direction: column;
     row-gap: 1rem;
     flex-wrap: nowrap;
 
 }
 
-.SignInInputBar {
+.sign-in-input-bar {
     width: 60%;
-    display: flex ;
+    display: flex;
     flex-direction: column;
     grid-gap: 1.25rem;
     flex-wrap: nowrap;
 }
+
 .input {
-    width: 60% ;
+    width: 60%;
     height: 3rem;
 }
 
@@ -28,9 +29,9 @@
     width: fit-content;
 }
 
-.signInButton {
+.sign-in-button {
     max-width: 22rem;
-    width: 30% ;
+    width: 30%;
     height: 3rem;
     background: linear-gradient(90deg, #CF31B9 0%, #9B3AF9 73.44%);
     font-family: Vazirmatn, serif;
@@ -41,9 +42,10 @@
     border: 2px solid;
     border-image: linear-gradient(270deg, #C847AF 1.65%, #9B3AF9 43.98%);
     border-radius: 8px;
-    
+
 }
-.buttonBar {
+
+.button-bar {
     display: flex;
     flex-direction: row;
     width: 100%;

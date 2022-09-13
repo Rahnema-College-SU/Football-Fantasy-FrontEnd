@@ -1,10 +1,11 @@
-.Container {
+.container {
     display: flex;
     flex-direction: column;
     height: 21.875rem;
     justify-content: space-around;
 }
-.signUpConfirm {
+
+.sign-up-confirm {
     width: 100%;
     margin-top: 7%;
     display: flex;

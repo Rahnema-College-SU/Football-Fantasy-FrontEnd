@@ -14,7 +14,7 @@ export function MiddleTabBar() {
     const navigate = useNavigate()
 
     return (
-        <div>
+        <div id={'middle-tab-bar-main-div'}>
             <img id={'logo'} src={logo} alt={'team logo'}></img>
             <div id="tab-bar-rectangle" dir={'rtl'}>
                 {

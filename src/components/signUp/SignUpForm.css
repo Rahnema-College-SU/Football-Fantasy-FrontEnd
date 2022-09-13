@@ -8,13 +8,15 @@
     flex-wrap: nowrap;
     box-sizing: border-box;
 }
-.inputBar {
+
+.input-bar {
     width: 60%;
     display: grid;
     grid-template-columns: auto auto;
     grid-gap: 1.25rem;
     box-sizing: border-box;
 }
+
 .input {
     width: 100%;
     height: 3rem;
@@ -25,11 +27,13 @@
     float: right;
     width: fit-content;
 }
-.inputContainer{
+
+.input-container {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
+
 button {
     max-width: 22rem;
 }
@@ -61,4 +65,3 @@ button {
         gap: 0;
     }
 }
-
