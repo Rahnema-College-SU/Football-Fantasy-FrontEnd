@@ -18,8 +18,8 @@ function SignUpConfirm() {
                 </div>
                 <div className="container">
                     <text className="label">لطفا کدی که به ایمیلتان ارسال شده را در کادر زیر وارد کنید</text>
-                    <input className="input"/>
-                    <button className="button" onClick={() => navigate('/sign-in')}>ثبت نام</button>
+                    <input className="input" />
+                    <button  className="button" onClick={() => navigate('/sign-in')}>تایید ثبت نام</button>
                 </div>
             </div>
         </Form>

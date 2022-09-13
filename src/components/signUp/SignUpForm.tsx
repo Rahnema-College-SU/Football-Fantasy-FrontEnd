@@ -5,8 +5,7 @@ import {useNavigate} from "react-router-dom";
 
 function SignUpForm() {
     const navigate = useNavigate()
-    const inputs = ["نام", "نام.خانوادگی", "ایمیل", "کشور", "نام کاربری", "رمز عبور"]
-
+    const inputs=["نام","نام.خانوادگی","ایمیل","کشور","نام کاربری","رمز عبور"]
     return (
         <Form>
             <div className="sign-up-form">
@@ -20,13 +19,13 @@ function SignUpForm() {
                         <span className="label">{i}</span>
                         <input className="input" type="text"/>
                     </div>))}
-                    <div className="input-container">
-                        <span className="label">کشور</span>
-                        <select className="chooseCountry">
-                            <option value="Iran">Iran</option>
-                            <option value="Us">Us</option>
-                            <option value="Uk">Uk</option>
-                        </select>
+                    <div className="inputContainer">
+                    <span className="label">کشور</span>
+                    <select className="selectCountry">کشور
+                    <option value="Iran">Iran</option>
+                    <option value="US">US</option>
+                    <option value="UK">UK</option>
+                    </select>
                     </div>
                     {inputs.slice(4).map(i => (<div className="input-container">
                         <span className="label">{i}</span>
