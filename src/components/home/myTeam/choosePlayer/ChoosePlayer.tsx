@@ -6,8 +6,7 @@ import next from "./assets/next.svg";
 import nextLast from "./assets/nextl.svg";
 import previous from "./assets/previous.svg";
 import PreviousLast from "./assets/previousl.svg";
-//import { playersListApiResponse } from "../../../../GlobalVariables";
-import http from "../../../items/axiosReq";
+import {axiosPlayerList} from "../../../../global/ApiCalls";
 
 
 //const myList=http.get('players_list' ,{params: {"List_size":20}}).then(res=>res.data)
@@ -25,22 +24,13 @@ type Player =
 function ChoosePlayer() {
     const [playersList, setPlayersList] = useState<undefined | Player[]>(undefined);
     let getData = async () => {
-        await http.get('playerList', {
-            params: {
-                search: '',
-                position: 'ALL',
-                player_total_points_sort: 'DESC',
-                player_cost_sort: 'DESC',
-                page_no: 1,
-                list_size: 10
-            }
-        }).then(res => setPlayersList(res.data.players_list))
+        await axiosPlayerList().then(res => setPlayersList(res.data.players_list))
     }
     useEffect(() => {
         getData()
         console.log(playersList)
     }, [])
-    http.get('').then(res => console.log(res))
+    // http.get('').then(res => console.log(res))
     return (
         <div id={'aaaa'}>
             <div className="title">
