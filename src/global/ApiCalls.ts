@@ -5,16 +5,16 @@ import {players} from "./Types";
 const customAxios = axios.create(
     {
         baseURL: "http://178.216.248.39:8000",
-        timeout: 5000
+        timeout: 5000,
+        headers: {
+            'x-access-token': token
+        }
     }
 );
 
 export const axiosWeekInf = () => customAxios.get('weekInf')
 
 export const axiosFantasyTeam = () => customAxios.get('fantasyteam', {
-    headers: {
-        'x-access-token': token
-    }
 })
 
 export const axiosDeletePlayer = (myPlayers: players, selectedPosition: number) => customAxios(
@@ -23,17 +23,14 @@ export const axiosDeletePlayer = (myPlayers: players, selectedPosition: number) 
         url: serverUrl + '/fantasyteam/player',
         data: {
             player_id: myPlayers[selectedPosition].id
-        },
-        headers: {
-            'x-access-token': token
         }
     }
 )
 
 export const axiosPlayerList = () => customAxios.get('playerList', {
-    headers: {
-        "Content-Type": "application/json"
-    },
+    // headers: {
+    //     "Content-Type": "application/json"
+    // },
     params: {
         search: '',
         position: 'ALL',

@@ -8,8 +8,6 @@ import previous from "./assets/previous.svg";
 import PreviousLast from "./assets/previousl.svg";
 import {axiosPlayerList} from "../../../../global/ApiCalls";
 
-
-//const myList=http.get('players_list' ,{params: {"List_size":20}}).then(res=>res.data)
 type Player =
     {
         "id": number, "first_name": string,
