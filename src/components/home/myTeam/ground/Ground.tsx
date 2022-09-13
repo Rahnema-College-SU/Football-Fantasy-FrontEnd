@@ -98,13 +98,13 @@ export function Ground({
 
         return (
             <div className={'cloth-div'}>
-                {
+                 {
                     (selectedPosition && selectedPosition === position) ? (
                         myPlayers[position] ? getSelectedActiveClothDiv(myPlayers[position]) : getSelectedInactiveClothDiv()
                     ) : (
                         myPlayers[position] ? getActiveClothDiv(myPlayers[position]) : getInactiveClothDiv(position)
                     )
-                }
+                 }
             </div>
         )
     }

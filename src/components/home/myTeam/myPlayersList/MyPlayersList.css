@@ -4,6 +4,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     border-radius: 16px;
     background-color: white;
+    margin-top: -16px;
 
     position: relative;
     grid-column-start: 1;

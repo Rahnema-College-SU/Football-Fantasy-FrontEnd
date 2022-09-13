@@ -4,7 +4,7 @@
 
 .title {
     /*position: absolute;*/
-    width: 273px;
+    /*width: 273px;*/
     height: 50px;
     /*left: 993px;*/
     /*top: 402px;*/
@@ -34,7 +34,7 @@
     column-gap: 10px;
     flex-direction: column;
     /*position: absolute;*/
-    width: 273px;
+    /*width: 273px;*/
     /*height: 828px;*/
     /*left: 993px;*/
     /*top: 450px;*/
