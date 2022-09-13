@@ -1,5 +1,5 @@
 import axios from "axios";
-import {serverUrl, token} from "./Variables";
+import {positions, token} from "./Variables";
 import {players} from "./Types";
 
 const customAxios = axios.create(
@@ -14,25 +14,16 @@ const customAxios = axios.create(
 
 export const axiosWeekInf = () => customAxios.get('weekInf')
 
-export const axiosFantasyTeam = () => customAxios.get('fantasyteam', {
-})
+export const axiosFantasyTeam = () => customAxios.get('fantasyteam')
 
-export const axiosDeletePlayer = (myPlayers: players, selectedPosition: number) => customAxios(
-    {
-        method: 'put',
-        url: serverUrl + '/fantasyteam/player',
-        data: {
-            player_id: myPlayers[selectedPosition].id
-        }
+export const axiosDeletePlayer = (myPlayers: players, selectedPosition: number) => customAxios.put('fantasyteam/player', {
+        player_id: myPlayers[selectedPosition].id
     }
 )
 
-export const axiosPlayerList = () => customAxios.get('playerList', {
-    // headers: {
-    //     "Content-Type": "application/json"
-    // },
+export const axiosPlayerList = ()  => customAxios.get('playerList', {
     params: {
-        search: '',
+        search: 'search',
         position: 'ALL',
         player_total_points_sort: 'DESC',
         player_cost_sort: 'DESC',

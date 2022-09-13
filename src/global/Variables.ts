@@ -13,8 +13,6 @@ export const showingMyTeamTabsEndingUrl = {
     list: 'list'
 }
 
-export const serverUrl = 'http://178.216.248.39:8000';
-
 export function toFarsiNumber(number: number) {
     const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
 
@@ -22,3 +20,5 @@ export function toFarsiNumber(number: number) {
         .toString()
         .replace(/\d/g, (x: string) => farsiDigits[parseInt(x)]);
 }
+
+export const positions = ['ALL', 'GK', 'DEF', 'MID', 'ATT']

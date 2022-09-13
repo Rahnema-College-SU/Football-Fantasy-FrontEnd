@@ -28,7 +28,7 @@ function ChoosePlayer() {
         getData()
         console.log(playersList)
     }, [])
-    // http.get('').then(res => console.log(res))
+
     return (
         <div id={'aaaa'}>
             <div className="title">

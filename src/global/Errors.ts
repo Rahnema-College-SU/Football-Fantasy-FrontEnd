@@ -16,8 +16,6 @@ function errorMaker(type: string) {
     }
 }
 
-export const baseError = errorMaker('')('')
-
 export const errorTypes = {
     dateError: 'dateError',
     teamError: 'teamError',
