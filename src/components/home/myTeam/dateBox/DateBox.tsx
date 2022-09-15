@@ -20,15 +20,15 @@ export function DateBax({getDate}: { getDate: () => Promise<dateType> }) {
         <div>
             {
                 date ?
-                    <div id='date-box'>
+                    <div className='date-box'>
                         <div id='week-text'>{date.current_week ?? ''}</div>
                         <div id='date-text'>
                             {date.week_day} {date.day} {date.month_name} {date.year} - ساعت {date.hour}
                         </div>
                     </div>
                     :
-                    <div id='date-box'>
-                        {'لود تاریخ'}
+                    <div className='loading-date-box date-box'>
+                        دریافت تاریخ ...
                     </div>
             }
         </div>

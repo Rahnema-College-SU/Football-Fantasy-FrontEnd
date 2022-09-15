@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import './Ground.css'
-import {toFarsiNumber} from "../../../../global/Variables";
-import {player} from "../../../../global/Types";
+import {attPositions, defPositions, gkPositions, midPositions, toFarsiNumber} from "../../../../global/Variables";
+import {playerType} from "../../../../global/Types";
 import addIcon from './assets/add-icon.svg'
 import deleteIcon from './assets/delete-icon.svg'
 import activeCloth from './assets/active-cloth.svg'
@@ -10,6 +10,7 @@ import selectedCloth from './assets/selected-cloth.svg'
 import {atom, useRecoilValue, useSetRecoilState} from "recoil";
 import {myPlayersState} from "../MyTeam";
 import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
+import {selectedFilterItemState} from "../choosePlayerList/ChoosePlayerList";
 
 export const selectedPositionState = atom<number | undefined>({
     key: 'selectedPositionState',
@@ -18,25 +19,35 @@ export const selectedPositionState = atom<number | undefined>({
 
 export function Ground({
                            selectPosition,
-                           deselectPosition,
-                           gkPositions,
-                           defPositions,
-                           midPositions,
-                           attPositions
+                           deselectPosition
                        }: {
-    selectPosition: (position: number) => () => void,
-    deselectPosition: () => void,
-    gkPositions: number[],
-    defPositions: number[],
-    midPositions: number[],
-    attPositions: number[]
+    selectPosition: (position: number | undefined) => () => void,
+    deselectPosition: () => void
 }) {
     const myPlayers = useRecoilValue(myPlayersState)
     const selectedPosition = useRecoilValue(selectedPositionState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
+    const setSelectedFilterItem = useSetRecoilState(selectedFilterItemState)
+
+    useEffect(() => {
+        setSelectedFilterItemBySelectedPosition(selectedPosition)
+    }, [selectedPosition])
+
+    function setSelectedFilterItemBySelectedPosition(selectedPosition: number | undefined) {
+        if (selectedPosition === undefined)
+            setSelectedFilterItem('ALL')
+        else if (gkPositions.includes(selectedPosition))
+            setSelectedFilterItem('GK')
+        else if (defPositions.includes(selectedPosition))
+            setSelectedFilterItem('DEF')
+        else if (midPositions.includes(selectedPosition))
+            setSelectedFilterItem('MID')
+        else if (attPositions.includes(selectedPosition))
+            setSelectedFilterItem('ATT')
+    }
 
     function getClothDiv(position: number): JSX.Element {
-        function getActiveClothDiv(player: player): JSX.Element {
+        function getActiveClothDiv(player: playerType): JSX.Element {
             return (
                 <div className='active-cloth-div'>
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
@@ -49,7 +60,7 @@ export function Ground({
             )
         }
 
-        function deletePlayer(player: player) {
+        function deletePlayer(player: playerType) {
             return () => {
                 selectPosition(player.location_in_ui)()
                 setRemovePlayerModalDisplay('block')
@@ -83,7 +94,7 @@ export function Ground({
             )
         }
 
-        function getSelectedActiveClothDiv(player: player): JSX.Element {
+        function getSelectedActiveClothDiv(player: playerType): JSX.Element {
             return (
                 <div className='selected-active-cloth-div'>
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}

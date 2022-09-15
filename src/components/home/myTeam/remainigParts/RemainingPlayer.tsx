@@ -13,7 +13,8 @@ export function RemainingPlayer() {
     const usedPlayer = useRecoilValue(usedPlayerState)
 
     return (
-        <Remaining showingText={usedPlayer !== undefined ? `${toFarsiNumber(15 - usedPlayer)}/۱۵` : undefined} src={logo}
+        <Remaining showingText={usedPlayer !== undefined ? `${toFarsiNumber(15 - usedPlayer)}/۱۵` : undefined}
+                   src={logo}
                    text={'بازیکن باقی مانده'}
                    backgroundStyle={'linear-gradient(93.79deg, #04F7DA -6.31%, #02FDA2 118.26%)'} alt={'player'}/>
     );

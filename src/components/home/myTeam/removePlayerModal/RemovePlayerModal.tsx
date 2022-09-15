@@ -28,8 +28,8 @@ export function RemovePlayerModal() {
 
     function getActionsSection(selectedPosition: number) {
         return <div>
-            <div id={'text'} dir={'rtl'}>{getText(selectedPosition)}</div>
-            <div id={'buttons-container'} dir={'rtl'}>
+            <div id={'text'}>{getText(selectedPosition)}</div>
+            <div id={'buttons-container'}>
                 <button id='delete-button' onClick={() => setIsDeleteConfirmClicked(true)}>
                     حذف
                 </button>

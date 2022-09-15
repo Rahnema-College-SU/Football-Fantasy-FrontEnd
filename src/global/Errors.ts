@@ -19,22 +19,39 @@ function errorMaker(type: string) {
 export const errorTypes = {
     dateError: 'dateError',
     teamError: 'teamError',
+    paginationError: 'paginationError',
     generalError: 'generalError'
 }
 
 const dateError = errorMaker(errorTypes.dateError);
 const teamError = errorMaker(errorTypes.teamError);
 const generalError = errorMaker(errorTypes.generalError);
+const paginationError = errorMaker(errorTypes.paginationError);
 
 const loadDateError = dateError('خطا در دریافت تاریخ')
 
 const loadTeamError = teamError('خطا در دریافت اطّلاعات تیم')
 const deletePlayerError = teamError('خطا در حذف بازیکن')
+const loadPlayersListError = teamError('خطا در دریافت اطّلاعات بازیکنان')
+const addPlayerError = teamError('خطا در اضافه کردن بازیکنان')
+
+const loadPaginationError = paginationError('خطا در دریافت اطّلاعات صفحه بندی')
+const pageNotAvailableError = paginationError('صفحه مورد نظر موجود نیست')
 
 const selectedPlayerNotFoundError = generalError('بازیکنی انتخاب نشده‌است.');
 const playerNotFoundError = generalError('بازیکنی یافت نشد.');
 
-export {loadDateError, loadTeamError, deletePlayerError, selectedPlayerNotFoundError, playerNotFoundError};
+export {
+    loadDateError,
+    loadTeamError,
+    deletePlayerError,
+    loadPlayersListError,
+    addPlayerError,
+    loadPaginationError,
+    pageNotAvailableError,
+    selectedPlayerNotFoundError,
+    playerNotFoundError
+};
 
 
 export function onAxiosSuccess({
@@ -69,7 +86,7 @@ export function onAxiosError({
                                  onError,
                                  onErrorReturnValue
                              }: { axiosError: any, myError: BaseError, onError?: () => void, onErrorReturnValue?: any }) {
-    console.log(axiosError)
+    console.log(axiosError.response)
 
     return onBaseError({
         myError: myError,
