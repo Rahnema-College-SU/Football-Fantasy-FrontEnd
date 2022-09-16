@@ -87,6 +87,7 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
     }, [search])
 
     useEffect(() => {
+        setPageNumber(1)
         setSearch({...search, search: searchText})
     }, [searchText])
 
@@ -314,8 +315,9 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
                     choosePlayersList && choosePlayersList.numberOfPages ?
                         <text
                             id={'show-page-state'}>صفحه‌ی {toFarsiNumber(pageNumber)} از {toFarsiNumber(choosePlayersList.numberOfPages)}</text>
-                        :
-                        <text id={'show-page-state'}>دریافت تعداد صفحات ...</text>
+                        : choosePlayersList.numberOfPages === 0 ?
+                            <text id={'show-page-state'}>ناموجود</text> :
+                            <text id={'show-page-state'}>دریافت تعداد صفحات ...</text>
                 }
 
                 <button className='page-bar-icon' onClick={setNewPage(pageNumber + 1)}>
