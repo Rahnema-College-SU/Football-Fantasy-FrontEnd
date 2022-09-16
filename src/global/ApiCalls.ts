@@ -1,5 +1,5 @@
 import axios from "axios";
-import {serverUrl, token} from "./Variables";
+import {serverUrl, getToken} from "./Variables";
 import {players} from "./Types";
 
 const customAxios = axios.create(
@@ -13,7 +13,7 @@ export const axiosWeekInf = () => customAxios.get('weekInf')
 
 export const axiosFantasyTeam = () => customAxios.get('fantasyteam', {
     headers: {
-        'x-access-token': token
+        'x-access-token': getToken()
     }
 })
 
@@ -25,7 +25,7 @@ export const axiosDeletePlayer = (myPlayers: players, selectedPosition: number) 
             player_id: myPlayers[selectedPosition].id
         },
         headers: {
-            'x-access-token': token
+            'x-access-token': getToken()
         }
     }
 )
@@ -43,3 +43,22 @@ export const axiosPlayerList = () => customAxios.get('playerList', {
         list_size: 10
     }
 })
+
+export const axiosSignUp = (Username:string,Password:string,First_name:string,Last_name:string,Email:string,Country:string) => customAxios.post('signup', 
+    {
+        username:Username,
+        password:Password,
+        first_name:First_name,
+        last_name:Last_name,
+        email:Email,
+        country:Country
+    }
+)
+export const axiosSignUpConfirm =(token:string,code:string)=>customAxios.post('verification',
+{verification_code:code},{headers: {"x-access-token":token}})
+
+export const axiosSignIn=(username:string,password:string)=>customAxios.post('login',
+{username:username,
+password:password
+}
+)

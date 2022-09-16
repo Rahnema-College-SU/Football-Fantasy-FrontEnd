@@ -1,3 +1,7 @@
+import { useState } from 'react';
+
+
+
 export const homeTabsEndingUrl = {
     myTeam: 'my-team',
     transfers: 'transfers',
@@ -5,8 +9,14 @@ export const homeTabsEndingUrl = {
     profile: 'profile',
     prizes: 'prizes'
 }
+var token = ""
+export function setToken(t:string){
+    token=t
+}
 
-export const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1haGRpIiwiaXNfdmVyaWZpZWQiOnRydWUsImlhdCI6MTY2MzA2NTcxNywiZXhwIjoxNjYzMTUyMTE3fQ.RFlcz8FzvywqrB24smurswfJspUATiz8t5xYE_jGNf4'
+export function getToken(){
+    return token
+}
 
 export const showingMyTeamTabsEndingUrl = {
     schematic: 'schematic',

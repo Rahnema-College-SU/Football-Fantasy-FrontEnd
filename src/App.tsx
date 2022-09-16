@@ -23,8 +23,8 @@ function App() {
     const [modalsDivDisplay, setModalsDivDisplay] = useState<'none' | 'block'>('none')
 
     useEffect(() => {
-        // navigate('/sign-up')
-        navigate('/home/my-team/schematic')
+        navigate('/sign-in')
+        //navigate('/home/my-team/schematic')
     }, [])
 
     useEffect(() => {
