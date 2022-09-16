@@ -10,7 +10,7 @@ import selectedCloth from './assets/selected-cloth.svg'
 import {atom, useRecoilValue, useSetRecoilState} from "recoil";
 import {myPlayersState} from "../MyTeam";
 import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
-import {selectedFilterItemState} from "../choosePlayerList/ChoosePlayerList";
+import {selectedFilterItemState, selectedPlayerState} from "../choosePlayerList/ChoosePlayerList";
 
 export const selectedPositionState = atom<number | undefined>({
     key: 'selectedPositionState',
@@ -22,38 +22,45 @@ export function Ground({
                            deselectPosition
                        }: {
     selectPosition: (position: number | undefined) => () => void,
-    deselectPosition: () => void
+    deselectPosition: () => void,
+    updateGameInfo: () => void
 }) {
     const myPlayers = useRecoilValue(myPlayersState)
     const selectedPosition = useRecoilValue(selectedPositionState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
     const setSelectedFilterItem = useSetRecoilState(selectedFilterItemState)
+    const setSelectedPlayer = useSetRecoilState(selectedPlayerState)
 
     useEffect(() => {
-        setSelectedFilterItemBySelectedPosition(selectedPosition)
+        if (selectedPosition === undefined)
+            setSelectedPlayer(undefined)
     }, [selectedPosition])
 
-    function setSelectedFilterItemBySelectedPosition(selectedPosition: number | undefined) {
-        if (selectedPosition === undefined)
-            setSelectedFilterItem('ALL')
-        else if (gkPositions.includes(selectedPosition))
-            setSelectedFilterItem('GK')
-        else if (defPositions.includes(selectedPosition))
-            setSelectedFilterItem('DEF')
-        else if (midPositions.includes(selectedPosition))
-            setSelectedFilterItem('MID')
-        else if (attPositions.includes(selectedPosition))
-            setSelectedFilterItem('ATT')
-    }
-
     function getClothDiv(position: number): JSX.Element {
+        function activeInactiveOnClick(position: number | undefined) {
+            return () => {
+                selectPosition(position)()
+
+                if (position === undefined)
+                    setSelectedPlayer(undefined)
+                else if (gkPositions.includes(position))
+                    setSelectedFilterItem('GK')
+                else if (defPositions.includes(position))
+                    setSelectedFilterItem('DEF')
+                else if (midPositions.includes(position))
+                    setSelectedFilterItem('MID')
+                else if (attPositions.includes(position))
+                    setSelectedFilterItem('ATT')
+            }
+        }
+
         function getActiveClothDiv(player: playerType): JSX.Element {
             return (
                 <div className='active-cloth-div'>
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                          onClick={deletePlayer(player)}/>
                     <img className={'active-cloth'} src={activeCloth} alt={'active cloth'}
-                         onClick={selectPosition(player.location_in_ui)}/>
+                         onClick={activeInactiveOnClick(player.location_in_ui)}/>
                     <div className={'player-name'}>{player.web_name}</div>
                     <div className={'power'}>{toFarsiNumber(player.player_week_log.player_total_points)}</div>
                 </div>
@@ -63,6 +70,7 @@ export function Ground({
         function deletePlayer(player: playerType) {
             return () => {
                 selectPosition(player.location_in_ui)()
+                setSelectedPlayer(undefined)
                 setRemovePlayerModalDisplay('block')
             }
         }
@@ -73,8 +81,9 @@ export function Ground({
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                          style={{visibility: 'hidden'}}/>
                     <img className={'inactive-cloth'} src={inactiveCloth} alt={'inactive cloth'}
-                         onClick={selectPosition(position)}/>
-                    <img className={'add-icon'} src={addIcon} alt={'add icon'} onClick={selectPosition(position)}/>
+                         onClick={activeInactiveOnClick(position)}/>
+                    <img className={'add-icon'} src={addIcon} alt={'add icon'}
+                         onClick={activeInactiveOnClick(position)}/>
                     <div className={'player-name'} style={{visibility: 'hidden'}}>dummy</div>
                     <div className={'power'} style={{visibility: 'hidden'}}>۰</div>
                 </div>

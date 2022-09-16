@@ -3,7 +3,7 @@ import './ChoosePlayer.css';
 import searchIcon from './assets/searchicon.png';
 import descSort from './assets/up.svg';
 import ascSort from './assets/down.svg';
-import {atom, useRecoilState, useRecoilValue} from 'recoil';
+import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
 import {choosePlayersListType, playerType, positionsUiType, searchType, sortType} from '../../../../global/Types';
 import previousLast from './assets/previousl.svg'
 import previous from './assets/previous.svg'
@@ -20,16 +20,9 @@ import {
 } from "../../../../global/Variables";
 import {selectedPositionState} from "../ground/Ground";
 import {myPlayersState} from "../MyTeam";
-import {axiosAddPlayer} from "../../../../global/ApiCalls";
-import {
-    addPlayerError,
-    loadPaginationError,
-    onAxiosError,
-    onAxiosSuccess,
-    onBaseError,
-    pageNotAvailableError
-} from "../../../../global/Errors";
+import {addPlayerError, loadPaginationError, onBaseError, pageNotAvailableError} from "../../../../global/Errors";
 import {debounce} from "ts-debounce";
+import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
 
 const defaultSort: sortType = 'DESC'
 
@@ -69,9 +62,9 @@ export const searchTextState = atom<string>({
     default: ''
 })
 
-function ChoosePlayerList({playerListApiCall, updateGameInfo}: {
+function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
     playerListApiCall: () => void,
-    updateGameInfo: () => void
+    addPlayerApiCall: (player: playerType, selectedPosition: number) => void
 }) {
     let debounceFunction: { (this: ThisParameterType<() => void>, ...args: Parameters<() => void> & any[]): Promise<ReturnType<() => void>>; cancel: (reason?: any) => void }
 
@@ -79,6 +72,7 @@ function ChoosePlayerList({playerListApiCall, updateGameInfo}: {
     const [selectedPlayer, setSelectedPlayer] = useRecoilState(selectedPlayerState)
     const [selectedPosition, setSelectedPosition] = useRecoilState(selectedPositionState)
     const myPlayers = useRecoilValue(myPlayersState)
+    const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
 
     const [search, setSearch] = useRecoilState(searchState)
     const [searchText, setSearchText] = useRecoilState(searchTextState)
@@ -99,7 +93,7 @@ function ChoosePlayerList({playerListApiCall, updateGameInfo}: {
     useEffect(() => {
         const serverFilter = positionsServer[positionsUi.indexOf(selectedFilterItem)]
 
-        setSelectedPositionBySelectedFilterItem(selectedFilterItem)
+        setPageNumber(1)
         setSearch({...search, position: serverFilter})
     }, [selectedFilterItem])
 
@@ -117,7 +111,7 @@ function ChoosePlayerList({playerListApiCall, updateGameInfo}: {
                     return positions[i]
             }
 
-            return undefined
+            return positions[0]
         }
 
         if (filterItem === 'ALL' && !selectedPosition)
@@ -146,24 +140,17 @@ function ChoosePlayerList({playerListApiCall, updateGameInfo}: {
     }, [choosePlayersList])
 
     useEffect(() => {
-        if (!selectedPlayer)
-            setSelectedPosition(undefined)
-        else
-            addPlayerApiCall(selectedPlayer)
+        if (selectedPlayer)
+            addPlayer(selectedPlayer)
     }, [selectedPlayer])
 
-    function addPlayerApiCall(player: playerType) {
+    function addPlayer(player: playerType) {
         if (!selectedPosition) {
             onBaseError({myError: addPlayerError})
-            return
-        }
-
-        axiosAddPlayer(player, selectedPosition)
-            .then(res =>
-                    onAxiosSuccess({res: res, myError: addPlayerError, onSuccess: updateGameInfo}),
-                err =>
-                    onAxiosError({axiosError: err, myError: addPlayerError})
-            )
+        } else if (myPlayers[selectedPosition] !== undefined)
+            setRemovePlayerModalDisplay('block')
+        else
+            addPlayerApiCall(player, selectedPosition)
     }
 
     useEffect(() => {
@@ -201,7 +188,10 @@ function ChoosePlayerList({playerListApiCall, updateGameInfo}: {
 
     function getFilterBar() {
         function filterItemOnCLick(UiFilter: positionsUiType) {
-            return () => setSelectedFilterItem(UiFilter)
+            return () => {
+                setSelectedFilterItem(UiFilter)
+                setSelectedPositionBySelectedFilterItem(UiFilter)
+            }
         }
 
         return (

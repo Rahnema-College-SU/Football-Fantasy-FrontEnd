@@ -11,6 +11,7 @@ import {attPositions, defPositions, gkPositions, midPositions, toFarsiNumber} fr
 import {playerType} from "../../../../global/Types";
 import deleteIcon from "./assets/delete-icon.svg";
 import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
+import {selectedFilterItemState, selectedPlayerState} from "../choosePlayerList/ChoosePlayerList";
 
 function MyPlayersList({
                            selectPosition,
@@ -22,6 +23,8 @@ function MyPlayersList({
     const myPlayers = useRecoilValue(myPlayersState)
     const selectedPosition = useRecoilValue(selectedPositionState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
+    const setSelectedFilterItem = useSetRecoilState(selectedFilterItemState)
+    const setSelectedPlayer = useSetRecoilState(selectedPlayerState)
 
     function getInfoDiv(): JSX.Element {
         return <div id={'info-div'}>
@@ -47,15 +50,33 @@ function MyPlayersList({
                 return
 
             selectPosition(myPlayers[selectedPosition].location_in_ui)()
+            setSelectedPlayer(undefined)
             setRemovePlayerModalDisplay('block')
         }
     }
 
     function getRowDiv(position: number, offsetInUi: number) {
+        function activeInactiveOnClick(position: number | undefined) {
+            return () => {
+                selectPosition(position)()
+
+                if (position === undefined)
+                    setSelectedPlayer(undefined)
+                else if (gkPositions.includes(position))
+                    setSelectedFilterItem('GK')
+                else if (defPositions.includes(position))
+                    setSelectedFilterItem('DEF')
+                else if (midPositions.includes(position))
+                    setSelectedFilterItem('MID')
+                else if (attPositions.includes(position))
+                    setSelectedFilterItem('ATT')
+            }
+        }
+
         function getActiveRowDiv(player: playerType): JSX.Element {
             return (
                 <div className='row-div' style={{gridRowStart: position + offsetInUi}}
-                     onClick={selectPosition(position)}>
+                     onClick={activeInactiveOnClick(position)}>
                     <text className='row-name active-row-name'>{player.web_name}</text>
                     <text
                         className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_total_points)}</text>
@@ -68,7 +89,7 @@ function MyPlayersList({
         function getInactiveRowDiv(position: number): JSX.Element {
             return (
                 <div className='row-div' style={{gridRowStart: position + offsetInUi}}
-                     onClick={selectPosition(position)}>
+                     onClick={activeInactiveOnClick(position)}>
                     <text className='row-name inactive-row-name'>none</text>
                     <text className='row-number inactive-row-number'>۰</text>
                     <text className='row-number inactive-row-number'>۰</text>
