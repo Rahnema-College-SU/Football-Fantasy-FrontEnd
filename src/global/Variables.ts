@@ -1,7 +1,7 @@
 export const homeTabsEndingUrl = {
     myTeam: 'my-team',
     transfers: 'transfers',
-    latestEvents: 'latest-events',
+    Events: 'events',
     profile: 'profile',
     prizes: 'prizes'
 }

@@ -1,0 +1,45 @@
+.profile-box{
+width: 640px;
+height: 180px;
+
+background: #FBFBFB;
+border-radius: 8px;
+
+display: flex;
+flex-direction: row-reverse;
+}
+.data-box{
+width: 484px;
+height: 160px;
+background: #FFFFFF;
+border-radius: 8px;
+display: flex;
+
+font-family: 'Vazirmatn';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+color: #3D195B;
+
+}
+.show-week{
+width: 30px;
+height: 80%;
+background: rgba(61, 25, 91, 0.06);
+border-radius: 4px;
+margin: auto auto auto 0;
+
+display: flex;
+align-items: center;
+justify-content: center;
+transform: rotate(180deg);
+writing-mode: vertical-rl;
+}
+.show-score-box{
+width: 66px;
+height: 30px;
+margin-right: 20%;
+margin-top: 3%;
+background: linear-gradient(269.48deg, #04F5EC -30.14%, #03FBB8 109.7%);
+border-radius: 4px;
+}
