@@ -1,5 +1,7 @@
 import axios from "axios";
-import {token} from "./Variables";
+import {getToken} from "./Variables";
+// import {players} from "./Types";
+// import {token} from "./Variables";
 import {myPlayersType, playerType, searchType} from "./Types";
 
 const customAxios = axios.create(
@@ -7,7 +9,7 @@ const customAxios = axios.create(
         baseURL: 'http://178.216.248.39:8000',
         timeout: 5000,
         headers: {
-            'x-access-token': token
+            'x-access-token': getToken()
         }
     }
 );
@@ -36,3 +38,23 @@ export const axiosAddPlayer = (player: playerType, position: number) => customAx
     player_id: player.id,
     location_in_ui: position
 })
+
+export const axiosSignUp = (Username: string, Password: string, First_name: string, Last_name: string, Email: string, Country: string) => customAxios.post('signup',
+    {
+        username: Username,
+        password: Password,
+        first_name: First_name,
+        last_name: Last_name,
+        email: Email,
+        country: Country
+    }
+)
+export const axiosSignUpConfirm = (token: string, code: string) => customAxios.post('verification',
+    {verification_code: code})
+
+export const axiosSignIn = (username: string, password: string) => customAxios.post('login',
+    {
+        username: username,
+        password: password
+    }
+)

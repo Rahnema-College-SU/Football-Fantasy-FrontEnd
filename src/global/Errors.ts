@@ -19,6 +19,9 @@ function errorMaker(type: string) {
 export const errorTypes = {
     dateError: 'dateError',
     teamError: 'teamError',
+    signUpError: 'signUpError',
+    authenticateError: 'authenticateError',
+    signInError: 'signInError',
     paginationError: 'paginationError',
     generalError: 'generalError'
 }
@@ -26,6 +29,9 @@ export const errorTypes = {
 const dateError = errorMaker(errorTypes.dateError);
 const teamError = errorMaker(errorTypes.teamError);
 const generalError = errorMaker(errorTypes.generalError);
+const signUpError = errorMaker(errorTypes.signUpError);
+const authenticateError = errorMaker(errorTypes.authenticateError);
+const signInError = errorMaker(errorTypes.signInError);
 const paginationError = errorMaker(errorTypes.paginationError);
 
 const loadDateError = dateError('خطا در دریافت تاریخ')
@@ -41,6 +47,13 @@ const pageNotAvailableError = paginationError('صفحه مورد نظر موجو
 const selectedPlayerNotFoundError = generalError('بازیکنی انتخاب نشده‌است.');
 const playerNotFoundError = generalError('بازیکنی یافت نشد.');
 
+const addUserError = signUpError('خطا در ثبت نام');
+const userExistError = signUpError('کاربری با این نام کاربری موجود است')
+
+const invalidCodeError = authenticateError('کد وارد شده صحیح نیست');
+
+const invalidInputError = signInError('نام کاربری یا رمز عبور وارد شده صحیح نیست');
+
 export {
     loadDateError,
     loadTeamError,
@@ -50,7 +63,11 @@ export {
     loadPaginationError,
     pageNotAvailableError,
     selectedPlayerNotFoundError,
-    playerNotFoundError
+    playerNotFoundError,
+    addUserError,
+    invalidCodeError,
+    userExistError,
+    invalidInputError
 };
 
 

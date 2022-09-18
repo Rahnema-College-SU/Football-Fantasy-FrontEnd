@@ -5,8 +5,14 @@ export const homeTabsEndingUrl = {
     profile: 'profile',
     prizes: 'prizes'
 }
+var token = ""
+export function setToken(t:string){
+    token=t
+}
 
-export const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1haGRpIiwiaXNfdmVyaWZpZWQiOnRydWUsImlhdCI6MTY2MzM0MzI1NCwiZXhwIjoxNjYzNDI5NjU0fQ.VB1FI7h0axCpBAm27pa_TnGbBNo_tdP3E0mRLn39KK8'
+export function getToken(){
+    return token
+}
 
 export const showingMyTeamTabsEndingUrl = {
     schematic: 'schematic',
