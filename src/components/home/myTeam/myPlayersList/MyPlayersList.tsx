@@ -7,29 +7,24 @@ import activeCloth from './assets/active-cloth.svg'
 import inactiveCloth from './assets/inactive-cloth.svg'
 import logo from './assets/logo.svg';
 import curveLines from './assets/curve-lines.svg';
-import {toFarsiNumber} from "../../../../global/Variables";
-import {player} from "../../../../global/Types";
+import {attPositions, defPositions, gkPositions, midPositions, toFarsiNumber} from "../../../../global/Variables";
+import {playerType} from "../../../../global/Types";
 import deleteIcon from "./assets/delete-icon.svg";
 import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
+import {selectedFilterItemState, selectedPlayerState} from "../choosePlayerList/ChoosePlayerList";
 
 function MyPlayersList({
                            selectPosition,
-                           deselectPosition,
-                           gkPositions,
-                           defPositions,
-                           midPositions,
-                           attPositions
+                           deselectPosition
                        }: {
-    selectPosition: (position: number) => () => void,
-    deselectPosition: () => void,
-    gkPositions: number[],
-    defPositions: number[],
-    midPositions: number[],
-    attPositions: number[]
+    selectPosition: (position: number | undefined) => () => void,
+    deselectPosition: () => void
 }) {
     const myPlayers = useRecoilValue(myPlayersState)
     const selectedPosition = useRecoilValue(selectedPositionState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
+    const setSelectedFilterItem = useSetRecoilState(selectedFilterItemState)
+    const setSelectedPlayer = useSetRecoilState(selectedPlayerState)
 
     function getInfoDiv(): JSX.Element {
         return <div id={'info-div'}>
@@ -55,15 +50,33 @@ function MyPlayersList({
                 return
 
             selectPosition(myPlayers[selectedPosition].location_in_ui)()
+            setSelectedPlayer(undefined)
             setRemovePlayerModalDisplay('block')
         }
     }
 
     function getRowDiv(position: number, offsetInUi: number) {
-        function getActiveRowDiv(player: player): JSX.Element {
+        function activeInactiveOnClick(position: number | undefined) {
+            return () => {
+                selectPosition(position)()
+
+                if (position === undefined)
+                    setSelectedPlayer(undefined)
+                else if (gkPositions.includes(position))
+                    setSelectedFilterItem('GK')
+                else if (defPositions.includes(position))
+                    setSelectedFilterItem('DEF')
+                else if (midPositions.includes(position))
+                    setSelectedFilterItem('MID')
+                else if (attPositions.includes(position))
+                    setSelectedFilterItem('ATT')
+            }
+        }
+
+        function getActiveRowDiv(player: playerType): JSX.Element {
             return (
-                <div className='row-div' dir={'rtl'} style={{gridRowStart: position + offsetInUi}}
-                     onClick={selectPosition(position)}>
+                <div className='row-div' style={{gridRowStart: position + offsetInUi}}
+                     onClick={activeInactiveOnClick(position)}>
                     <text className='row-name active-row-name'>{player.web_name}</text>
                     <text
                         className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_total_points)}</text>
@@ -75,8 +88,8 @@ function MyPlayersList({
 
         function getInactiveRowDiv(position: number): JSX.Element {
             return (
-                <div className='row-div' dir={'rtl'} style={{gridRowStart: position + offsetInUi}}
-                     onClick={selectPosition(position)}>
+                <div className='row-div' style={{gridRowStart: position + offsetInUi}}
+                     onClick={activeInactiveOnClick(position)}>
                     <text className='row-name inactive-row-name'>none</text>
                     <text className='row-number inactive-row-number'>۰</text>
                     <text className='row-number inactive-row-number'>۰</text>
@@ -86,7 +99,7 @@ function MyPlayersList({
 
         function getSelectedInactiveRowDiv(): JSX.Element {
             return (
-                <div className='row-div selected-row-div' dir={'rtl'} style={{gridRowStart: position + offsetInUi}}
+                <div className='row-div selected-row-div' style={{gridRowStart: position + offsetInUi}}
                      onClick={deselectPosition}>
                     <text className='row-name inactive-row-name'>none</text>
                     <text className='row-number inactive-row-number'>۰</text>
@@ -95,9 +108,9 @@ function MyPlayersList({
             )
         }
 
-        function getSelectedActiveRowDiv(player: player): JSX.Element {
+        function getSelectedActiveRowDiv(player: playerType): JSX.Element {
             return (
-                <div className='row-div selected-row-div' dir={'rtl'} style={{gridRowStart: position + offsetInUi}}
+                <div className='row-div selected-row-div' style={{gridRowStart: position + offsetInUi}}
                      onClick={deselectPosition}>
                     <text className='row-name active-row-name'>{player.web_name}</text>
                     <text
@@ -129,16 +142,16 @@ function MyPlayersList({
             <div id={'price'}>قیمت</div>
             <div id={'first-divider'}></div>
 
-            <div className={'header-div gk-header-div'} dir={'rtl'}>دروازه‌بانان</div>
+            <div className={'header-div gk-header-div'}>دروازه‌بانان</div>
             {getEahPositionRow(gkPositions, 2)}
 
-            <div className={'header-div def-header-div'} dir={'rtl'}>مدافعان</div>
+            <div className={'header-div def-header-div'}>مدافعان</div>
             {getEahPositionRow(defPositions, 3)}
 
-            <div className={'header-div mid-header-div'} dir={'rtl'}>هافبک‌ها</div>
+            <div className={'header-div mid-header-div'}>هافبک‌ها</div>
             {getEahPositionRow(midPositions, 4)}
 
-            <div className={'header-div att-header-div'} dir={'rtl'}>مهاجمین</div>
+            <div className={'header-div att-header-div'}>مهاجمین</div>
             {getEahPositionRow(attPositions, 5)}
         </div>
     }
