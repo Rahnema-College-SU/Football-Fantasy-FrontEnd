@@ -8,6 +8,7 @@ export function LatestEvents() {
             <text className="Latest-Events-Title"> آخرین رویداد ها</text>
             {/* map to users */}
             <Profile />
+            <Profile />
         </div>
     )
 }
