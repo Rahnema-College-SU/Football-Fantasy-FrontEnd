@@ -1,17 +1,11 @@
 import axios from "axios";
 import {getToken} from "./Variables";
-// import {players} from "./Types";
-// import {token} from "./Variables";
 import {myPlayersType, playerType, searchType} from "./Types";
-
 
 const customAxios = axios.create(
     {
         baseURL: 'http://178.216.248.39:8000',
-        timeout: 5000,
-        headers: {
-            'x-access-token': getToken()
-        }
+        timeout: 5000
     }
 );
 
