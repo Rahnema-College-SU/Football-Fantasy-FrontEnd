@@ -64,7 +64,7 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
     const isDeleteConfirmClicked = useRecoilValue(isDeleteConfirmClickedState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
 
-    useEffect(() => updateGameInfo(), [])
+    useEffect(() =>  updateGameInfo(), [])
 
     // for delete confirmation modal
     useEffect(() => {

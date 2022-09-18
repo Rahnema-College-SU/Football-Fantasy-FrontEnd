@@ -112,7 +112,7 @@ function SignUpForm() {
                     </div>
                     <div className="input-container">
                         <span className="label">رمز عبور</span>
-                        <input className="input" type="text" onChange={setPassword}/>
+                        <input className="input" type="password" onChange={setPassword}/>
                     </div>
                 </div>
                 <button className="button" id="sign-up-button" onClick={signUpApiCall}>ثبت نام</button>

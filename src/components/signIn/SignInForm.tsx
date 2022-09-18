@@ -60,7 +60,7 @@ function SignInForm() {
                     <span className="label">نام کاربری</span>
                     <input className="input" type="text" onChange={setUsername}/>
                     <span className="label">رمز عبور</span>
-                    <input className="input" type="text" onChange={setPassword}/>
+                    <input className="input" type="password" onChange={setPassword}/>
                 </div>
 
                 <div className="button-bar">

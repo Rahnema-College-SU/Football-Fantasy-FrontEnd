@@ -24,7 +24,6 @@ function App() {
 
     useEffect(() => {
         navigate('/sign-in')
-        // navigate('/home/my-team/schematic')
     }, [])
 
     useEffect(() => {
