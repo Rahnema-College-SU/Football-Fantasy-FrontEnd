@@ -8,7 +8,7 @@ import Home from "./components/home/Home";
 import {homeTabsEndingUrl, showingMyTeamTabsEndingUrl} from "./global/Variables";
 import {MyTeam} from "./components/home/myTeam/MyTeam";
 import Transfers from "./components/home/transfers/Transfers";
-import LatestEvents from "./components/home/latestEvents/LatestEvents";
+import LatestEvents from "./components/home/Events/Events";
 import Prizes from "./components/home/prizes/Prizes";
 import Profile from "./components/home/profile/Profile";
 import {
@@ -52,7 +52,7 @@ function App() {
                 <Route path={`/home/${homeTabsEndingUrl.transfers}`} element={
                     <Home showingTab={<Transfers/>}/>
                 }/>
-                <Route path={`/home/${homeTabsEndingUrl.latestEvents}`} element={
+                <Route path={`/home/${homeTabsEndingUrl.Events}`} element={
                     <Home showingTab={<LatestEvents/>}/>
                 }/>
                 <Route path={`/home/${homeTabsEndingUrl.profile}`} element={
