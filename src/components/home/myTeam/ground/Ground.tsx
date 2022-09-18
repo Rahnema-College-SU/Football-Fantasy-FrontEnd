@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import './Ground.css'
-import {toFarsiNumber} from "../../../../global/Variables";
-import {player} from "../../../../global/Types";
+import {attPositions, defPositions, gkPositions, midPositions, toFarsiNumber} from "../../../../global/Variables";
+import {playerType} from "../../../../global/Types";
 import addIcon from './assets/add-icon.svg'
 import deleteIcon from './assets/delete-icon.svg'
 import activeCloth from './assets/active-cloth.svg'
@@ -10,6 +10,7 @@ import selectedCloth from './assets/selected-cloth.svg'
 import {atom, useRecoilValue, useSetRecoilState} from "recoil";
 import {myPlayersState} from "../MyTeam";
 import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
+import {selectedFilterItemState, selectedPlayerState} from "../choosePlayerList/ChoosePlayerList";
 
 export const selectedPositionState = atom<number | undefined>({
     key: 'selectedPositionState',
@@ -18,40 +19,58 @@ export const selectedPositionState = atom<number | undefined>({
 
 export function Ground({
                            selectPosition,
-                           deselectPosition,
-                           gkPositions,
-                           defPositions,
-                           midPositions,
-                           attPositions
+                           deselectPosition
                        }: {
-    selectPosition: (position: number) => () => void,
+    selectPosition: (position: number | undefined) => () => void,
     deselectPosition: () => void,
-    gkPositions: number[],
-    defPositions: number[],
-    midPositions: number[],
-    attPositions: number[]
+    updateGameInfo: () => void
 }) {
     const myPlayers = useRecoilValue(myPlayersState)
     const selectedPosition = useRecoilValue(selectedPositionState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
+    const setSelectedFilterItem = useSetRecoilState(selectedFilterItemState)
+    const setSelectedPlayer = useSetRecoilState(selectedPlayerState)
+
+    useEffect(() => {
+        if (selectedPosition === undefined)
+            setSelectedPlayer(undefined)
+    }, [selectedPosition])
 
     function getClothDiv(position: number): JSX.Element {
-        function getActiveClothDiv(player: player): JSX.Element {
+        function activeInactiveOnClick(position: number | undefined) {
+            return () => {
+                selectPosition(position)()
+
+                if (position === undefined)
+                    setSelectedPlayer(undefined)
+                else if (gkPositions.includes(position))
+                    setSelectedFilterItem('GK')
+                else if (defPositions.includes(position))
+                    setSelectedFilterItem('DEF')
+                else if (midPositions.includes(position))
+                    setSelectedFilterItem('MID')
+                else if (attPositions.includes(position))
+                    setSelectedFilterItem('ATT')
+            }
+        }
+
+        function getActiveClothDiv(player: playerType): JSX.Element {
             return (
                 <div className='active-cloth-div'>
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                          onClick={deletePlayer(player)}/>
                     <img className={'active-cloth'} src={activeCloth} alt={'active cloth'}
-                         onClick={selectPosition(player.location_in_ui)}/>
+                         onClick={activeInactiveOnClick(player.location_in_ui)}/>
                     <div className={'player-name'}>{player.web_name}</div>
                     <div className={'power'}>{toFarsiNumber(player.player_week_log.player_total_points)}</div>
                 </div>
             )
         }
 
-        function deletePlayer(player: player) {
+        function deletePlayer(player: playerType) {
             return () => {
                 selectPosition(player.location_in_ui)()
+                setSelectedPlayer(undefined)
                 setRemovePlayerModalDisplay('block')
             }
         }
@@ -62,8 +81,9 @@ export function Ground({
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                          style={{visibility: 'hidden'}}/>
                     <img className={'inactive-cloth'} src={inactiveCloth} alt={'inactive cloth'}
-                         onClick={selectPosition(position)}/>
-                    <img className={'add-icon'} src={addIcon} alt={'add icon'} onClick={selectPosition(position)}/>
+                         onClick={activeInactiveOnClick(position)}/>
+                    <img className={'add-icon'} src={addIcon} alt={'add icon'}
+                         onClick={activeInactiveOnClick(position)}/>
                     <div className={'player-name'} style={{visibility: 'hidden'}}>dummy</div>
                     <div className={'power'} style={{visibility: 'hidden'}}>۰</div>
                 </div>
@@ -83,7 +103,7 @@ export function Ground({
             )
         }
 
-        function getSelectedActiveClothDiv(player: player): JSX.Element {
+        function getSelectedActiveClothDiv(player: playerType): JSX.Element {
             return (
                 <div className='selected-active-cloth-div'>
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
