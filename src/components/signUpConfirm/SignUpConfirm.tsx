@@ -1,37 +1,42 @@
-import React, { useState } from "react";
+import React from "react";
 import "./SignUpConfirm.css";
 import Form from "../items/Form";
-import {useNavigate,useNavigationType} from "react-router-dom";
-import { getToken } from "../../global/Variables";
-import { axiosSignUpConfirm } from "../../global/ApiCalls";
-import { onAxiosError} from "../../global/Errors";
-import { onAxiosSuccess } from "../../global/Errors";
-import { invalidCodeError } from "../../global/Errors";
-
+import {useNavigate} from "react-router-dom";
+import {getToken} from "../../global/Variables";
+import {axiosSignUpConfirm} from "../../global/ApiCalls";
+import {invalidCodeError, onAxiosError, onAxiosSuccess} from "../../global/Errors";
 
 
 function SignUpConfirm() {
     const navigate = useNavigate()
-    const setCode:React.ChangeEventHandler<HTMLInputElement> = (e)=>{code=e.target.value}
-    var code=''
-    function ConfirmApi(){
-    
-    axiosSignUpConfirm(getToken(),code).then(
-        res =>{
-            console.log(getToken())
-            onAxiosSuccess({
-                res: res, myError: invalidCodeError, onSuccess: ()=>{navigate('/sign-in')}   
-            })
-        }
-        ,
-        error =>
-            onAxiosError({axiosError: error, myError: invalidCodeError})
-   
-    )}
-    
+    const setCode: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        code = e.target.value
+    }
+    var code = ''
+
+    function ConfirmApi() {
+
+        axiosSignUpConfirm(getToken(), code).then(
+            res => {
+                console.log(getToken())
+                onAxiosSuccess({
+                    res: res, myError: invalidCodeError, onSuccess: () => {
+                        // console.log(res)
+                        // setToken(res.data.data.access_token)
+                        // console.log(getToken())
+                        navigate('/sign-in')
+                    }
+                })
+            }
+            ,
+            error =>
+                onAxiosError({axiosError: error, myError: invalidCodeError})
+        )
+    }
+
     return (
         <Form>
-            
+
             <div className="sign-up-confirm">
                 <div className="header">
                     <hr className="line"/>

@@ -2,45 +2,49 @@ import React from "react";
 import "./SignInForm.css";
 import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
-import {homeTabsEndingUrl, showingMyTeamTabsEndingUrl} from "../../global/Variables";
-import { setToken } from "../../global/Variables";
-import { getToken } from "../../global/Variables";
-import { axiosSignIn } from "../../global/ApiCalls";
-import { onAxiosSuccess } from "../../global/Errors";
-import { onAxiosError } from "../../global/Errors";
-import { invalidInputError } from "../../global/Errors";
+import {getToken, homeTabsEndingUrl, setToken, showingMyTeamTabsEndingUrl} from "../../global/Variables";
+import {axiosSignIn} from "../../global/ApiCalls";
+import {invalidInputError, onAxiosError, onAxiosSuccess} from "../../global/Errors";
 
 function SignInForm() {
     const navigate = useNavigate()
-    class Input{
-        username=""
-        password=""
+
+    class Input {
+        username = ""
+        password = ""
     }
-    var signInInput =new Input
-    
-    function signInApiCall(){
+
+    var signInInput = new Input
+
+    function signInApiCall() {
         setToken('')
-        if(signInInput.password.length!=8){
+        if (signInInput.password.length != 8) {
             return alert("رمز عبوری با ۸ کاراکتر وارد کنید")
-        }else{
-            axiosSignIn(signInInput.username,signInInput.password).then(
-                res=>{
+        } else {
+            axiosSignIn(signInInput.username, signInInput.password).then(
+                res => {
                     onAxiosSuccess({
-                        res: res, myError: invalidInputError, onSuccess: ()=>{navigate(`/home/${homeTabsEndingUrl.myTeam}/${showingMyTeamTabsEndingUrl.schematic}`)}   
+                        res: res, myError: invalidInputError, onSuccess: () => {
+                            navigate(`/home/${homeTabsEndingUrl.myTeam}/${showingMyTeamTabsEndingUrl.schematic}`)
+                        }
                     })
                     setToken(res.data.data.access_token)
                     console.log(getToken())
                 }
                 ,
-                error =>{
-                onAxiosError({axiosError: error, myError: invalidInputError})
+                error => {
+                    onAxiosError({axiosError: error, myError: invalidInputError})
                 }
             )
         }
     }
 
-    const setUsername:React.ChangeEventHandler<HTMLInputElement> = (e)=>{signInInput.username=e.target.value}
-    const setPassword:React.ChangeEventHandler<HTMLInputElement> = (e)=>{signInInput.password=e.target.value}
+    const setUsername: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        signInInput.username = e.target.value
+    }
+    const setPassword: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        signInInput.password = e.target.value
+    }
 
     return (
         <Form>
@@ -63,7 +67,7 @@ function SignInForm() {
                     <button className="sign-in-button button"
                             onClick={signInApiCall}>ورود
                     </button>
-                    <button className="sign-in-button button" onClick={()=>navigate('/sign-up')}>ثبت نام</button>
+                    <button className="sign-in-button button" onClick={() => navigate('/sign-up')}>ثبت نام</button>
                 </div>
             </div>
         </Form>

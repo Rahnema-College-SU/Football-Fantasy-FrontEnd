@@ -1,77 +1,81 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./SignUpForm.css";
 import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
-import { InputFiles } from "typescript";
-import {useState} from 'react';
-import { getValue } from "@testing-library/user-event/dist/utils";
-import { axiosSignUp } from "../../global/ApiCalls";
-import { AxiosError } from "axios";
-import { onAxiosSuccess } from "../../global/Errors";
-import { onAxiosError } from "../../global/Errors";
-import { addUserError } from "../../global/Errors";
-import SignUpConfirm from "../signUpConfirm/SignUpConfirm";
-import { setToken } from "../../global/Variables";
-import { getToken } from "../../global/Variables";
-import { userExistError } from "../../global/Errors";
+import {axiosSignUp} from "../../global/ApiCalls";
+import {addUserError, onAxiosError, onAxiosSuccess, userExistError} from "../../global/Errors";
+import {getToken, setToken} from "../../global/Variables";
 
 function SignUpForm() {
     const navigate = useNavigate()
-    const inputs = ["نام", "نام خانوادگی", "ایمیل", "کشور", "نام کاربری", "رمز عبور"]
-    class user{
-        username="";
-        password="";
-        first_name="";
-        last_name="";
-        email="";
-        country="";
+    class user {
+        username = "";
+        password = "";
+        first_name = "";
+        last_name = "";
+        email = "";
+        country = "";
     }
 
-    var currentUser=new user
-    const setUsername:React.ChangeEventHandler<HTMLInputElement> = (e)=>{currentUser.username=e.target.value}
-    const setName:React.ChangeEventHandler<HTMLInputElement> = (e)=>{currentUser.first_name=e.target.value}
-    const setLastName:React.ChangeEventHandler<HTMLInputElement> = (e)=>{currentUser.last_name=e.target.value}
-    const setEmail:React.ChangeEventHandler<HTMLInputElement> = (e)=>{currentUser.email=e.target.value}
-    const setCountry:React.ChangeEventHandler<HTMLSelectElement> =(e)=>{currentUser.country=e.target.value};
-    const setPassword:React.ChangeEventHandler<HTMLInputElement> = (e)=>{currentUser.password=e.target.value}
+    var currentUser = new user
+    const setUsername: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        currentUser.username = e.target.value
+    }
+    const setName: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        currentUser.first_name = e.target.value
+    }
+    const setLastName: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        currentUser.last_name = e.target.value
+    }
+    const setEmail: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        currentUser.email = e.target.value
+    }
+    const setCountry: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
+        currentUser.country = e.target.value
+    };
+    const setPassword: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        currentUser.password = e.target.value
+    }
 
-    function signUpApiCall(){
+    function signUpApiCall() {
         ///remaining :check if user exist or not
         console.log(currentUser)
-        if(currentUser.first_name.length==0){
+        if (currentUser.first_name.length == 0) {
             return alert("نام خود را وارد کنید")
-        }else if(currentUser.last_name.length==0){
+        } else if (currentUser.last_name.length == 0) {
             return alert("نام خانوادگی خود را وارد کنید")
-        }else if(! /\S+@\S+\.\S+/.test(currentUser.email)){
+        } else if (!/\S+@\S+\.\S+/.test(currentUser.email)) {
             return alert("ایمیل معتبر وارد کنید")
-        }else if(currentUser.country.length==0){
+        } else if (currentUser.country.length == 0) {
             return alert("کشور را انتخاب کنید")
-        }else if(currentUser.username.length==0){
+        } else if (currentUser.username.length == 0) {
             return alert("نام کاربری را وارد کنید")
-        }else if(currentUser.password.length!=8){
+        } else if (currentUser.password.length != 8) {
             return alert("رمز عبوری با ۸ کاراکتر وارد کنید")
         }
-        axiosSignUp(currentUser.username,currentUser.password,currentUser.first_name,currentUser.last_name,currentUser.email,currentUser.country).then(
-            res =>{
+        axiosSignUp(currentUser.username, currentUser.password, currentUser.first_name, currentUser.last_name, currentUser.email, currentUser.country).then(
+            res => {
                 onAxiosSuccess({
-                    res: res, myError: addUserError, onSuccess: ()=>{navigate('/sign-up-confirm')}   
+                    res: res, myError: addUserError, onSuccess: () => {
+                        navigate('/sign-up-confirm')
+                    }
                 })
                 console.log(res)
                 setToken(res.data.data.access_token)
                 console.log(getToken())
             }
             ,
-            error =>{
-            if(error.error_message =='UserName is already taken!'){
-                onAxiosError({axiosError: error, myError: userExistError})
-            }else{
-                onAxiosError({axiosError: error, myError: addUserError})
+            error => {
+                if (error.error_message == 'UserName is already taken!') {
+                    onAxiosError({axiosError: error, myError: userExistError})
+                } else {
+                    onAxiosError({axiosError: error, myError: addUserError})
+                }
             }
-        }
-                
         )
 
     }
+
     return (
         <Form>
             <div className="sign-up-form">
@@ -81,7 +85,7 @@ function SignUpForm() {
                     <hr className="line"/>
                 </div>
                 <div className="input-bar">
-                <div className="input-container">
+                    <div className="input-container">
                         <span className="label">نام</span>
                         <input className="input" type="text" onChange={setName}/>
                     </div>
@@ -95,7 +99,7 @@ function SignUpForm() {
                     </div>
                     <div className="input-container">
                         <span className="label">کشور</span>
-                        <select className="select-country"onChange={setCountry}>کشور
+                        <select className="select-country" onChange={setCountry}>کشور
                             <option value="">انتخاب کشور</option>
                             <option value="iran">iran</option>
                             <option value="us">us</option>

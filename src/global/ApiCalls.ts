@@ -4,6 +4,7 @@ import {getToken} from "./Variables";
 // import {token} from "./Variables";
 import {myPlayersType, playerType, searchType} from "./Types";
 
+
 const customAxios = axios.create(
     {
         baseURL: 'http://178.216.248.39:8000',
@@ -13,6 +14,14 @@ const customAxios = axios.create(
         }
     }
 );
+
+customAxios.interceptors.request.use(config => ({
+    ...config,
+    headers: {
+        ...config.headers,
+        'x-access-token': getToken()
+    }
+}))
 
 export const axiosWeekInf = () => customAxios.get('weekInf')
 
@@ -50,7 +59,15 @@ export const axiosSignUp = (Username: string, Password: string, First_name: stri
     }
 )
 export const axiosSignUpConfirm = (token: string, code: string) => customAxios.post('verification',
-    {verification_code: code})
+    {
+        verification_code: code
+    }//,
+    // {
+    //     headers: {
+    //         'x-access-token': getToken()
+    //     }
+    // }
+)
 
 export const axiosSignIn = (username: string, password: string) => customAxios.post('login',
     {
