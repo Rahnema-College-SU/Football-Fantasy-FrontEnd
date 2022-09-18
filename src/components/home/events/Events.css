@@ -1,8 +1,9 @@
-.events-main-div{
+.events-main-div {
     width: 90%;
     margin: 3.125rem auto 0 auto;
 }
-.events-items-div{
+
+.events-items-div {
     display: grid;
     grid-column-gap: 10%;
     grid-template-columns: 1fr 1.8fr;

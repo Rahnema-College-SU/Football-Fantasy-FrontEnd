@@ -13,11 +13,11 @@ export function Profile() {
             <div className="data-box">
                 <div className="score-part">
                     <text className="score-title">امتیاز هفته</text>
-                <div className="show-score-box">
-                <img className="star" src={star}></img>
-                <text className="score">۱۰۸</text>
+                    <div className="show-score-box">
+                        <img className="star" src={star}></img>
+                        <text className="score">۱۰۸</text>
+                    </div>
                 </div>
-                </div>                
                 <text className="changes-title">تعویض ها</text>
                 <div className="changes">
                     <img src={addIcon}></img>
@@ -25,12 +25,13 @@ export function Profile() {
                     <img src={removeIcon}></img>
                     <text className="change-spot">Haland</text>
                 </div>
-                
-                
+
+
             </div>
             <div className="profile-info">
-                <img className="profile-photo" src={profilePhoto} ></img>
-                <div className="name">first and last name</div>‍‍‍
+                <img className="profile-photo" src={profilePhoto}></img>
+                <div className="name">first and last name</div>
+                ‍‍‍
                 <img className="like" src={like}></img>
             </div>
         </div>

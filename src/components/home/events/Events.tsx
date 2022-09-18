@@ -6,13 +6,13 @@ import './Events.css'
 
 function Events() {
     return (
-        
+
         <div className="events-main-div">
-            <MainSearchBox />
+            <MainSearchBox/>
             <div className="events-items-div">
-                <Friends />
-                <LatestEvents />
-                
+                <Friends/>
+                <LatestEvents/>
+
             </div>
 
         </div>

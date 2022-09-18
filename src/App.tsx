@@ -8,7 +8,7 @@ import Home from "./components/home/Home";
 import {homeTabsEndingUrl, showingMyTeamTabsEndingUrl} from "./global/Variables";
 import {MyTeam} from "./components/home/myTeam/MyTeam";
 import Transfers from "./components/home/transfers/Transfers";
-import LatestEvents from "./components/home/Events/Events";
+import LatestEvents from "./components/home/events/Events";
 import Prizes from "./components/home/prizes/Prizes";
 import Profile from "./components/home/profile/Profile";
 import {

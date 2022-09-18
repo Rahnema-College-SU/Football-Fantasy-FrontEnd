@@ -6,11 +6,12 @@ export const homeTabsEndingUrl = {
     prizes: 'prizes'
 }
 var token = ""
-export function setToken(t:string){
-    token=t
+
+export function setToken(t: string) {
+    token = t
 }
 
-export function getToken(){
+export function getToken() {
     return token
 }
 
