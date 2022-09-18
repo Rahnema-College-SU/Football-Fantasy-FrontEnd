@@ -16,7 +16,7 @@ export function MiddleTabBar() {
     return (
         <div id={'middle-tab-bar-main-div'}>
             <img id={'logo'} src={logo} alt={'team logo'}></img>
-            <div id="tab-bar-rectangle" dir={'rtl'}>
+            <div id="tab-bar-rectangle">
                 {
                     tabs.map(tab => {
                         return <div

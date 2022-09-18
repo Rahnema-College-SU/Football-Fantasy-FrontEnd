@@ -1,11 +1,7 @@
-import { useState } from 'react';
-
-
-
 export const homeTabsEndingUrl = {
     myTeam: 'my-team',
     transfers: 'transfers',
-    latestEvents: 'latest-events',
+    Events: 'events',
     profile: 'profile',
     prizes: 'prizes'
 }
@@ -23,8 +19,6 @@ export const showingMyTeamTabsEndingUrl = {
     list: 'list'
 }
 
-export const serverUrl = 'http://178.216.248.39:8000';
-
 export function toFarsiNumber(number: number) {
     const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
 
@@ -32,3 +26,12 @@ export function toFarsiNumber(number: number) {
         .toString()
         .replace(/\d/g, (x: string) => farsiDigits[parseInt(x)]);
 }
+
+export const gkPositions = [1, 2]
+export const defPositions = [3, 4, 5, 6, 7]
+export const midPositions = [8, 9, 10, 11, 12]
+export const attPositions = [13, 14, 15]
+
+//They should have the same order as the tabs in the home page
+export const positionsServer = ['ALL', 'GKP', 'DEF', 'MID', 'FWD'] as const
+export const positionsUi = ['ALL', 'GK', 'DEF', 'MID', 'ATT'] as const
