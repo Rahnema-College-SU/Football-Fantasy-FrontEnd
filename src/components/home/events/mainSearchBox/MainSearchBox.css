@@ -1,0 +1,16 @@
+
+.searchBox {
+    align-items: center;
+    display: flex;
+    direction: rtl;
+    width: 42%;
+    height: 2.5rem;
+    margin: auto;
+    background: #FFFFFF;
+    border-bottom: 1px solid #E4E4E4;
+}
+
+.searchHint {
+    font: normal 300 14px Vazirmatn, monospace;
+    color: rgba(61, 25, 91, 0.67);
+}

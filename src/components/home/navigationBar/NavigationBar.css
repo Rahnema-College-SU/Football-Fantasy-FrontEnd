@@ -47,12 +47,15 @@
     text-decoration: none;
     color: #3D195B;
     height: 38px;
+
 }
 
 #nav-bar-list li a:not(#a-selected) {
     font: 600 17px Vazirmatn, monospace;
 }
 
+/*TODO: ADD 900 weight font*/
 #a-selected {
     font-weight: 900;
+    /*font: 900 17px Vazirmatn, monospace;*/
 }

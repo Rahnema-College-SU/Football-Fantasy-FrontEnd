@@ -1,52 +1,28 @@
-#dateBox {
-    position: absolute;
-    width: 472px;
-    height: 35px;
-    left: 298px;
-    top: 332px;
-
+.date-box {
     background: #3D195B;
+    width: 50%;
+    margin: auto;
+    color: white;
+
     border-radius: 8px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     flex-direction: row-reverse;
-
+    padding: 10px 0;
 }
 
-#weekText {
-    width: 121px;
-    height: 23px;
-    left: 638px;
-    top: 338px;
+.loading-date-box {
+    direction: rtl;
+}
 
-    font-family: Vazirmatn, serif;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 16px;
-    line-height: 25px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-
+#week-text {
+    font: 800 16px Vazirmatn, serif;
     color: #00FF87;
-
 }
 
-#dateText {
-    width: 236px;
-    height: 23px;
-    left: 364px;
-    top: 338px;
-
-    font-family: Vazirmatn, serif;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 14px;
+#date-text {
+    font: 800 14px Vazirmatn, serif;
     line-height: 22px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-
     color: #F7F7F7;
 }

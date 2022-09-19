@@ -1,17 +1,18 @@
 import React, {FC, ReactElement, ReactNode} from "react";
 import "./Form.css";
-import cover from "./assets/cover.svg";
 import logo from "./assets/logo.svg";
 
 const Form: FC<{
     children: ReactNode
 }> = ({children}): ReactElement => {
     return <div className="window">
-        <div className="sidePicture">
+        <div className="side-picture">
             <img className="logo" src={logo} alt=""/>
-            {/* <img className="PlayersPhoto" src={cover} alt=""/> */}
         </div>
-        {children}
+        <div className="form-container">
+            {children}
+        </div>
+
     </div>
 }
 export default Form;
