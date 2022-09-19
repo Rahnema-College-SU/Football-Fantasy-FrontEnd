@@ -2,7 +2,7 @@ import React from "react";
 import "./SignInForm.css";
 import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
-import {getToken, homeTabsEndingUrl, setToken, showingMyTeamTabsEndingUrl} from "../../global/Variables";
+import {homeTabsEndingUrl, setToken, showingMyTeamTabsEndingUrl} from "../../global/Variables";
 import {axiosSignIn} from "../../global/ApiCalls";
 import {invalidInputError, onAxiosError, onAxiosSuccess} from "../../global/Errors";
 
@@ -29,7 +29,7 @@ function SignInForm() {
                             setToken(res.data.data.access_token)
                         }
                     })
-                    
+
                 }
                 ,
                 error => {

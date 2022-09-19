@@ -4,10 +4,11 @@ import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
 import {axiosSignUp} from "../../global/ApiCalls";
 import {addUserError, onAxiosError, onAxiosSuccess, userExistError} from "../../global/Errors";
-import {getToken, setToken} from "../../global/Variables";
+import {setToken} from "../../global/Variables";
 
 function SignUpForm() {
     const navigate = useNavigate()
+
     class user {
         username = "";
         password = "";
@@ -59,9 +60,9 @@ function SignUpForm() {
                         navigate('/sign-up-confirm')
                         setToken(res.data.data.access_token)
                     }
-                    
+
                 })
-                
+
             }
             ,
             error => {

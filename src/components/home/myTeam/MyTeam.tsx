@@ -40,7 +40,7 @@ import {
     axiosPlayersList,
     axiosWeekInf
 } from "../../../global/ApiCalls";
-import {positionsServer, positionsUi} from "../../../global/Variables";
+import {getToken, positionsServer, positionsUi} from "../../../global/Variables";
 
 export const myPlayersState = atom<myPlayersType>({
     key: 'myPlayersState',
@@ -64,7 +64,7 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
     const isDeleteConfirmClicked = useRecoilValue(isDeleteConfirmClickedState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
 
-    useEffect(() =>  updateGameInfo(), [])
+    useEffect(() => updateGameInfo(), [])
 
     // for delete confirmation modal
     useEffect(() => {
@@ -100,6 +100,7 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
     }, [fantasyTeamApiResponse])
 
     const updateGameInfo = () => {
+        console.log(getToken())
         getDate().then(res => setDate(res))
 
         axiosFantasyTeam().then(
@@ -170,7 +171,8 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
                     myError: loadPlayersListError,
                     onSuccess: () => setPlayersListApiResponse(res.data)
                 }),
-            error => onAxiosError({axiosError: error, myError: loadPlayersListError})
+            error =>
+                onAxiosError({axiosError: error, myError: loadPlayersListError})
         )
     }
 

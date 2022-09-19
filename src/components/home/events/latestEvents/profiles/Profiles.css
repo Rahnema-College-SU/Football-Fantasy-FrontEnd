@@ -64,7 +64,7 @@
 }
 
 .score {
-    font:800 16px Vasirmatn, serif;
+    font: 800 16px Vasirmatn, serif;
     line-height: 25px;
     margin-left: 20%;
 }
@@ -89,7 +89,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    font:400 12px Vazirmatn, serif;
+    font: 400 12px Vazirmatn, serif;
     line-height: 19px;
     color: #3D195B;
     align-items: center;
