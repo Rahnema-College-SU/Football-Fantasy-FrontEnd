@@ -40,7 +40,7 @@ import {
     axiosPlayersList,
     axiosWeekInf
 } from "../../../global/ApiCalls";
-import {getToken, positionsServer, positionsUi} from "../../../global/Variables";
+import {positionsServer, positionsUi} from "../../../global/Variables";
 
 export const myPlayersState = atom<myPlayersType>({
     key: 'myPlayersState',
@@ -100,7 +100,6 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
     }, [fantasyTeamApiResponse])
 
     const updateGameInfo = () => {
-        console.log(getToken())
         getDate().then(res => setDate(res))
 
         axiosFantasyTeam().then(
@@ -235,8 +234,7 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
                 <RemainingMoney/>
 
                 {showingTab === 'schematic' ?
-                    <Ground selectPosition={selectPosition} deselectPosition={deselectPosition}
-                            updateGameInfo={updateGameInfo}/> :
+                    <Ground selectPosition={selectPosition} deselectPosition={deselectPosition}/> :
                     // so showingTab === 'list'
                     <MyPlayersList selectPosition={selectPosition} deselectPosition={deselectPosition}/>}
             </div>

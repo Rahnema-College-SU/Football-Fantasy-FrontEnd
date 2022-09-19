@@ -6,14 +6,13 @@ export const homeTabsEndingUrl = {
     prizes: 'prizes'
 }
 
-let token: string;
-
+const tokenKey = 'x-access-token'
 export function setToken(t: string) {
-    token = t
+    localStorage.setItem(tokenKey, t)
 }
 
 export function getToken() {
-    return token
+    return localStorage.getItem(tokenKey)
 }
 
 export const showingMyTeamTabsEndingUrl = {
