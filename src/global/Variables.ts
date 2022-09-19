@@ -7,6 +7,7 @@ export const homeTabsEndingUrl = {
 }
 
 const tokenKey = 'x-access-token'
+
 export function setToken(t: string) {
     localStorage.setItem(tokenKey, t)
 }

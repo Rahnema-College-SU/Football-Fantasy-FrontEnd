@@ -16,8 +16,9 @@
 .friends-box {
     display: flex;
     flex-direction: column;
-} 
-.selected-button{
+}
+
+.selected-button {
     width: 45%;
     height: 30px;
     background: linear-gradient(269.48deg, #04F5EC -30.14%, #03FBB8 109.7%);
@@ -40,7 +41,8 @@
     /*rgba(3, 251, 184, 1);*/
 
 }
-.button-bar{
+
+.button-bar {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
