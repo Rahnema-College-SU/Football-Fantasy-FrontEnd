@@ -1,6 +1,6 @@
 import React from "react";
-import "./latestEvents.css"
-import Profile from "./profiles/profiles";
+import "./LatestEvents.css"
+import Profile from "./profiles/Profiles";
 
 export function LatestEvents() {
     return (

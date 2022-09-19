@@ -21,9 +21,6 @@ function SignUpConfirm() {
                 console.log(getToken())
                 onAxiosSuccess({
                     res: res, myError: invalidCodeError, onSuccess: () => {
-                        // console.log(res)
-                        // setToken(res.data.data.access_token)
-                        // console.log(getToken())
                         navigate('/sign-in')
                     }
                 })

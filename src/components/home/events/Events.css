@@ -8,7 +8,4 @@
     grid-column-gap: 10%;
     grid-template-columns: 1fr 1.8fr;
     margin: 50px auto 1.875rem auto;
-    /* display: flex;
-    flex-direction: row-reverse;
-    column-gap: 20%; */
 }

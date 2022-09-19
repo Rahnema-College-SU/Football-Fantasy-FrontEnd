@@ -1,5 +1,5 @@
 import React from "react";
-import "./friends.css"
+import "./Friends.css"
 
 
 export function Friends() {

@@ -30,6 +30,7 @@
 .sign-in-button {
     max-width: 22rem;
     width: 30% !important;
+    cursor: pointer;
 }
 
 .button-bar {
