@@ -15,11 +15,10 @@
 
 .friends-box {
     display: flex;
-    flex-direction: column;
-}
-
-.selected-button {
-    width: 148px;
+    direction: column;
+} 
+.selected-button{
+    width: 45%;
     height: 30px;
     background: linear-gradient(269.48deg, #04F5EC -30.14%, #03FBB8 109.7%);
     border-radius: 4px;
@@ -35,9 +34,15 @@
     height: 30px;
     background: #FFFFFF;
     border-radius: 4px;
+    border: 
+    Gradient Button
+    rgba(4, 245, 236, 1)
+    rgba(3, 251, 184, 1);
+    
 }
-
-.button-bar {
+.button-bar{
     display: flex;
-    flex-direction: row-reverse;
+    direction: row-reverse;
+    align-items: center;
+    justify-content: center;
 }
