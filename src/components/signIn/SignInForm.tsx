@@ -9,15 +9,12 @@ import {invalidInputError, onAxiosError, onAxiosSuccess} from "../../global/Erro
 function SignInForm() {
     const navigate = useNavigate()
 
-    class Input {
-        username = ""
-        password = ""
+    const signInInput = {
+        username: "",
+        password: ""
     }
 
-    var signInInput = new Input
-
     function signInApiCall() {
-        setToken('')
         if (signInInput.password.length != 8) {
             return alert("رمز عبوری با ۸ کاراکتر وارد کنید")
         } else {
@@ -30,8 +27,7 @@ function SignInForm() {
                         }
                     })
 
-                }
-                ,
+                },
                 error => {
                     onAxiosError({axiosError: error, myError: invalidInputError})
                 }

@@ -16,6 +16,8 @@ import {
     removePlayerModalDisplayState
 } from "./components/home/myTeam/removePlayerModal/RemovePlayerModal";
 import {useRecoilValue} from "recoil";
+import {axiosFantasyTeam} from "./global/ApiCalls";
+import {invalidToken, onAxiosError, onAxiosSuccess} from "./global/Errors";
 
 function App() {
     const removePlayerModalDisplay = useRecoilValue(removePlayerModalDisplayState)
@@ -23,8 +25,34 @@ function App() {
     const [modalsDivDisplay, setModalsDivDisplay] = useState<'none' | 'block'>('none')
 
     useEffect(() => {
-        navigate('/sign-in')
+        if (window.location.href.includes('home'))
+            isTokenValid()
+            .then(
+                res => res ? '' : navigate('/sign-in'),
+                () => navigate('/sign-in')
+            )
+        else
+            navigate('/sign-in')
     }, [])
+
+    async function isTokenValid(): Promise<boolean> {
+        return await axiosFantasyTeam()
+            .then(
+                res =>
+                    onAxiosSuccess({
+                        res: res,
+                        myError: invalidToken,
+                        onErrorReturnValue: false,
+                        onSuccessReturnValue: true
+                    }),
+                err =>
+                    onAxiosError({
+                        axiosError: err,
+                        myError: invalidToken,
+                        onErrorReturnValue: false
+                    })
+            )
+    }
 
     useEffect(() => {
         if (removePlayerModalDisplay === 'block') {
