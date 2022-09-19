@@ -103,7 +103,9 @@ export function onAxiosError({
                                  onError,
                                  onErrorReturnValue
                              }: { axiosError: any, myError: BaseError, onError?: () => void, onErrorReturnValue?: any }) {
+    console.log('axiosError:')
     console.log(axiosError)
+    console.log('axiosError.response:')
     console.log(axiosError.response)
 
     return onBaseError({

@@ -7,7 +7,7 @@ function NavigationBar() {
     const tabs = [
         {id: 1, name: 'تیم من', urlEndingName: homeTabsEndingUrl.myTeam + '/' + showingMyTeamTabsEndingUrl.schematic},
         {id: 2, name: 'نقل و انتقالات', urlEndingName: homeTabsEndingUrl.transfers},
-        {id: 3, name: ' رویداد ها', urlEndingName: homeTabsEndingUrl.Events},
+        {id: 3, name: ' رویدادها', urlEndingName: homeTabsEndingUrl.Events},
         {id: 4, name: 'پروفایل', urlEndingName: homeTabsEndingUrl.profile},
         {id: 5, name: 'جوایز', urlEndingName: homeTabsEndingUrl.prizes}
     ]

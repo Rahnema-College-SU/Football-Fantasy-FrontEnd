@@ -5,7 +5,8 @@ export const homeTabsEndingUrl = {
     profile: 'profile',
     prizes: 'prizes'
 }
-var token = ""
+
+let token: string;
 
 export function setToken(t: string) {
     token = t
