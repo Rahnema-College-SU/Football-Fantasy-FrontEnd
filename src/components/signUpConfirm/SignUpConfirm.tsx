@@ -4,28 +4,29 @@ import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
 import {getToken} from "../../global/Variables";
 import {axiosSignUpConfirm} from "../../global/ApiCalls";
-import {invalidCodeError, onAxiosError, onAxiosSuccess} from "../../global/Errors";
+import {addUserError, invalidCodeError, onAxiosError, onAxiosSuccess, onBaseError} from "../../global/Errors";
 
 
 function SignUpConfirm() {
+    let code = '';
     const navigate = useNavigate()
     const setCode: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         code = e.target.value
     }
-    var code = ''
 
     function ConfirmApi() {
+        const token = getToken()
+        if (!token) {
+            onBaseError({myError: addUserError})
+            return
+        }
 
-        axiosSignUpConfirm(getToken(), code).then(
+        axiosSignUpConfirm(token, code).then(
             res => {
-                console.log(getToken())
                 onAxiosSuccess({
-                    res: res, myError: invalidCodeError, onSuccess: () => {
-                        navigate('/sign-in')
-                    }
+                    res: res, myError: invalidCodeError, onSuccess: () => navigate('/sign-in')
                 })
-            }
-            ,
+            },
             error =>
                 onAxiosError({axiosError: error, myError: invalidCodeError})
         )

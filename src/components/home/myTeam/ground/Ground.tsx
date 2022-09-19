@@ -22,8 +22,7 @@ export function Ground({
                            deselectPosition
                        }: {
     selectPosition: (position: number | undefined) => () => void,
-    deselectPosition: () => void,
-    updateGameInfo: () => void
+    deselectPosition: () => void
 }) {
     const myPlayers = useRecoilValue(myPlayersState)
     const selectedPosition = useRecoilValue(selectedPositionState)
