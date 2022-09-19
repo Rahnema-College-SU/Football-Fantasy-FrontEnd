@@ -1,7 +1,7 @@
 import React from "react";
-import Friends from "./friends/friends";
-import LatestEvents from "./latestEvents/latestEvents";
-import {MainSearchBox} from "./mainSearchBox/mainSearchBox";
+import Friends from "./friends/Friends";
+import LatestEvents from "./latestEvents/LatestEvents";
+import {MainSearchBox} from "./mainSearchBox/MainSearchBox";
 import './Events.css'
 
 function Events() {

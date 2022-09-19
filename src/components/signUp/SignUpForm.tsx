@@ -4,10 +4,11 @@ import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
 import {axiosSignUp} from "../../global/ApiCalls";
 import {addUserError, onAxiosError, onAxiosSuccess, userExistError} from "../../global/Errors";
-import {getToken, setToken} from "../../global/Variables";
+import {setToken} from "../../global/Variables";
 
 function SignUpForm() {
     const navigate = useNavigate()
+
     class user {
         username = "";
         password = "";
@@ -17,10 +18,10 @@ function SignUpForm() {
         country = "";
     }
 
-    var currentUser = new user
-    const setUsername: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    var currentUser = new user()
+    const setUsername: React.ChangeEventHandler<HTMLInputElement> = (e) => (
         currentUser.username = e.target.value
-    }
+    )
     const setName: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         currentUser.first_name = e.target.value
     }
@@ -39,16 +40,15 @@ function SignUpForm() {
 
     function signUpApiCall() {
         ///remaining :check if user exist or not
-        console.log(currentUser)
-        if (currentUser.first_name.length == 0) {
+        if (currentUser.first_name.length === 0) {
             return alert("نام خود را وارد کنید")
-        } else if (currentUser.last_name.length == 0) {
+        } else if (currentUser.last_name.length === 0) {
             return alert("نام خانوادگی خود را وارد کنید")
         } else if (!/\S+@\S+\.\S+/.test(currentUser.email)) {
             return alert("ایمیل معتبر وارد کنید")
-        } else if (currentUser.country.length == 0) {
+        } else if (currentUser.country.length === 0) {
             return alert("کشور را انتخاب کنید")
-        } else if (currentUser.username.length == 0) {
+        } else if (currentUser.username.length === 0) {
             return alert("نام کاربری را وارد کنید")
         } else if (currentUser.password.length < 8) {
             return alert("رمز عبوری با حداقل ۸ کاراکتر وارد کنید")
@@ -58,15 +58,15 @@ function SignUpForm() {
                 onAxiosSuccess({
                     res: res, myError: addUserError, onSuccess: () => {
                         navigate('/sign-up-confirm')
+                        setToken(res.data.data.access_token)
                     }
+
                 })
-                console.log(res)
-                setToken(res.data.data.access_token)
-                console.log(getToken())
+
             }
             ,
             error => {
-                if (error.error_message == 'UserName is already taken!') {
+                if (error.error_message === 'UserName is already taken!') {
                     onAxiosError({axiosError: error, myError: userExistError})
                 } else {
                     onAxiosError({axiosError: error, myError: addUserError})

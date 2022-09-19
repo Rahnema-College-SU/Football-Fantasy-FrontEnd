@@ -1,10 +1,8 @@
 .profile-box {
     width: 640px;
     height: 180px;
-
     background: #FBFBFB;
     border-radius: 8px;
-
     display: flex;
     flex-direction: row-reverse;
 }
@@ -15,7 +13,6 @@
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-
     font: 500 12px Vazirmatn, serif;
     color: #3D195B;
     width: 70%;
@@ -33,10 +30,7 @@
     justify-content: center;
     transform: rotate(180deg);
     writing-mode: vertical-rl;
-    font-family: 'Vazirmatn';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
+    font: 500 12px Vazirmatn, serif;
     color: #3D195B;
 }
 
@@ -63,20 +57,14 @@
 }
 
 .score-title {
-    font-family: 'Vazirmatn';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
+    font: 500 12px Vazirmatn, serif;
     line-height: 19px;
     margin-top: 5%;
     margin-right: 3%;
 }
 
 .score {
-    font-family: 'Vazirmatn';
-    font-style: normal;
-    font-weight: 800;
-    font-size: 16px;
+    font: 800 16px Vasirmatn, serif;
     line-height: 25px;
     margin-left: 20%;
 }
@@ -89,7 +77,6 @@
 .changes {
     margin-right: 3%;
     display: flex;
-    /* columns: auto auto; */
 }
 
 .change-spot {
@@ -102,10 +89,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    font-family: 'Vazirmatn';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
+    font: 400 12px Vazirmatn, serif;
     line-height: 19px;
     color: #3D195B;
     align-items: center;

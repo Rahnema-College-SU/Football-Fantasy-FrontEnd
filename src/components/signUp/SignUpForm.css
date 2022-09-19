@@ -36,6 +36,7 @@
 
 button {
     max-width: 22rem;
+    cursor: pointer;
 }
 
 .select-country {
@@ -45,6 +46,7 @@ button {
     height: 3rem;
     font: 300 14px Vazirmatn, serif;
     color: white;
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 51.875rem) {

@@ -128,16 +128,21 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
     }
 
     useEffect(() => {
+        setPageNumber(1)
         setSearch({...search, pointsSort: pointsSort})
     }, [pointsSort])
 
     useEffect(() => {
+        setPageNumber(1)
         setSearch({...search, costsSort: costsSort})
     }, [costsSort])
 
     useEffect(() => {
         if (selectedPlayer && !choosePlayersList.playersList.find(player => player.id === selectedPlayer.id))
             setSelectedPlayer(undefined)
+
+        if (choosePlayersList.playersList.length === 0 && choosePlayersList.numberOfPages)
+            setPageNumber(choosePlayersList.numberOfPages)
     }, [choosePlayersList])
 
     useEffect(() => {

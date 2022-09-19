@@ -1,5 +1,5 @@
 import React from "react";
-import "./mainSearchBox.css"
+import "./MainSearchBox.css"
 import searchIcon from "./assets/searchicon.png";
 
 export function MainSearchBox() {
