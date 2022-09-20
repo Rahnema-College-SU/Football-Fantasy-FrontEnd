@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 30px;
+    height: fit-content;
+    align-self: end;
 }
 
 #tab-bar-rectangle {

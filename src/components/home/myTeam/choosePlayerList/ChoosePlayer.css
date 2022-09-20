@@ -159,9 +159,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 28px;
-    height: 40px;
-
+    height: fit-content;
+    padding-bottom: 15px;
 }
 
 #show-page-state {

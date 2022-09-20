@@ -43,7 +43,7 @@ export const searchState = atom<searchType>({
         pointsSort: defaultSort,
         costsSort: defaultSort,
         pageNumber: 1,
-        listSize: 10
+        listSize: 9
     }
 })
 

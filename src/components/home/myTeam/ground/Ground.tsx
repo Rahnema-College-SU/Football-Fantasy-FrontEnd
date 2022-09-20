@@ -175,20 +175,18 @@ export function Ground({
     }
 
     return (
-        <div id={'main-div-container'}>
-            <div id={'main-div'}>
-                <div id={'gk-div'}>
-                    {getPlayersDivs(gkPositions)}
-                </div>
-                <div id={'def-div'}>
-                    {getPlayersDivs(defPositions)}
-                </div>
-                <div id={'mid-div'}>
-                    {getPlayersDivs(midPositions)}
-                </div>
-                <div id={'att-div'}>
-                    {getPlayersDivs(attPositions)}
-                </div>
+        <div id={'ground-main-div'}>
+            <div id={'gk-div'}>
+                {getPlayersDivs(gkPositions)}
+            </div>
+            <div id={'def-div'}>
+                {getPlayersDivs(defPositions)}
+            </div>
+            <div id={'mid-div'}>
+                {getPlayersDivs(midPositions)}
+            </div>
+            <div id={'att-div'}>
+                {getPlayersDivs(attPositions)}
             </div>
         </div>
     )
