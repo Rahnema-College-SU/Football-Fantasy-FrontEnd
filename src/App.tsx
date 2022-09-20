@@ -23,7 +23,7 @@ function App() {
     const [modalsDivDisplay, setModalsDivDisplay] = useState<'none' | 'block'>('none')
 
     useEffect(() => {
-        navigate('/sign-in')
+        navigate(`/home/${homeTabsEndingUrl.Events}`)
     }, [])
 
     useEffect(() => {

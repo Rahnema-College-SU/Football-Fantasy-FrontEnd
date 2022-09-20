@@ -1,5 +1,5 @@
 
-.searchBox {
+.main-search-box {
     align-items: center;
     display: flex;
     direction: rtl;
@@ -10,7 +10,18 @@
     border-bottom: 1px solid #E4E4E4;
 }
 
-.searchHint {
+.placeholder {
     font: normal 300 14px Vazirmatn, monospace;
+    color: rgba(61, 25, 91, 0.67);
+    margin-right: 10px;
+}
+.main-search-input{
+    all: unset;
+    font: 300 14px Vazirmatn, serif;
+    margin-right: 15px;
+    color: rgba(61, 25, 91, 0.67);
+    width: 80%;
+}
+::placeholder{
     color: rgba(61, 25, 91, 0.67);
 }
