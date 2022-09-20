@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './NavigationBar.css';
 import {Link, useNavigate} from "react-router-dom";
 import {homeTabsEndingUrl, showingMyTeamTabsEndingUrl} from "../../../global/Variables";
+import {getHomeTabsState, setHomeTabsState} from "../../../global/Storages";
 
 function NavigationBar() {
     const tabs = [
@@ -12,8 +13,12 @@ function NavigationBar() {
         {id: 5, name: 'جوایز', urlEndingName: homeTabsEndingUrl.prizes}
     ]
 
-    const [selectedTab, setSelectedTab] = useState(1)
+    const [selectedTab, setSelectedTab] = useState(getHomeTabsState())
     const navigate = useNavigate()
+
+    useEffect(() => {
+        setHomeTabsState(selectedTab)
+    }, [selectedTab])
 
     return (
         <div id={'nav-bar-div'}>

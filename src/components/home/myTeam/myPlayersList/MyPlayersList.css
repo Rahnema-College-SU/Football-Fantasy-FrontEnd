@@ -167,6 +167,10 @@
     border-radius: 10px;
 }
 
+.row-div:focus {
+    outline: none;
+}
+
 .row-name {
     color: #3D195B;
     padding-right: 15px;

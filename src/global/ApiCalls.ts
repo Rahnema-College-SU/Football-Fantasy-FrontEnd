@@ -1,6 +1,6 @@
 import axios from "axios";
-import {getToken} from "./Variables";
 import {myPlayersType, playerType, searchType} from "./Types";
+import {getToken} from "./Storages";
 
 const customAxios = axios.create(
     {

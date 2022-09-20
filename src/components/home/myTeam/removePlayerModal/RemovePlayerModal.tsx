@@ -4,6 +4,7 @@ import activeCloth from '../ground/assets/active-cloth.svg';
 import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {selectedPositionState} from "../ground/Ground";
 import {myPlayersState} from "../MyTeam";
+import {focusOnElementByRef, handleKeyboardEvent} from "../../../../global/Functions";
 
 export const isDeleteConfirmClickedState = atom<boolean>({
     key: 'isDeleteConfirmClickedState',
@@ -22,7 +23,7 @@ export function RemovePlayerModal() {
     const setIsDeleteConfirmClicked = useSetRecoilState(isDeleteConfirmClickedState)
     const [removePlayerModalDisplay, setRemovePlayerModalDisplay] = useRecoilState(removePlayerModalDisplayState)
 
-    const deleteModalDivRef = useRef<HTMLDivElement | null>(null);
+    const deleteModalDivRef = useRef<HTMLDivElement | null>(null)
 
     useEffect(() => {
         if (removePlayerModalDisplay === 'none')
@@ -55,14 +56,10 @@ export function RemovePlayerModal() {
     }
 
     return (
-        <div ref={(e) => {
-            deleteModalDivRef.current = e;
-            e?.focus();
-        }} id={'delete-modal-div'} style={{display: removePlayerModalDisplay}} tabIndex={0} onKeyUp={(e) => {
-            if (e.key === 'Enter')
-                document.getElementById('delete-button')?.click()
-        }
-        }>
+        <div ref={focusOnElementByRef(deleteModalDivRef)}
+             id={'delete-modal-div'} style={{display: removePlayerModalDisplay}} tabIndex={0}
+             onKeyUp={handleKeyboardEvent<HTMLDivElement>(['Enter'], [() => document.getElementById('delete-button')?.click()]
+             )}>
             <div id='header'>حذف بازیکن</div>
             <img id='cloth' src={activeCloth} alt={'active cloth'}/>
             {selectedPosition ? getActionsSection(selectedPosition) : closeModal()}

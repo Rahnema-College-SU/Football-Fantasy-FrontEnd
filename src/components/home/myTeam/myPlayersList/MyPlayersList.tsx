@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import './MyPlayersList.css';
 import {useRecoilValue, useSetRecoilState} from "recoil";
 import {myPlayersState} from "../MyTeam";
@@ -12,6 +12,7 @@ import {playerType} from "../../../../global/Types";
 import deleteIcon from "./assets/delete-icon.svg";
 import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
 import {selectedFilterItemState, selectedPlayerState} from "../choosePlayerList/ChoosePlayerList";
+import {focusOnElementByRef, handleKeyboardEvent} from "../../../../global/Functions";
 
 function MyPlayersList({
                            selectPosition,
@@ -25,6 +26,26 @@ function MyPlayersList({
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
     const setSelectedFilterItem = useSetRecoilState(selectedFilterItemState)
     const setSelectedPlayer = useSetRecoilState(selectedPlayerState)
+
+    // for keyboard keys
+    const selectedRowDivRef = useRef<HTMLDivElement | null>(null)
+    const firstPosition = 1
+    const lastPosition = 15
+
+    useEffect(() => {
+        if (selectedPosition === undefined)
+            setSelectedPlayer(undefined)
+        else {
+            if (gkPositions.includes(selectedPosition))
+                setSelectedFilterItem('GK')
+            else if (defPositions.includes(selectedPosition))
+                setSelectedFilterItem('DEF')
+            else if (midPositions.includes(selectedPosition))
+                setSelectedFilterItem('MID')
+            else if (attPositions.includes(selectedPosition))
+                setSelectedFilterItem('ATT')
+        }
+    }, [selectedPosition])
 
     function getInfoDiv(): JSX.Element {
         return <div id={'info-div'}>
@@ -56,27 +77,25 @@ function MyPlayersList({
     }
 
     function getRowDiv(position: number, offsetInUi: number) {
-        function activeInactiveOnClick(position: number | undefined) {
-            return () => {
-                selectPosition(position)()
+        const keyboardKeys = ['ArrowDown', 'ArrowUp'] as const
 
-                if (position === undefined)
-                    setSelectedPlayer(undefined)
-                else if (gkPositions.includes(position))
-                    setSelectedFilterItem('GK')
-                else if (defPositions.includes(position))
-                    setSelectedFilterItem('DEF')
-                else if (midPositions.includes(position))
-                    setSelectedFilterItem('MID')
-                else if (attPositions.includes(position))
-                    setSelectedFilterItem('ATT')
+        function handleArrowKey(ArrowKey: typeof keyboardKeys[number]) {
+            return () => {
+                if (selectedPosition) {
+                    if (selectedPosition === firstPosition && ArrowKey === 'ArrowUp')
+                        selectPosition(lastPosition)()
+                    else if (selectedPosition === lastPosition && ArrowKey === 'ArrowDown')
+                        selectPosition(firstPosition)()
+                    else
+                        selectPosition(ArrowKey === 'ArrowDown' ? selectedPosition + 1 : selectedPosition - 1)()
+                }
             }
         }
 
         function getActiveRowDiv(player: playerType): JSX.Element {
             return (
                 <div className='row-div' style={{gridRowStart: position + offsetInUi}}
-                     onClick={activeInactiveOnClick(position)}>
+                     onClick={selectPosition(position)}>
                     <text className='row-name active-row-name'>{player.web_name}</text>
                     <text
                         className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_total_points)}</text>
@@ -89,7 +108,7 @@ function MyPlayersList({
         function getInactiveRowDiv(position: number): JSX.Element {
             return (
                 <div className='row-div' style={{gridRowStart: position + offsetInUi}}
-                     onClick={activeInactiveOnClick(position)}>
+                     onClick={selectPosition(position)}>
                     <text className='row-name inactive-row-name'>none</text>
                     <text className='row-number inactive-row-number'>۰</text>
                     <text className='row-number inactive-row-number'>۰</text>
@@ -100,7 +119,10 @@ function MyPlayersList({
         function getSelectedInactiveRowDiv(): JSX.Element {
             return (
                 <div className='row-div selected-row-div' style={{gridRowStart: position + offsetInUi}}
-                     onClick={deselectPosition}>
+                     onClick={deselectPosition} ref={focusOnElementByRef(selectedRowDivRef)} tabIndex={0}
+                     onKeyUp={
+                         handleKeyboardEvent(keyboardKeys, keyboardKeys.map(key => handleArrowKey(key))
+                         )}>
                     <text className='row-name inactive-row-name'>none</text>
                     <text className='row-number inactive-row-number'>۰</text>
                     <text className='row-number inactive-row-number'>۰</text>
@@ -111,7 +133,10 @@ function MyPlayersList({
         function getSelectedActiveRowDiv(player: playerType): JSX.Element {
             return (
                 <div className='row-div selected-row-div' style={{gridRowStart: position + offsetInUi}}
-                     onClick={deselectPosition}>
+                     onClick={deselectPosition} ref={focusOnElementByRef(selectedRowDivRef)} tabIndex={0}
+                     onKeyUp={
+                         handleKeyboardEvent(keyboardKeys, keyboardKeys.map(key => handleArrowKey(key))
+                         )}>
                     <text className='row-name active-row-name'>{player.web_name}</text>
                     <text
                         className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_total_points)}</text>

@@ -15,14 +15,12 @@
 }
 
 #gk-div {
-    /*position: relative;*/
     padding: 20px 210px 0;
     display: flex;
     justify-content: space-evenly;
 }
 
 #def-div, #mid-div, #att-div {
-    /*position: relative;*/
     display: flex;
     justify-content: space-evenly;
 }
@@ -104,6 +102,10 @@
     scale: 0.9;
 }
 
+.selected-inactive-cloth-div:focus {
+    outline: none;
+}
+
 .selected-cloth {
     grid-column-start: 1;
     grid-row-start: 1;
@@ -116,6 +118,10 @@
     justify-items: right;
     max-width: fit-content;
     scale: 0.9;
+}
+
+.selected-active-cloth-div:focus {
+    outline: none;
 }
 
 /*TODO: duplicate as .active-cloth-div*/

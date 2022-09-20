@@ -2,9 +2,10 @@ import React from "react";
 import "./SignInForm.css";
 import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
-import {homeTabsEndingUrl, setToken, showingMyTeamTabsEndingUrl} from "../../global/Variables";
+import {homeTabsEndingUrl, showingMyTeamTabsEndingUrl} from "../../global/Variables";
 import {axiosSignIn} from "../../global/ApiCalls";
 import {invalidInputError, onAxiosError, onAxiosSuccess} from "../../global/Errors";
+import {setToken} from "../../global/Storages";
 
 function SignInForm() {
     const navigate = useNavigate()

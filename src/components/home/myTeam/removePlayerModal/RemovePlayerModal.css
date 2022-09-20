@@ -8,6 +8,10 @@
     border-radius: 16px;
 }
 
+#delete-modal-div:focus {
+    outline: none;
+}
+
 #header {
     display: flex;
     justify-content: center;

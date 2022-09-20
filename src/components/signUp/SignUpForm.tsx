@@ -4,7 +4,7 @@ import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
 import {axiosSignUp} from "../../global/ApiCalls";
 import {addUserError, onAxiosError, onAxiosSuccess, userExistError} from "../../global/Errors";
-import {setToken} from "../../global/Variables";
+import {setToken} from "../../global/Storages";
 
 function SignUpForm() {
     const navigate = useNavigate()

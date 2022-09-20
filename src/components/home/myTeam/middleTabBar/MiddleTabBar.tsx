@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './MiddleTabBar.css';
 import logo from './assets/logo.svg';
 import {useNavigate} from "react-router-dom";
+import {getShowingMyTeamTabsState, setShowingMyTeamTabsState} from "../../../../global/Storages";
 
 
 export function MiddleTabBar() {
@@ -10,8 +11,12 @@ export function MiddleTabBar() {
         {id: 2, text: 'مشاهده لیست', urlEndingName: 'list'},
     ]
 
-    const [selectedTab, setSelectedTab] = useState<number>(1)
+    const [selectedTab, setSelectedTab] = useState<number>(getShowingMyTeamTabsState())
     const navigate = useNavigate()
+
+    useEffect(() => {
+        setShowingMyTeamTabsState(selectedTab)
+    }, [selectedTab])
 
     return (
         <div id={'middle-tab-bar-main-div'}>
