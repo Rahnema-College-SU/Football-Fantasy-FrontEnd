@@ -1,15 +1,17 @@
-import React from "react";
+import React, {useRef} from "react";
 import "./SignUpConfirm.css";
 import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
 import {axiosSignUpConfirm} from "../../global/ApiCalls";
 import {addUserError, invalidCodeError, onAxiosError, onAxiosSuccess, onBaseError} from "../../global/Errors";
 import {getToken} from "../../global/Storages";
+import {focusOnElementByRef, handleKeyboardEvent} from "../../global/Functions";
 
 
 function SignUpConfirm() {
     let code = '';
     const navigate = useNavigate()
+    const confirmationCodeInputRef = useRef<HTMLDivElement | null>(null)
     const setCode: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         code = e.target.value
     }
@@ -43,8 +45,13 @@ function SignUpConfirm() {
                 </div>
                 <div className="container">
                     <text className="label">لطفا کدی که به ایمیلتان ارسال شده را در کادر زیر وارد کنید</text>
-                    <input className="input" onChange={setCode}/>
-                    <button className="button" onClick={ConfirmApi}>تایید ثبت نام</button>
+                    <input className="input" onChange={setCode} ref={focusOnElementByRef(confirmationCodeInputRef)}
+                           tabIndex={0} onKeyUp={
+                        handleKeyboardEvent(['Enter'], [() =>
+                            document.getElementById('confirmation-code-button')?.click()])
+                    }/>
+                    <button id={'confirmation-code-button'} className="button" onClick={ConfirmApi}>تایید ثبت نام
+                    </button>
                 </div>
             </div>
         </Form>
