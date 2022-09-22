@@ -58,7 +58,9 @@ export function RemovePlayerModal() {
     return (
         <div ref={focusOnElementByRef(deleteModalDivRef)}
              id={'delete-modal-div'} style={{display: removePlayerModalDisplay}} tabIndex={0}
-             onKeyUp={handleKeyboardEvent(['Enter'], [() => document.getElementById('delete-button')?.click()]
+             onKeyUp={handleKeyboardEvent(['Enter', 'Escape'],
+                 [() => document.getElementById('delete-button')?.click(),
+                     () => setRemovePlayerModalDisplay('none')]
              )}>
             <div id='header'>حذف بازیکن</div>
             <img id='cloth' src={activeCloth} alt={'active cloth'}/>
