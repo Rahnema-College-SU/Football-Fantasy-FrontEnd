@@ -37,6 +37,7 @@
     justify-items: right;
     max-width: fit-content;
     scale: 0.8;
+    /*width: 100%;*/
 }
 
 .delete-icon {
