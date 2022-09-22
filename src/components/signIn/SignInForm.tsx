@@ -2,10 +2,10 @@ import React from "react";
 import "./SignInForm.css";
 import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
-import {homeTabsEndingUrl, showingMyTeamTabsEndingUrl} from "../../global/Variables";
+import {homeTabsEndingUrl} from "../../global/Variables";
 import {axiosSignIn} from "../../global/ApiCalls";
 import {invalidInputError, onAxiosError, onAxiosSuccess} from "../../global/Errors";
-import {setToken} from "../../global/Storages";
+import {getShowingMyTeamTabsStateName, setToken} from "../../global/Storages";
 
 function SignInForm() {
     const navigate = useNavigate()
@@ -23,7 +23,7 @@ function SignInForm() {
                 res => {
                     onAxiosSuccess({
                         res: res, myError: invalidInputError, onSuccess: () => {
-                            navigate(`/home/${homeTabsEndingUrl.myTeam}/${showingMyTeamTabsEndingUrl.schematic}`)
+                            navigate(`/home/${homeTabsEndingUrl.myTeam}/${getShowingMyTeamTabsStateName()}`)
                             setToken(res.data.data.access_token)
                         }
                     })

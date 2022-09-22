@@ -1,3 +1,5 @@
+import {showingMyTeamTabsEndingUrl} from "./Variables";
+
 const tokenKey = 'x-access-token'
 
 export function setToken(t: string) {
@@ -25,7 +27,11 @@ export function setShowingMyTeamTabsState(tab: number) {
     sessionStorage.setItem(showingMyTeamTabsKey, String(tab))
 }
 
-export function getShowingMyTeamTabsState() {
+export function getShowingMyTeamTabsStateId() {
     const tab = sessionStorage.getItem(showingMyTeamTabsKey)
     return tab ? Number(tab) : 1
+}
+
+export function getShowingMyTeamTabsStateName() {
+    return getShowingMyTeamTabsStateId() === 1 ? showingMyTeamTabsEndingUrl.schematic : showingMyTeamTabsEndingUrl.list
 }
