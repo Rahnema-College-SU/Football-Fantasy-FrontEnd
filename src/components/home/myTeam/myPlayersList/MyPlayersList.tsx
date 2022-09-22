@@ -135,7 +135,7 @@ function MyPlayersList({
                 <div className='row-div selected-row-div' style={{gridRowStart: position + offsetInUi}}
                      onClick={deselectPosition} ref={focusOnElementByRef(selectedRowDivRef)} tabIndex={0}
                      onKeyUp={
-                         handleKeyboardEvent(keyboardKeys, keyboardKeys.map(key => handleArrowKey(key))
+                         handleKeyboardEvent([...keyboardKeys, 'Backspace'], [...keyboardKeys.map(key => handleArrowKey(key)), () => deletePlayer()()]
                          )}>
                     <text className='row-name active-row-name'>{player.web_name}</text>
                     <text

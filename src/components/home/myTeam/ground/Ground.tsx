@@ -143,7 +143,7 @@ export function Ground({
             return (
                 <div className='selected-active-cloth-div' ref={focusOnElementByRef(selectedDivRef)} tabIndex={0}
                      onKeyUp={
-                         handleKeyboardEvent(keyboardKeys, keyboardKeys.map(key => handleArrowKey(key))
+                         handleKeyboardEvent([...keyboardKeys, 'Backspace'], [...keyboardKeys.map(key => handleArrowKey(key)), () => deletePlayer(player)()]
                          )}>
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                          onClick={deletePlayer(player)}/>
