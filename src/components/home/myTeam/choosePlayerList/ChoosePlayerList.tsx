@@ -23,6 +23,7 @@ import {myPlayersState} from "../MyTeam";
 import {addPlayerError, loadPaginationError, onBaseError, pageNotAvailableError} from "../../../../global/Errors";
 import {debounce} from "ts-debounce";
 import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
+import {useMediaQuery} from "../../../../global/Functions";
 
 const defaultSort: sortType = 'DESC'
 
@@ -80,6 +81,12 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
     const [pointsSort, setPointsSort] = useState<sortType>(defaultSort)
     const [costsSort, setCostsSort] = useState<sortType>(defaultSort)
     const [pageNumber, setPageNumber] = useState<number>(1)
+
+
+    const playersListStyle = document.getElementById('players-list-main-div')?.style!
+    useMediaQuery('(max-width: 768px)', () => playersListStyle.setProperty('display', 'none'),
+        () => playersListStyle.setProperty('display', 'block'))
+
 
     useEffect(() => {
         setChoosePlayersList({...choosePlayersList, numberOfPlayers: undefined, numberOfPages: undefined})

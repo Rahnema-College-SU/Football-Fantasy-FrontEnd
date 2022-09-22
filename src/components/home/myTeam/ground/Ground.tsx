@@ -92,7 +92,7 @@ export function Ground({
                 <div className='active-cloth-div'>
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                          onClick={deletePlayer(player)}/>
-                    <img className={'active-cloth'} src={activeCloth} alt={'active cloth'}
+                    <img className={'cloth active-cloth'} src={activeCloth} alt={'active cloth'}
                          onClick={selectPosition(player.location_in_ui)}/>
                     <div className={'player-name'}>{player.web_name}</div>
                     <div className={'power'}>{toFarsiNumber(player.player_week_log.player_total_points)}</div>
@@ -113,7 +113,7 @@ export function Ground({
                 <div className='inactive-cloth-div'>
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                          style={{visibility: 'hidden'}}/>
-                    <img className={'inactive-cloth'} src={inactiveCloth} alt={'inactive cloth'}
+                    <img className={'cloth inactive-cloth'} src={inactiveCloth} alt={'inactive cloth'}
                          onClick={selectPosition(position)}/>
                     <img className={'add-icon'} src={addIcon} alt={'add icon'}
                          onClick={selectPosition(position)}/>
@@ -131,7 +131,7 @@ export function Ground({
                          )}>
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                          style={{visibility: 'hidden'}}/>
-                    <img className={'selected-cloth'} src={selectedCloth} alt={'selected cloth'}
+                    <img className={'cloth selected-cloth'} src={selectedCloth} alt={'selected cloth'}
                          onClick={deselectPosition}/>
                     <div className={'player-name'} style={{visibility: 'hidden'}}>dummy</div>
                     <div className={'power'} style={{visibility: 'hidden'}}>۰</div>
@@ -147,7 +147,7 @@ export function Ground({
                          )}>
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                          onClick={deletePlayer(player)}/>
-                    <img className={'selected-cloth'} src={selectedCloth} alt={'selected cloth'}
+                    <img className={'cloth selected-cloth'} src={selectedCloth} alt={'selected cloth'}
                          onClick={deselectPosition}/>
                     <div className={'player-name'}>{player.web_name}</div>
                     <div className={'power'}>{toFarsiNumber(player.player_week_log.player_total_points)}</div>

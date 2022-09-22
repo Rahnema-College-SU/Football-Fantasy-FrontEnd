@@ -8,6 +8,10 @@
     margin: 50px auto 30px auto;
 }
 
+#date-menu-container {
+    display: flex;
+}
+
 #game-info-div {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -18,4 +22,21 @@
 
 #header-of-game-info-div {
     grid-auto-flow: row;
+}
+
+#menu-image {
+    scale: 1.3;
+    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+    #my-team-main-div {
+        grid-column-gap: 0;
+        grid-template-columns: 1fr;
+    }
+
+    #menu-image {
+        display: block;
+        cursor: pointer;
+    }
 }
