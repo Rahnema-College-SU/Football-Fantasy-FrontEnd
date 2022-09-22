@@ -235,9 +235,10 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
 
     return (
         <div id={'my-team-main-div'}>
-            <div id={'date-menu-container'}>
+            <div id={'date-and-menu-container'}>
                 <DateBax getDate={getDate}/>
-                <img id={'menu-image'} src={menu} onClick={menuOnClick} alt={'menu icon to show all players list to add'}/>
+                <img id={'menu-image'} src={menu} onClick={menuOnClick}
+                     alt={'menu icon to show all players list to add'}/>
             </div>
 
             <ChoosePlayerList playerListApiCall={playerListApiCall} addPlayerApiCall={addPlayerApiCall}/>

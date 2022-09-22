@@ -82,11 +82,9 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
     const [costsSort, setCostsSort] = useState<sortType>(defaultSort)
     const [pageNumber, setPageNumber] = useState<number>(1)
 
-
     const playersListStyle = document.getElementById('players-list-main-div')?.style!
     useMediaQuery('(max-width: 768px)', () => playersListStyle.setProperty('display', 'none'),
         () => playersListStyle.setProperty('display', 'block'))
-
 
     useEffect(() => {
         setChoosePlayersList({...choosePlayersList, numberOfPlayers: undefined, numberOfPages: undefined})

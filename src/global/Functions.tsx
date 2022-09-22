@@ -32,6 +32,7 @@ export function useMediaQuery(query: string, onMatch: () => any, onDoNotMatch?: 
             else if (onDoNotMatch)
                 onDoNotMatch()
         }
+
         mediaQueryList.addEventListener("change", change)
 
         return () => mediaQueryList.removeEventListener("change", change)
