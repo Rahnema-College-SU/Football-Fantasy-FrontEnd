@@ -7,8 +7,7 @@
     margin-top: -16px;
 
     position: relative;
-    grid-column-start: 1;
-    grid-column-end: 4;
+    grid-column: 1 / 4;
 }
 
 #first-divider {
@@ -196,4 +195,10 @@
 
 .inactive-row-number {
     font: 500 10px Vazirmatn, serif;
+}
+
+@media only screen and (max-width: 768px) {
+    #my-players-list {
+        grid-column-end: 3;
+    }
 }

@@ -15,7 +15,6 @@
 
     grid-column-start: 1;
     grid-column-end: 4;
-
 }
 
 #gk-div {
@@ -127,3 +126,9 @@
 }
 
 /*TODO: duplicate as .active-cloth-div*/
+
+@media only screen and (max-width: 768px) {
+    #ground-main-div {
+        grid-column-end: 3;
+    }
+}

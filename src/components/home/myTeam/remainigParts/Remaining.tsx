@@ -15,13 +15,13 @@ export function Remaining({
         <div className='remaining-box' style={{background: backgroundStyle}}>
             {
                 showingText ?
-                    <div id='show-remaining-text'>{showingText}</div>
+                    <div className={'show-remaining-text'}>{showingText}</div>
                     :
                     <CircularProgress thickness={3} style={{color: '#3D195B'}}/>
             }
-            <div id='logo-and-text'>
+            <div className={'logo-and-text'}>
                 <img className='remaining-box-logo' src={src} alt={alt}></img>
-                <span id='remaining-box-text'>{text}</span>
+                <span className={'remaining-box-text'}>{text}</span>
             </div>
 
         </div>

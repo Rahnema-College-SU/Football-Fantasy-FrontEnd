@@ -1,7 +1,7 @@
 #middle-tab-bar-main-div {
     display: flex;
     flex-direction: column;
-    margin-bottom: 30px;
+    margin: 0 10px 30px 10px;
     height: fit-content;
     align-self: end;
 }
@@ -16,18 +16,28 @@
     margin: auto;
 
     border-radius: 8px;
-    padding: 5px 0;
+    padding: 5px 10px;
 }
 
 #tab-bar-rectangle > div {
+    width: 100%;
+
     text-align: center;
     align-items: center;
     border-radius: 4px;
     display: flex;
     justify-content: center;
-    padding: 1px 1.5vw;
+    padding: 2px 0;
     cursor: pointer;
-    font-size: 1vw;
+    font-size: calc(12px + 0.25vw);
+}
+
+#tab-bar-rectangle > div:first-child {
+    margin-left: 5px;
+}
+
+#tab-bar-rectangle > div:last-child {
+    margin-right: 5px;
 }
 
 .tab-rectangle-select {
@@ -44,4 +54,11 @@
     border-radius: 8px;
     width: fit-content;
     margin: auto auto -15px;
+}
+
+@media only screen and (max-width: 768px) {
+    #middle-tab-bar-main-div {
+        margin-bottom: 20px;
+        grid-column: 1 / 3;
+    }
 }

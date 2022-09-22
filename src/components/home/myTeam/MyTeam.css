@@ -26,10 +26,8 @@
 }
 
 #menu-image {
-    scale: 1.3;
     display: none;
-    height: fit-content;
-    border: 2px solid #3d3e41;
+    border: 2px solid #3D195B;
     border-radius: 5px;
 }
 
@@ -42,5 +40,12 @@
     #menu-image {
         display: block;
         cursor: pointer;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    #game-info-div {
+        grid-template-columns: repeat(2, 1fr);
+        grid-column-gap: 20px;
     }
 }
