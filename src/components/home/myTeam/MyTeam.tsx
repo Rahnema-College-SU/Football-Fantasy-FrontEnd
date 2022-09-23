@@ -1,6 +1,7 @@
 import {Ground, selectedPositionState} from "./ground/Ground";
 import React, {useEffect, useState} from "react";
 import './MyTeam.css';
+import menu from './assets/menu.svg'
 import {RemainingPlayer, usedPlayerState} from "./remainigParts/RemainingPlayer";
 import {RemainingMoney, remainingMoneyState} from "./remainigParts/RemainingMoney";
 import MiddleTabBar from "./middleTabBar/MiddleTabBar";
@@ -223,9 +224,22 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
         setSelectedPosition(undefined)
     }
 
+    function menuOnClick() {
+        const choosePlayerListStyle: CSSStyleDeclaration = document.getElementById('players-list-main-div')?.style!
+
+        if (choosePlayerListStyle.display === 'block')
+            choosePlayerListStyle.setProperty('display', 'none')
+        else
+            choosePlayerListStyle.setProperty('display', 'block')
+    }
+
     return (
         <div id={'my-team-main-div'}>
-            <DateBax getDate={getDate}/>
+            <div id={'date-and-menu-container'}>
+                <DateBax getDate={getDate}/>
+                <img id={'menu-image'} src={menu} onClick={menuOnClick}
+                     alt={'menu icon to show all players list to add'}/>
+            </div>
 
             <ChoosePlayerList playerListApiCall={playerListApiCall} addPlayerApiCall={addPlayerApiCall}/>
             <div id={'game-info-div'}>

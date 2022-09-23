@@ -1,19 +1,24 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './NavigationBar.css';
 import {Link, useNavigate} from "react-router-dom";
-import {homeTabsEndingUrl, showingMyTeamTabsEndingUrl} from "../../../global/Variables";
+import {homeTabsEndingUrl} from "../../../global/Variables";
+import {getHomeTabsState, getShowingMyTeamTabsStateName, setHomeTabsState} from "../../../global/Storages";
 
 function NavigationBar() {
     const tabs = [
-        {id: 1, name: 'تیم من', urlEndingName: homeTabsEndingUrl.myTeam + '/' + showingMyTeamTabsEndingUrl.schematic},
+        {id: 1, name: 'تیم من', urlEndingName: homeTabsEndingUrl.myTeam + '/' + getShowingMyTeamTabsStateName()},
         {id: 2, name: 'نقل و انتقالات', urlEndingName: homeTabsEndingUrl.transfers},
         {id: 3, name: ' رویدادها', urlEndingName: homeTabsEndingUrl.Events},
         {id: 4, name: 'پروفایل', urlEndingName: homeTabsEndingUrl.profile},
         {id: 5, name: 'جوایز', urlEndingName: homeTabsEndingUrl.prizes}
     ]
 
-    const [selectedTab, setSelectedTab] = useState(1)
+    const [selectedTab, setSelectedTab] = useState(getHomeTabsState())
     const navigate = useNavigate()
+
+    useEffect(() => {
+        setHomeTabsState(selectedTab)
+    }, [selectedTab])
 
     return (
         <div id={'nav-bar-div'}>

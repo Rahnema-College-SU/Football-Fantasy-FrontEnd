@@ -1,13 +1,16 @@
-import React from "react";
+import React, {useRef} from "react";
 import "./SignInForm.css";
 import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
-import {homeTabsEndingUrl, setToken, showingMyTeamTabsEndingUrl} from "../../global/Variables";
+import {homeTabsEndingUrl} from "../../global/Variables";
 import {axiosSignIn} from "../../global/ApiCalls";
 import {invalidInputError, onAxiosError, onAxiosSuccess} from "../../global/Errors";
+import {getShowingMyTeamTabsStateName, setToken} from "../../global/Storages";
+import {focusOnElementByRef, handleKeyboardEvent} from "../../global/Functions";
 
 function SignInForm() {
     const navigate = useNavigate()
+    const passwordInputRef = useRef<HTMLDivElement | null>(null)
 
     const signInInput = {
         username: "",
@@ -22,7 +25,7 @@ function SignInForm() {
                 res => {
                     onAxiosSuccess({
                         res: res, myError: invalidInputError, onSuccess: () => {
-                            navigate(`/home/${homeTabsEndingUrl.myTeam}/${showingMyTeamTabsEndingUrl.schematic}`)
+                            navigate(`/home/${homeTabsEndingUrl.myTeam}/${getShowingMyTeamTabsStateName()}`)
                             setToken(res.data.data.access_token)
                         }
                     })
@@ -56,11 +59,16 @@ function SignInForm() {
                     <span className="label">نام کاربری</span>
                     <input className="input" type="text" onChange={setUsername}/>
                     <span className="label">رمز عبور</span>
-                    <input className="input" type="password" onChange={setPassword}/>
+                    <input className="input" type="password" onChange={setPassword}
+                           ref={focusOnElementByRef(passwordInputRef)} tabIndex={0}
+                           onKeyUp={
+                               handleKeyboardEvent(['Enter'], [() =>
+                                   document.getElementById('sign-in-button-id')?.click()])
+                           }/>
                 </div>
 
                 <div className="button-bar">
-                    <button className="sign-in-button button"
+                    <button id={'sign-in-button-id'} className="sign-in-button button"
                             onClick={signInApiCall}>ورود
                     </button>
                     <button className="sign-in-button button" onClick={() => navigate('/sign-up')}>ثبت نام</button>

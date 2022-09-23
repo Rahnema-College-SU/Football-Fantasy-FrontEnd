@@ -7,26 +7,46 @@
     padding: 10px 0 20px;
 }
 
-#show-remaining-text {
+.show-remaining-text {
     font-style: normal;
     font-weight: 900;
-    font-size: 40px;
+    font-size: 3vw;
     display: flex;
     align-items: center;
     text-align: center;
     color: #3D195B;
 }
 
-#logo-and-text {
+.logo-and-text {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .remaining-box-logo {
-    height: 70px;
+    width: 4vw;
     margin-bottom: 5px;
 }
 
-#remaining-box-text {
+.remaining-box-text {
     color: #3D195B;
+    text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+    .remaining-box {
+        grid-row-start: 2;
+    }
+
+    .remaining-box-logo {
+        width: 8vw;
+    }
+
+    .show-remaining-text {
+        font-size: 7vw;
+    }
+
+    .remaining-box-text {
+        font-size: 3vw;
+    }
 }

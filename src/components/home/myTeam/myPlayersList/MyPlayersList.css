@@ -7,8 +7,7 @@
     margin-top: -16px;
 
     position: relative;
-    grid-column-start: 1;
-    grid-column-end: 4;
+    grid-column: 1 / 4;
 }
 
 #first-divider {
@@ -20,54 +19,59 @@
 
 /*info section*/
 #info-div {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     background: #3D195B;
     border-radius: 16px 0 0 16px;
-    align-content: start;
 
     grid-column-start: 1;
 }
 
 #div-my-players-info-list {
-    display: grid;
-    justify-items: right;
+    display: flex;
+    flex-direction: column;
     margin: auto;
-    height: 320px;
-    padding-top: 40px;
-
-    grid-row-start: 1;
+    align-items: end;
+    padding: 0 5px;
 }
 
 #delete-icon-players-list {
-    grid-row-start: 1;
-    grid-column-start: 1;
-    scale: 1.5;
+    width: calc(2vw + 7px);
+    border: 1px solid white;
+    border-radius: 50%;
+    z-index: 1;
     margin-right: 20px;
     cursor: pointer;
+    transform: translateY(100%);
+
+    grid-row-start: 1;
+    grid-column-start: 1;
 }
 
 #cloth-my-players-list {
-    height: 300px;
+    height: calc(15vw + 100px);
+
     grid-row-start: 1;
     grid-column-start: 1;
 }
 
 #logo-my-players-list {
-    margin: auto;
-    grid-row-start: 2;
+    padding: 0 10px;
+    width: calc(10vw + 60px);
 }
 
 #info-name {
     font-size: 1.4rem;
     color: white;
     background-color: #3D195B;
-    margin-top: 40px;
+    margin: 0 auto;
     width: 80%;
     border: 3px solid #b77373;
     border-radius: 10px;
+    transform: translateY(100%);
 
-    grid-row-start: 3;
-    grid-column-start: 1;
     z-index: 1;
     align-self: start;
     justify-self: center;
@@ -75,12 +79,9 @@
 }
 
 #curve-lines-my-players-list {
-    padding-top: 40px;
     width: 100%;
-    object-fit: cover;
+    height: 100%;
 
-    grid-row-start: 3;
-    grid-column-start: 1;
     align-self: start;
 }
 
@@ -92,7 +93,6 @@
     padding: 25px;
 
     grid-column-start: 2;
-    /*grid-column-end: 4;*/
 }
 
 #point, #price {
@@ -100,7 +100,6 @@
     justify-self: center;
     font: 300 normal 12px Vazirmatn, serif;
     color: #999999;
-    padding: 3px 55px;
 }
 
 #point {
@@ -114,17 +113,17 @@
 }
 
 .header-div {
-    direction: rtl;
     margin-top: 16px;
     background-color: #3D195B;
-    font: 800 14px Vazirmatn, serif;
+    font: 800 calc(0.3vw + 10px) Vazirmatn, serif;
     color: #00FF87;
     border-radius: 4px;
-    padding: 4px 5px 4px 0;
+    padding: 4px 5px 4px 4vw;
     justify-self: end;
-    width: 130px;
+    align-self: center;
 
-    grid-column-start: 3;
+    grid-column-start: 1;
+    grid-column-end: 4;
 }
 
 .gk-header-div {
@@ -152,7 +151,7 @@
     display: grid;
     direction: rtl;
     grid-template-columns: 2fr 1fr 1fr;
-    align-items: end;
+    align-items: center;
     border-bottom: 1px solid #EFEFEF;
     padding-top: 12px;
     padding-bottom: 5px;
@@ -167,29 +166,60 @@
     border-radius: 10px;
 }
 
+.row-div:focus {
+    outline: none;
+}
+
 .row-name {
     color: #3D195B;
     padding-right: 15px;
+    width: fit-content;
+    font-size: 14px;
+    font-family: Vazirmatn, serif;
 }
 
 .row-number {
     color: #3D195B;
     justify-self: center;
+    font-size: 12px;
+    font-family: Vazirmatn, serif;
 }
 
 .active-row-name {
-    font: 500 12px Vazirmatn, serif;
+    font-weight: 500;
 }
 
 .active-row-number {
-    font: 700 10px Vazirmatn, serif;
+    font-weight: 700;
     justify-self: center;
 }
 
 .inactive-row-name {
-    font: 300 12px Vazirmatn, serif;
+    font-weight: 300;
 }
 
 .inactive-row-number {
-    font: 500 10px Vazirmatn, serif;
+    font-weight: 500;
+}
+
+@media only screen and (max-width: 768px) {
+    #my-players-list {
+        grid-column-end: 3;
+    }
+
+    #players-div {
+        padding: 25px 10px;
+    }
+
+    #info-name {
+        font-size: 18px;
+    }
+
+    .row-name {
+        font-size: 12px;
+    }
+
+    .row-number {
+        font-size: 10px;
+    }
 }

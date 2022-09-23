@@ -17,21 +17,17 @@ export function DateBax({getDate}: { getDate: () => Promise<dateType> }) {
     }, [])
 
     return (
-        <div>
-            {
-                date ?
-                    <div className='date-box'>
-                        <div id='week-text'>{date.current_week ?? ''}</div>
-                        <div id='date-text'>
-                            {date.week_day} {date.day} {date.month_name} {date.year} - ساعت {date.hour}
-                        </div>
-                    </div>
-                    :
-                    <div className='loading-date-box date-box'>
-                        دریافت تاریخ ...
-                    </div>
-            }
-        </div>
+        date ?
+            <div className='date-box'>
+                <div id='week-text'>{date.current_week ?? ''}</div>
+                <div id='date-text'>
+                    {date.week_day} {date.day} {date.month_name} {date.year} - ساعت {date.hour}
+                </div>
+            </div>
+            :
+            <div className='loading-date-box date-box'>
+                دریافت تاریخ ...
+            </div>
     );
 }
 
