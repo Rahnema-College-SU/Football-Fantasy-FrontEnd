@@ -27,10 +27,10 @@ function App() {
     useEffect(() => {
         if (window.location.href.includes('home'))
             isTokenValid()
-            .then(
-                res => res ? '' : navigate('/sign-in'),
-                () => navigate('/sign-in')
-            )
+                .then(
+                    res => res ? '' : navigate('/sign-in'),
+                    () => navigate('/sign-in')
+                )
         else
             navigate('/sign-in')
     }, [])
@@ -55,11 +55,10 @@ function App() {
     }
 
     useEffect(() => {
-        if (removePlayerModalDisplay === 'block') {
+        if (removePlayerModalDisplay === 'block')
             setModalsDivDisplay('block')
-        } else {
+        else
             setModalsDivDisplay('none')
-        }
     }, [removePlayerModalDisplay])
 
     return (

@@ -1,46 +1,59 @@
-#main-div-container {
+#ground-main-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: space-between;
+
     margin-top: -16px;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+
+    background-image: url('assets/ground.svg');
+    border-radius: 16px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 
     grid-column-start: 1;
     grid-column-end: 4;
 }
 
-#main-div {
-    background-image: url('assets/ground.svg');
-    border-radius: 16px;
-    background-size: cover;
-    background-repeat: no-repeat;
-
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-}
-
 #gk-div {
-    /*position: relative;*/
-    padding: 20px 210px 0;
-    display: flex;
-    justify-content: space-evenly;
+    padding: 40px 15vw 0;
 }
 
-#def-div, #mid-div, #att-div {
-    /*position: relative;*/
+#gk-div, #def-div, #mid-div, #att-div {
     display: flex;
     justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+
+.active-cloth-div:focus, .inactive-cloth-div:focus, .selected-inactive-cloth-div:focus, .selected-active-cloth-div:focus {
+    outline: none;
+}
+
+.cloth-div {
+    display: grid;
+    justify-items: center;
+    width: 6vw;
+    min-width: 80px;
+}
+
+.cloth {
+    width: 100%;
 }
 
 /*active player*/
 .active-cloth-div {
-    display: grid;
-    justify-items: right;
-    max-width: fit-content;
-    scale: 0.8;
+
 }
 
 .delete-icon {
     grid-column-start: 1;
     grid-row-start: 1;
-    z-index: 2;
-    scale: 0.7;
+    z-index: 1;
     cursor: pointer;
+    width: 20%;
+    justify-self: end;
 }
 
 .active-cloth {
@@ -51,7 +64,7 @@
 }
 
 .player-name {
-    font: 700 13px Vazirmatn, serif;
+    font: 700 calc(0.2vw + 9px) Vazirmatn, serif;
     color: white;
     text-align: center;
     background-color: #37013B;
@@ -62,7 +75,7 @@
 }
 
 .power {
-    font: 700 12px Vazirmatn, serif;
+    font: 700 calc(0.3vw + 8px) Vazirmatn, serif;
     color: #38003C;
     text-align: center;
     background: rgba(98, 217, 147);
@@ -73,11 +86,7 @@
 
 /*inactive player*/
 .inactive-cloth-div {
-    display: grid;
     align-items: center;
-    justify-items: center;
-    /*max-width: fit-content;*/
-    scale: 0.8;
     z-index: 1;
 }
 
@@ -97,11 +106,8 @@
 
 /*selected inactive player*/
 .selected-inactive-cloth-div {
-    display: grid;
     align-items: center;
-    justify-items: center;
-    max-width: fit-content;
-    scale: 0.9;
+    scale: 1.1;
 }
 
 .selected-cloth {
@@ -112,10 +118,16 @@
 
 /*selected active player*/
 .selected-active-cloth-div {
-    display: grid;
-    justify-items: right;
-    max-width: fit-content;
-    scale: 0.9;
+    scale: 1.1;
 }
 
-/*TODO: duplicate as .active-cloth-div*/
+@media only screen and (max-width: 768px) {
+    #ground-main-div {
+        grid-column-end: 3;
+    }
+
+    .cloth-div {
+        width: calc(6vw + 40px);
+        min-width: 0;
+    }
+}

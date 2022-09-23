@@ -6,15 +6,6 @@ export const homeTabsEndingUrl = {
     prizes: 'prizes'
 }
 
-const tokenKey = 'x-access-token'
-export function setToken(t: string) {
-    localStorage.setItem(tokenKey, t)
-}
-
-export function getToken() {
-    return localStorage.getItem(tokenKey)
-}
-
 export const showingMyTeamTabsEndingUrl = {
     schematic: 'schematic',
     list: 'list'
