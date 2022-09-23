@@ -57,6 +57,9 @@
     padding: 10px 1vw;
     border-radius: 8px;
     cursor: pointer;
+    text-align: center;
+
+    width: 1.5vw;
 }
 
 .filter-item-selected {
