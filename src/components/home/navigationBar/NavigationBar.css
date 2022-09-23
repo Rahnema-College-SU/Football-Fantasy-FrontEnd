@@ -67,14 +67,14 @@
 
     #nav-bar-list li {
         margin-right: 5px;
-        padding: 10px 4px 12px;
+        padding: 10px 0 12px;
     }
 
     #nav-bar-list li a:not(#a-selected) {
-        font: 600 14px Vazirmatn, monospace;
+        font: 600 12px Vazirmatn, monospace;
     }
 
     #a-selected {
-        font-size: 16px;
+        font-size: 14px;
     }
 }

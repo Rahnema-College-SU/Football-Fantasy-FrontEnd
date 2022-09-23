@@ -36,8 +36,7 @@
         flex-direction: column;
         padding-right: 50px;
         background-image: none;
-        margin-top: 20px;
-        justify-content: start;
+        align-self: center;
         width: auto;
     }
 

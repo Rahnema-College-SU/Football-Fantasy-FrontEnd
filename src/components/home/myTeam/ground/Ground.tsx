@@ -89,7 +89,7 @@ export function Ground({
 
         function getActiveClothDiv(player: playerType): JSX.Element {
             return (
-                <div className='active-cloth-div'>
+                <div className='cloth-div active-cloth-div'>
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                          onClick={deletePlayer(player)}/>
                     <img className={'cloth active-cloth'} src={activeCloth} alt={'active cloth'}
@@ -110,7 +110,7 @@ export function Ground({
 
         function getInactiveClothDiv(position: number): JSX.Element {
             return (
-                <div className='inactive-cloth-div'>
+                <div className='cloth-div inactive-cloth-div'>
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                          style={{visibility: 'hidden'}}/>
                     <img className={'cloth inactive-cloth'} src={inactiveCloth} alt={'inactive cloth'}
@@ -125,7 +125,8 @@ export function Ground({
 
         function getSelectedInactiveClothDiv(): JSX.Element {
             return (
-                <div className='selected-inactive-cloth-div' ref={focusOnElementByRef(selectedDivRef)} tabIndex={0}
+                <div className='cloth-div selected-inactive-cloth-div' ref={focusOnElementByRef(selectedDivRef)}
+                     tabIndex={0}
                      onKeyUp={
                          handleKeyboardEvent(keyboardKeys, keyboardKeys.map(key => handleArrowKey(key))
                          )}>
@@ -141,7 +142,8 @@ export function Ground({
 
         function getSelectedActiveClothDiv(player: playerType): JSX.Element {
             return (
-                <div className='selected-active-cloth-div' ref={focusOnElementByRef(selectedDivRef)} tabIndex={0}
+                <div className='cloth-div selected-active-cloth-div' ref={focusOnElementByRef(selectedDivRef)}
+                     tabIndex={0}
                      onKeyUp={
                          handleKeyboardEvent([...keyboardKeys, 'Backspace'], [...keyboardKeys.map(key => handleArrowKey(key)), () => deletePlayer(player)()]
                          )}>
