@@ -105,7 +105,6 @@
 
 .exactly-players {
     cursor: pointer;
-    /*height: 3.5vw;*/
     height: 4vw;
     min-height: fit-content;
 }
@@ -166,7 +165,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10px 0;
+    margin: 10px 0 20px 0;
 }
 
 #show-page-state {
