@@ -1,6 +1,6 @@
 import React, {Dispatch, useEffect, useState} from 'react';
 import './ChoosePlayer.css';
-import searchIcon from './assets/searchicon.png';
+import searchIcon from './assets/searchicon.svg';
 import descSort from './assets/up.svg';
 import ascSort from './assets/down.svg';
 import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
@@ -312,31 +312,31 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
         }
 
         return (
-            <div id='page-bar'>
-                <button className='page-bar-icon' onClick={setNewPage(1)}>
-                    <img src={previousLast} alt='previous last pages'/>
-                    <img src={previousLast} alt='previous last pages'/>
-                </button>
-                <button className='page-bar-icon' onClick={setNewPage(pageNumber - 1)}>
-                    <img src={previous} alt='previous page'/>
-                </button>
-                {
-                    choosePlayersList && choosePlayersList.numberOfPages ?
-                        <text
-                            id={'show-page-state'}>صفحه‌ی {toFarsiNumber(pageNumber)} از {toFarsiNumber(choosePlayersList.numberOfPages)}</text>
-                        : choosePlayersList.numberOfPages === 0 ?
-                            <text id={'show-page-state'}>ناموجود</text> :
-                            <text id={'show-page-state'}>دریافت تعداد صفحات ...</text>
-                }
+                <div id='page-bar'>
+                    <button className='page-bar-icon' onClick={setNewPage(1)}>
+                        <img src={previousLast} alt='previous last pages'/>
+                        <img src={previousLast} alt='previous last pages'/>
+                    </button>
+                    <button className='page-bar-icon' onClick={setNewPage(pageNumber - 1)}>
+                        <img src={previous} alt='previous page'/>
+                    </button>
+                    {
+                        choosePlayersList && choosePlayersList.numberOfPages ?
+                            <text
+                                id={'show-page-state'}>صفحه‌ی {toFarsiNumber(pageNumber)} از {toFarsiNumber(choosePlayersList.numberOfPages)}</text>
+                            : choosePlayersList.numberOfPages === 0 ?
+                                <text id={'show-page-state'}>ناموجود</text> :
+                                <text id={'show-page-state'}>دریافت تعداد صفحات ...</text>
+                    }
 
-                <button className='page-bar-icon' onClick={setNewPage(pageNumber + 1)}>
-                    <img src={next} alt='next page'/>
-                </button>
-                <button className='page-bar-icon' onClick={setNewPage(choosePlayersList.numberOfPages)}>
-                    <img src={nextLast} alt='next last pages'/>
-                    <img src={nextLast} alt='next last pages'/>
-                </button>
-            </div>
+                    <button className='page-bar-icon' onClick={setNewPage(pageNumber + 1)}>
+                        <img src={next} alt='next page'/>
+                    </button>
+                    <button className='page-bar-icon' onClick={setNewPage(choosePlayersList.numberOfPages)}>
+                        <img src={nextLast} alt='next last pages'/>
+                        <img src={nextLast} alt='next last pages'/>
+                    </button>
+                </div>
         )
     }
 

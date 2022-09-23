@@ -10,13 +10,8 @@
 
     background-image: url('assets/ground.svg');
     border-radius: 16px;
-    /*background-size: cover;*/
-    /*background-size: 100%;*/
-    /*object-fit: contain;*/
-    /*background-position: bottom;*/
     background-repeat: no-repeat;
-    background-size: cover;
-    background-position: top;
+    background-size: 100% 100%;
 
     grid-column-start: 1;
     grid-column-end: 4;

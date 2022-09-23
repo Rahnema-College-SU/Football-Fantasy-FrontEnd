@@ -80,7 +80,8 @@
 #curve-lines-my-players-list {
     padding-top: 40px;
     width: 100%;
-    object-fit: fill;
+    /*height: 60%;*/
+    object-fit: contain;
 
     grid-row-start: 3;
     grid-column-start: 1;
@@ -153,7 +154,7 @@
     display: grid;
     direction: rtl;
     grid-template-columns: 2fr 1fr 1fr;
-    align-items: end;
+    align-items: center;
     border-bottom: 1px solid #EFEFEF;
     padding-top: 12px;
     padding-bottom: 5px;
@@ -215,10 +216,6 @@
 
     #info-name {
         font-size: 18px;
-    }
-
-    #point, #price {
-        font-size: 10px;
     }
 
     .row-name {

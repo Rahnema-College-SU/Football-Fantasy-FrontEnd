@@ -1,4 +1,6 @@
 #players-list-main-div {
+    display: flex;
+    flex-direction: column;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     border-radius: 16px;
 
@@ -51,15 +53,15 @@
 
 .filter-item {
     all: unset;
-    font: 500 12px Vazirmatn, serif;
+    font: 500 calc(0.4vw + 5px) Vazirmatn, serif;
     background: #ffffff;
     border: 1px solid #EFEFEF;
-    padding: 10px 1vw;
+    padding: 10px 5%;
     border-radius: 8px;
     cursor: pointer;
     text-align: center;
 
-    width: 1.5vw;
+    min-width: 1.8vw;
 }
 
 .filter-item-selected {
@@ -73,17 +75,17 @@
 #number-of-players-div {
     display: flex;
     direction: rtl;
-    width: 13vw;
+    width: 80%;
     justify-content: center;
     margin: 20px auto 0 auto;
-    padding: 5px 10px;
+    padding: 5px 0;
     background: linear-gradient(269.48deg, #04F5EC -30.14%, #03FBB8 109.7%);
     border-radius: 8px;
-    font: 300 0.7vw Vazirmatn, serif;
+    font: 300 calc(0.5vw + 5px) Vazirmatn, serif;
 }
 
 #number-of-players {
-    font: 700 0.7vw Vazirmatn, serif;
+    font: 700 calc(0.5vw + 5px) Vazirmatn, serif;
 }
 
 #players-list {
@@ -93,7 +95,7 @@
 
 .players-list-row-div {
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
     direction: rtl;
     align-items: center;
     border-top: 1px #EFEFEF solid;
@@ -103,6 +105,9 @@
 
 .exactly-players {
     cursor: pointer;
+    /*height: 3.5vw;*/
+    height: 4vw;
+    min-height: fit-content;
 }
 
 .players-list-row-div-selected {
@@ -117,7 +122,7 @@
 
 .choose-player-list-header-text {
     color: #999999;
-    font: 300 12px Vazirmatn, serif;
+    font: 300 calc(0.6vw + 5px) Vazirmatn, serif;
 }
 
 .sorting-div {
@@ -128,10 +133,9 @@
 
 .sort-icon {
     color: #D9D9D9;
-    margin-right: 5px;
+    margin-right: 2px;
     cursor: pointer;
-    width: 10px;
-    height: 10px;
+    width: calc(0.7vw + 3px);
 }
 
 .column-of-names-info {
@@ -141,17 +145,17 @@
 
 .choose-player-name {
     color: #3D195B;
-    font: 500 0.9vw Vazirmatn, serif;
+    font: 500 12px Vazirmatn, serif;
 }
 
 .choose-player-team-name {
     color: rgba(61, 25, 91, 0.36);
-    font: 400 0.7vw Vazirmatn, serif;
+    font: 400 10px Vazirmatn, serif;
 }
 
 .choose-player-info {
     color: #3D195B;
-    font: 700 0.8vw Vazirmatn, serif;
+    font: 700 12px Vazirmatn, serif;
     direction: ltr;
     justify-self: center;
     justify-content: center;
@@ -162,27 +166,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: fit-content;
-    padding-bottom: 15px;
+    margin: 10px 0;
 }
 
 #show-page-state {
-    width: 7vw;
-    height: 29px;
+    width: fit-content;
+    height: fit-content;
     direction: rtl;
+    text-align: center;
 
     font: 500 12px Vazirmatn, serif;
     font-style: normal;
     display: flex;
-    justify-content: center;
-    align-items: center;
     color: #3D195B;
 }
 
 .page-bar-icon {
+    height: fit-content;
     background-color: transparent;
     border: none;
     margin: 0;
+    padding: 0 0.22vw;
     cursor: pointer;
 }
 
@@ -198,5 +202,35 @@
         z-index: 3;
         background-color: white;
         display: none;
+    }
+
+    .filter-item {
+        font: 500 12px Vazirmatn, serif;
+        padding: 10px 3%;
+        min-width: 10vw;
+    }
+
+    .filter-item-selected {
+        background: linear-gradient(269.48deg, #04F5EC -30.14%, #03FBB8 109.7%);
+    }
+
+    #number-of-players-div {
+        font-size: calc(1vw + 8px);
+    }
+
+    #number-of-players {
+        font-size: calc(1vw + 8px);
+    }
+
+    .choose-player-list-header-text {
+        font-size: 12px;
+    }
+
+    .sort-icon {
+        width: 10px;
+    }
+
+    .page-bar-icon {
+        padding: 0 7px;
     }
 }
