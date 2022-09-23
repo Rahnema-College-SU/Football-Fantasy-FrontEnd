@@ -16,6 +16,7 @@
 #game-info-div {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: fit-content(100%) auto;
 
     grid-column-start: 1;
     grid-row-start: 2;
@@ -46,6 +47,8 @@
 @media only screen and (max-width: 768px) {
     #game-info-div {
         grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: fit-content(100%) fit-content(100%) auto;
+
         grid-column-gap: 20px;
     }
 }

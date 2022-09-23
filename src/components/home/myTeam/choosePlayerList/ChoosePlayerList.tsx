@@ -44,7 +44,7 @@ export const searchState = atom<searchType>({
         pointsSort: defaultSort,
         costsSort: defaultSort,
         pageNumber: 1,
-        listSize: 9
+        listSize: 10
     }
 })
 
@@ -180,7 +180,6 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
         function searchInputOnChange(e: React.ChangeEvent<HTMLInputElement>) {
             if (debounceFunction)
                 debounceFunction.cancel()
-            //and map last
             debounceFunction = debounce(() => {
                 console.log('debounce')
                 setSearchText(e.target.value)
