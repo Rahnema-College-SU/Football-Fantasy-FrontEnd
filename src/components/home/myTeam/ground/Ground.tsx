@@ -1,6 +1,13 @@
 import React, {useEffect, useRef} from 'react'
 import './Ground.css'
-import {attPositions, defPositions, gkPositions, midPositions, toFarsiNumber} from "../../../../global/Variables";
+import {
+    attPositions,
+    defPositions, firstPosition,
+    gkPositions,
+    lastPosition,
+    midPositions,
+    toFarsiNumber
+} from "../../../../global/Variables";
 import {playerType} from "../../../../global/Types";
 import addIcon from './assets/add-icon.svg'
 import deleteIcon from './assets/delete-icon.svg'
@@ -31,10 +38,7 @@ export function Ground({
     const setSelectedFilterItem = useSetRecoilState(selectedFilterItemState)
     const setSelectedPlayer = useSetRecoilState(selectedPlayerState)
 
-    // for keyboard keys
     const selectedDivRef = useRef<HTMLDivElement | null>(null)
-    const firstPosition = 1
-    const lastPosition = 15
 
     useEffect(() => {
         if (selectedPosition === undefined)

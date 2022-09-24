@@ -7,7 +7,14 @@ import activeCloth from './assets/active-cloth.svg'
 import inactiveCloth from './assets/inactive-cloth.svg'
 import logo from './assets/logo.svg';
 import curveLines from './assets/curve-lines.svg';
-import {attPositions, defPositions, gkPositions, midPositions, toFarsiNumber} from "../../../../global/Variables";
+import {
+    attPositions,
+    defPositions, firstPosition,
+    gkPositions,
+    lastPosition,
+    midPositions,
+    toFarsiNumber
+} from "../../../../global/Variables";
 import {playerType} from "../../../../global/Types";
 import deleteIcon from "./assets/delete-icon.svg";
 import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
@@ -27,10 +34,7 @@ function MyPlayersList({
     const setSelectedFilterItem = useSetRecoilState(selectedFilterItemState)
     const setSelectedPlayer = useSetRecoilState(selectedPlayerState)
 
-    // for keyboard keys
     const selectedRowDivRef = useRef<HTMLDivElement | null>(null)
-    const firstPosition = 1
-    const lastPosition = 15
 
     useEffect(() => {
         if (selectedPosition === undefined)
