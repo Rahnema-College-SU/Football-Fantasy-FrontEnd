@@ -93,10 +93,10 @@ export function Ground({
 
         function getActiveClothDiv(player: playerType): JSX.Element {
             return (
-                <div className='cloth-div active-cloth-div'>
+                <div className='ground-cloth-div'>
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                          onClick={deletePlayer(player)}/>
-                    <img className={'cloth active-cloth'} src={activeCloth} alt={'active cloth'}
+                    <img className={'ground-cloth'} src={activeCloth} alt={'active player'}
                          onClick={selectPosition(player.location_in_ui)}/>
                     <div className={'player-name'}>{player.web_name}</div>
                     <div className={'power'}>{toFarsiNumber(player.player_week_log.player_total_points)}</div>
@@ -114,10 +114,10 @@ export function Ground({
 
         function getInactiveClothDiv(position: number): JSX.Element {
             return (
-                <div className='cloth-div inactive-cloth-div'>
+                <div className='ground-cloth-div inactive-cloth-div'>
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                          style={{visibility: 'hidden'}}/>
-                    <img className={'cloth inactive-cloth'} src={inactiveCloth} alt={'inactive cloth'}
+                    <img className={'ground-cloth'} src={inactiveCloth} alt={'inactive player'}
                          onClick={selectPosition(position)}/>
                     <img className={'add-icon'} src={addIcon} alt={'add icon'}
                          onClick={selectPosition(position)}/>
@@ -129,14 +129,14 @@ export function Ground({
 
         function getSelectedInactiveClothDiv(): JSX.Element {
             return (
-                <div className='cloth-div selected-inactive-cloth-div' ref={focusOnElementByRef(selectedDivRef)}
+                <div className='ground-cloth-div selected-cloth-div' ref={focusOnElementByRef(selectedDivRef)}
                      tabIndex={0}
                      onKeyUp={
                          handleKeyboardEvent(keyboardKeys, keyboardKeys.map(key => handleArrowKey(key))
                          )}>
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                          style={{visibility: 'hidden'}}/>
-                    <img className={'cloth selected-cloth'} src={selectedCloth} alt={'selected cloth'}
+                    <img className={'ground-cloth'} src={selectedCloth} alt={'selected player'}
                          onClick={deselectPosition}/>
                     <div className={'player-name'} style={{visibility: 'hidden'}}>dummy</div>
                     <div className={'power'} style={{visibility: 'hidden'}}>۰</div>
@@ -146,14 +146,14 @@ export function Ground({
 
         function getSelectedActiveClothDiv(player: playerType): JSX.Element {
             return (
-                <div className='cloth-div selected-active-cloth-div' ref={focusOnElementByRef(selectedDivRef)}
+                <div className='ground-cloth-div selected-cloth-div' ref={focusOnElementByRef(selectedDivRef)}
                      tabIndex={0}
                      onKeyUp={
                          handleKeyboardEvent([...keyboardKeys, 'Backspace'], [...keyboardKeys.map(key => handleArrowKey(key)), () => deletePlayer(player)()]
                          )}>
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                          onClick={deletePlayer(player)}/>
-                    <img className={'cloth selected-cloth'} src={selectedCloth} alt={'selected cloth'}
+                    <img className={'ground-cloth'} src={selectedCloth} alt={'selected player'}
                          onClick={deselectPosition}/>
                     <div className={'player-name'}>{player.web_name}</div>
                     <div className={'power'}>{toFarsiNumber(player.player_week_log.player_total_points)}</div>

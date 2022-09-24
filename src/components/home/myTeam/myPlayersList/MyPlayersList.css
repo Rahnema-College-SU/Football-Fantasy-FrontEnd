@@ -100,16 +100,16 @@
     justify-self: center;
     font: 300 normal 12px Vazirmatn, serif;
     color: #999999;
+
+    grid-row-start: 1;
 }
 
 #point {
     grid-column-start: 1;
-    grid-row-start: 1;
 }
 
 #price {
     grid-column-start: 2;
-    grid-row-start: 1;
 }
 
 .header-div {

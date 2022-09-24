@@ -221,7 +221,7 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
         return (
             choosePlayersList.numberOfPlayers !== undefined ?
                 <div id={'number-of-players-div'}>
-                    <text id={'number-of-players'}>{toFarsiNumber(choosePlayersList.numberOfPlayers)}&nbsp;</text>
+                    <div id={'number-of-players'}>{toFarsiNumber(choosePlayersList.numberOfPlayers)}&nbsp;</div>
                     {
                         selectedFilterItem === 'ALL' ? 'بازیکن' :
                             selectedFilterItem === 'GK' ? 'دروازه‌بان' :
@@ -251,7 +251,7 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
         function getSortingDiv(sortState: sortType, setSortState: Dispatch<React.SetStateAction<sortType>>, text: string) {
             return (
                 <div className={'sorting-div'}>
-                    <text className={'choose-player-list-header-text'}>{text}</text>
+                    <div className={'choose-player-list-header-text'}>{text}</div>
                     {getSortImageTag(sortState, setSortState)}
                 </div>
             )
@@ -259,7 +259,7 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
 
         return (
             <div className={'players-list-row-div'} style={{border: 'none'}}>
-                <text className={'choose-player-list-header-text'}>نام بازیکن</text>
+                <div className={'choose-player-list-header-text'}>نام بازیکن</div>
                 {getSortingDiv(pointsSort, setPointsSort, 'عملکرد')}
                 {getSortingDiv(costsSort, setCostsSort, 'قیمت')}
             </div>
@@ -288,13 +288,13 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
         return (
             <div className={getClassName()} onClick={getPlayerRowOnCLick}>
                 <div className={'column-of-names-info'}>
-                    <text className={'choose-player-name'}>{player.web_name}</text>
-                    <text className={'choose-player-team-name'}>{player.team}</text>
-                    <text className={'choose-player-team-name'}>{player.position}</text>
+                    <div className={'choose-player-name'}>{player.web_name}</div>
+                    <div className={'choose-player-team-name'}>{player.team}</div>
+                    <div className={'choose-player-team-name'}>{player.position}</div>
                 </div>
-                <text
-                    className={'choose-player-info'}>{toFarsiNumber(player.player_week_log.player_total_points)}</text>
-                <text className={'choose-player-info'}>{toFarsiNumber(player.player_week_log.player_cost)}</text>
+                <div
+                    className={'choose-player-info'}>{toFarsiNumber(player.player_week_log.player_total_points)}</div>
+                <div className={'choose-player-info'}>{toFarsiNumber(player.player_week_log.player_cost)}</div>
             </div>
         )
     }
@@ -322,11 +322,11 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
                     </button>
                     {
                         choosePlayersList && choosePlayersList.numberOfPages ?
-                            <text
-                                id={'show-page-state'}>صفحه‌ی {toFarsiNumber(pageNumber)} از {toFarsiNumber(choosePlayersList.numberOfPages)}</text>
+                            <div
+                                id={'show-page-state'}>صفحه‌ی {toFarsiNumber(pageNumber)} از {toFarsiNumber(choosePlayersList.numberOfPages)}</div>
                             : choosePlayersList.numberOfPages === 0 ?
-                                <text id={'show-page-state'}>ناموجود</text> :
-                                <text id={'show-page-state'}>دریافت تعداد صفحات ...</text>
+                                <div id={'show-page-state'}>ناموجود</div> :
+                                <div id={'show-page-state'}>دریافت تعداد صفحات ...</div>
                     }
 
                     <button className='page-bar-icon' onClick={setNewPage(pageNumber + 1)}>

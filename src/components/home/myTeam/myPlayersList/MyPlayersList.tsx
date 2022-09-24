@@ -54,12 +54,12 @@ function MyPlayersList({
     function getInfoDiv(): JSX.Element {
         return <div id={'info-div'}>
             <div id={'div-my-players-info-list'}>
-                <img id={'delete-icon-players-list'} src={deleteIcon} alt={'active cloth'}
+                <img id={'delete-icon-players-list'} src={deleteIcon} alt={'active player'}
                      style={{visibility: (selectedPosition && myPlayers[selectedPosition] ? 'visible' : 'hidden')}}
                      onClick={deletePlayer()}/>
-                <img id={'cloth-my-players-list'}
+                <img id={'player-my-players-list'}
                      src={selectedPosition ? (myPlayers[selectedPosition] ? activeCloth : inactiveCloth) : inactiveCloth}
-                     alt={'specific cloth of players'}/>
+                     alt={'specific player of players'}/>
             </div>
             <img id={'logo-my-players-list'} src={logo} alt={'logo of premier league'}/>
             <div id={'info-name'}>
@@ -100,11 +100,11 @@ function MyPlayersList({
             return (
                 <div className='row-div' style={{gridRowStart: position + offsetInUi}}
                      onClick={selectPosition(position)}>
-                    <text className='row-name active-row-name'>{player.web_name}</text>
-                    <text
-                        className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_total_points)}</text>
-                    <text
-                        className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_cost)}</text>
+                    <div className='row-name active-row-name'>{player.web_name}</div>
+                    <div
+                        className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_total_points)}</div>
+                    <div
+                        className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_cost)}</div>
                 </div>
             )
         }
@@ -113,9 +113,9 @@ function MyPlayersList({
             return (
                 <div className='row-div' style={{gridRowStart: position + offsetInUi}}
                      onClick={selectPosition(position)}>
-                    <text className='row-name inactive-row-name'>none</text>
-                    <text className='row-number inactive-row-number'>۰</text>
-                    <text className='row-number inactive-row-number'>۰</text>
+                    <div className='row-name inactive-row-name'>none</div>
+                    <div className='row-number inactive-row-number'>۰</div>
+                    <div className='row-number inactive-row-number'>۰</div>
                 </div>
             )
         }
@@ -127,9 +127,9 @@ function MyPlayersList({
                      onKeyUp={
                          handleKeyboardEvent(keyboardKeys, keyboardKeys.map(key => handleArrowKey(key))
                          )}>
-                    <text className='row-name inactive-row-name'>none</text>
-                    <text className='row-number inactive-row-number'>۰</text>
-                    <text className='row-number inactive-row-number'>۰</text>
+                    <div className='row-name inactive-row-name'>none</div>
+                    <div className='row-number inactive-row-number'>۰</div>
+                    <div className='row-number inactive-row-number'>۰</div>
                 </div>
             )
         }
@@ -141,11 +141,11 @@ function MyPlayersList({
                      onKeyUp={
                          handleKeyboardEvent([...keyboardKeys, 'Backspace'], [...keyboardKeys.map(key => handleArrowKey(key)), () => deletePlayer()()]
                          )}>
-                    <text className='row-name active-row-name'>{player.web_name}</text>
-                    <text
-                        className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_total_points)}</text>
-                    <text
-                        className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_cost)}</text>
+                    <div className='row-name active-row-name'>{player.web_name}</div>
+                    <div
+                        className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_total_points)}</div>
+                    <div
+                        className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_cost)}</div>
                 </div>
             )
         }

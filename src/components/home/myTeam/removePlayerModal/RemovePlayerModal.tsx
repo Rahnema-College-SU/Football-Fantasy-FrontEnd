@@ -63,7 +63,7 @@ export function RemovePlayerModal() {
                      () => setRemovePlayerModalDisplay('none')]
              )}>
             <div id='header'>حذف بازیکن</div>
-            <img id='cloth' src={activeCloth} alt={'active cloth'}/>
+            <img id='cloth' src={activeCloth} alt={'active player'}/>
             {selectedPosition ? getActionsSection(selectedPosition) : closeModal()}
         </div>
     )

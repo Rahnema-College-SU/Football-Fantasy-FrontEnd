@@ -27,24 +27,30 @@
     margin-bottom: 20px;
 }
 
-.active-cloth-div:focus, .inactive-cloth-div:focus, .selected-inactive-cloth-div:focus, .selected-active-cloth-div:focus {
-    outline: none;
-}
-
-.cloth-div {
+.ground-cloth-div {
     display: grid;
     justify-items: center;
     width: 6vw;
     min-width: 80px;
 }
 
-.cloth {
-    width: 100%;
+.ground-cloth-div:focus {
+    outline: none;
 }
 
-/*active player*/
-.active-cloth-div {
+.ground-cloth {
+    width: 100%;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    cursor: pointer;
+}
 
+.inactive-cloth-div {
+    align-items: center;
+}
+
+.selected-cloth-div {
+    scale: 1.1;
 }
 
 .delete-icon {
@@ -54,13 +60,6 @@
     cursor: pointer;
     width: 20%;
     justify-self: end;
-}
-
-.active-cloth {
-    grid-column-start: 1;
-    grid-row-start: 1;
-    z-index: 0;
-    cursor: pointer;
 }
 
 .player-name {
@@ -84,19 +83,6 @@
     padding: 2px 0;
 }
 
-/*inactive player*/
-.inactive-cloth-div {
-    align-items: center;
-    z-index: 1;
-}
-
-.inactive-cloth {
-    grid-column-start: 1;
-    grid-row-start: 1;
-    z-index: 0;
-    cursor: pointer;
-}
-
 .add-icon {
     grid-column-start: 1;
     grid-row-start: 1;
@@ -104,29 +90,12 @@
     cursor: pointer;
 }
 
-/*selected inactive player*/
-.selected-inactive-cloth-div {
-    align-items: center;
-    scale: 1.1;
-}
-
-.selected-cloth {
-    grid-column-start: 1;
-    grid-row-start: 1;
-    cursor: pointer;
-}
-
-/*selected active player*/
-.selected-active-cloth-div {
-    scale: 1.1;
-}
-
 @media only screen and (max-width: 768px) {
     #ground-main-div {
         grid-column-end: 3;
     }
 
-    .cloth-div {
+    .ground-cloth-div {
         width: calc(6vw + 40px);
         min-width: 0;
     }

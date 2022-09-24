@@ -5,7 +5,7 @@ import Profile from "./profiles/Profiles";
 export function LatestEvents() {
     return (
         <div className="Latest-Events-Box">
-            <text className="Latest-Events-Title"> آخرین رویداد ها</text>
+            <div className="Latest-Events-Title"> آخرین رویداد ها</div>
             {/* map to users */}
             <Profile/>
             <Profile/>

@@ -5,10 +5,10 @@ import "./Friends.css"
 export function Friends() {
     return (
         // <div className="mainBox">
-        //     <text className="title"> دوستان شما</text>
+        //     <div className="title"> دوستان شما</div>
         // </div>
         <div className="main-box">
-            <text className="title"> دوستان شما</text>
+            <div className="title"> دوستان شما</div>
             <div className="friends-box">
                 <div className="button-bar">
                     <button className="selected-button">دنبال شوندگان</button>

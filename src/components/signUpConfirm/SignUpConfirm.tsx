@@ -44,7 +44,7 @@ function SignUpConfirm() {
                     <hr className="line"/>
                 </div>
                 <div className="container">
-                    <text className="label">لطفا کدی که به ایمیلتان ارسال شده را در کادر زیر وارد کنید</text>
+                    <div className="label">لطفا کدی که به ایمیلتان ارسال شده را در کادر زیر وارد کنید</div>
                     <input className="input" onChange={setCode} ref={focusOnElementByRef(confirmationCodeInputRef)}
                            tabIndex={0} onKeyUp={
                         handleKeyboardEvent(['Enter'], [() =>

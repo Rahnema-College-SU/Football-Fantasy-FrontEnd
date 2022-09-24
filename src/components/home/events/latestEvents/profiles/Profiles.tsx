@@ -12,18 +12,18 @@ export function Profile() {
             <div className="show-week">#هفته دو</div>
             <div className="data-box">
                 <div className="score-part">
-                    <text className="score-title">امتیاز هفته</text>
+                    <div className="score-title">امتیاز هفته</div>
                     <div className="show-score-box">
                         <img className="star" src={star} alt="star for showing score"></img>
-                        <text className="score">۱۰۸</text>
+                        <div className="score">۱۰۸</div>
                     </div>
                 </div>
-                <text className="changes-title">تعویض ها</text>
+                <div className="changes-title">تعویض ها</div>
                 <div className="changes">
                     <img src={addIcon} alt="added players Icon"></img>
                     <div className="change-spot">yasin</div>
                     <img src={removeIcon} alt="removed players Icon"></img>
-                    <text className="change-spot">Haland</text>
+                    <div className="change-spot">Haland</div>
                 </div>
 
 
