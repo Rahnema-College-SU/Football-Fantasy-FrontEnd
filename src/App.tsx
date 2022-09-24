@@ -18,21 +18,24 @@ import {
 import {useRecoilValue} from "recoil";
 import {axiosFantasyTeam} from "./global/ApiCalls";
 import {invalidToken, onAxiosError, onAxiosSuccess} from "./global/Errors";
+import { ProfileModal, profileModalDisplayState } from './components/home/events/profileModal/profileModal';
 
 function App() {
     const removePlayerModalDisplay = useRecoilValue(removePlayerModalDisplayState)
+    const profileModalDisplay=useRecoilValue(profileModalDisplayState)
     const navigate = useNavigate()
-    const [modalsDivDisplay, setModalsDivDisplay] = useState<'none' | 'block'>('none')
+    //const [modalsDivDisplay, setModalsDivDisplay] = useState<'none' | 'block'>('none')
 
     useEffect(() => {
-        if (window.location.href.includes('home'))
-            isTokenValid()
-                .then(
-                    res => res ? '' : navigate('/sign-in'),
-                    () => navigate('/sign-in')
-                )
-        else
-            navigate('/sign-in')
+        // if (window.location.href.includes('home'))
+        //     isTokenValid()
+        //         .then(
+        //             res => res ? '' : navigate('/sign-in'),
+        //             () => navigate('/sign-in')
+        //         )
+        // else
+        //     navigate('/sign-in')
+         navigate(`/home/${homeTabsEndingUrl.Events}`)
     }, [])
 
     async function isTokenValid(): Promise<boolean> {
@@ -54,12 +57,12 @@ function App() {
             )
     }
 
-    useEffect(() => {
-        if (removePlayerModalDisplay === 'block')
-            setModalsDivDisplay('block')
-        else
-            setModalsDivDisplay('none')
-    }, [removePlayerModalDisplay])
+    // useEffect(() => {
+    //     if (removePlayerModalDisplay === 'block')
+    //         setModalsDivDisplay('block')
+    //     else
+    //         setModalsDivDisplay('none')
+    // }, [removePlayerModalDisplay])
 
     return (
         <div>
@@ -89,8 +92,11 @@ function App() {
                 }/>
             </Routes>
 
-            <div id={'modals-div'} style={{display: modalsDivDisplay}}>
+            <div id={'modals-div'} style={{display: removePlayerModalDisplay}}>
                 <RemovePlayerModal/>
+            </div>
+            <div id={'modals-div'} style={{display: profileModalDisplay}}>
+                <ProfileModal/>
             </div>
         </div>
     );

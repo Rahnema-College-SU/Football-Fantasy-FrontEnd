@@ -93,6 +93,7 @@
     line-height: 19px;
     color: #3D195B;
     align-items: center;
+    cursor: pointer;
 }
 
 .profile-photo {

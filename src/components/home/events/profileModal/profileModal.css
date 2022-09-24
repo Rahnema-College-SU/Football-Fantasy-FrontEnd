@@ -1,0 +1,66 @@
+.profile-modal-div{
+    position: relative;
+    top: 20%;
+    margin: auto;
+    margin-top: 0%;
+    width: 40%;
+    height: 70%;
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
+    
+}
+.back{
+    width: 100%;
+    height: 100%;
+}
+.show-info{
+    height: 100%;
+    width: 70%;
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+}
+
+.profile-modal-following-button {
+    width: 60%;
+    height: 30px;
+    background: #05D6E2;
+    /* background: linear-gradient(269.48deg, #04F5EC -30.14%, #03FBB8 109.7%); */
+    border-radius: 4px;
+    border: none;
+    font: 800 12px Vazirmatn, serif;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    margin-top: 10%;
+}
+
+.modal-profile-photo {
+    height: 8rem;
+    width: 8rem;
+    border-radius: 4rem;
+    margin-top: 10%;
+}
+.modal-profile-info {
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font: 400 12px Vazirmatn, serif;
+    line-height: 25px;
+    color: #000000;
+    align-items: center;
+    direction: rtl;
+}
+.info-lable{
+    font-weight: normal ;
+    text-align: right;
+    display: flex;
+    flex-direction: row;
+}
+.info{
+    font-weight: bold ;
+}
