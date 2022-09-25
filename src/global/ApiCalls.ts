@@ -65,3 +65,5 @@ export const axiosSignIn = (username: string, password: string) => customAxios.p
         password: password
     }
 )
+
+export const axiosSignInWithToken = () => customAxios.get('login_with_token')

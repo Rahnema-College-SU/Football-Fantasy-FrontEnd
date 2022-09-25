@@ -16,8 +16,9 @@ import {
     removePlayerModalDisplayState
 } from "./components/home/myTeam/removePlayerModal/RemovePlayerModal";
 import {useRecoilValue} from "recoil";
-import {axiosFantasyTeam} from "./global/ApiCalls";
+import {axiosSignInWithToken} from "./global/ApiCalls";
 import {invalidToken, onAxiosError, onAxiosSuccess} from "./global/Errors";
+import {setToken} from "./global/Storages";
 
 function App() {
     const removePlayerModalDisplay = useRecoilValue(removePlayerModalDisplayState)
@@ -36,12 +37,13 @@ function App() {
     }, [])
 
     async function isTokenValid(): Promise<boolean> {
-        return await axiosFantasyTeam()
+        return await axiosSignInWithToken()
             .then(
                 res =>
                     onAxiosSuccess({
                         res: res,
                         myError: invalidToken,
+                        onSuccess: () => setToken(res.data.data.accessToken),
                         onErrorReturnValue: false,
                         onSuccessReturnValue: true
                     }),
