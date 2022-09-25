@@ -59,7 +59,7 @@ function SignUpForm() {
                 onAxiosSuccess({
                     res: res, myError: addUserError, onSuccess: () => {
                         navigate('/sign-up-confirm')
-                        setToken(res.data.data.access_token)
+                        setToken(res.data.data.accessToken)
                     }
 
                 })

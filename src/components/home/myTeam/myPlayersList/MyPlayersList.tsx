@@ -7,14 +7,7 @@ import activeCloth from './assets/active-cloth.svg'
 import inactiveCloth from './assets/inactive-cloth.svg'
 import logo from './assets/logo.svg';
 import curveLines from './assets/curve-lines.svg';
-import {
-    attPositions,
-    defPositions, firstPosition,
-    gkPositions,
-    lastPosition,
-    midPositions,
-    toFarsiNumber
-} from "../../../../global/Variables";
+import {attPositions, defPositions, gkPositions, midPositions, toFarsiNumber} from "../../../../global/Variables";
 import {playerType} from "../../../../global/Types";
 import deleteIcon from "./assets/delete-icon.svg";
 import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
@@ -57,13 +50,13 @@ function MyPlayersList({
                 <img id={'delete-icon-players-list'} src={deleteIcon} alt={'active player'}
                      style={{visibility: (selectedPosition && myPlayers[selectedPosition] ? 'visible' : 'hidden')}}
                      onClick={deletePlayer()}/>
-                <img id={'player-my-players-list'}
+                <img id={'cloth-my-players-list'}
                      src={selectedPosition ? (myPlayers[selectedPosition] ? activeCloth : inactiveCloth) : inactiveCloth}
                      alt={'specific player of players'}/>
             </div>
             <img id={'logo-my-players-list'} src={logo} alt={'logo of premier league'}/>
             <div id={'info-name'}>
-                {selectedPosition && myPlayers[selectedPosition] ? myPlayers[selectedPosition].web_name : 'none'}
+                {selectedPosition && myPlayers[selectedPosition] ? myPlayers[selectedPosition].webName : 'none'}
             </div>
             <img id={'curve-lines-my-players-list'} src={curveLines} alt={"curve lines it's somehow the second logo"}/>
         </div>
@@ -74,44 +67,98 @@ function MyPlayersList({
             if (!selectedPosition || !myPlayers[selectedPosition])
                 return
 
-            selectPosition(myPlayers[selectedPosition].location_in_ui)()
+            selectPosition(myPlayers[selectedPosition].locationInTransferUI)()
             setSelectedPlayer(undefined)
             setRemovePlayerModalDisplay('block')
         }
     }
 
-    function getRowDiv(position: number, offsetInUi: number) {
+    function getRowDiv(position: number) {
         const keyboardKeys = ['ArrowDown', 'ArrowUp'] as const
 
-        function handleArrowKey(ArrowKey: typeof keyboardKeys[number]) {
+        function handleArrowKey(arrowKey: typeof keyboardKeys[number]) {
+            function getBeforeNextPositionArrays(position: number): [Array<number>, Array<number>] {
+                // selected position must be between 1 and 15
+                if (gkPositions.includes(position))
+                    return [attPositions, defPositions]
+                else if (defPositions.includes(position))
+                    return [gkPositions, midPositions]
+                else if (midPositions.includes(position))
+                    return [defPositions, attPositions]
+                else if (attPositions.includes(position))
+                    return [midPositions, gkPositions]
+                else
+                    return [[], []]
+            }
+
+            function handleArrowUpKey(selectedPosition: number) {
+                if (!handleArrowUpKeyEachArray(selectedPosition, gkPositions) &&
+                    !handleArrowUpKeyEachArray(selectedPosition, defPositions) &&
+                    !handleArrowUpKeyEachArray(selectedPosition, midPositions) &&
+                    !handleArrowUpKeyEachArray(selectedPosition, attPositions)
+                )
+                    selectPosition(selectedPosition - 1)()
+            }
+
+            function handleArrowUpKeyEachArray(selectedPosition: number, array: Array<number>): boolean {
+                if (selectedPosition === array[0]) {
+                    selectPosition(getBeforeNextPositionArrays(selectedPosition)[0].at(-1))()
+                    return true
+                } else if (selectedPosition === array.at(-1)) {
+                    selectPosition(array.at(-2))()
+                    return true
+                }
+
+                return false
+            }
+
+            function handleArrowDownKey(selectedPosition: number) {
+                if (!handleArrowLeftKeyEachArray(selectedPosition, gkPositions) &&
+                    !handleArrowLeftKeyEachArray(selectedPosition, defPositions) &&
+                    !handleArrowLeftKeyEachArray(selectedPosition, midPositions) &&
+                    !handleArrowLeftKeyEachArray(selectedPosition, attPositions)
+                )
+                    selectPosition(selectedPosition + 1)()
+            }
+
+            function handleArrowLeftKeyEachArray(selectedPosition: number, array: Array<number>): boolean {
+                if (selectedPosition === array.at(-2)) {
+                    selectPosition(array.at(-1))()
+                    return true
+                } else if (selectedPosition === array.at(-1)) {
+                    selectPosition(getBeforeNextPositionArrays(selectedPosition)[1][0])()
+                    return true
+                }
+
+                return false
+            }
+
             return () => {
                 if (selectedPosition) {
-                    if (selectedPosition === firstPosition && ArrowKey === 'ArrowUp')
-                        selectPosition(lastPosition)()
-                    else if (selectedPosition === lastPosition && ArrowKey === 'ArrowDown')
-                        selectPosition(firstPosition)()
-                    else
-                        selectPosition(ArrowKey === 'ArrowDown' ? selectedPosition + 1 : selectedPosition - 1)()
+                    if (arrowKey === 'ArrowUp')
+                        handleArrowUpKey(selectedPosition)
+                    else if (arrowKey === 'ArrowDown')
+                        handleArrowDownKey(selectedPosition)
                 }
             }
         }
 
         function getActiveRowDiv(player: playerType): JSX.Element {
             return (
-                <div className='row-div' style={{gridRowStart: position + offsetInUi}}
+                <div className='row-div'
                      onClick={selectPosition(position)}>
-                    <div className='row-name active-row-name'>{player.web_name}</div>
+                    <div className='row-name active-row-name'>{player.webName}</div>
                     <div
-                        className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_total_points)}</div>
+                        className='row-number active-row-number'>{toFarsiNumber(player.playerWeekLog.playerTotalPoints)}</div>
                     <div
-                        className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_cost)}</div>
+                        className='row-number active-row-number'>{toFarsiNumber(player.playerWeekLog.playerCost)}</div>
                 </div>
             )
         }
 
         function getInactiveRowDiv(position: number): JSX.Element {
             return (
-                <div className='row-div' style={{gridRowStart: position + offsetInUi}}
+                <div className='row-div'
                      onClick={selectPosition(position)}>
                     <div className='row-name inactive-row-name'>none</div>
                     <div className='row-number inactive-row-number'>۰</div>
@@ -122,7 +169,7 @@ function MyPlayersList({
 
         function getSelectedInactiveRowDiv(): JSX.Element {
             return (
-                <div className='row-div selected-row-div' style={{gridRowStart: position + offsetInUi}}
+                <div className='row-div selected-row-div'
                      onClick={deselectPosition} ref={focusOnElementByRef(selectedRowDivRef)} tabIndex={0}
                      onKeyUp={
                          handleKeyboardEvent(keyboardKeys, keyboardKeys.map(key => handleArrowKey(key))
@@ -136,16 +183,16 @@ function MyPlayersList({
 
         function getSelectedActiveRowDiv(player: playerType): JSX.Element {
             return (
-                <div className='row-div selected-row-div' style={{gridRowStart: position + offsetInUi}}
+                <div className='row-div selected-row-div'
                      onClick={deselectPosition} ref={focusOnElementByRef(selectedRowDivRef)} tabIndex={0}
                      onKeyUp={
                          handleKeyboardEvent([...keyboardKeys, 'Backspace'], [...keyboardKeys.map(key => handleArrowKey(key)), () => deletePlayer()()]
                          )}>
-                    <div className='row-name active-row-name'>{player.web_name}</div>
+                    <div className='row-name active-row-name'>{player.webName}</div>
                     <div
-                        className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_total_points)}</div>
+                        className='row-number active-row-number'>{toFarsiNumber(player.playerWeekLog.playerTotalPoints)}</div>
                     <div
-                        className='row-number active-row-number'>{toFarsiNumber(player.player_week_log.player_cost)}</div>
+                        className='row-number active-row-number'>{toFarsiNumber(player.playerWeekLog.playerCost)}</div>
                 </div>
             )
         }
@@ -159,9 +206,9 @@ function MyPlayersList({
         )
     }
 
-    function getEahPositionRow(positions: number[], offsetInUi: number): JSX.Element[] {
+    function getEahPositionRow(positions: number[]): JSX.Element[] {
         return positions.map(position => {
-            return getRowDiv(position, offsetInUi)
+            return getRowDiv(position)
         })
     }
 
@@ -171,17 +218,17 @@ function MyPlayersList({
             <div id={'price'}>قیمت</div>
             <div id={'first-divider'}></div>
 
-            <div className={'header-div gk-header-div'}>دروازه‌بانان</div>
-            {getEahPositionRow(gkPositions, 2)}
+            <div className={'header-div'}>دروازه‌بانان</div>
+            {getEahPositionRow(gkPositions)}
 
-            <div className={'header-div def-header-div'}>مدافعان</div>
-            {getEahPositionRow(defPositions, 3)}
+            <div className={'header-div'}>مدافعان</div>
+            {getEahPositionRow(defPositions)}
 
-            <div className={'header-div mid-header-div'}>هافبک‌ها</div>
-            {getEahPositionRow(midPositions, 4)}
+            <div className={'header-div'}>هافبک‌ها</div>
+            {getEahPositionRow(midPositions)}
 
-            <div className={'header-div att-header-div'}>مهاجمین</div>
-            {getEahPositionRow(attPositions, 5)}
+            <div className={'header-div'}>مهاجمین</div>
+            {getEahPositionRow(attPositions)}
         </div>
     }
 

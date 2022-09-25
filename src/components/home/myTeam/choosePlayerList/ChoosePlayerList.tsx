@@ -288,13 +288,13 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
         return (
             <div className={getClassName()} onClick={getPlayerRowOnCLick}>
                 <div className={'column-of-names-info'}>
-                    <div className={'choose-player-name'}>{player.web_name}</div>
+                    <div className={'choose-player-name'}>{player.webName}</div>
                     <div className={'choose-player-team-name'}>{player.team}</div>
                     <div className={'choose-player-team-name'}>{player.position}</div>
                 </div>
                 <div
-                    className={'choose-player-info'}>{toFarsiNumber(player.player_week_log.player_total_points)}</div>
-                <div className={'choose-player-info'}>{toFarsiNumber(player.player_week_log.player_cost)}</div>
+                    className={'choose-player-info'}>{toFarsiNumber(player.playerWeekLog.playerTotalPoints)}</div>
+                <div className={'choose-player-info'}>{toFarsiNumber(player.playerWeekLog.playerCost)}</div>
             </div>
         )
     }
@@ -312,31 +312,31 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
         }
 
         return (
-                <div id='page-bar'>
-                    <button className='page-bar-icon' onClick={setNewPage(1)}>
-                        <img src={previousLast} alt='previous last pages'/>
-                        <img src={previousLast} alt='previous last pages'/>
-                    </button>
-                    <button className='page-bar-icon' onClick={setNewPage(pageNumber - 1)}>
-                        <img src={previous} alt='previous page'/>
-                    </button>
-                    {
-                        choosePlayersList && choosePlayersList.numberOfPages ?
-                            <div
-                                id={'show-page-state'}>صفحه‌ی {toFarsiNumber(pageNumber)} از {toFarsiNumber(choosePlayersList.numberOfPages)}</div>
-                            : choosePlayersList.numberOfPages === 0 ?
-                                <div id={'show-page-state'}>ناموجود</div> :
-                                <div id={'show-page-state'}>دریافت تعداد صفحات ...</div>
-                    }
+            <div id='page-bar'>
+                <button className='page-bar-icon' onClick={setNewPage(1)}>
+                    <img src={previousLast} alt='previous last pages'/>
+                    <img src={previousLast} alt='previous last pages'/>
+                </button>
+                <button className='page-bar-icon' onClick={setNewPage(pageNumber - 1)}>
+                    <img src={previous} alt='previous page'/>
+                </button>
+                {
+                    choosePlayersList && choosePlayersList.numberOfPages ?
+                        <div
+                            id={'show-page-state'}>صفحه‌ی {toFarsiNumber(pageNumber)} از {toFarsiNumber(choosePlayersList.numberOfPages)}</div>
+                        : choosePlayersList.numberOfPages === 0 ?
+                            <div id={'show-page-state'}>ناموجود</div> :
+                            <div id={'show-page-state'}>دریافت تعداد صفحات ...</div>
+                }
 
-                    <button className='page-bar-icon' onClick={setNewPage(pageNumber + 1)}>
-                        <img src={next} alt='next page'/>
-                    </button>
-                    <button className='page-bar-icon' onClick={setNewPage(choosePlayersList.numberOfPages)}>
-                        <img src={nextLast} alt='next last pages'/>
-                        <img src={nextLast} alt='next last pages'/>
-                    </button>
-                </div>
+                <button className='page-bar-icon' onClick={setNewPage(pageNumber + 1)}>
+                    <img src={next} alt='next page'/>
+                </button>
+                <button className='page-bar-icon' onClick={setNewPage(choosePlayersList.numberOfPages)}>
+                    <img src={nextLast} alt='next last pages'/>
+                    <img src={nextLast} alt='next last pages'/>
+                </button>
+            </div>
         )
     }
 

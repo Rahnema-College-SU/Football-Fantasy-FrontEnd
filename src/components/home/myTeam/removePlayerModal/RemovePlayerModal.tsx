@@ -44,7 +44,7 @@ export function RemovePlayerModal() {
 
     function getText(selectedPosition: number) {
         return myPlayers[selectedPosition] ? 'آیا از حذف ' +
-            myPlayers[selectedPosition].web_name +
+            myPlayers[selectedPosition].webName +
             ' مطمئن هستید؟'
             :
             closeModal()

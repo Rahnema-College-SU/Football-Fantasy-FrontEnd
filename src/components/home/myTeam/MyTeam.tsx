@@ -80,8 +80,8 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
             return
 
         setMyPlayers(convertFantasyTeamApiResponse(fantasyTeamApiResponse))
-        setRemainingMoney(fantasyTeamApiResponse.data.fantasyteam.money_remaining)
-        setUsedPlayer(fantasyTeamApiResponse.data.fantasyteam.number_of_player)
+        setRemainingMoney(fantasyTeamApiResponse.data.fantasyTeam.moneyRemaining)
+        setUsedPlayer(fantasyTeamApiResponse.data.fantasyTeam.numberOfPlayers)
     }, [fantasyTeamApiResponse])
 
     useEffect(() => {
@@ -90,15 +90,6 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
 
         setChoosePlayersList(convertPlayersListApiResponse(playersListApiResponse))
     }, [playersListApiResponse])
-
-    useEffect(() => {
-        if (!fantasyTeamApiResponse)
-            return
-
-        setMyPlayers(convertFantasyTeamApiResponse(fantasyTeamApiResponse))
-        setRemainingMoney(fantasyTeamApiResponse.data.fantasyteam.money_remaining)
-        setUsedPlayer(fantasyTeamApiResponse.data.fantasyteam.number_of_player)
-    }, [fantasyTeamApiResponse])
 
     const updateGameInfo = () => {
         getDate().then(res => setDate(res))
@@ -177,17 +168,18 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
     }
 
     function convertFantasyTeamApiResponse(apiResponse: fantasyTeamApiResponseType) {
-        return apiResponse.data.players_list.reduce((map: myPlayersType, obj) => {
-            map[obj.location_in_ui] = {
+        return apiResponse.data.playersList.reduce((map: myPlayersType, obj) => {
+            map[obj.locationInTransferUI] = {
                 id: obj.id,
-                web_name: obj.web_name,
-                position: positionsUi[positionsServer.indexOf(obj.position.short_name)],
-                team: obj.real_team.short_name,
-                player_week_log: {
-                    player_cost: obj.player_week_log.player_cost / 10,
-                    player_total_points: obj.player_week_log.player_total_points / 10
+                webName: obj.webName,
+                position: positionsUi[positionsServer.indexOf(obj.position.shortName)],
+                team: obj.realTeam.shortName,
+                playerWeekLog: {
+                    playerCost: obj.playerWeekLog.playerCost / 10,
+                    playerTotalPoints: obj.playerWeekLog.playerTotalPoints / 10
                 },
-                location_in_ui: obj.location_in_ui
+                locationInTransferUI: obj.locationInTransferUI,
+                locationInTeamUI: obj.locationInTeamUI
             }
 
             return map
@@ -195,23 +187,25 @@ export function MyTeam({showingTab}: { showingTab: 'schematic' | 'list' }) {
     }
 
     function convertPlayersListApiResponse(apiResponse: playersListApiResponseType): choosePlayersListType {
-        const playersList = apiResponse.data.players_list.reduce((array: Array<playerType>, obj) => {
+        const playersList = apiResponse.data.playersList.reduce((array: Array<playerType>, obj) => {
             return [...array, {
                 id: obj.id,
-                web_name: obj.web_name,
-                position: positionsUi[positionsServer.indexOf(obj.position.short_name)],
-                team: obj.real_team.short_name,
-                player_week_log: {
-                    player_cost: obj.player_week_log.player_cost / 10,
-                    player_total_points: obj.player_week_log.player_total_points / 10
+                webName: obj.webName,
+                position: positionsUi[positionsServer.indexOf(obj.position.shortName)],
+                team: obj.realTeam.shortName,
+                playerWeekLog: {
+                    playerCost: obj.playerWeekLog.playerCost / 10,
+                    playerTotalPoints: obj.playerWeekLog.playerTotalPoints / 10
                 },
-                location_in_ui: undefined
+                locationInTransferUI: undefined,
+                locationInTeamUI: undefined
             }]
         }, [])
+
         return {
             playersList: playersList,
-            numberOfPlayers: apiResponse.data.number_of_players,
-            numberOfPages: apiResponse.data.number_of_pages
+            numberOfPlayers: apiResponse.data.numberOfPlayers,
+            numberOfPages: apiResponse.data.numberOfPages
         }
     }
 

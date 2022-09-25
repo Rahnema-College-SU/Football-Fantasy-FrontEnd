@@ -26,7 +26,7 @@ function SignInForm() {
                     onAxiosSuccess({
                         res: res, myError: invalidInputError, onSuccess: () => {
                             navigate(`/home/${homeTabsEndingUrl.myTeam}/${getShowingMyTeamTabsStateName()}`)
-                            setToken(res.data.data.access_token)
+                            setToken(res.data.data.accessToken)
                         }
                     })
 

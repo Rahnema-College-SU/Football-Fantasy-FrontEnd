@@ -1,13 +1,6 @@
 import React, {useEffect, useRef} from 'react'
 import './Ground.css'
-import {
-    attPositions,
-    defPositions, firstPosition,
-    gkPositions,
-    lastPosition,
-    midPositions,
-    toFarsiNumber
-} from "../../../../global/Variables";
+import {attPositions, defPositions, gkPositions, midPositions, toFarsiNumber} from "../../../../global/Variables";
 import {playerType} from "../../../../global/Types";
 import addIcon from './assets/add-icon.svg'
 import deleteIcon from './assets/delete-icon.svg'
@@ -58,7 +51,7 @@ export function Ground({
     function getClothDiv(position: number): JSX.Element {
         const keyboardKeys = ['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'] as const
 
-        function handleArrowKey(ArrowKey: typeof keyboardKeys[number]) {
+        function handleArrowKey(arrowKey: typeof keyboardKeys[number]) {
             function getBeforeNextPositionArrays(position: number): [Array<number>, Array<number>] {
                 // selected position must be between 1 and 15
                 if (gkPositions.includes(position))
@@ -73,20 +66,58 @@ export function Ground({
                     return [[], []]
             }
 
+            function handleArrowLeftKey(selectedPosition: number) {
+                if (!handleArrowLeftKeyEachArray(selectedPosition, gkPositions) &&
+                    !handleArrowLeftKeyEachArray(selectedPosition, defPositions) &&
+                    !handleArrowLeftKeyEachArray(selectedPosition, midPositions) &&
+                    !handleArrowLeftKeyEachArray(selectedPosition, attPositions)
+                )
+                    selectPosition(selectedPosition - 1)()
+            }
+
+            function handleArrowLeftKeyEachArray(selectedPosition: number, array: Array<number>): boolean {
+                if (selectedPosition === array[0]) {
+                    selectPosition(getBeforeNextPositionArrays(selectedPosition)[0].at(-1))()
+                    return true
+                } else if (selectedPosition === array.at(-1)) {
+                    selectPosition(array.at(-2))()
+                    return true
+                }
+
+                return false
+            }
+
+            function handleArrowRightKey(selectedPosition: number) {
+                if (!handleArrowRightKeyEachArray(selectedPosition, gkPositions) &&
+                    !handleArrowRightKeyEachArray(selectedPosition, defPositions) &&
+                    !handleArrowRightKeyEachArray(selectedPosition, midPositions) &&
+                    !handleArrowRightKeyEachArray(selectedPosition, attPositions)
+                )
+                    selectPosition(selectedPosition + 1)()
+            }
+
+            function handleArrowRightKeyEachArray(selectedPosition: number, array: Array<number>): boolean {
+                if (selectedPosition === array.at(-2)) {
+                    selectPosition(array.at(-1))()
+                    return true
+                } else if (selectedPosition === array.at(-1)) {
+                    selectPosition(getBeforeNextPositionArrays(selectedPosition)[1][0])()
+                    return true
+                }
+
+                return false
+            }
+
             return () => {
                 if (selectedPosition) {
-                    if (selectedPosition === firstPosition && ArrowKey === 'ArrowLeft')
-                        selectPosition(lastPosition)()
-                    else if (selectedPosition === lastPosition && ArrowKey === 'ArrowRight')
-                        selectPosition(firstPosition)()
-                    else if (ArrowKey === 'ArrowLeft')
-                        selectPosition(selectedPosition - 1)()
-                    else if (ArrowKey === 'ArrowRight')
-                        selectPosition(selectedPosition + 1)()
-                    else if (ArrowKey === 'ArrowDown')
-                        selectPosition(getBeforeNextPositionArrays(selectedPosition)[1][0])()
-                    else if (ArrowKey === 'ArrowUp')
+                    if (arrowKey === 'ArrowLeft')
+                        handleArrowLeftKey(selectedPosition)
+                    else if (arrowKey === 'ArrowRight')
+                        handleArrowRightKey(selectedPosition)
+                    else if (arrowKey === 'ArrowUp')
                         selectPosition(getBeforeNextPositionArrays(selectedPosition)[0][0])()
+                    else if (arrowKey === 'ArrowDown')
+                        selectPosition(getBeforeNextPositionArrays(selectedPosition)[1][0])()
                 }
             }
         }
@@ -97,16 +128,16 @@ export function Ground({
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                          onClick={deletePlayer(player)}/>
                     <img className={'ground-cloth'} src={activeCloth} alt={'active player'}
-                         onClick={selectPosition(player.location_in_ui)}/>
-                    <div className={'player-name'}>{player.web_name}</div>
-                    <div className={'power'}>{toFarsiNumber(player.player_week_log.player_total_points)}</div>
+                         onClick={selectPosition(player.locationInTransferUI)}/>
+                    <div className={'player-name'}>{player.webName}</div>
+                    <div className={'power'}>{toFarsiNumber(player.playerWeekLog.playerTotalPoints)}</div>
                 </div>
             )
         }
 
         function deletePlayer(player: playerType) {
             return () => {
-                selectPosition(player.location_in_ui)()
+                selectPosition(player.locationInTransferUI)()
                 setSelectedPlayer(undefined)
                 setRemovePlayerModalDisplay('block')
             }
@@ -155,8 +186,8 @@ export function Ground({
                          onClick={deletePlayer(player)}/>
                     <img className={'ground-cloth'} src={selectedCloth} alt={'selected player'}
                          onClick={deselectPosition}/>
-                    <div className={'player-name'}>{player.web_name}</div>
-                    <div className={'power'}>{toFarsiNumber(player.player_week_log.player_total_points)}</div>
+                    <div className={'player-name'}>{player.webName}</div>
+                    <div className={'power'}>{toFarsiNumber(player.playerWeekLog.playerTotalPoints)}</div>
                 </div>
             )
         }

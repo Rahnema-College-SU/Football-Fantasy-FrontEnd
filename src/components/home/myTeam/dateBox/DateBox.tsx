@@ -19,9 +19,9 @@ export function DateBax({getDate}: { getDate: () => Promise<dateType> }) {
     return (
         date ?
             <div className='date-box'>
-                <div id='week-text'>{date.current_week ?? ''}</div>
+                <div id='week-text'>{date.currentWeek ?? ''}</div>
                 <div id='date-text'>
-                    {date.week_day} {date.day} {date.month_name} {date.year} - ساعت {date.hour}
+                    {date.weekDay} {date.day} {date.monthName} {date.year} - ساعت {date.hour}
                 </div>
             </div>
             :
