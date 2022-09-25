@@ -14,6 +14,7 @@ import SignUpConfirm from "../signUpConfirm/SignUpConfirm";
 import { setToken } from "../../global/Variables";
 import { getToken } from "../../global/Variables";
 import { userExistError } from "../../global/Errors";
+import { DatePicker } from "react-advance-jalaali-datepicker";
 
 function SignUpForm() {
     const navigate = useNavigate()
@@ -25,6 +26,7 @@ function SignUpForm() {
         last_name="";
         email="";
         country="";
+        birthDate="";
     }
 
     var currentUser=new user
@@ -45,6 +47,8 @@ function SignUpForm() {
         }else if(! /\S+@\S+\.\S+/.test(currentUser.email)){
             return alert("ایمیل معتبر وارد کنید")
         }else if(currentUser.country.length==0){
+            return alert("کشور را انتخاب کنید")
+        }else if(currentUser.birthDate.length==0){
             return alert("کشور را انتخاب کنید")
         }else if(currentUser.username.length==0){
             return alert("نام کاربری را وارد کنید")
@@ -89,10 +93,8 @@ function SignUpForm() {
                         <span className="label">نام خانوادگی</span>
                         <input className="input" type="text" onChange={setLastName}/>
                     </div>
-                    <div className="input-container">
-                        <span className="label"> ایمیل</span>
-                        <input className="input" type="text" onChange={setEmail}/>
-                    </div>
+                    
+                    
                     <div className="input-container">
                         <span className="label">کشور</span>
                         <select className="select-country"onChange={setCountry}>کشور
@@ -103,6 +105,15 @@ function SignUpForm() {
                         </select>
                     </div>
                     <div className="input-container">
+                        <span className="label">تاریخ تولد </span>
+                        <ChooseDate  />
+                    </div>
+                    <div className="email-container">
+                        <span className="label" > ایمیل</span>
+                        <input className="input" type="text" onChange={setEmail}/>
+                    </div>
+                    <div></div>
+                    <div className="input-container">
                         <span className="label">نام کاربری</span>
                         <input className="input" type="text" onChange={setUsername}/>
                     </div>
@@ -110,6 +121,7 @@ function SignUpForm() {
                         <span className="label">رمز عبور</span>
                         <input className="input" type="text" onChange={setPassword}/>
                     </div>
+                    
                 </div>
                 <button className="button" id="sign-up-button" onClick={signUpApiCall}>ثبت نام</button>
             </div>
@@ -119,3 +131,28 @@ function SignUpForm() {
 }
 
 export default SignUpForm;
+
+export class ChooseDate extends React.Component {
+    change(unix: any, formatted: any) {
+      console.log(unix); // returns timestamp of the selected value, for example.
+      console.log(formatted); // returns the selected value in the format you've entered, forexample, "تاریخ: 1396/02/24 ساعت: 18:30".
+      
+    }
+    DatePickerInput(props: JSX.IntrinsicAttributes & React.ClassAttributes<HTMLInputElement> & React.InputHTMLAttributes<HTMLInputElement>) {
+      return <input {...props} />;
+    }
+    render() {
+      return (
+        <div className="datePicker">
+          <DatePicker
+            inputComponent={this.DatePickerInput}
+            placeholder="انتخاب تاریخ"
+            format="jYYYY-jMM-jDD"
+            onChange={this.change }
+            id="datePicker"
+            preSelected="----/--/--"
+          />
+        </div>
+      );
+    }
+  }
