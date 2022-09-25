@@ -3,7 +3,7 @@ import './RemovePlayerModal.css';
 import activeCloth from '../ground/assets/active-cloth.svg';
 import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {selectedPositionState} from "../ground/Ground";
-import {myPlayersState} from "../MyTeam";
+import {myPlayersState} from "../Transfers";
 import {focusOnElementByRef, handleKeyboardEvent} from "../../../../global/Functions";
 
 export const isDeleteConfirmClickedState = atom<boolean>({

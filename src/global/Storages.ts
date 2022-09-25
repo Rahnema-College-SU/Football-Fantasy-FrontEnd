@@ -1,4 +1,4 @@
-import {showingMyTeamTabsEndingUrl} from "./Variables";
+import {subTabsEndingUrl} from "./Variables";
 
 const tokenKey = 'x-access-token'
 
@@ -21,17 +21,32 @@ export function getHomeTabsState() {
     return tab ? Number(tab) : 1
 }
 
-const showingMyTeamTabsKey = 'showing-my-team-tabs'
+const myTeamSubTabKey = 'my-team-sub-tab'
 
-export function setShowingMyTeamTabsState(tab: number) {
-    sessionStorage.setItem(showingMyTeamTabsKey, String(tab))
+export function setMyTeamSubTabState(tab: number) {
+    sessionStorage.setItem(myTeamSubTabKey, String(tab))
 }
 
-export function getShowingMyTeamTabsStateId() {
-    const tab = sessionStorage.getItem(showingMyTeamTabsKey)
+export function getMyTeamSubTabsStateId() {
+    const tab = sessionStorage.getItem(myTeamSubTabKey)
     return tab ? Number(tab) : 1
 }
 
-export function getShowingMyTeamTabsStateName() {
-    return getShowingMyTeamTabsStateId() === 1 ? showingMyTeamTabsEndingUrl.schematic : showingMyTeamTabsEndingUrl.list
+export function getMyTeamSubTabsStateName() {
+    return getMyTeamSubTabsStateId() === 1 ? subTabsEndingUrl.schematic : subTabsEndingUrl.list
+}
+
+const transfersSubTabKey = 'transfers-sub-tab'
+
+export function setTransfersSubTabState(tab: number) {
+    sessionStorage.setItem(transfersSubTabKey, String(tab))
+}
+
+export function getTransfersSubTabStateId() {
+    const tab = sessionStorage.getItem(transfersSubTabKey)
+    return tab ? Number(tab) : 1
+}
+
+export function getTransfersSubTabsStateName() {
+    return getTransfersSubTabStateId() === 1 ? subTabsEndingUrl.schematic : subTabsEndingUrl.list
 }

@@ -19,7 +19,7 @@ import {
     toFarsiNumber
 } from "../../../../global/Variables";
 import {selectedPositionState} from "../ground/Ground";
-import {myPlayersState} from "../MyTeam";
+import {myPlayersState} from "../Transfers";
 import {addPlayerError, loadPaginationError, onBaseError, pageNotAvailableError} from "../../../../global/Errors";
 import {debounce} from "ts-debounce";
 import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";

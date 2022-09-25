@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {homeTabsEndingUrl} from "../../global/Variables";
 import {axiosSignIn} from "../../global/ApiCalls";
 import {invalidInputError, onAxiosError, onAxiosSuccess} from "../../global/Errors";
-import {getShowingMyTeamTabsStateName, setToken} from "../../global/Storages";
+import {getMyTeamSubTabsStateName, setToken} from "../../global/Storages";
 import {focusOnElementByRef, handleKeyboardEvent} from "../../global/Functions";
 
 function SignInForm() {
@@ -25,7 +25,7 @@ function SignInForm() {
                 res => {
                     onAxiosSuccess({
                         res: res, myError: invalidInputError, onSuccess: () => {
-                            navigate(`/home/${homeTabsEndingUrl.myTeam}/${getShowingMyTeamTabsStateName()}`)
+                            navigate(`/home/${homeTabsEndingUrl.myTeam}/${getMyTeamSubTabsStateName()}`)
                             setToken(res.data.data.accessToken)
                         }
                     })

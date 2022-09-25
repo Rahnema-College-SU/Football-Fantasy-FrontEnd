@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from "react";
 import './MyPlayersList.css';
 import {useRecoilValue, useSetRecoilState} from "recoil";
-import {myPlayersState} from "../MyTeam";
+import {myPlayersState} from "../Transfers";
 import {selectedPositionState} from "../ground/Ground";
 import activeCloth from './assets/active-cloth.svg'
 import inactiveCloth from './assets/inactive-cloth.svg'

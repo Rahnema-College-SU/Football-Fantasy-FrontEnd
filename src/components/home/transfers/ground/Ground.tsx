@@ -8,7 +8,7 @@ import activeCloth from './assets/active-cloth.svg'
 import inactiveCloth from './assets/inactive-cloth.svg'
 import selectedCloth from './assets/selected-cloth.svg'
 import {atom, useRecoilValue, useSetRecoilState} from "recoil";
-import {myPlayersState} from "../MyTeam";
+import {myPlayersState} from "../Transfers";
 import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
 import {selectedFilterItemState, selectedPlayerState} from "../choosePlayerList/ChoosePlayerList";
 import {focusOnElementByRef, handleKeyboardEvent} from "../../../../global/Functions";

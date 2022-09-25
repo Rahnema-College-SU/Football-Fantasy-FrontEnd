@@ -1,5 +1,7 @@
 import {positionsServer, positionsUi} from "./Variables";
 
+export type subTab = 'schematic' | 'list'
+
 type fantasyTeamInsideApiResponseType = {
     name: string,
     moneyRemaining: number,

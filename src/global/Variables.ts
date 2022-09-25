@@ -6,7 +6,7 @@ export const homeTabsEndingUrl = {
     prizes: 'prizes'
 }
 
-export const showingMyTeamTabsEndingUrl = {
+export const subTabsEndingUrl = {
     schematic: 'schematic',
     list: 'list'
 }

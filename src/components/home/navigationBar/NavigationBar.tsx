@@ -2,12 +2,21 @@ import React, {useEffect, useState} from 'react';
 import './NavigationBar.css';
 import {Link, useNavigate} from "react-router-dom";
 import {homeTabsEndingUrl} from "../../../global/Variables";
-import {getHomeTabsState, getShowingMyTeamTabsStateName, setHomeTabsState} from "../../../global/Storages";
+import {
+    getHomeTabsState,
+    getMyTeamSubTabsStateName,
+    getTransfersSubTabsStateName,
+    setHomeTabsState
+} from "../../../global/Storages";
 
 function NavigationBar() {
     const tabs = [
-        {id: 1, name: 'تیم من', urlEndingName: homeTabsEndingUrl.myTeam + '/' + getShowingMyTeamTabsStateName()},
-        {id: 2, name: 'نقل و انتقالات', urlEndingName: homeTabsEndingUrl.transfers},
+        {id: 1, name: 'تیم من', urlEndingName: homeTabsEndingUrl.myTeam + '/' + getMyTeamSubTabsStateName()},
+        {
+            id: 2,
+            name: 'نقل و انتقالات',
+            urlEndingName: homeTabsEndingUrl.transfers + '/' + getTransfersSubTabsStateName()
+        },
         {id: 3, name: ' رویدادها', urlEndingName: homeTabsEndingUrl.Events},
         {id: 4, name: 'پروفایل', urlEndingName: homeTabsEndingUrl.profile},
         {id: 5, name: 'جوایز', urlEndingName: homeTabsEndingUrl.prizes}
