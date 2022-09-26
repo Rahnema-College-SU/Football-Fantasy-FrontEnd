@@ -1,4 +1,4 @@
-import {Ground, selectedPositionState} from "./ground/Ground";
+import {Schematic, selectedPositionState} from "./schematic/Schematic";
 import React, {useEffect, useState} from "react";
 import './Transfers.css';
 import menu from './assets/menu.svg'
@@ -62,7 +62,7 @@ export function Transfers({subTab}: { subTab: subTab }) {
 
     const setDate = useSetRecoilState(dateState)
 
-    const [selectedPosition, setSelectedPosition] = useRecoilState(selectedPositionState)
+    const selectedPosition = useRecoilValue(selectedPositionState)
     const isDeleteConfirmClicked = useRecoilValue(isDeleteConfirmClickedState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
 
@@ -210,25 +210,17 @@ export function Transfers({subTab}: { subTab: subTab }) {
         }
     }
 
-    function selectPosition(position: number | undefined) {
-        return () => setSelectedPosition(position)
-
-    }
-
-    function deselectPosition() {
-        setSelectedPosition(undefined)
-    }
-
     function menuOnClick() {
         const choosePlayerListStyle: CSSStyleDeclaration = document.getElementById('players-list-main-div')?.style!
 
-        if (choosePlayerListStyle.display === 'block')
+        if (choosePlayerListStyle.display === 'flex')
             choosePlayerListStyle.setProperty('display', 'none')
         else
-            choosePlayerListStyle.setProperty('display', 'block')
+            choosePlayerListStyle.setProperty('display', 'flex')
     }
 
     return (
+        // <ThingsProvider value={selectPosition}>
         <div id={'my-team-main-div'}>
             <div id={'date-and-menu-container'}>
                 <DateBax getDate={getDate}/>
@@ -243,11 +235,12 @@ export function Transfers({subTab}: { subTab: subTab }) {
                 <RemainingMoney/>
 
                 {subTab === 'schematic' ?
-                    <Ground selectPosition={selectPosition} deselectPosition={deselectPosition}/> :
+                    <Schematic/> :
                     // so showingTab === 'list'
-                    <MyPlayersList selectPosition={selectPosition} deselectPosition={deselectPosition}/>}
+                    <MyPlayersList/>}
             </div>
 
         </div>
+// </ThingsProvider>
     )
 }

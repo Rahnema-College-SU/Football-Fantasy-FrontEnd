@@ -18,7 +18,7 @@ import {
     positionsUi,
     toFarsiNumber
 } from "../../../../global/Variables";
-import {selectedPositionState} from "../ground/Ground";
+import {selectedPositionState} from "../schematic/Schematic";
 import {myPlayersState} from "../Transfers";
 import {addPlayerError, loadPaginationError, onBaseError, pageNotAvailableError} from "../../../../global/Errors";
 import {debounce} from "ts-debounce";
@@ -82,9 +82,9 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
     const [costsSort, setCostsSort] = useState<sortType>(defaultSort)
     const [pageNumber, setPageNumber] = useState<number>(1)
 
-    const playersListStyle = document.getElementById('players-list-main-div')?.style!
-    useMediaQuery('(max-width: 768px)', () => playersListStyle.setProperty('display', 'none'),
-        () => playersListStyle.setProperty('display', 'block'))
+    const playersListStyle = document.getElementById('players-list-main-div')?.style
+    useMediaQuery('(max-width: 768px)', () => playersListStyle?.setProperty('display', 'none'),
+        () => playersListStyle?.setProperty('display', 'flex'))
 
     useEffect(() => {
         setChoosePlayersList({...choosePlayersList, numberOfPlayers: undefined, numberOfPages: undefined})

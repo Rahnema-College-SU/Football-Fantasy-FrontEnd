@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react'
-import './Ground.css'
+import './Schematic.css'
 import {attPositions, defPositions, gkPositions, midPositions, toFarsiNumber} from "../../../../global/Variables";
 import {playerType} from "../../../../global/Types";
 import addIcon from './assets/add-icon.svg'
@@ -7,7 +7,7 @@ import deleteIcon from './assets/delete-icon.svg'
 import activeCloth from './assets/active-cloth.svg'
 import inactiveCloth from './assets/inactive-cloth.svg'
 import selectedCloth from './assets/selected-cloth.svg'
-import {atom, useRecoilValue, useSetRecoilState} from "recoil";
+import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {myPlayersState} from "../Transfers";
 import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
 import {selectedFilterItemState, selectedPlayerState} from "../choosePlayerList/ChoosePlayerList";
@@ -18,15 +18,9 @@ export const selectedPositionState = atom<number | undefined>({
     default: undefined
 })
 
-export function Ground({
-                           selectPosition,
-                           deselectPosition
-                       }: {
-    selectPosition: (position: number | undefined) => () => void,
-    deselectPosition: () => void
-}) {
+export function Schematic() {
     const myPlayers = useRecoilValue(myPlayersState)
-    const selectedPosition = useRecoilValue(selectedPositionState)
+    const [selectedPosition, setSelectedPosition] = useRecoilState(selectedPositionState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
     const setSelectedFilterItem = useSetRecoilState(selectedFilterItemState)
     const setSelectedPlayer = useSetRecoilState(selectedPlayerState)
@@ -72,15 +66,15 @@ export function Ground({
                     !handleArrowLeftKeyEachArray(selectedPosition, midPositions) &&
                     !handleArrowLeftKeyEachArray(selectedPosition, attPositions)
                 )
-                    selectPosition(selectedPosition - 1)()
+                    setSelectedPosition(selectedPosition - 1)
             }
 
             function handleArrowLeftKeyEachArray(selectedPosition: number, array: Array<number>): boolean {
                 if (selectedPosition === array[0]) {
-                    selectPosition(getBeforeNextPositionArrays(selectedPosition)[0].at(-1))()
+                    setSelectedPosition(getBeforeNextPositionArrays(selectedPosition)[0].at(-1))
                     return true
                 } else if (selectedPosition === array.at(-1)) {
-                    selectPosition(array.at(-2))()
+                    setSelectedPosition(array.at(-2))
                     return true
                 }
 
@@ -93,15 +87,15 @@ export function Ground({
                     !handleArrowRightKeyEachArray(selectedPosition, midPositions) &&
                     !handleArrowRightKeyEachArray(selectedPosition, attPositions)
                 )
-                    selectPosition(selectedPosition + 1)()
+                    setSelectedPosition(selectedPosition + 1)
             }
 
             function handleArrowRightKeyEachArray(selectedPosition: number, array: Array<number>): boolean {
                 if (selectedPosition === array.at(-2)) {
-                    selectPosition(array.at(-1))()
+                    setSelectedPosition(array.at(-1))
                     return true
                 } else if (selectedPosition === array.at(-1)) {
-                    selectPosition(getBeforeNextPositionArrays(selectedPosition)[1][0])()
+                    setSelectedPosition(getBeforeNextPositionArrays(selectedPosition)[1][0])
                     return true
                 }
 
@@ -115,20 +109,20 @@ export function Ground({
                     else if (arrowKey === 'ArrowRight')
                         handleArrowRightKey(selectedPosition)
                     else if (arrowKey === 'ArrowUp')
-                        selectPosition(getBeforeNextPositionArrays(selectedPosition)[0][0])()
+                        setSelectedPosition(getBeforeNextPositionArrays(selectedPosition)[0][0])
                     else if (arrowKey === 'ArrowDown')
-                        selectPosition(getBeforeNextPositionArrays(selectedPosition)[1][0])()
+                        setSelectedPosition(getBeforeNextPositionArrays(selectedPosition)[1][0])
                 }
             }
         }
 
         function getActiveClothDiv(player: playerType): JSX.Element {
             return (
-                <div className='ground-cloth-div'>
+                <div className='schematic-cloth-div'>
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                          onClick={deletePlayer(player)}/>
-                    <img className={'ground-cloth'} src={activeCloth} alt={'active player'}
-                         onClick={selectPosition(player.locationInTransferUI)}/>
+                    <img className={'schematic-cloth'} src={activeCloth} alt={'active player'}
+                         onClick={() => setSelectedPosition(player.locationInTransferUI)}/>
                     <div className={'player-name'}>{player.webName}</div>
                     <div className={'power'}>{toFarsiNumber(player.playerWeekLog.playerTotalPoints)}</div>
                 </div>
@@ -137,7 +131,7 @@ export function Ground({
 
         function deletePlayer(player: playerType) {
             return () => {
-                selectPosition(player.locationInTransferUI)()
+                setSelectedPosition(player.locationInTransferUI)
                 setSelectedPlayer(undefined)
                 setRemovePlayerModalDisplay('block')
             }
@@ -145,13 +139,13 @@ export function Ground({
 
         function getInactiveClothDiv(position: number): JSX.Element {
             return (
-                <div className='ground-cloth-div inactive-cloth-div'>
+                <div className='schematic-cloth-div inactive-cloth-div'>
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                          style={{visibility: 'hidden'}}/>
-                    <img className={'ground-cloth'} src={inactiveCloth} alt={'inactive player'}
-                         onClick={selectPosition(position)}/>
+                    <img className={'schematic-cloth'} src={inactiveCloth} alt={'inactive player'}
+                         onClick={() => setSelectedPosition(position)}/>
                     <img className={'add-icon'} src={addIcon} alt={'add icon'}
-                         onClick={selectPosition(position)}/>
+                         onClick={() => setSelectedPosition(position)}/>
                     <div className={'player-name'} style={{visibility: 'hidden'}}>dummy</div>
                     <div className={'power'} style={{visibility: 'hidden'}}>۰</div>
                 </div>
@@ -160,15 +154,15 @@ export function Ground({
 
         function getSelectedInactiveClothDiv(): JSX.Element {
             return (
-                <div className='ground-cloth-div selected-cloth-div' ref={focusOnElementByRef(selectedDivRef)}
+                <div className='schematic-cloth-div selected-cloth-div' ref={focusOnElementByRef(selectedDivRef)}
                      tabIndex={0}
                      onKeyUp={
                          handleKeyboardEvent(keyboardKeys, keyboardKeys.map(key => handleArrowKey(key))
                          )}>
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                          style={{visibility: 'hidden'}}/>
-                    <img className={'ground-cloth'} src={selectedCloth} alt={'selected player'}
-                         onClick={deselectPosition}/>
+                    <img className={'schematic-cloth'} src={selectedCloth} alt={'selected player'}
+                         onClick={() => setSelectedPosition(undefined)}/>
                     <div className={'player-name'} style={{visibility: 'hidden'}}>dummy</div>
                     <div className={'power'} style={{visibility: 'hidden'}}>۰</div>
                 </div>
@@ -177,15 +171,15 @@ export function Ground({
 
         function getSelectedActiveClothDiv(player: playerType): JSX.Element {
             return (
-                <div className='ground-cloth-div selected-cloth-div' ref={focusOnElementByRef(selectedDivRef)}
+                <div className='schematic-cloth-div selected-cloth-div' ref={focusOnElementByRef(selectedDivRef)}
                      tabIndex={0}
                      onKeyUp={
                          handleKeyboardEvent([...keyboardKeys, 'Backspace'], [...keyboardKeys.map(key => handleArrowKey(key)), () => deletePlayer(player)()]
                          )}>
                     <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                          onClick={deletePlayer(player)}/>
-                    <img className={'ground-cloth'} src={selectedCloth} alt={'selected player'}
-                         onClick={deselectPosition}/>
+                    <img className={'schematic-cloth'} src={selectedCloth} alt={'selected player'}
+                         onClick={() => setSelectedPosition(undefined)}/>
                     <div className={'player-name'}>{player.webName}</div>
                     <div className={'power'}>{toFarsiNumber(player.playerWeekLog.playerTotalPoints)}</div>
                 </div>
@@ -208,7 +202,7 @@ export function Ground({
     }
 
     return (
-        <div id={'ground-main-div'}>
+        <div id={'schematic-main-div'}>
             <div id={'gk-div'}>
                 {getPlayersDivs(gkPositions)}
             </div>

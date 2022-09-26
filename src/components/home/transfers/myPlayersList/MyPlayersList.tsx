@@ -1,8 +1,8 @@
 import React, {useEffect, useRef} from "react";
 import './MyPlayersList.css';
-import {useRecoilValue, useSetRecoilState} from "recoil";
+import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {myPlayersState} from "../Transfers";
-import {selectedPositionState} from "../ground/Ground";
+import {selectedPositionState} from "../schematic/Schematic";
 import activeCloth from './assets/active-cloth.svg'
 import inactiveCloth from './assets/inactive-cloth.svg'
 import logo from './assets/logo.svg';
@@ -14,15 +14,9 @@ import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerMo
 import {selectedFilterItemState, selectedPlayerState} from "../choosePlayerList/ChoosePlayerList";
 import {focusOnElementByRef, handleKeyboardEvent} from "../../../../global/Functions";
 
-function MyPlayersList({
-                           selectPosition,
-                           deselectPosition
-                       }: {
-    selectPosition: (position: number | undefined) => () => void,
-    deselectPosition: () => void
-}) {
+function MyPlayersList() {
     const myPlayers = useRecoilValue(myPlayersState)
-    const selectedPosition = useRecoilValue(selectedPositionState)
+    const [selectedPosition, setSelectedPosition] = useRecoilState(selectedPositionState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
     const setSelectedFilterItem = useSetRecoilState(selectedFilterItemState)
     const setSelectedPlayer = useSetRecoilState(selectedPlayerState)
@@ -67,7 +61,7 @@ function MyPlayersList({
             if (!selectedPosition || !myPlayers[selectedPosition])
                 return
 
-            selectPosition(myPlayers[selectedPosition].locationInTransferUI)()
+            setSelectedPosition(myPlayers[selectedPosition].locationInTransferUI)
             setSelectedPlayer(undefined)
             setRemovePlayerModalDisplay('block')
         }
@@ -97,15 +91,15 @@ function MyPlayersList({
                     !handleArrowUpKeyEachArray(selectedPosition, midPositions) &&
                     !handleArrowUpKeyEachArray(selectedPosition, attPositions)
                 )
-                    selectPosition(selectedPosition - 1)()
+                    setSelectedPosition(selectedPosition - 1)
             }
 
             function handleArrowUpKeyEachArray(selectedPosition: number, array: Array<number>): boolean {
                 if (selectedPosition === array[0]) {
-                    selectPosition(getBeforeNextPositionArrays(selectedPosition)[0].at(-1))()
+                    setSelectedPosition(getBeforeNextPositionArrays(selectedPosition)[0].at(-1))
                     return true
                 } else if (selectedPosition === array.at(-1)) {
-                    selectPosition(array.at(-2))()
+                    setSelectedPosition(array.at(-2))
                     return true
                 }
 
@@ -118,15 +112,15 @@ function MyPlayersList({
                     !handleArrowLeftKeyEachArray(selectedPosition, midPositions) &&
                     !handleArrowLeftKeyEachArray(selectedPosition, attPositions)
                 )
-                    selectPosition(selectedPosition + 1)()
+                    setSelectedPosition(selectedPosition + 1)
             }
 
             function handleArrowLeftKeyEachArray(selectedPosition: number, array: Array<number>): boolean {
                 if (selectedPosition === array.at(-2)) {
-                    selectPosition(array.at(-1))()
+                    setSelectedPosition(array.at(-1))
                     return true
                 } else if (selectedPosition === array.at(-1)) {
-                    selectPosition(getBeforeNextPositionArrays(selectedPosition)[1][0])()
+                    setSelectedPosition(getBeforeNextPositionArrays(selectedPosition)[1][0])
                     return true
                 }
 
@@ -146,7 +140,7 @@ function MyPlayersList({
         function getActiveRowDiv(player: playerType): JSX.Element {
             return (
                 <div className='row-div'
-                     onClick={selectPosition(position)}>
+                     onClick={() => setSelectedPosition(position)}>
                     <div className='row-name active-row-name'>{player.webName}</div>
                     <div
                         className='row-number active-row-number'>{toFarsiNumber(player.playerWeekLog.playerTotalPoints)}</div>
@@ -159,7 +153,7 @@ function MyPlayersList({
         function getInactiveRowDiv(position: number): JSX.Element {
             return (
                 <div className='row-div'
-                     onClick={selectPosition(position)}>
+                     onClick={() => setSelectedPosition(position)}>
                     <div className='row-name inactive-row-name'>none</div>
                     <div className='row-number inactive-row-number'>۰</div>
                     <div className='row-number inactive-row-number'>۰</div>
@@ -170,7 +164,8 @@ function MyPlayersList({
         function getSelectedInactiveRowDiv(): JSX.Element {
             return (
                 <div className='row-div selected-row-div'
-                     onClick={deselectPosition} ref={focusOnElementByRef(selectedRowDivRef)} tabIndex={0}
+                     onClick={() => setSelectedPosition(undefined)} ref={focusOnElementByRef(selectedRowDivRef)}
+                     tabIndex={0}
                      onKeyUp={
                          handleKeyboardEvent(keyboardKeys, keyboardKeys.map(key => handleArrowKey(key))
                          )}>
@@ -184,7 +179,8 @@ function MyPlayersList({
         function getSelectedActiveRowDiv(player: playerType): JSX.Element {
             return (
                 <div className='row-div selected-row-div'
-                     onClick={deselectPosition} ref={focusOnElementByRef(selectedRowDivRef)} tabIndex={0}
+                     onClick={() => setSelectedPosition(undefined)} ref={focusOnElementByRef(selectedRowDivRef)}
+                     tabIndex={0}
                      onKeyUp={
                          handleKeyboardEvent([...keyboardKeys, 'Backspace'], [...keyboardKeys.map(key => handleArrowKey(key)), () => deletePlayer()()]
                          )}>

@@ -1,4 +1,4 @@
-#ground-main-div {
+#schematic-main-div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -27,18 +27,18 @@
     margin-bottom: 20px;
 }
 
-.ground-cloth-div {
+.schematic-cloth-div {
     display: grid;
     justify-items: center;
     width: 6vw;
     min-width: 80px;
 }
 
-.ground-cloth-div:focus {
+.schematic-cloth-div:focus {
     outline: none;
 }
 
-.ground-cloth {
+.schematic-cloth {
     width: 100%;
     grid-column-start: 1;
     grid-row-start: 1;
@@ -91,11 +91,11 @@
 }
 
 @media only screen and (max-width: 768px) {
-    #ground-main-div {
+    #schematic-main-div {
         grid-column-end: 3;
     }
 
-    .ground-cloth-div {
+    .schematic-cloth-div {
         width: calc(6vw + 40px);
         min-width: 0;
     }
