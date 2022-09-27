@@ -39,14 +39,15 @@ export const axiosAddPlayer = (player: playerType, position: number) => customAx
     location_in_ui: position
 })
 
-export const axiosSignUp = (Username: string, Password: string, First_name: string, Last_name: string, Email: string, Country: string) => customAxios.post('signup',
+export const axiosSignUp = (Username: string, Password: string, First_name: string, Last_name: string, Email: string, Country: string,date:string) => customAxios.post('signup',
     {
         username: Username,
         password: Password,
         first_name: First_name,
         last_name: Last_name,
         email: Email,
-        country: Country
+        country: Country,
+        birthDate: date
     }
 )
 export const axiosSignUpConfirm = (token: string, code: string) => customAxios.post('verification',

@@ -37,6 +37,32 @@ function SignUpForm() {
     const setCountry:React.ChangeEventHandler<HTMLSelectElement> =(e)=>{currentUser.country=e.target.value};
     const setPassword:React.ChangeEventHandler<HTMLInputElement> = (e)=>{currentUser.password=e.target.value}
 
+     class ChooseDate extends React.Component {
+        change(unix: any, formatted: any) {
+          console.log(unix); // returns timestamp of the selected value, for example.
+          console.log(formatted); // returns the selected value in the format you've entered, forexample, "تاریخ: 1396/02/24 ساعت: 18:30".
+            currentUser.birthDate=formatted;
+            console.log(currentUser);
+        }
+        DatePickerInput(props: JSX.IntrinsicAttributes & React.ClassAttributes<HTMLInputElement> & React.InputHTMLAttributes<HTMLInputElement>) {
+          return <input {...props} />;
+        }
+        render() {
+          return (
+            <div className="datePicker">
+              <DatePicker
+                inputComponent={this.DatePickerInput}
+                placeholder="انتخاب تاریخ"
+                format="jYYYY-jMM-jDD"
+                onChange={this.change }
+                id="datePicker"
+                preSelected="----/--/--"
+                
+              />
+            </div>
+          );
+        }
+      }
     function signUpApiCall(){
         ///remaining :check if user exist or not
         console.log(currentUser)
@@ -48,14 +74,14 @@ function SignUpForm() {
             return alert("ایمیل معتبر وارد کنید")
         }else if(currentUser.country.length==0){
             return alert("کشور را انتخاب کنید")
-        }else if(currentUser.birthDate.length==0){
-            return alert("کشور را انتخاب کنید")
+        }else if(currentUser.birthDate==""){
+            return alert("تاریخ تولد را انتخاب کنید")
         }else if(currentUser.username.length==0){
             return alert("نام کاربری را وارد کنید")
         }else if(currentUser.password.length!=8){
             return alert("رمز عبوری با ۸ کاراکتر وارد کنید")
         }
-        axiosSignUp(currentUser.username,currentUser.password,currentUser.first_name,currentUser.last_name,currentUser.email,currentUser.country).then(
+        axiosSignUp(currentUser.username,currentUser.password,currentUser.first_name,currentUser.last_name,currentUser.email,currentUser.country,currentUser.birthDate).then(
             res =>{
                 onAxiosSuccess({
                     res: res, myError: addUserError, onSuccess: ()=>{navigate('/sign-up-confirm')}   
@@ -106,7 +132,7 @@ function SignUpForm() {
                     </div>
                     <div className="input-container">
                         <span className="label">تاریخ تولد </span>
-                        <ChooseDate  />
+                        <ChooseDate />
                     </div>
                     <div className="email-container">
                         <span className="label" > ایمیل</span>
@@ -132,27 +158,4 @@ function SignUpForm() {
 
 export default SignUpForm;
 
-export class ChooseDate extends React.Component {
-    change(unix: any, formatted: any) {
-      console.log(unix); // returns timestamp of the selected value, for example.
-      console.log(formatted); // returns the selected value in the format you've entered, forexample, "تاریخ: 1396/02/24 ساعت: 18:30".
-      
-    }
-    DatePickerInput(props: JSX.IntrinsicAttributes & React.ClassAttributes<HTMLInputElement> & React.InputHTMLAttributes<HTMLInputElement>) {
-      return <input {...props} />;
-    }
-    render() {
-      return (
-        <div className="datePicker">
-          <DatePicker
-            inputComponent={this.DatePickerInput}
-            placeholder="انتخاب تاریخ"
-            format="jYYYY-jMM-jDD"
-            onChange={this.change }
-            id="datePicker"
-            preSelected="----/--/--"
-          />
-        </div>
-      );
-    }
-  }
+
