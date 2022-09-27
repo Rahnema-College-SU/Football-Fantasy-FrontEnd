@@ -1,7 +1,7 @@
 import React from "react";
 //import {CircularProgress} from "@mui/material";
 import './Remaining.css'
-//import {CircularProgress} from "@mui/material";
+import {CircularProgress} from "@mui/material";
 
 export function Remaining({
                               showingText,
@@ -14,10 +14,10 @@ export function Remaining({
     return (
         <div className='remaining-box' style={{background: backgroundStyle}}>
             {
-                // showingText ?
-                //     <div id='show-remaining-text'>{showingText}</div>
-                //     :
-                //     <CircularProgress thickness={3} style={{color: '#3D195B'}}/>
+                showingText ?
+                    <div id='show-remaining-text'>{showingText}</div>
+                    :
+                    <CircularProgress thickness={3} style={{color: '#3D195B'}}/>
             }
             <div id='logo-and-text'>
                 <img className='remaining-box-logo' src={src} alt={alt}></img>

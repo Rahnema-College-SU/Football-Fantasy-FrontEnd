@@ -16,7 +16,6 @@
 .friends-box {
     display: flex;
     flex-direction: column;
-    margin-top: 10%;
 } 
 .selected-button{
     width: 45%;
@@ -29,105 +28,21 @@
     text-align: center;
     color: #3D195B;
 }
-.button-text{
-    background-color: white;
-    border-radius: 2px;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
 .following-button {
     width: 45%;
     height: 30px;
+    background: #FFFFFF;
     border-radius: 4px;
-    background: linear-gradient(269.48deg, #04F5EC -30.14%, #03FBB8 109.7%);
-    border:none;
-    font: 800 12px Vazirmatn, serif;
-    color: #3D195B;
-    padding: 2px;
+    /*border: */
+    /*        Gradient Button*/
+    /*rgba(4, 245, 236, 1)*/
+    /*rgba(3, 251, 184, 1);*/
+
 }
 .button-bar{
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
     justify-content: center;
-}
-
-.search-box {
-    margin-top: 10%;
-    display: flex;
-    direction: rtl;
-    align-items: center;
-    background: #FFFFFF;
-    width: 80%;
-    border-bottom: 1px solid #E4E4E4;
-    margin: auto;
-    margin-top: 10%;
-}
-
-.search-icon {
-    scale: 1.2;
-}
-
-.search-input {
-    all: unset;
-    font: 300 14px Vazirmatn, serif;
-    margin-right: 15px;
-    color: rgba(61, 25, 91, 0.67);
-    width: 100%;
-}
-::placeholder{
-    color: rgba(61, 25, 91, 0.67);
-}
-
-.profiles-box{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 15%;
-}
-.profile{
-    display: flex;
-    flex-direction: row-reverse;
-    font: 400 12px Vazirmatn, serif;
-    color: #3D195B;
-    align-items: center;
-    /* column-gap: 10px; */
-}
-.friends-profile-photo {
-    height: 3.125rem;
-    width: 3.125rem;
-    border-radius: 1.5625rem;
-    justify-content: center;
-    margin-right: 5%;
-}
-.friends-name{
-    margin-right:10px;
-}
-.see-profile{
-    margin-left: 5%;
-    margin-right: auto;
-    width: 22%;
-    height: 30px;
-    border-radius: 4px;
-    /* background: linear-gradient(269.48deg, #04F5EC -30.14%, #03FBB8 109.7%); */
-    border: none;
-    font: 800 12px Vazirmatn, serif;
-    color: #3D195B;
-    padding: 2px;
-}
-.follow-back{
-    margin-left: 5%;
-    margin-right: auto;
-    width: 22%;
-    height: 30px;
-    border-radius: 4px;
-    background: linear-gradient(269.48deg, #04F5EC -30.14%, #03FBB8 109.7%);
-    border: none;
-    font: 800 12px Vazirmatn, serif;
-    color: #05D6E2;
-    padding: 2px;
 }
