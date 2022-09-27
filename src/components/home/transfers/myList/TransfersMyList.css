@@ -29,34 +29,6 @@
     grid-column-start: 1;
 }
 
-#div-my-players-info-list {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    align-items: end;
-    padding: 0 5px;
-}
-
-#delete-icon-players-list {
-    width: calc(2vw + 7px);
-    border: 1px solid white;
-    border-radius: 50%;
-    z-index: 1;
-    margin-right: 20px;
-    cursor: pointer;
-    transform: translateY(100%);
-
-    grid-row-start: 1;
-    grid-column-start: 1;
-}
-
-#cloth-my-players-list {
-    height: calc(15vw + 100px);
-
-    grid-row-start: 1;
-    grid-column-start: 1;
-}
-
 #logo-my-players-list {
     padding: 0 10px;
     width: calc(10vw + 60px);

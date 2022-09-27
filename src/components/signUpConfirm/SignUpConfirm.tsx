@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {axiosSignUpConfirm} from "../../global/ApiCalls";
 import {addUserError, invalidCodeError, onAxiosError, onAxiosSuccess, onBaseError} from "../../global/Errors";
 import {getToken} from "../../global/Storages";
-import {focusOnElementByRef, handleKeyboardEvent} from "../../global/Functions";
+import {focusOnElementByRef, handleKeyboardEvent} from "../../global/functions/General";
 
 
 function SignUpConfirm() {

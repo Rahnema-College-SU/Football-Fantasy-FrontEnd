@@ -6,7 +6,7 @@ import deleteIcon from "../../../transfers/schematic/assets/delete-icon.svg";
 import activeCloth from "../../../transfers/schematic/assets/active-cloth.svg";
 import inactiveCloth from "../../../transfers/schematic/assets/inactive-cloth.svg";
 import addIcon from "../../../transfers/schematic/assets/add-icon.svg";
-import {focusOnElementByRef, handleKeyboardEvent} from "../../../../../global/Functions";
+import {focusOnElementByRef, handleKeyboardEvent} from "../../../../../global/functions/General";
 import selectedCloth from "../../../transfers/schematic/assets/selected-cloth.svg";
 import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {myPlayersState} from "../../../transfers/Transfers";
@@ -107,14 +107,6 @@ export function TransfersSchematicPlayer({position}: { position: number }) {
         )
     }
 
-    function deletePlayer(player: playerType) {
-        return () => {
-            setSelectedPosition(player.locationInTransferUI)
-            setSelectedPlayer(undefined)
-            setRemovePlayerModalDisplay('block')
-        }
-    }
-
     function getInactive(position: number): JSX.Element {
         return (
             <div className='schematic-cloth-div inactive-cloth-div'>
@@ -162,6 +154,14 @@ export function TransfersSchematicPlayer({position}: { position: number }) {
                 <div className={'power'}>{toFarsiNumber(player.playerWeekLog.playerTotalPoints)}</div>
             </div>
         )
+    }
+
+    function deletePlayer(player: playerType) {
+        return () => {
+            setSelectedPosition(player.locationInTransferUI)
+            setSelectedPlayer(undefined)
+            setRemovePlayerModalDisplay('block')
+        }
     }
 
     return (

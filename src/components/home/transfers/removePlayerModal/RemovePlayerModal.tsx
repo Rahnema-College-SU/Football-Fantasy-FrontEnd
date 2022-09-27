@@ -4,7 +4,7 @@ import activeCloth from '../schematic/assets/active-cloth.svg';
 import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {selectedPositionState} from "../schematic/Schematic";
 import {myPlayersState} from "../Transfers";
-import {clickOnElement, focusOnElementByRef, handleKeyboardEvent} from "../../../../global/Functions";
+import {clickOnElement, focusOnElementByRef, handleKeyboardEvent} from "../../../../global/functions/General";
 import {selectedPlayerState} from "../sideList/TransfersSideList";
 
 export const isDeleteConfirmClickedState = atom<boolean>({

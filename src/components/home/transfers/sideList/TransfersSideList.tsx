@@ -23,8 +23,9 @@ import {myPlayersState} from "../Transfers";
 import {addPlayerError, loadPaginationError, onBaseError, pageNotAvailableError} from "../../../../global/Errors";
 import {debounce} from "ts-debounce";
 import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
-import {useMediaQuery} from "../../../../global/Functions";
 import {TransfersSideListPlayer} from "../../player/transfersPlayer/sideList/TransfersSideListPlayer";
+import {useMediaQuery} from "@mui/material";
+// import {useMediaQuery} from "../../../../global/functions/CustomHooks";
 
 const defaultSort: sortType = 'DESC'
 
@@ -84,8 +85,7 @@ function TransfersSideList({playerListApiCall, addPlayerApiCall}: {
     const [pageNumber, setPageNumber] = useState<number>(1)
 
     const playersListStyle = document.getElementById('players-list-main-div')?.style
-    useMediaQuery('(max-width: 768px)', () => playersListStyle?.setProperty('display', 'none'),
-        () => playersListStyle?.setProperty('display', 'flex'))
+    const matches = useMediaQuery('(max-width: 768px)')
 
     useEffect(() => {
         setTransfersSideList({...transfersSideList, numberOfPlayers: undefined, numberOfPages: undefined})
@@ -103,6 +103,13 @@ function TransfersSideList({playerListApiCall, addPlayerApiCall}: {
         setPageNumber(1)
         setSearch({...search, position: serverFilter})
     }, [selectedFilterItem])
+
+    useEffect(() => {
+        if (matches)
+            playersListStyle?.setProperty('display', 'none')
+        else
+            playersListStyle?.setProperty('display', 'flex')
+    }, [matches])
 
     function setSelectedPositionBySelectedFilterItem(filterItem: positionsUiType) {
         function isSelectedPositionInArray(positions: number[]) {
@@ -316,7 +323,8 @@ function TransfersSideList({playerListApiCall, addPlayerApiCall}: {
             {getNumberOfPLayers()}
             <div id='players-list'>
                 {getHeader()}
-                {transfersSideList.playersList.map(player => <TransfersSideListPlayer player={player}/>)}
+                {transfersSideList.playersList.map(player => <TransfersSideListPlayer player={player}
+                                                                                      setSelectedPositionBySelectedFilterItem={setSelectedPositionBySelectedFilterItem}/>)}
             </div>
             {getPageBar()}
         </div>

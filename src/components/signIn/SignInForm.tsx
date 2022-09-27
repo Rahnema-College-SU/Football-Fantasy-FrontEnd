@@ -6,7 +6,7 @@ import {homeTabsEndingUrl} from "../../global/Variables";
 import {axiosSignIn} from "../../global/ApiCalls";
 import {invalidInputError, onAxiosError, onAxiosSuccess} from "../../global/Errors";
 import {getMyTeamSubTabsStateName, setToken} from "../../global/Storages";
-import {focusOnElementByRef, handleKeyboardEvent} from "../../global/Functions";
+import {focusOnElementByRef, handleKeyboardEvent} from "../../global/functions/General";
 
 function SignInForm() {
     const navigate = useNavigate()

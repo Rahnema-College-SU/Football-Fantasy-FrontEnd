@@ -7,9 +7,12 @@ import {selectedPlayerState} from "../../../transfers/sideList/TransfersSideList
 import React, {useRef} from "react";
 import {attPositions, defPositions, gkPositions, midPositions, toFarsiNumber} from "../../../../../global/Variables";
 import {playerType} from "../../../../../global/Types";
-import {focusOnElementByRef, handleKeyboardEvent} from "../../../../../global/Functions";
+import {focusOnElementByRef, handleKeyboardEvent} from "../../../../../global/functions/General";
+import deleteIcon from "../../../transfers/myList/assets/delete-icon.svg";
+import activeCloth from "../../../transfers/myList/assets/active-cloth.svg";
+import inactiveCloth from "../../../transfers/myList/assets/inactive-cloth.svg";
 
-export function TransfersMyListPlayer({position}: { position: number }) {
+export function TransfersMyListPlayer({position}: { position?: number }) {
     const myPlayers = useRecoilValue(myPlayersState)
     const [selectedPosition, setSelectedPosition] = useRecoilState(selectedPositionState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
@@ -85,6 +88,19 @@ export function TransfersMyListPlayer({position}: { position: number }) {
         }
     }
 
+    function getInfoSectionPlayer() {
+        return (
+            <div id={'div-my-players-info-list'}>
+                <img id={'delete-icon-players-list'} src={deleteIcon} alt={'active player'}
+                     style={{visibility: (selectedPosition && myPlayers[selectedPosition] ? 'visible' : 'hidden')}}
+                     onClick={deletePlayer()}/>
+                <img id={'cloth-my-players-list'}
+                     src={selectedPosition ? (myPlayers[selectedPosition] ? activeCloth : inactiveCloth) : inactiveCloth}
+                     alt={'specific player of players'}/>
+            </div>
+        )
+    }
+
     function getActive(player: playerType): JSX.Element {
         return (
             <div className='row-div'
@@ -153,8 +169,9 @@ export function TransfersMyListPlayer({position}: { position: number }) {
     }
 
     return (
-        selectedPosition && selectedPosition === position ?
-            myPlayers[position] ? getSelectedActive(myPlayers[position]) : getSelectedInactive() :
-            myPlayers[position] ? getActive(myPlayers[position]) : getInactive(position)
+        !position ? getInfoSectionPlayer() :
+            (selectedPosition && selectedPosition === position ?
+                myPlayers[position] ? getSelectedActive(myPlayers[position]) : getSelectedInactive() :
+                myPlayers[position] ? getActive(myPlayers[position]) : getInactive(position))
     )
 }

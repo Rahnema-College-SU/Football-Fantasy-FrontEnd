@@ -28,7 +28,6 @@ import {
     selectedPlayerNotFoundError
 } from "../../../global/Errors";
 import {
-    choosePlayersListType,
     dateType,
     fantasyTeamApiResponseType,
     myPlayersType,
@@ -43,14 +42,8 @@ import {
     axiosPlayersList,
     axiosWeekInf
 } from "../../../global/ApiCalls";
-import {
-    attPositions,
-    defPositions,
-    gkPositions,
-    midPositions,
-    positionsServer,
-    positionsUi
-} from "../../../global/Variables";
+import {attPositions, defPositions, gkPositions, midPositions} from "../../../global/Variables";
+import {convertFantasyTeamApiResponse, convertPlayersListApiResponse} from "../../../global/functions/Converters";
 
 export const myPlayersState = atom<myPlayersType>({
     key: 'myPlayersState',
@@ -75,7 +68,7 @@ export function Transfers({subTab}: { subTab: subTab }) {
     const isDeleteConfirmClicked = useRecoilValue(isDeleteConfirmClickedState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
 
-    useEffect(() => updateGameInfo(), [])
+    useEffect(() => updateTransfersInfo(), [])
 
     useEffect(() => {
         if (selectedPosition === undefined)
@@ -97,7 +90,7 @@ export function Transfers({subTab}: { subTab: subTab }) {
         setRemovePlayerModalDisplay('none')
 
         if (isDeleteConfirmClicked)
-            deletePLayerApiCall()
+            deletePlayerApiCall()
     }, [isDeleteConfirmClicked])
 
     useEffect(() => {
@@ -116,7 +109,7 @@ export function Transfers({subTab}: { subTab: subTab }) {
         setTransfersSideList(convertPlayersListApiResponse(playersListApiResponse))
     }, [playersListApiResponse])
 
-    const updateGameInfo = () => {
+    function updateTransfersInfo() {
         getDate().then(res => setDate(res))
 
         axiosFantasyTeam().then(
@@ -132,7 +125,7 @@ export function Transfers({subTab}: { subTab: subTab }) {
         playerListApiCall()
     }
 
-    function deletePLayerApiCall() {
+    function deletePlayerApiCall() {
         if (!selectedPosition) {
             onBaseError({myError: selectedPlayerNotFoundError})
             return
@@ -148,7 +141,7 @@ export function Transfers({subTab}: { subTab: subTab }) {
                         if (selectedPlayer)
                             addPlayerApiCall(selectedPlayer, selectedPosition)
                         else
-                            updateGameInfo()
+                            updateTransfersInfo()
                     }
                 })
             ,
@@ -161,7 +154,7 @@ export function Transfers({subTab}: { subTab: subTab }) {
         axiosAddPlayer(player, selectedPosition)
             .then(res =>
                     onAxiosSuccess({
-                        res: res, myError: addPlayerError, onSuccess: updateGameInfo
+                        res: res, myError: addPlayerError, onSuccess: updateTransfersInfo
                     }),
                 err =>
                     onAxiosError({axiosError: err, myError: addPlayerError})
@@ -190,48 +183,6 @@ export function Transfers({subTab}: { subTab: subTab }) {
             error =>
                 onAxiosError({axiosError: error, myError: loadPlayersListError})
         )
-    }
-
-    function convertFantasyTeamApiResponse(apiResponse: fantasyTeamApiResponseType) {
-        return apiResponse.data.playersList.reduce((map: myPlayersType, obj) => {
-            map[obj.locationInTransferUI] = {
-                id: obj.id,
-                webName: obj.webName,
-                position: positionsUi[positionsServer.indexOf(obj.position.shortName)],
-                team: obj.realTeam.shortName,
-                playerWeekLog: {
-                    playerCost: obj.playerWeekLog.playerCost / 10,
-                    playerTotalPoints: obj.playerWeekLog.playerTotalPoints / 10
-                },
-                locationInTransferUI: obj.locationInTransferUI,
-                locationInTeamUI: obj.locationInTeamUI
-            }
-
-            return map
-        }, {})
-    }
-
-    function convertPlayersListApiResponse(apiResponse: playersListApiResponseType): choosePlayersListType {
-        const playersList = apiResponse.data.playersList.reduce((array: Array<playerType>, obj) => {
-            return [...array, {
-                id: obj.id,
-                webName: obj.webName,
-                position: positionsUi[positionsServer.indexOf(obj.position.shortName)],
-                team: obj.realTeam.shortName,
-                playerWeekLog: {
-                    playerCost: obj.playerWeekLog.playerCost / 10,
-                    playerTotalPoints: obj.playerWeekLog.playerTotalPoints / 10
-                },
-                locationInTransferUI: undefined,
-                locationInTeamUI: undefined
-            }]
-        }, [])
-
-        return {
-            playersList: playersList,
-            numberOfPlayers: apiResponse.data.numberOfPlayers,
-            numberOfPages: apiResponse.data.numberOfPages
-        }
     }
 
     function menuOnClick() {
