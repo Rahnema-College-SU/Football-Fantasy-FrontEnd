@@ -7,7 +7,7 @@ export const focusOnElementByRef = <T extends HTMLElement>(refName: MutableRefOb
     }
 }
 
-export const handleKeyboardEvent = (keys: Readonly<Array<string>>, onKeyEvents: Array<() => any>) => {
+export const handleKeyboardEvent = (keys: Readonly<string[]>, onKeyEvents: Array<() => any>) => {
     return (event: KeyboardEvent) => {
         for (let i = 0; i < keys.length; i++) {
             if (event.key === keys[i])
@@ -37,4 +37,8 @@ export function useMediaQuery(query: string, onMatch: () => any, onDoNotMatch?: 
 
         return () => mediaQueryList.removeEventListener("change", change)
     }, [matches]);
+}
+
+export function clickOnElement(id: string) {
+    return () => document.getElementById(id)?.click()
 }

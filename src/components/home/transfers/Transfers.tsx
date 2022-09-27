@@ -5,14 +5,15 @@ import menu from './assets/menu.svg'
 import {RemainingPlayer, usedPlayerState} from "./remainigParts/RemainingPlayer";
 import {RemainingMoney, remainingMoneyState} from "./remainigParts/RemainingMoney";
 import MiddleTabBar from "./middleTabBar/MiddleTabBar";
-import ChoosePlayerList, {
-    choosePlayersListState,
+import TransfersSideList, {
     searchState,
-    selectedPlayerState
-} from "./choosePlayerList/ChoosePlayerList";
+    selectedFilterItemState,
+    selectedPlayerState,
+    transfersSideListState
+} from "./sideList/TransfersSideList";
 import DateBax, {dateState} from "./dateBox/DateBox";
 import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
-import MyPlayersList from "./myPlayersList/MyPlayersList";
+import TransfersMyList from "./myList/TransfersMyList";
 import {isDeleteConfirmClickedState, removePlayerModalDisplayState} from "./removePlayerModal/RemovePlayerModal";
 import {
     addPlayerError,
@@ -42,7 +43,14 @@ import {
     axiosPlayersList,
     axiosWeekInf
 } from "../../../global/ApiCalls";
-import {positionsServer, positionsUi} from "../../../global/Variables";
+import {
+    attPositions,
+    defPositions,
+    gkPositions,
+    midPositions,
+    positionsServer,
+    positionsUi
+} from "../../../global/Variables";
 
 export const myPlayersState = atom<myPlayersType>({
     key: 'myPlayersState',
@@ -56,8 +64,9 @@ export function Transfers({subTab}: { subTab: subTab }) {
     const setUsedPlayer = useSetRecoilState(usedPlayerState)
 
     const [playersListApiResponse, setPlayersListApiResponse] = useState<playersListApiResponseType | undefined>(undefined);
-    const setChoosePlayersList = useSetRecoilState(choosePlayersListState)
-    const selectedPlayer = useRecoilValue(selectedPlayerState)
+    const setTransfersSideList = useSetRecoilState(transfersSideListState)
+    const [selectedPlayer, setSelectedPlayer] = useRecoilState(selectedPlayerState)
+    const setSelectedFilterItem = useSetRecoilState(selectedFilterItemState)
     const search = useRecoilValue(searchState)
 
     const setDate = useSetRecoilState(dateState)
@@ -67,6 +76,21 @@ export function Transfers({subTab}: { subTab: subTab }) {
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
 
     useEffect(() => updateGameInfo(), [])
+
+    useEffect(() => {
+        if (selectedPosition === undefined)
+            setSelectedPlayer(undefined)
+        else {
+            if (gkPositions.includes(selectedPosition))
+                setSelectedFilterItem('GK')
+            else if (defPositions.includes(selectedPosition))
+                setSelectedFilterItem('DEF')
+            else if (midPositions.includes(selectedPosition))
+                setSelectedFilterItem('MID')
+            else if (attPositions.includes(selectedPosition))
+                setSelectedFilterItem('ATT')
+        }
+    }, [selectedPosition])
 
     // for delete confirmation modal
     useEffect(() => {
@@ -89,7 +113,7 @@ export function Transfers({subTab}: { subTab: subTab }) {
         if (!playersListApiResponse)
             return
 
-        setChoosePlayersList(convertPlayersListApiResponse(playersListApiResponse))
+        setTransfersSideList(convertPlayersListApiResponse(playersListApiResponse))
     }, [playersListApiResponse])
 
     const updateGameInfo = () => {
@@ -220,27 +244,22 @@ export function Transfers({subTab}: { subTab: subTab }) {
     }
 
     return (
-        // <ThingsProvider value={selectPosition}>
         <div id={'my-team-main-div'}>
             <div id={'date-and-menu-container'}>
                 <DateBax getDate={getDate}/>
                 <img id={'menu-image'} src={menu} onClick={menuOnClick}
-                     alt={'menu icon to show all players list to add'}/>
+                     alt={'menu icon to show all players\' list to add'}/>
             </div>
 
-            <ChoosePlayerList playerListApiCall={playerListApiCall} addPlayerApiCall={addPlayerApiCall}/>
+            <TransfersSideList playerListApiCall={playerListApiCall} addPlayerApiCall={addPlayerApiCall}/>
             <div id={'game-info-div'}>
                 <RemainingPlayer/>
                 <MiddleTabBar/>
                 <RemainingMoney/>
 
-                {subTab === 'schematic' ?
-                    <Schematic/> :
-                    // so showingTab === 'list'
-                    <MyPlayersList/>}
+                {subTab === 'schematic' ? <Schematic/> : <TransfersMyList/>}
             </div>
 
         </div>
-// </ThingsProvider>
     )
 }

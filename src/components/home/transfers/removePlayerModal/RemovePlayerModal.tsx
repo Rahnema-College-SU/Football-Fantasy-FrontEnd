@@ -4,7 +4,8 @@ import activeCloth from '../schematic/assets/active-cloth.svg';
 import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {selectedPositionState} from "../schematic/Schematic";
 import {myPlayersState} from "../Transfers";
-import {focusOnElementByRef, handleKeyboardEvent} from "../../../../global/Functions";
+import {clickOnElement, focusOnElementByRef, handleKeyboardEvent} from "../../../../global/Functions";
+import {selectedPlayerState} from "../sideList/TransfersSideList";
 
 export const isDeleteConfirmClickedState = atom<boolean>({
     key: 'isDeleteConfirmClickedState',
@@ -19,7 +20,7 @@ export const removePlayerModalDisplayState = atom<'none' | 'block'>({
 export function RemovePlayerModal() {
     const myPlayers = useRecoilValue(myPlayersState)
     const selectedPosition = useRecoilValue(selectedPositionState)
-    useRecoilValue(selectedPositionState);
+    const setSelectedPlayer = useSetRecoilState(selectedPlayerState)
     const setIsDeleteConfirmClicked = useSetRecoilState(isDeleteConfirmClickedState)
     const [removePlayerModalDisplay, setRemovePlayerModalDisplay] = useRecoilState(removePlayerModalDisplayState)
 
@@ -37,7 +38,7 @@ export function RemovePlayerModal() {
                 <button id={'delete-button'} onClick={() => setIsDeleteConfirmClicked(true)}>
                     حذف
                 </button>
-                <button id='cancel-button' onClick={() => setRemovePlayerModalDisplay('none')}>لغو</button>
+                <button id={'cancel-button'} onClick={cancelOnClick}>لغو</button>
             </div>
         </div>
     }
@@ -55,12 +56,16 @@ export function RemovePlayerModal() {
         return 'Unknown Player'
     }
 
+    function cancelOnClick() {
+        setRemovePlayerModalDisplay('none')
+        setSelectedPlayer(undefined)
+    }
+
     return (
         <div ref={focusOnElementByRef(deleteModalDivRef)}
              id={'delete-modal-div'} style={{display: removePlayerModalDisplay}} tabIndex={0}
              onKeyUp={handleKeyboardEvent(['Enter', 'Escape'],
-                 [() => document.getElementById('delete-button')?.click(),
-                     () => setRemovePlayerModalDisplay('none')]
+                 [clickOnElement('delete-button'), clickOnElement('cancel-button')]
              )}>
             <div id='header'>حذف بازیکن</div>
             <img id='cloth' src={activeCloth} alt={'active player'}/>

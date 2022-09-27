@@ -1,5 +1,5 @@
 import React, {Dispatch, useEffect, useState} from 'react';
-import './ChoosePlayer.css';
+import './TransfersSideList.css';
 import searchIcon from './assets/searchicon.svg';
 import descSort from './assets/up.svg';
 import ascSort from './assets/down.svg';
@@ -24,10 +24,11 @@ import {addPlayerError, loadPaginationError, onBaseError, pageNotAvailableError}
 import {debounce} from "ts-debounce";
 import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
 import {useMediaQuery} from "../../../../global/Functions";
+import {TransfersSideListPlayer} from "../../player/transfersPlayer/sideList/TransfersSideListPlayer";
 
 const defaultSort: sortType = 'DESC'
 
-export const choosePlayersListState = atom<choosePlayersListType>({
+export const transfersSideListState = atom<choosePlayersListType>({
     key: 'choosePlayersListState',
     default: {
         playersList: [],
@@ -63,13 +64,13 @@ export const searchTextState = atom<string>({
     default: ''
 })
 
-function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
+function TransfersSideList({playerListApiCall, addPlayerApiCall}: {
     playerListApiCall: () => void,
     addPlayerApiCall: (player: playerType, selectedPosition: number) => void
 }) {
     let debounceFunction: { (this: ThisParameterType<() => void>, ...args: Parameters<() => void> & any[]): Promise<ReturnType<() => void>>; cancel: (reason?: any) => void }
 
-    const [choosePlayersList, setChoosePlayersList] = useRecoilState(choosePlayersListState)
+    const [transfersSideList, setTransfersSideList] = useRecoilState(transfersSideListState)
     const [selectedPlayer, setSelectedPlayer] = useRecoilState(selectedPlayerState)
     const [selectedPosition, setSelectedPosition] = useRecoilState(selectedPositionState)
     const myPlayers = useRecoilValue(myPlayersState)
@@ -87,7 +88,7 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
         () => playersListStyle?.setProperty('display', 'flex'))
 
     useEffect(() => {
-        setChoosePlayersList({...choosePlayersList, numberOfPlayers: undefined, numberOfPages: undefined})
+        setTransfersSideList({...transfersSideList, numberOfPlayers: undefined, numberOfPages: undefined})
         playerListApiCall()
     }, [search])
 
@@ -143,12 +144,12 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
     }, [costsSort])
 
     useEffect(() => {
-        if (selectedPlayer && !choosePlayersList.playersList.find(player => player.id === selectedPlayer.id))
+        if (selectedPlayer && !transfersSideList.playersList.find(player => player.id === selectedPlayer.id))
             setSelectedPlayer(undefined)
 
-        if (choosePlayersList.playersList.length === 0 && choosePlayersList.numberOfPages)
-            setPageNumber(choosePlayersList.numberOfPages)
-    }, [choosePlayersList])
+        if (transfersSideList.playersList.length === 0 && transfersSideList.numberOfPages)
+            setPageNumber(transfersSideList.numberOfPages)
+    }, [transfersSideList])
 
     useEffect(() => {
         if (selectedPlayer)
@@ -219,9 +220,9 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
 
     function getNumberOfPLayers() {
         return (
-            choosePlayersList.numberOfPlayers !== undefined ?
+            transfersSideList.numberOfPlayers !== undefined ?
                 <div id={'number-of-players-div'}>
-                    <div id={'number-of-players'}>{toFarsiNumber(choosePlayersList.numberOfPlayers)}&nbsp;</div>
+                    <div id={'number-of-players'}>{toFarsiNumber(transfersSideList.numberOfPlayers)}&nbsp;</div>
                     {
                         selectedFilterItem === 'ALL' ? 'بازیکن' :
                             selectedFilterItem === 'GK' ? 'دروازه‌بان' :
@@ -266,45 +267,12 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
         )
     }
 
-    function getPlayersRow(player: playerType) {
-        function getClassName() {
-            const staticClassName = 'players-list-row-div exactly-players '
-
-            if (selectedPlayer !== undefined && selectedPlayer.id === player.id)
-                return staticClassName + 'players-list-row-div-selected'
-            else
-                return staticClassName
-        }
-
-        function getPlayerRowOnCLick() {
-            if (selectedPlayer !== undefined && selectedPlayer.id === player.id)
-                setSelectedPlayer(undefined)
-            else {
-                setSelectedPlayer(player)
-                setSelectedPositionBySelectedFilterItem(player.position)
-            }
-        }
-
-        return (
-            <div className={getClassName()} onClick={getPlayerRowOnCLick}>
-                <div className={'column-of-names-info'}>
-                    <div className={'choose-player-name'}>{player.webName}</div>
-                    <div className={'choose-player-team-name'}>{player.team}</div>
-                    <div className={'choose-player-team-name'}>{player.position}</div>
-                </div>
-                <div
-                    className={'choose-player-info'}>{toFarsiNumber(player.playerWeekLog.playerTotalPoints)}</div>
-                <div className={'choose-player-info'}>{toFarsiNumber(player.playerWeekLog.playerCost)}</div>
-            </div>
-        )
-    }
-
     function getPageBar() {
         function setNewPage(newPage: number | undefined) {
             return () => {
-                if (newPage === undefined || !choosePlayersList.numberOfPages)
+                if (newPage === undefined || !transfersSideList.numberOfPages)
                     onBaseError({myError: loadPaginationError})
-                else if (newPage < 1 || newPage > choosePlayersList.numberOfPages)
+                else if (newPage < 1 || newPage > transfersSideList.numberOfPages)
                     onBaseError({myError: pageNotAvailableError})
                 else
                     setPageNumber(newPage)
@@ -321,10 +289,10 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
                     <img src={previous} alt='previous page'/>
                 </button>
                 {
-                    choosePlayersList && choosePlayersList.numberOfPages ?
+                    transfersSideList && transfersSideList.numberOfPages ?
                         <div
-                            id={'show-page-state'}>صفحه‌ی {toFarsiNumber(pageNumber)} از {toFarsiNumber(choosePlayersList.numberOfPages)}</div>
-                        : choosePlayersList.numberOfPages === 0 ?
+                            id={'show-page-state'}>صفحه‌ی {toFarsiNumber(pageNumber)} از {toFarsiNumber(transfersSideList.numberOfPages)}</div>
+                        : transfersSideList.numberOfPages === 0 ?
                             <div id={'show-page-state'}>ناموجود</div> :
                             <div id={'show-page-state'}>دریافت تعداد صفحات ...</div>
                 }
@@ -332,7 +300,7 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
                 <button className='page-bar-icon' onClick={setNewPage(pageNumber + 1)}>
                     <img src={next} alt='next page'/>
                 </button>
-                <button className='page-bar-icon' onClick={setNewPage(choosePlayersList.numberOfPages)}>
+                <button className='page-bar-icon' onClick={setNewPage(transfersSideList.numberOfPages)}>
                     <img src={nextLast} alt='next last pages'/>
                     <img src={nextLast} alt='next last pages'/>
                 </button>
@@ -348,11 +316,11 @@ function ChoosePlayerList({playerListApiCall, addPlayerApiCall}: {
             {getNumberOfPLayers()}
             <div id='players-list'>
                 {getHeader()}
-                {choosePlayersList.playersList.map((player) => getPlayersRow(player))}
+                {transfersSideList.playersList.map(player => <TransfersSideListPlayer player={player}/>)}
             </div>
             {getPageBar()}
         </div>
     );
 }
 
-export default ChoosePlayerList;
+export default TransfersSideList;

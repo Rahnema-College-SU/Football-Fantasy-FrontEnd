@@ -27,76 +27,8 @@
     margin-bottom: 20px;
 }
 
-.schematic-cloth-div {
-    display: grid;
-    justify-items: center;
-    width: 6vw;
-    min-width: 80px;
-}
-
-.schematic-cloth-div:focus {
-    outline: none;
-}
-
-.schematic-cloth {
-    width: 100%;
-    grid-column-start: 1;
-    grid-row-start: 1;
-    cursor: pointer;
-}
-
-.inactive-cloth-div {
-    align-items: center;
-}
-
-.selected-cloth-div {
-    scale: 1.1;
-}
-
-.delete-icon {
-    grid-column-start: 1;
-    grid-row-start: 1;
-    z-index: 1;
-    cursor: pointer;
-    width: 20%;
-    justify-self: end;
-}
-
-.player-name {
-    font: 700 calc(0.2vw + 9px) Vazirmatn, serif;
-    color: white;
-    text-align: center;
-    background-color: #37013B;
-    width: 100%;
-    border-radius: 8px 8px 0 0;
-    padding: 2px 0;
-    overflow: auto;
-}
-
-.power {
-    font: 700 calc(0.3vw + 8px) Vazirmatn, serif;
-    color: #38003C;
-    text-align: center;
-    background: rgba(98, 217, 147);
-    width: 100%;
-    border-radius: 0 0 8px 8px;
-    padding: 2px 0;
-}
-
-.add-icon {
-    grid-column-start: 1;
-    grid-row-start: 1;
-    z-index: 1;
-    cursor: pointer;
-}
-
 @media only screen and (max-width: 768px) {
     #schematic-main-div {
         grid-column-end: 3;
-    }
-
-    .schematic-cloth-div {
-        width: calc(6vw + 40px);
-        min-width: 0;
     }
 }

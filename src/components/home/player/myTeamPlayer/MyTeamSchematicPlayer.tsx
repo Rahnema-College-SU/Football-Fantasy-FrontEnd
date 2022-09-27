@@ -1,7 +1,8 @@
 export function MyTeamSchematicPlayer({
                                           isSelected,
-                                          isActive
-                                      }: { isSelected: boolean, isActive: boolean }) {
+                                          isActive,
+                                          position
+                                      }: { isSelected: boolean, isActive: boolean, position: number }) {
 
     return (
         <div>
