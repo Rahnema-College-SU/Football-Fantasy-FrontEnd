@@ -35,16 +35,15 @@
     height: 30px;
     background: #FFFFFF;
     border-radius: 4px;
-    /*border: */
-    /*        Gradient Button*/
-    /*rgba(4, 245, 236, 1)*/
-    /*rgba(3, 251, 184, 1);*/
-
+    border: 
+    Gradient Button
+    rgba(4, 245, 236, 1)
+    rgba(3, 251, 184, 1);
+    
 }
-
-.button-bar {
+.button-bar{
     display: flex;
-    flex-direction: row-reverse;
+    direction: row-reverse;
     align-items: center;
     justify-content: center;
 }
