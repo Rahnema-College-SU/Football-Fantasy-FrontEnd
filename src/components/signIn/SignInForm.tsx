@@ -18,8 +18,10 @@ function SignInForm() {
     }
 
     function signInApiCall() {
-        if (signInInput.password.length < 6) {
-            return alert("رمز عبوری با حدّاقل ۶ کاراکتر وارد کنید")
+        if (signInInput.username.length === 0) {
+            return alert("نام کاربری را وارد کنید")
+        }else if (signInInput.password.length === 0) {
+            return alert("رمز عبور را وارد کنید")
         } else {
             axiosSignIn(signInInput.username, signInInput.password).then(
                 res => {

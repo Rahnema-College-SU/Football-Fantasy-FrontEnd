@@ -5,8 +5,11 @@ import addIcon from './assets/addIcon.svg'
 import removeIcon from './assets/removeIcon.svg'
 import like from './assets/heart.svg'
 import profilePhoto from './assets/profilePhoto.jpeg'
+import { useSetRecoilState } from "recoil";
+import { profileModalDisplayState } from "../../profileModal/profileModal";
 
 export function Profile() {
+    const ProfileModalDisplay = useSetRecoilState(profileModalDisplayState)
     return (
         <div className="profile-box">
             <div className="show-week">#هفته دو</div>
@@ -28,7 +31,7 @@ export function Profile() {
 
 
             </div>
-            <div className="profile-info">
+            <div className="profile-info"  onClick={()=>{ProfileModalDisplay('block')}}>
                 <img className="profile-photo" src={profilePhoto} alt="profile photo"></img>
                 <div className="name">first and last name</div>
                 ‍‍‍
