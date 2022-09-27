@@ -1,6 +1,6 @@
 import axios from "axios";
-import {getToken} from "./Variables";
 import {myPlayersType, playerType, searchType} from "./Types";
+import {getToken} from "./Storages";
 
 const customAxios = axios.create(
     {
@@ -52,15 +52,9 @@ export const axiosSignUp = (Username: string, Password: string, First_name: stri
         country: Country
     }
 )
-export const axiosSignUpConfirm = (token: string, code: string) => customAxios.post('verification',
-    {
+export const axiosSignUpConfirm = (token: string, code: string) => customAxios.post('verification', {
         verification_code: code
-    }//,
-    // {
-    //     headers: {
-    //         'x-access-token': getToken()
-    //     }
-    // }
+    }
 )
 
 export const axiosSignIn = (username: string, password: string) => customAxios.post('login',

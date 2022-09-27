@@ -19,6 +19,7 @@ function errorMaker(type: string) {
 export const errorTypes = {
     dateError: 'dateError',
     teamError: 'teamError',
+    tokenError: 'tokenError',
     signUpError: 'signUpError',
     authenticateError: 'authenticateError',
     signInError: 'signInError',
@@ -33,6 +34,7 @@ const signUpError = errorMaker(errorTypes.signUpError);
 const authenticateError = errorMaker(errorTypes.authenticateError);
 const signInError = errorMaker(errorTypes.signInError);
 const paginationError = errorMaker(errorTypes.paginationError);
+const tokenError = errorMaker(errorTypes.tokenError);
 
 const loadDateError = dateError('خطا در دریافت تاریخ')
 
@@ -54,6 +56,8 @@ const invalidCodeError = authenticateError('کد وارد شده صحیح نیس
 
 const invalidInputError = signInError('نام کاربری یا رمز عبور وارد شده صحیح نیست');
 
+const invalidToken = tokenError('لطفاً دوباره وارد شوید.')
+
 export {
     loadDateError,
     loadTeamError,
@@ -67,7 +71,8 @@ export {
     addUserError,
     invalidCodeError,
     userExistError,
-    invalidInputError
+    invalidInputError,
+    invalidToken
 };
 
 

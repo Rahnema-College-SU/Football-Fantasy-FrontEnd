@@ -6,16 +6,6 @@ export const homeTabsEndingUrl = {
     prizes: 'prizes'
 }
 
-let token: string;
-
-export function setToken(t: string) {
-    token = t
-}
-
-export function getToken() {
-    return token
-}
-
 export const showingMyTeamTabsEndingUrl = {
     schematic: 'schematic',
     list: 'list'

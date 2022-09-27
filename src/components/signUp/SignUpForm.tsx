@@ -1,24 +1,25 @@
-import React from "react";
+import React, {useRef} from "react";
 import "./SignUpForm.css";
 import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
 import {axiosSignUp} from "../../global/ApiCalls";
 import {addUserError, onAxiosError, onAxiosSuccess, userExistError} from "../../global/Errors";
-import {setToken} from "../../global/Variables";
+import {setToken} from "../../global/Storages";
+import {focusOnElementByRef, handleKeyboardEvent} from "../../global/Functions";
 
 function SignUpForm() {
     const navigate = useNavigate()
+    const passwordInputRef = useRef<HTMLDivElement | null>(null)
 
-    class user {
-        username = "";
-        password = "";
-        first_name = "";
-        last_name = "";
-        email = "";
-        country = "";
+    const currentUser = {
+        username: "",
+        password: "",
+        first_name: "",
+        last_name: "",
+        email: "",
+        country: ""
     }
 
-    var currentUser = new user()
     const setUsername: React.ChangeEventHandler<HTMLInputElement> = (e) => (
         currentUser.username = e.target.value
     )
@@ -50,8 +51,8 @@ function SignUpForm() {
             return alert("کشور را انتخاب کنید")
         } else if (currentUser.username.length === 0) {
             return alert("نام کاربری را وارد کنید")
-        } else if (currentUser.password.length !== 8) {
-            return alert("رمز عبوری با ۸ کاراکتر وارد کنید")
+        } else if (currentUser.password.length < 8) {
+            return alert("رمز عبوری با حداقل ۸ کاراکتر وارد کنید")
         }
         axiosSignUp(currentUser.username, currentUser.password, currentUser.first_name, currentUser.last_name, currentUser.email, currentUser.country).then(
             res => {
@@ -112,7 +113,12 @@ function SignUpForm() {
                     </div>
                     <div className="input-container">
                         <span className="label">رمز عبور</span>
-                        <input className="input" type="password" onChange={setPassword}/>
+                        <input className="input" type="password" onChange={setPassword}
+                               ref={focusOnElementByRef(passwordInputRef)} tabIndex={0}
+                               onKeyUp={
+                                   handleKeyboardEvent(['Enter'], [() =>
+                                       document.getElementById('sign-up-button')?.click()])
+                               }/>
                     </div>
                 </div>
                 <button className="button" id="sign-up-button" onClick={signUpApiCall}>ثبت نام</button>

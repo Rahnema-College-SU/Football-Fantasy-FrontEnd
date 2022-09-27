@@ -8,6 +8,10 @@
     border-radius: 16px;
 }
 
+#delete-modal-div:focus {
+    outline: none;
+}
+
 #header {
     display: flex;
     justify-content: center;
@@ -31,6 +35,7 @@
     color: #3D195B;
     font: 700 normal 20px Roboto, serif;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 #buttons-container {
@@ -44,6 +49,7 @@
 #delete-button, #cancel-button {
     font: 700 normal 16px Roboto, serif;
     width: 200px;
+    margin: 0 10px;
     cursor: pointer;
     border: none;
     outline: none;
@@ -69,4 +75,10 @@
 
 #cancel-button:hover {
     background-color: #b4b4b4;
+}
+
+@media only screen and (max-width: 768px) {
+    #delete-modal-div {
+        width: 90%;
+    }
 }
