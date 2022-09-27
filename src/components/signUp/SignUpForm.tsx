@@ -50,8 +50,8 @@ function SignUpForm() {
             return alert("کشور را انتخاب کنید")
         } else if (currentUser.username.length === 0) {
             return alert("نام کاربری را وارد کنید")
-        } else if (currentUser.password.length !== 8) {
-            return alert("رمز عبوری با ۸ کاراکتر وارد کنید")
+        } else if (currentUser.password.length < 8) {
+            return alert("رمز عبوری با حداقل ۸ کاراکتر وارد کنید")
         }
         axiosSignUp(currentUser.username, currentUser.password, currentUser.first_name, currentUser.last_name, currentUser.email, currentUser.country).then(
             res => {
