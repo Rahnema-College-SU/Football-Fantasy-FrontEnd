@@ -4,9 +4,7 @@ import "./Friends.css"
 
 export function Friends() {
     return (
-        // <div className="mainBox">
-        //     <text className="title"> دوستان شما</text>
-        // </div>
+
         <div className="main-box">
             <text className="title"> دوستان شما</text>
             <div className="friends-box">
