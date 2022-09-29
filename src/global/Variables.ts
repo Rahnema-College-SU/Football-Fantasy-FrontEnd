@@ -4,12 +4,12 @@ export const homeTabsEndingUrl = {
     Events: 'events',
     profile: 'profile',
     prizes: 'prizes'
-}
+} as const
 
-export const showingMyTeamTabsEndingUrl = {
+export const subTabsEndingUrl = {
     schematic: 'schematic',
     list: 'list'
-}
+} as const
 
 export function toFarsiNumber(number: number) {
     const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
@@ -19,10 +19,10 @@ export function toFarsiNumber(number: number) {
         .replace(/\d/g, (x: string) => farsiDigits[parseInt(x)]);
 }
 
-export const gkPositions = [1, 2]
-export const defPositions = [3, 4, 5, 6, 7]
-export const midPositions = [8, 9, 10, 11, 12]
-export const attPositions = [13, 14, 15]
+export const gkPositions = [1, 12]
+export const defPositions = [2, 3, 4, 5, 13]
+export const midPositions = [6, 7, 8, 9, 14]
+export const attPositions = [10, 11, 15]
 
 //They should have the same order as the tabs in the home page
 export const positionsServer = ['ALL', 'GKP', 'DEF', 'MID', 'FWD'] as const

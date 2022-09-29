@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {axiosSignUpConfirm} from "../../global/ApiCalls";
 import {addUserError, invalidCodeError, onAxiosError, onAxiosSuccess, onBaseError} from "../../global/Errors";
 import {getToken} from "../../global/Storages";
-import {focusOnElementByRef, handleKeyboardEvent} from "../../global/Functions";
+import {focusOnElementByRef, handleKeyboardEvent} from "../../global/functions/General";
 
 
 function SignUpConfirm() {
@@ -44,7 +44,7 @@ function SignUpConfirm() {
                     <hr className="line"/>
                 </div>
                 <div className="container">
-                    <text className="label">لطفا کدی که به ایمیلتان ارسال شده را در کادر زیر وارد کنید</text>
+                    <div className="label">لطفا کدی که به ایمیلتان ارسال شده را در کادر زیر وارد کنید</div>
                     <input className="input" onChange={setCode} ref={focusOnElementByRef(confirmationCodeInputRef)}
                            tabIndex={0} onKeyUp={
                         handleKeyboardEvent(['Enter'], [() =>

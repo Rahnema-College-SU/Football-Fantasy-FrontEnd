@@ -5,8 +5,8 @@ import {useNavigate} from "react-router-dom";
 import {homeTabsEndingUrl} from "../../global/Variables";
 import {axiosSignIn} from "../../global/ApiCalls";
 import {invalidInputError, onAxiosError, onAxiosSuccess} from "../../global/Errors";
-import {getShowingMyTeamTabsStateName, setToken} from "../../global/Storages";
-import {focusOnElementByRef, handleKeyboardEvent} from "../../global/Functions";
+import {getMyTeamSubTabsStateName, setToken} from "../../global/Storages";
+import {focusOnElementByRef, handleKeyboardEvent} from "../../global/functions/General";
 
 function SignInForm() {
     const navigate = useNavigate()
@@ -20,15 +20,15 @@ function SignInForm() {
     function signInApiCall() {
         if (signInInput.username.length === 0) {
             return alert("نام کاربری را وارد کنید")
-        }else if (signInInput.password.length === 0) {
+        } else if (signInInput.password.length === 0) {
             return alert("رمز عبور را وارد کنید")
         } else {
             axiosSignIn(signInInput.username, signInInput.password).then(
                 res => {
                     onAxiosSuccess({
                         res: res, myError: invalidInputError, onSuccess: () => {
-                            navigate(`/home/${homeTabsEndingUrl.myTeam}/${getShowingMyTeamTabsStateName()}`)
-                            setToken(res.data.data.access_token)
+                            navigate(`/home/${homeTabsEndingUrl.myTeam}/${getMyTeamSubTabsStateName()}`)
+                            setToken(res.data.data.accessToken)
                         }
                     })
 

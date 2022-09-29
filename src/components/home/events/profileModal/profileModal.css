@@ -1,4 +1,4 @@
-.profile-modal-div{
+.profile-modal-div {
     position: relative;
     top: 20%;
     margin: auto;
@@ -8,20 +8,22 @@
     background: #FFFFFF;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
     border-radius: 16px;
-    
+
 }
-.back{
+
+.back {
     width: 100%;
     height: 100%;
 }
-.show-info{
+
+.show-info {
     height: 100%;
     width: 70%;
     display: flex;
     margin: auto;
     flex-direction: column;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
 }
 
 .profile-modal-following-button {
@@ -44,6 +46,7 @@
     border-radius: 4rem;
     margin-top: 10%;
 }
+
 .modal-profile-info {
     margin-top: 10%;
     display: flex;
@@ -55,12 +58,14 @@
     align-items: center;
     direction: rtl;
 }
-.info-lable{
-    font-weight: normal ;
+
+.info-lable {
+    font-weight: normal;
     text-align: right;
     display: flex;
     flex-direction: row;
 }
-.info{
-    font-weight: bold ;
+
+.info {
+    font-weight: bold;
 }

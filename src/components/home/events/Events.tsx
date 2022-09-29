@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Friends from "./friends/Friends";
 import LatestEvents from "./latestEvents/LatestEvents";
 import {MainSearchBox} from "./mainSearchBox/MainSearchBox";
 import './Events.css'
-import { profileModalDisplayState} from "./profileModal/profileModal";
-import {atom, useRecoilValue, useSetRecoilState, SetRecoilState ,useRecoilState} from "recoil";
+import {profileModalDisplayState} from "./profileModal/profileModal";
+import {useSetRecoilState} from "recoil";
 
 function Events() {
     const ProfileModalDisplay = useSetRecoilState(profileModalDisplayState)

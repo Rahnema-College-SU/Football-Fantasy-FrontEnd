@@ -17,16 +17,18 @@ customAxios.interceptors.request.use(config => ({
     }
 }))
 
-export const axiosWeekInf = () => customAxios.get('weekInf')
+export const axiosWeekInf = () => customAxios.get('week_info')
 
 export const axiosFantasyTeam = () => customAxios.get('fantasyteam')
 
-export const axiosDeletePlayer = (myPlayers: myPlayersType, selectedPosition: number) => customAxios.put('fantasyteam/player', {
-        player_id: myPlayers[selectedPosition].id
+export const axiosDeletePlayer = (myPlayers: myPlayersType, selectedPosition: number) => customAxios.delete(`fantasyteam/player/${myPlayers[selectedPosition].id}`, {
+        data: {
+            playerId: myPlayers[selectedPosition].id
+        }
     }
 )
 
-export const axiosPlayersList = (search: searchType) => customAxios.get('playerList', {
+export const axiosPlayersList = (search: searchType) => customAxios.get('player_list', {
     params: {
         search: search.search,
         position: search.position,
@@ -38,28 +40,30 @@ export const axiosPlayersList = (search: searchType) => customAxios.get('playerL
 })
 
 export const axiosAddPlayer = (player: playerType, position: number) => customAxios.post('fantasyteam/player', {
-    player_id: player.id,
-    location_in_ui: position
+    playerId: player.id,
+    locationInTransferUI: position
 })
 
-export const axiosSignUp = (Username: string, Password: string, First_name: string, Last_name: string, Email: string, Country: string) => customAxios.post('signup',
+export const axiosSignUp = (username: string, password: string, firstName: string, lastName: string, email: string, country: string) => customAxios.post('signup',
     {
-        username: Username,
-        password: Password,
-        first_name: First_name,
-        last_name: Last_name,
-        email: Email,
-        country: Country
+        username: username,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        country: country,
+        birthDate: "2002-09-16"//TODO
     }
 )
 export const axiosSignUpConfirm = (token: string, code: string) => customAxios.post('verification', {
-        verification_code: code
+        verificationCode: code
     }
 )
 
-export const axiosSignIn = (username: string, password: string) => customAxios.post('login',
-    {
+export const axiosSignIn = (username: string, password: string) => customAxios.post('login', {
         username: username,
         password: password
     }
 )
+
+export const axiosSignInWithToken = () => customAxios.get('login_with_token')

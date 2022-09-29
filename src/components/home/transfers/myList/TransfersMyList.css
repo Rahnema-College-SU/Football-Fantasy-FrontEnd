@@ -1,0 +1,113 @@
+#my-players-list {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+    background-color: white;
+    margin-top: -16px;
+
+    position: relative;
+    grid-column: 1 / 4;
+}
+
+#first-divider {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    border-bottom: 1px solid #EFEFEF;
+    grid-row-start: 1;
+}
+
+/*info section*/
+#info-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: #3D195B;
+    border-radius: 16px 0 0 16px;
+
+    grid-column-start: 1;
+}
+
+#logo-my-players-list {
+    padding: 0 10px;
+    width: calc(10vw + 60px);
+}
+
+#info-name {
+    font-size: 1.4rem;
+    color: white;
+    background-color: #3D195B;
+    margin: 0 auto;
+    width: 80%;
+    border: 3px solid #b77373;
+    border-radius: 10px;
+    transform: translateY(100%);
+
+    z-index: 1;
+    align-self: start;
+    justify-self: center;
+    text-align: center;
+}
+
+#curve-lines-my-players-list {
+    width: 100%;
+    height: 100%;
+
+    align-self: start;
+}
+
+
+/*list section*/
+#players-div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    padding: 25px;
+
+    grid-column-start: 2;
+}
+
+#point, #price {
+    align-self: end;
+    justify-self: center;
+    font: 300 normal 12px Vazirmatn, serif;
+    color: #999999;
+
+    grid-row-start: 1;
+}
+
+#point {
+    grid-column-start: 1;
+}
+
+#price {
+    grid-column-start: 2;
+}
+
+.header-div {
+    margin-top: 16px;
+    background-color: #3D195B;
+    font: 800 calc(0.3vw + 10px) Vazirmatn, serif;
+    color: #00FF87;
+    border-radius: 4px;
+    padding: 4px 5px 4px 4vw;
+    justify-self: end;
+    align-self: center;
+
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+@media only screen and (max-width: 768px) {
+    #my-players-list {
+        grid-column-end: 3;
+    }
+
+    #info-name {
+        font-size: 18px;
+    }
+
+    #players-div {
+        padding: 25px 10px;
+    }
+}

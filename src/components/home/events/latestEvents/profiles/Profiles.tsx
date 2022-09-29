@@ -5,8 +5,8 @@ import addIcon from './assets/addIcon.svg'
 import removeIcon from './assets/removeIcon.svg'
 import like from './assets/heart.svg'
 import profilePhoto from './assets/profilePhoto.jpeg'
-import { useSetRecoilState } from "recoil";
-import { profileModalDisplayState } from "../../profileModal/profileModal";
+import {useSetRecoilState} from "recoil";
+import {profileModalDisplayState} from "../../profileModal/profileModal";
 
 export function Profile() {
     const ProfileModalDisplay = useSetRecoilState(profileModalDisplayState)
@@ -15,23 +15,25 @@ export function Profile() {
             <div className="show-week">#هفته دو</div>
             <div className="data-box">
                 <div className="score-part">
-                    <text className="score-title">امتیاز هفته</text>
+                    <div className="score-title">امتیاز هفته</div>
                     <div className="show-score-box">
                         <img className="star" src={star} alt="star for showing score"></img>
-                        <text className="score">۱۰۸</text>
+                        <div className="score">۱۰۸</div>
                     </div>
                 </div>
-                <text className="changes-title">تعویض ها</text>
+                <div className="changes-title">تعویض ها</div>
                 <div className="changes">
                     <img src={addIcon} alt="added players Icon"></img>
                     <div className="change-spot">yasin</div>
                     <img src={removeIcon} alt="removed players Icon"></img>
-                    <text className="change-spot">Haland</text>
+                    <div className="change-spot">Haland</div>
                 </div>
 
 
             </div>
-            <div className="profile-info"  onClick={()=>{ProfileModalDisplay('block')}}>
+            <div className="profile-info" onClick={() => {
+                ProfileModalDisplay('block')
+            }}>
                 <img className="profile-photo" src={profilePhoto} alt="profile photo"></img>
                 <div className="name">first and last name</div>
                 ‍‍‍

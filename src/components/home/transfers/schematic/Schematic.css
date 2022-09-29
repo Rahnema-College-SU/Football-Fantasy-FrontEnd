@@ -1,0 +1,34 @@
+#schematic-main-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: space-between;
+
+    margin-top: -16px;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+
+    background-image: url('assets/ground.svg');
+    border-radius: 16px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+#gk-div {
+    padding: 40px 15vw 0;
+}
+
+#gk-div, #def-div, #mid-div, #att-div {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+    #schematic-main-div {
+        grid-column-end: 3;
+    }
+}

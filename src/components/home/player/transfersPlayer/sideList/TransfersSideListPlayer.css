@@ -1,0 +1,49 @@
+.column-of-names-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.choose-player-name {
+    color: #3D195B;
+    font: 500 12px Vazirmatn, serif;
+}
+
+.choose-player-team-name {
+    color: rgba(61, 25, 91, 0.36);
+    font: 400 10px Vazirmatn, serif;
+}
+
+.choose-player-info {
+    color: #3D195B;
+    font: 700 12px Vazirmatn, serif;
+    direction: ltr;
+    justify-self: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.players-list-row-div {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    direction: rtl;
+    align-items: center;
+    border-top: 1px #EFEFEF solid;
+    height: fit-content;
+    padding: 7px 7px 7px 0;
+}
+
+.exactly-players {
+    cursor: pointer;
+    height: 4vw;
+    min-height: fit-content;
+}
+
+.players-list-row-div-selected {
+    background-color: #04F3F4;
+    border-radius: 16px;
+}
+
+.exactly-players:hover:not(.players-list-row-div-selected) {
+    background-color: #EFEFEF;
+    border-radius: 16px;
+}

@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {axiosSignUp} from "../../global/ApiCalls";
 import {addUserError, onAxiosError, onAxiosSuccess, userExistError} from "../../global/Errors";
 import {setToken} from "../../global/Storages";
-import {focusOnElementByRef, handleKeyboardEvent} from "../../global/Functions";
+import {focusOnElementByRef, handleKeyboardEvent} from "../../global/functions/General";
 
 function SignUpForm() {
     const navigate = useNavigate()
@@ -59,7 +59,7 @@ function SignUpForm() {
                 onAxiosSuccess({
                     res: res, myError: addUserError, onSuccess: () => {
                         navigate('/sign-up-confirm')
-                        setToken(res.data.data.access_token)
+                        setToken(res.data.data.accessToken)
                     }
 
                 })
