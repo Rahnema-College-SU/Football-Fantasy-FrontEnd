@@ -4,7 +4,7 @@
     background: #3D195B;
     justify-content: center;
     border-radius: 16px 16px 0 0;
-    font: 800 18px Vazirmatn, serif;
+    font: 800 1.125rem Vazirmatn, serif;
     align-items: center;
     color: white;
 }
@@ -24,7 +24,7 @@
     background: linear-gradient(269.48deg, #04F5EC -30.14%, #03FBB8 109.7%);
     border-radius: 4px;
     border: none;
-    font: 800 12px Vazirmatn, serif;
+    font: 800 1vw Vazirmatn, serif;
     align-items: center;
     text-align: center;
     color: #3D195B;
@@ -45,7 +45,7 @@
     border-radius: 4px;
     background: linear-gradient(269.48deg, #04F5EC -30.14%, #03FBB8 109.7%);
     border:none;
-    font: 800 12px Vazirmatn, serif;
+    font: 800 1vw Vazirmatn, serif;
     color: #3D195B;
     padding: 2px;
 }
@@ -115,7 +115,7 @@
     border-radius: 4px;
     /* background: linear-gradient(269.48deg, #04F5EC -30.14%, #03FBB8 109.7%); */
     border: none;
-    font: 800 12px Vazirmatn, serif;
+    font: 800 1vw Vazirmatn, serif;
     color: #3D195B;
     padding: 2px;
 }
@@ -127,7 +127,7 @@
     border-radius: 4px;
     background: linear-gradient(269.48deg, #04F5EC -30.14%, #03FBB8 109.7%);
     border: none;
-    font: 800 12px Vazirmatn, serif;
+    font: 800 1vw Vazirmatn, serif;
     color: #05D6E2;
     padding: 2px;
 }

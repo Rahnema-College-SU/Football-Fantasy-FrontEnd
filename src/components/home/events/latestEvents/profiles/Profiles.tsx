@@ -34,7 +34,6 @@ export function Profile() {
             <div className="profile-info"  onClick={()=>{ProfileModalDisplay('block')}}>
                 <img className="profile-photo" src={profilePhoto} alt="profile photo"></img>
                 <div className="name">first and last name</div>
-                ‍‍‍
                 <img className="like" src={like} alt="click to like profile"></img>
             </div>
         </div>

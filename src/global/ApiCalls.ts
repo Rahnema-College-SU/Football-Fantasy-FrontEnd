@@ -63,3 +63,10 @@ export const axiosSignIn = (username: string, password: string) => customAxios.p
         password: password
     }
 )
+
+export const axiosAllUsersList = (searchText: string) => customAxios.get('user_search', {
+    params: {
+        search: searchText,
+        search_type:"All"
+    }
+})

@@ -88,3 +88,14 @@ export type searchType = {
     pageNumber: number,
     listSize: number
 }
+
+export type searchResultUserType = {
+    id: string,
+    username: string,
+    imageUrl: string,
+    isFollowed: boolean
+}
+export type searchResultUserListType = {
+    usersList: Array<searchResultUserType>,
+    numberOfusers: number | undefined
+}
