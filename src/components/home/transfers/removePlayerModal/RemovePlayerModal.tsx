@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import './RemovePlayerModal.css';
-import activeCloth from '../schematic/assets/active-cloth.svg';
+import activeCloth from '../../assets/active-cloth.svg';
 import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {selectedPositionState} from "../schematic/Schematic";
 import {myPlayersState} from "../Transfers";

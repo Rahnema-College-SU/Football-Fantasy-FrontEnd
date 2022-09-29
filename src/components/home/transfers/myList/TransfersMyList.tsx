@@ -5,7 +5,7 @@ import {myPlayersState} from "../Transfers";
 import {selectedPositionState} from "../schematic/Schematic";
 import logo from './assets/logo.svg';
 import curveLines from './assets/curve-lines.svg';
-import {attPositions, defPositions, gkPositions, midPositions} from "../../../../global/Variables";
+import {transfersAttPositions, transfersDefPositions, transfersGkPositions, transfersMidPositions} from "../../../../global/Variables";
 import {TransfersMyListPlayer} from "../../player/transfersPlayer/myList/TransfersMyListPlayer";
 
 function TransfersMyList() {
@@ -13,10 +13,10 @@ function TransfersMyList() {
     const selectedPosition = useRecoilValue(selectedPositionState)
 
     const playersSection = [
-        {text: 'دروازه‌بانان', positions: gkPositions},
-        {text: 'مدافعان', positions: defPositions},
-        {text: 'هافبک‌ها', positions: midPositions},
-        {text: 'مهاجمین', positions: attPositions},
+        {text: 'دروازه‌بانان', positions: transfersGkPositions},
+        {text: 'مدافعان', positions: transfersDefPositions},
+        {text: 'هافبک‌ها', positions: transfersMidPositions},
+        {text: 'مهاجمین', positions: transfersAttPositions},
     ]
 
     function getInfoDiv(): JSX.Element {

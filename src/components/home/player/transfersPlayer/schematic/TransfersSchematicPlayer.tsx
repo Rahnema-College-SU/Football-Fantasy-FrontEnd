@@ -1,10 +1,10 @@
 import React, {useRef} from "react";
 import './TransfersSchematicPlayer.css'
-import {attPositions, defPositions, gkPositions, midPositions, toFarsiNumber} from "../../../../../global/Variables";
+import {transfersAttPositions, transfersDefPositions, transfersGkPositions, transfersMidPositions, toFarsiNumber} from "../../../../../global/Variables";
 import {playerType} from "../../../../../global/Types";
 import deleteIcon from "../../../transfers/schematic/assets/delete-icon.svg";
-import activeCloth from "../../../transfers/schematic/assets/active-cloth.svg";
-import inactiveCloth from "../../../transfers/schematic/assets/inactive-cloth.svg";
+import activeCloth from "../../../assets/active-cloth.svg";
+import inactiveCloth from "../../../assets/inactive-cloth.svg";
 import addIcon from "../../../transfers/schematic/assets/add-icon.svg";
 import {focusOnElementByRef, handleKeyboardEvent} from "../../../../../global/functions/General";
 import selectedCloth from "../../../transfers/schematic/assets/selected-cloth.svg";
@@ -26,23 +26,23 @@ export function TransfersSchematicPlayer({position}: { position: number }) {
     function handleArrowKey(arrowKey: typeof keyboardKeys[number]) {
         function getBeforeNextPositionArrays(position: number): [Array<number>, Array<number>] {
             // selected position must be between 1 and 15
-            if (gkPositions.includes(position))
-                return [attPositions, defPositions]
-            else if (defPositions.includes(position))
-                return [gkPositions, midPositions]
-            else if (midPositions.includes(position))
-                return [defPositions, attPositions]
-            else if (attPositions.includes(position))
-                return [midPositions, gkPositions]
+            if (transfersGkPositions.includes(position))
+                return [transfersAttPositions, transfersDefPositions]
+            else if (transfersDefPositions.includes(position))
+                return [transfersGkPositions, transfersMidPositions]
+            else if (transfersMidPositions.includes(position))
+                return [transfersDefPositions, transfersAttPositions]
+            else if (transfersAttPositions.includes(position))
+                return [transfersMidPositions, transfersGkPositions]
             else
                 return [[], []]
         }
 
         function handleArrowLeftKey(selectedPosition: number) {
-            if (!handleArrowLeftKeyEachArray(selectedPosition, gkPositions) &&
-                !handleArrowLeftKeyEachArray(selectedPosition, defPositions) &&
-                !handleArrowLeftKeyEachArray(selectedPosition, midPositions) &&
-                !handleArrowLeftKeyEachArray(selectedPosition, attPositions)
+            if (!handleArrowLeftKeyEachArray(selectedPosition, transfersGkPositions) &&
+                !handleArrowLeftKeyEachArray(selectedPosition, transfersDefPositions) &&
+                !handleArrowLeftKeyEachArray(selectedPosition, transfersMidPositions) &&
+                !handleArrowLeftKeyEachArray(selectedPosition, transfersAttPositions)
             )
                 setSelectedPosition(selectedPosition - 1)
         }
@@ -60,10 +60,10 @@ export function TransfersSchematicPlayer({position}: { position: number }) {
         }
 
         function handleArrowRightKey(selectedPosition: number) {
-            if (!handleArrowRightKeyEachArray(selectedPosition, gkPositions) &&
-                !handleArrowRightKeyEachArray(selectedPosition, defPositions) &&
-                !handleArrowRightKeyEachArray(selectedPosition, midPositions) &&
-                !handleArrowRightKeyEachArray(selectedPosition, attPositions)
+            if (!handleArrowRightKeyEachArray(selectedPosition, transfersGkPositions) &&
+                !handleArrowRightKeyEachArray(selectedPosition, transfersDefPositions) &&
+                !handleArrowRightKeyEachArray(selectedPosition, transfersMidPositions) &&
+                !handleArrowRightKeyEachArray(selectedPosition, transfersAttPositions)
             )
                 setSelectedPosition(selectedPosition + 1)
         }
@@ -116,7 +116,7 @@ export function TransfersSchematicPlayer({position}: { position: number }) {
                      onClick={() => setSelectedPosition(position)}/>
                 <img className={'add-icon'} src={addIcon} alt={'add icon'}
                      onClick={() => setSelectedPosition(position)}/>
-                <div className={'player-name'} style={{visibility: 'hidden'}}>dummy</div>
+                <div className={'player-name'} style={{visibility: 'hidden'}}>fake</div>
                 <div className={'power'} style={{visibility: 'hidden'}}>۰</div>
             </div>
         )
@@ -133,7 +133,7 @@ export function TransfersSchematicPlayer({position}: { position: number }) {
                      style={{visibility: 'hidden'}}/>
                 <img className={'schematic-cloth'} src={selectedCloth} alt={'selected player'}
                      onClick={() => setSelectedPosition(undefined)}/>
-                <div className={'player-name'} style={{visibility: 'hidden'}}>dummy</div>
+                <div className={'player-name'} style={{visibility: 'hidden'}}>fake</div>
                 <div className={'power'} style={{visibility: 'hidden'}}>۰</div>
             </div>
         )

@@ -1,6 +1,6 @@
 import React from 'react'
 import './Schematic.css'
-import {attPositions, defPositions, gkPositions, midPositions} from "../../../../global/Variables";
+import {transfersAttPositions, transfersDefPositions, transfersGkPositions, transfersMidPositions} from "../../../../global/Variables";
 import {atom} from "recoil";
 import {TransfersSchematicPlayer} from "../../player/transfersPlayer/schematic/TransfersSchematicPlayer";
 
@@ -11,10 +11,10 @@ export const selectedPositionState = atom<number | undefined>({
 
 export function Schematic() {
     const playersSection = [
-        {id: 'gk-div', positions: gkPositions},
-        {id: 'def-div', positions: defPositions},
-        {id: 'mid-div', positions: midPositions},
-        {id: 'att-div', positions: attPositions}
+        {id: 'gk-div', positions: transfersGkPositions},
+        {id: 'def-div', positions: transfersDefPositions},
+        {id: 'mid-div', positions: transfersMidPositions},
+        {id: 'att-div', positions: transfersAttPositions}
     ]
 
     function getPlayersDivs(positions: number[]) {

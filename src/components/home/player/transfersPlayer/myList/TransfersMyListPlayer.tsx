@@ -5,12 +5,12 @@ import {selectedPositionState} from "../../../transfers/schematic/Schematic";
 import {removePlayerModalDisplayState} from "../../../transfers/removePlayerModal/RemovePlayerModal";
 import {selectedPlayerState} from "../../../transfers/sideList/TransfersSideList";
 import React, {useRef} from "react";
-import {attPositions, defPositions, gkPositions, midPositions, toFarsiNumber} from "../../../../../global/Variables";
+import {transfersAttPositions, transfersDefPositions, transfersGkPositions, transfersMidPositions, toFarsiNumber} from "../../../../../global/Variables";
 import {playerType} from "../../../../../global/Types";
 import {focusOnElementByRef, handleKeyboardEvent} from "../../../../../global/functions/General";
 import deleteIcon from "../../../transfers/myList/assets/delete-icon.svg";
-import activeCloth from "../../../transfers/myList/assets/active-cloth.svg";
-import inactiveCloth from "../../../transfers/myList/assets/inactive-cloth.svg";
+import activeCloth from "../../../assets/active-cloth.svg";
+import inactiveCloth from "../../../assets/inactive-cloth.svg";
 
 export function TransfersMyListPlayer({position}: { position?: number }) {
     const myPlayers = useRecoilValue(myPlayersState)
@@ -24,23 +24,23 @@ export function TransfersMyListPlayer({position}: { position?: number }) {
     function handleArrowKey(arrowKey: typeof keyboardKeys[number]) {
         function getBeforeNextPositionArrays(position: number): [Array<number>, Array<number>] {
             // selected position must be between 1 and 15
-            if (gkPositions.includes(position))
-                return [attPositions, defPositions]
-            else if (defPositions.includes(position))
-                return [gkPositions, midPositions]
-            else if (midPositions.includes(position))
-                return [defPositions, attPositions]
-            else if (attPositions.includes(position))
-                return [midPositions, gkPositions]
+            if (transfersGkPositions.includes(position))
+                return [transfersAttPositions, transfersDefPositions]
+            else if (transfersDefPositions.includes(position))
+                return [transfersGkPositions, transfersMidPositions]
+            else if (transfersMidPositions.includes(position))
+                return [transfersDefPositions, transfersAttPositions]
+            else if (transfersAttPositions.includes(position))
+                return [transfersMidPositions, transfersGkPositions]
             else
                 return [[], []]
         }
 
         function handleArrowUpKey(selectedPosition: number) {
-            if (!handleArrowUpKeyEachArray(selectedPosition, gkPositions) &&
-                !handleArrowUpKeyEachArray(selectedPosition, defPositions) &&
-                !handleArrowUpKeyEachArray(selectedPosition, midPositions) &&
-                !handleArrowUpKeyEachArray(selectedPosition, attPositions)
+            if (!handleArrowUpKeyEachArray(selectedPosition, transfersGkPositions) &&
+                !handleArrowUpKeyEachArray(selectedPosition, transfersDefPositions) &&
+                !handleArrowUpKeyEachArray(selectedPosition, transfersMidPositions) &&
+                !handleArrowUpKeyEachArray(selectedPosition, transfersAttPositions)
             )
                 setSelectedPosition(selectedPosition - 1)
         }
@@ -58,10 +58,10 @@ export function TransfersMyListPlayer({position}: { position?: number }) {
         }
 
         function handleArrowDownKey(selectedPosition: number) {
-            if (!handleArrowLeftKeyEachArray(selectedPosition, gkPositions) &&
-                !handleArrowLeftKeyEachArray(selectedPosition, defPositions) &&
-                !handleArrowLeftKeyEachArray(selectedPosition, midPositions) &&
-                !handleArrowLeftKeyEachArray(selectedPosition, attPositions)
+            if (!handleArrowLeftKeyEachArray(selectedPosition, transfersGkPositions) &&
+                !handleArrowLeftKeyEachArray(selectedPosition, transfersDefPositions) &&
+                !handleArrowLeftKeyEachArray(selectedPosition, transfersMidPositions) &&
+                !handleArrowLeftKeyEachArray(selectedPosition, transfersAttPositions)
             )
                 setSelectedPosition(selectedPosition + 1)
         }

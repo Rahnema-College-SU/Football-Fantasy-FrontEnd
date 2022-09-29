@@ -5,7 +5,7 @@ import {RemainingPlayer, usedPlayerState} from "./remainigParts/RemainingPlayer"
 import {RemainingMoney, remainingMoneyState} from "./remainigParts/RemainingMoney";
 import MiddleTabBar from "./middleTabBar/MiddleTabBar";
 import {axiosAddPlayer, axiosDeletePlayer, axiosFantasyTeam, axiosPlayersList,} from "../../../global/ApiCalls";
-import {attPositions, defPositions, gkPositions, homeTabsEndingUrl, midPositions} from "../../../global/Variables";
+import {transfersAttPositions, transfersDefPositions, transfersGkPositions, homeTabsEndingUrl, transfersMidPositions} from "../../../global/Variables";
 import DateBox, {dateState} from "./dateBox/DateBox";
 import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {
@@ -38,18 +38,23 @@ import {
 } from "../../../global/Errors";
 import TransfersMyList from "./myList/TransfersMyList";
 
+export const fantasyTeamApiResponseState = atom<fantasyTeamApiResponseType | undefined>({
+    key: 'fantasyTeamApiResponseState',
+    default: undefined
+})
+
 export const myPlayersState = atom<myPlayersType>({
     key: 'myPlayersState',
     default: {}
 })
 
 export function Transfers({subTab}: { subTab: subTab }) {
-    const [fantasyTeamApiResponse, setFantasyTeamApiResponse] = useState<fantasyTeamApiResponseType | undefined>(undefined);
+    const [fantasyTeamApiResponse, setFantasyTeamApiResponse] = useRecoilState(fantasyTeamApiResponseState)
     const [myPlayers, setMyPlayers] = useRecoilState(myPlayersState)
     const setRemainingMoney = useSetRecoilState(remainingMoneyState)
     const setUsedPlayer = useSetRecoilState(usedPlayerState)
 
-    const [playersListApiResponse, setPlayersListApiResponse] = useState<playersListApiResponseType | undefined>(undefined);
+    const [playersListApiResponse, setPlayersListApiResponse] = useState<playersListApiResponseType | undefined>(undefined)
     const setTransfersSideList = useSetRecoilState(transfersSideListState)
     const [selectedPlayer, setSelectedPlayer] = useRecoilState(selectedPlayerState)
     const setSelectedFilterItem = useSetRecoilState(selectedFilterItemState)
@@ -67,13 +72,13 @@ export function Transfers({subTab}: { subTab: subTab }) {
         if (selectedPosition === undefined)
             setSelectedPlayer(undefined)
         else {
-            if (gkPositions.includes(selectedPosition))
+            if (transfersGkPositions.includes(selectedPosition))
                 setSelectedFilterItem('GK')
-            else if (defPositions.includes(selectedPosition))
+            else if (transfersDefPositions.includes(selectedPosition))
                 setSelectedFilterItem('DEF')
-            else if (midPositions.includes(selectedPosition))
+            else if (transfersMidPositions.includes(selectedPosition))
                 setSelectedFilterItem('MID')
-            else if (attPositions.includes(selectedPosition))
+            else if (transfersAttPositions.includes(selectedPosition))
                 setSelectedFilterItem('ATT')
         }
     }, [selectedPosition])
@@ -168,7 +173,7 @@ export function Transfers({subTab}: { subTab: subTab }) {
     }
 
     function menuOnClick() {
-        const choosePlayerListStyle: CSSStyleDeclaration = document.getElementById('players-list-main-div')?.style!
+        const choosePlayerListStyle: CSSStyleDeclaration = document.getElementById('transfers-side-list')?.style!
 
         if (choosePlayerListStyle.display === 'flex')
             choosePlayerListStyle.setProperty('display', 'none')

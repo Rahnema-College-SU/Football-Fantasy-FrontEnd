@@ -1,0 +1,24 @@
+.reserve-cloth {
+    width: 100%;
+    cursor: pointer;
+}
+
+.inactive-reserve-cloth {
+    cursor: default;
+}
+
+.reserve-player-name {
+    font: 700 calc(0.2vw + 9px) Vazirmatn, serif;
+    color: white;
+    text-align: center;
+    background-color: #37013B;
+    width: 100%;
+    border-radius: 4px;
+    padding: 4px 0;
+    overflow: auto;
+}
+
+.reserve-player-name-selected {
+    color: #3D185B;
+    background-color: #05F1FF;
+}

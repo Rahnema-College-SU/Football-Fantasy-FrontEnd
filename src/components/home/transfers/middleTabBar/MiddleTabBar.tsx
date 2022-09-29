@@ -39,26 +39,28 @@ export function MiddleTabBar({mainTab, /*state, stateSetter, storageSetter,*/ wi
             <div id={'tab-bar-rectangle'} style={{width: widthStyle}}>
                 {
                     tabs.map(tab => {
-                        return <div
-                            className={mainTab === homeTabsEndingUrl.myTeam && myTeamSelectedTab === tab.id ||
-                            mainTab === homeTabsEndingUrl.transfers && transfersSelectedTab === tab.id ? 'tab-rectangle-select' : 'tab-rectangle-unselect'}
-                            onClick={() => {
-                                if (mainTab === homeTabsEndingUrl.myTeam)
-                                    setMyTeamSelectedTab(tab.id)
-                                else
-                                    setTransfersSelectedTab(tab.id)
-                                navigate(`/home/${mainTab}/${tab.urlEndingName}`)
-                            }}>
-                            {tab.text}
-                        </div>
-                        // return <div
-                        //     className={state === tab.id ? 'tab-rectangle-select' : 'tab-rectangle-unselect'}
-                        //     onClick={() => {
-                        //         stateSetter(tab.id)
-                        //         navigate(`/home/${mainTab}/${tab.urlEndingName}`)
-                        //     }}>
-                        //     {tab.text}
-                        // </div>
+                        return (
+                            <div
+                                className={mainTab === homeTabsEndingUrl.myTeam && myTeamSelectedTab === tab.id ||
+                                mainTab === homeTabsEndingUrl.transfers && transfersSelectedTab === tab.id ? 'tab-rectangle-select' : 'tab-rectangle-unselect'}
+                                onClick={() => {
+                                    if (mainTab === homeTabsEndingUrl.myTeam)
+                                        setMyTeamSelectedTab(tab.id)
+                                    else
+                                        setTransfersSelectedTab(tab.id)
+                                    navigate(`/home/${mainTab}/${tab.urlEndingName}`)
+                                }}>
+                                {tab.text}
+                            </div>
+                            // <div
+                            //     className={state === tab.id ? 'tab-rectangle-select' : 'tab-rectangle-unselect'}
+                            //     onClick={() => {
+                            //         stateSetter(tab.id)
+                            //         navigate(`/home/${mainTab}/${tab.urlEndingName}`)
+                            //     }}>
+                            //     {tab.text}
+                            // </div>
+                        )
                     })
                 }
             </div>
