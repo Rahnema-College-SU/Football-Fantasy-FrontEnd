@@ -1,24 +1,33 @@
-import {Schematic, selectedPositionState} from "./schematic/Schematic";
 import React, {useEffect, useState} from "react";
 import './Transfers.css';
-import menu from './assets/menu.svg'
+import menu from './assets/menu.svg';
 import {RemainingPlayer, usedPlayerState} from "./remainigParts/RemainingPlayer";
 import {RemainingMoney, remainingMoneyState} from "./remainigParts/RemainingMoney";
 import MiddleTabBar from "./middleTabBar/MiddleTabBar";
+import {axiosAddPlayer, axiosDeletePlayer, axiosFantasyTeam, axiosPlayersList,} from "../../../global/ApiCalls";
+import {attPositions, defPositions, gkPositions, homeTabsEndingUrl, midPositions} from "../../../global/Variables";
+import DateBox, {dateState} from "./dateBox/DateBox";
+import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
+import {
+    fantasyTeamApiResponseType,
+    myPlayersType,
+    playersListApiResponseType,
+    playerType,
+    subTab
+} from "../../../global/Types";
 import TransfersSideList, {
     searchState,
     selectedFilterItemState,
     selectedPlayerState,
     transfersSideListState
 } from "./sideList/TransfersSideList";
-import DateBax, {dateState} from "./dateBox/DateBox";
-import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
-import TransfersMyList from "./myList/TransfersMyList";
+import {Schematic, selectedPositionState} from "./schematic/Schematic";
 import {isDeleteConfirmClickedState, removePlayerModalDisplayState} from "./removePlayerModal/RemovePlayerModal";
+import {convertFantasyTeamApiResponse, convertPlayersListApiResponse} from "../../../global/functions/Converters";
+import {getDate} from "../../../global/functions/General";
 import {
     addPlayerError,
     deletePlayerError,
-    loadDateError,
     loadPlayersListError,
     loadTeamError,
     onAxiosError,
@@ -27,23 +36,7 @@ import {
     playerNotFoundError,
     selectedPlayerNotFoundError
 } from "../../../global/Errors";
-import {
-    dateType,
-    fantasyTeamApiResponseType,
-    myPlayersType,
-    playersListApiResponseType,
-    playerType,
-    subTab
-} from "../../../global/Types";
-import {
-    axiosAddPlayer,
-    axiosDeletePlayer,
-    axiosFantasyTeam,
-    axiosPlayersList,
-    axiosWeekInf
-} from "../../../global/ApiCalls";
-import {attPositions, defPositions, gkPositions, midPositions} from "../../../global/Variables";
-import {convertFantasyTeamApiResponse, convertPlayersListApiResponse} from "../../../global/functions/Converters";
+import TransfersMyList from "./myList/TransfersMyList";
 
 export const myPlayersState = atom<myPlayersType>({
     key: 'myPlayersState',
@@ -161,17 +154,6 @@ export function Transfers({subTab}: { subTab: subTab }) {
             )
     }
 
-    async function getDate(): Promise<dateType> {
-        return axiosWeekInf().then(
-            res => {
-                return onAxiosSuccess({
-                    res: res, myError: loadDateError, onSuccessReturnValue: res.data.data
-                })
-            },
-            error => onAxiosError({axiosError: error, myError: loadDateError})
-        )
-    }
-
     function playerListApiCall() {
         axiosPlayersList(search).then(
             res =>
@@ -194,23 +176,24 @@ export function Transfers({subTab}: { subTab: subTab }) {
             choosePlayerListStyle.setProperty('display', 'flex')
     }
 
+    // const [transfersSelectedTab, setTransfersSelectedTab] = useState<number>(getTransfersSubTabStateId())
     return (
-        <div id={'my-team-main-div'}>
+        <div id={'transfers-main-div'}>
             <div id={'date-and-menu-container'}>
-                <DateBax getDate={getDate}/>
+                <DateBox dateBoxType={'date'}/>
                 <img id={'menu-image'} src={menu} onClick={menuOnClick}
                      alt={'menu icon to show all players\' list to add'}/>
             </div>
 
             <TransfersSideList playerListApiCall={playerListApiCall} addPlayerApiCall={addPlayerApiCall}/>
-            <div id={'game-info-div'}>
+            <div id={'transfers-game-info-div'}>
                 <RemainingPlayer/>
-                <MiddleTabBar/>
+                <MiddleTabBar
+                    mainTab={homeTabsEndingUrl.transfers} /*state={transfersSelectedTab} stateSetter={setTransfersSelectedTab} storageSetter={setTransfersSubTabState}*//>
                 <RemainingMoney/>
 
                 {subTab === 'schematic' ? <Schematic/> : <TransfersMyList/>}
             </div>
-
         </div>
     )
 }

@@ -4,12 +4,12 @@ export const homeTabsEndingUrl = {
     Events: 'events',
     profile: 'profile',
     prizes: 'prizes'
-}
+} as const
 
 export const subTabsEndingUrl = {
     schematic: 'schematic',
     list: 'list'
-}
+} as const
 
 export function toFarsiNumber(number: number) {
     const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];

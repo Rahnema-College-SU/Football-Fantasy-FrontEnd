@@ -72,13 +72,18 @@ export type myPlayersType = {
 }
 
 export type dateType = {
-    monthName: String,
-    currentWeek: String,
-    weekDay: String,
-    year: String,
-    day: String,
-    hour: String,
+    monthName: string,
+    currentWeek: string,
+    weekDay: string,
+    year: string,
+    day: string,
+    hour: string,
     minute: string
+}
+
+export type dateApiType = {
+    nextWeekStartDate: dateType,
+    substitutionDeadlineDate: dateType
 }
 
 export type positionsUiType = typeof positionsUi[number];

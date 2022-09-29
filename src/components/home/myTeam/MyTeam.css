@@ -1,4 +1,4 @@
-#transfers-main-div {
+#my-team-main-div {
     width: 90%;
     display: grid;
     grid-column-gap: 25px;
@@ -8,16 +8,12 @@
     margin: 50px auto 30px auto;
 }
 
-#date-and-menu-container {
+#date-and-deadline-container {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
 }
 
-#transfers-game-info-div {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: fit-content(100%) auto;
-
+#my-team-game-info-div {
     grid-column-start: 1;
     grid-row-start: 2;
 }
@@ -26,24 +22,17 @@
     grid-auto-flow: row;
 }
 
-#menu-image {
-    display: none;
-    border: 2px solid #3D195B;
-    border-radius: 5px;
-}
-
 @media only screen and (max-width: 768px) {
-    #transfers-main-div {
+    #my-team-main-div {
         grid-column-gap: 0;
         grid-template-columns: 1fr;
     }
 
-    #menu-image {
-        display: block;
-        cursor: pointer;
+    #date-and-deadline-container {
+        flex-direction: column;
     }
 
-    #transfers-game-info-div {
+    #my-team-game-info-div {
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: fit-content(100%) fit-content(100%) auto;
 
