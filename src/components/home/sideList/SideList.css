@@ -1,0 +1,40 @@
+.side-list-main-div {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+
+    grid-row-start: 2;
+}
+
+.side-list-title {
+    display: flex;
+    height: 50px;
+    width: 100%;
+    background: #3D195B;
+    justify-content: center;
+    border-radius: 16px 16px 0 0;
+
+    font: 800 18px Vazirmatn, serif;
+    align-items: center;
+    color: white;
+}
+
+@media only screen and (max-width: 768px) {
+    #transfers-side-list {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        z-index: 3;
+        background-color: white;
+
+        display: none;
+    }
+
+    #my-team-side-list {
+        grid-column-start: 1;
+        grid-row-start: 3;
+
+        background-color: white;
+    }
+}

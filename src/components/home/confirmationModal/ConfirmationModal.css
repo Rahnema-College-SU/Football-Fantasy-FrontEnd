@@ -1,4 +1,4 @@
-#delete-modal-div {
+.confirmation-modal-div {
     position: relative;
     top: 40%;
     margin: auto;
@@ -8,11 +8,11 @@
     border-radius: 16px;
 }
 
-#delete-modal-div:focus {
+.confirmation-modal-div:focus {
     outline: none;
 }
 
-#header {
+.modal-header {
     display: flex;
     justify-content: center;
     background-color: #3D195B;
@@ -22,13 +22,13 @@
     padding: 10px;
 }
 
-#cloth {
+.modal-cloth {
     display: flex;
     margin: auto;
     padding: 20px;
 }
 
-#text {
+.modal-text {
     display: flex;
     direction: rtl;
     justify-content: center;
@@ -38,7 +38,7 @@
     text-align: center;
 }
 
-#buttons-container {
+.modal-buttons-container {
     display: flex;
     direction: rtl;
     justify-content: center;
@@ -46,7 +46,7 @@
 
 }
 
-#delete-button, #cancel-button {
+.modal-confirm-button, .modal-cancel-button {
     font: 700 normal 16px Roboto, serif;
     width: 200px;
     margin: 0 10px;
@@ -56,29 +56,27 @@
     border-radius: 4px;
 }
 
-#delete-button {
-    background-color: #ED1B5D;
-    color: #FFFFFF;
+.modal-confirm-button {
     margin-left: 10px;
 }
 
-#delete-button:hover {
-    opacity: 0.5;
+.modal-confirm-button:hover {
+    opacity: 0.65;
 }
 
-#cancel-button {
+.modal-cancel-button {
     background-color: #FFFFFF;
     color: #3D195B;
     margin-right: 10px;
     border: 1px solid #3D195B;
 }
 
-#cancel-button:hover {
+.modal-cancel-button:hover {
     background-color: #b4b4b4;
 }
 
 @media only screen and (max-width: 768px) {
-    #delete-modal-div {
+    #confirmation-modal-div {
         width: 90%;
     }
 }

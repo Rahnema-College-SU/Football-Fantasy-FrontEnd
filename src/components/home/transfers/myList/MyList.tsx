@@ -1,17 +1,19 @@
 import React from "react";
-import './TransfersMyList.css';
-import {useRecoilValue} from "recoil";
-import {myPlayersState} from "../Transfers";
-import {selectedPositionState} from "../schematic/Schematic";
+import './MyList.css';
 import logo from './assets/logo.svg';
 import curveLines from './assets/curve-lines.svg';
-import {attPositions, defPositions, gkPositions, midPositions} from "../../../../global/Variables";
-import {TransfersMyListPlayer} from "../../player/transfersPlayer/myList/TransfersMyListPlayer";
 
-function TransfersMyList() {
-    const myPlayers = useRecoilValue(myPlayersState)
-    const selectedPosition = useRecoilValue(selectedPositionState)
-
+function MyList({
+                    gkPositions,
+                    defPositions,
+                    midPositions,
+                    attPositions,
+                    playerRender,
+                    showingName
+                }: {
+    gkPositions: number[], defPositions: number[], midPositions: number[], attPositions: number[],
+    playerRender: ({position}: { position?: number }) => JSX.Element, showingName: () => string
+}) {
     const playersSection = [
         {text: 'دروازه‌بانان', positions: gkPositions},
         {text: 'مدافعان', positions: defPositions},
@@ -21,10 +23,10 @@ function TransfersMyList() {
 
     function getInfoDiv(): JSX.Element {
         return <div id={'info-div'}>
-            <TransfersMyListPlayer/>
+            {playerRender({position: undefined})}
             <img id={'logo-my-players-list'} src={logo} alt={'logo of premier league'}/>
             <div id={'info-name'}>
-                {selectedPosition && myPlayers[selectedPosition] ? myPlayers[selectedPosition].webName : 'none'}
+                {showingName()}
             </div>
             <img id={'curve-lines-my-players-list'} src={curveLines}
                  alt={"curve lines it's somehow the second logo"}/>
@@ -32,7 +34,7 @@ function TransfersMyList() {
     }
 
     function getEahPositionRow(positions: number[]): JSX.Element[] {
-        return positions.map(position => <TransfersMyListPlayer position={position}/>)
+        return positions.map(position => playerRender({position: position}))
     }
 
     function getPlayersRow(): JSX.Element {
@@ -63,4 +65,4 @@ function TransfersMyList() {
     )
 }
 
-export default TransfersMyList;
+export default MyList;

@@ -40,6 +40,7 @@ const loadDateError = dateError('خطا در دریافت تاریخ')
 
 const loadTeamError = teamError('خطا در دریافت اطّلاعات تیم')
 const deletePlayerError = teamError('خطا در حذف بازیکن')
+const substitutionError = teamError('خطا در تعویض')
 const loadPlayersListError = teamError('خطا در دریافت اطّلاعات بازیکنان')
 const addPlayerError = teamError('خطا در اضافه کردن بازیکنان')
 
@@ -62,6 +63,7 @@ export {
     loadDateError,
     loadTeamError,
     deletePlayerError,
+    substitutionError,
     loadPlayersListError,
     addPlayerError,
     loadPaginationError,
@@ -88,7 +90,7 @@ export function onAxiosSuccess({
     onSuccess?: () => void, onError?: () => void, onSuccessReturnValue?: any, onErrorReturnValue?: any
 }) {
 
-    if (res.data.success) {
+    if (res.status === 200) {
         if (onSuccess)
             onSuccess()
 

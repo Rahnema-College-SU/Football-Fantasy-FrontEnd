@@ -10,7 +10,7 @@ export function Friends() {
         <div className="main-box">
             <div className="title"> دوستان شما</div>
             <div className="friends-box">
-                <div className="button-bar">
+                <div className="friends-button-bar">
                     <button className="selected-button">دنبال شوندگان</button>
                     <button className="following-button">دنبال کنندگان</button>
                 </div>

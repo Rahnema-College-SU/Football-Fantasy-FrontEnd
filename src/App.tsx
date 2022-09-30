@@ -20,10 +20,15 @@ import {axiosSignInWithToken} from "./global/ApiCalls";
 import {invalidToken, onAxiosError, onAxiosSuccess} from "./global/Errors";
 import {setToken} from "./global/Storages";
 import {ProfileModal, profileModalDisplayState} from './components/home/events/profileModal/profileModal';
+import {
+    SubstitutionModal,
+    substitutionModalDisplayState
+} from "./components/home/myTeam/substitutionModal/SubstitutionModal";
 
 function App() {
     const removePlayerModalDisplay = useRecoilValue(removePlayerModalDisplayState)
     const profileModalDisplay = useRecoilValue(profileModalDisplayState)
+    const substitutionModalDisplay = useRecoilValue(substitutionModalDisplayState)
     const navigate = useNavigate()
     // const [modalsDivDisplay, setModalsDivDisplay] = useState<'none' | 'block'>('none')
 
@@ -74,33 +79,37 @@ function App() {
 
 
                 <Route path={`/home/${homeTabsEndingUrl.myTeam}/${subTabsEndingUrl.schematic}`} element={
-                    <Home showingTab={<MyTeam subTab={'schematic'}/>}/>
+                    <Home mainTab={<MyTeam subTab={'schematic'}/>}/>
                 }/>
                 <Route path={`/home/${homeTabsEndingUrl.myTeam}/${subTabsEndingUrl.list}`} element={
-                    <Home showingTab={<MyTeam subTab={'list'}/>}/>
+                    <Home mainTab={<MyTeam subTab={'list'}/>}/>
                 }/>
                 <Route path={`/home/${homeTabsEndingUrl.transfers}/${subTabsEndingUrl.schematic}`} element={
-                    <Home showingTab={<Transfers subTab={'schematic'}/>}/>
+                    <Home mainTab={<Transfers subTab={'schematic'}/>}/>
                 }/>
                 <Route path={`/home/${homeTabsEndingUrl.transfers}/${subTabsEndingUrl.list}`} element={
-                    <Home showingTab={<Transfers subTab={'list'}/>}/>
+                    <Home mainTab={<Transfers subTab={'list'}/>}/>
                 }/>
                 <Route path={`/home/${homeTabsEndingUrl.Events}`} element={
-                    <Home showingTab={<LatestEvents/>}/>
+                    <Home mainTab={<LatestEvents/>}/>
                 }/>
                 <Route path={`/home/${homeTabsEndingUrl.profile}`} element={
-                    <Home showingTab={<Profile/>}/>
+                    <Home mainTab={<Profile/>}/>
                 }/>
                 <Route path={`/home/${homeTabsEndingUrl.prizes}`} element={
-                    <Home showingTab={<Prizes/>}/>
+                    <Home mainTab={<Prizes/>}/>
                 }/>
             </Routes>
 
+            {/*TODO*/}
             <div id={'modals-div'} style={{display: removePlayerModalDisplay}}>
                 <RemovePlayerModal/>
             </div>
             <div id={'modals-div'} style={{display: profileModalDisplay}}>
                 <ProfileModal/>
+            </div>
+            <div id={'modals-div'} style={{display: substitutionModalDisplay}}>
+                <SubstitutionModal/>
             </div>
         </div>
     );

@@ -73,7 +73,7 @@ export type myPlayersType = {
 
 export type dateType = {
     monthName: string,
-    currentWeek: string,
+    title: string,
     weekDay: string,
     year: string,
     day: string,

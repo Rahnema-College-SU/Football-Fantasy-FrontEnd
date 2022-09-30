@@ -3,10 +3,16 @@ import './Transfers.css';
 import menu from './assets/menu.svg';
 import {RemainingPlayer, usedPlayerState} from "./remainigParts/RemainingPlayer";
 import {RemainingMoney, remainingMoneyState} from "./remainigParts/RemainingMoney";
-import MiddleTabBar from "./middleTabBar/MiddleTabBar";
+import MiddleTabBar from "../middleTabBar/MiddleTabBar";
 import {axiosAddPlayer, axiosDeletePlayer, axiosFantasyTeam, axiosPlayersList,} from "../../../global/ApiCalls";
-import {attPositions, defPositions, gkPositions, homeTabsEndingUrl, midPositions} from "../../../global/Variables";
-import DateBox, {dateState} from "./dateBox/DateBox";
+import {
+    homeTabsEndingUrl,
+    transfersAttPositions,
+    transfersDefPositions,
+    transfersGkPositions,
+    transfersMidPositions
+} from "../../../global/Variables";
+import DateBox, {dateState} from "../dateBox/DateBox";
 import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {
     fantasyTeamApiResponseType,
@@ -21,9 +27,12 @@ import TransfersSideList, {
     selectedPlayerState,
     transfersSideListState
 } from "./sideList/TransfersSideList";
-import {Schematic, selectedPositionState} from "./schematic/Schematic";
+import {Schematic} from "./schematic/Schematic";
 import {isDeleteConfirmClickedState, removePlayerModalDisplayState} from "./removePlayerModal/RemovePlayerModal";
-import {convertFantasyTeamApiResponse, convertPlayersListApiResponse} from "../../../global/functions/Converters";
+import {
+    convertFantasyTeamApiResponseForTransfers,
+    convertPlayersListApiResponse
+} from "../../../global/functions/Converters";
 import {getDate} from "../../../global/functions/General";
 import {
     addPlayerError,
@@ -36,49 +45,62 @@ import {
     playerNotFoundError,
     selectedPlayerNotFoundError
 } from "../../../global/Errors";
-import TransfersMyList from "./myList/TransfersMyList";
+import MyList from "./myList/MyList";
+import {
+    TransfersSchematicPlayer,
+    transfersSelectedPositionState
+} from "../player/transfersPlayer/schematic/TransfersSchematicPlayer";
+import {myTeamSelectedPositionsState} from "../player/myTeamPlayer/schematic/MyTeamSchematicPlayer";
+import {TransfersMyListPlayer} from "../player/transfersPlayer/myList/TransfersMyListPlayer";
+import {getTransfersSubTabStateId, setTransfersSubTabState} from "../../../global/Storages";
 
-export const myPlayersState = atom<myPlayersType>({
-    key: 'myPlayersState',
+export const fantasyTeamApiResponseState = atom<fantasyTeamApiResponseType | undefined>({
+    key: 'fantasyTeamApiResponseState',
+    default: undefined
+})
+
+export const transfersPlayersState = atom<myPlayersType>({
+    key: 'transfersPlayersState',
     default: {}
 })
 
 export function Transfers({subTab}: { subTab: subTab }) {
-    const [fantasyTeamApiResponse, setFantasyTeamApiResponse] = useState<fantasyTeamApiResponseType | undefined>(undefined);
-    const [myPlayers, setMyPlayers] = useRecoilState(myPlayersState)
+    const [fantasyTeamApiResponse, setFantasyTeamApiResponse] = useRecoilState(fantasyTeamApiResponseState)
+    const [transfersPlayers, setTransfersPlayers] = useRecoilState(transfersPlayersState)
     const setRemainingMoney = useSetRecoilState(remainingMoneyState)
     const setUsedPlayer = useSetRecoilState(usedPlayerState)
 
-    const [playersListApiResponse, setPlayersListApiResponse] = useState<playersListApiResponseType | undefined>(undefined);
+    const [playersListApiResponse, setPlayersListApiResponse] = useState<playersListApiResponseType | undefined>(undefined)
     const setTransfersSideList = useSetRecoilState(transfersSideListState)
     const [selectedPlayer, setSelectedPlayer] = useRecoilState(selectedPlayerState)
     const setSelectedFilterItem = useSetRecoilState(selectedFilterItemState)
     const search = useRecoilValue(searchState)
 
-    const setDate = useSetRecoilState(dateState)
+    const [date, setDate] = useRecoilState(dateState)
 
-    const selectedPosition = useRecoilValue(selectedPositionState)
+    const transfersSelectedPosition = useRecoilValue(transfersSelectedPositionState)
     const isDeleteConfirmClicked = useRecoilValue(isDeleteConfirmClickedState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
+
+    const [myTeamSelectedPositions, setMyTeamSelectedPositions] = useRecoilState(myTeamSelectedPositionsState)
 
     useEffect(() => updateTransfersInfo(), [])
 
     useEffect(() => {
-        if (selectedPosition === undefined)
+        if (transfersSelectedPosition === undefined)
             setSelectedPlayer(undefined)
         else {
-            if (gkPositions.includes(selectedPosition))
+            if (transfersGkPositions.includes(transfersSelectedPosition))
                 setSelectedFilterItem('GK')
-            else if (defPositions.includes(selectedPosition))
+            else if (transfersDefPositions.includes(transfersSelectedPosition))
                 setSelectedFilterItem('DEF')
-            else if (midPositions.includes(selectedPosition))
+            else if (transfersMidPositions.includes(transfersSelectedPosition))
                 setSelectedFilterItem('MID')
-            else if (attPositions.includes(selectedPosition))
+            else if (transfersAttPositions.includes(transfersSelectedPosition))
                 setSelectedFilterItem('ATT')
         }
-    }, [selectedPosition])
+    }, [transfersSelectedPosition])
 
-    // for delete confirmation modal
     useEffect(() => {
         setRemovePlayerModalDisplay('none')
 
@@ -90,7 +112,7 @@ export function Transfers({subTab}: { subTab: subTab }) {
         if (!fantasyTeamApiResponse)
             return
 
-        setMyPlayers(convertFantasyTeamApiResponse(fantasyTeamApiResponse))
+        setTransfersPlayers(convertFantasyTeamApiResponseForTransfers(fantasyTeamApiResponse))
         setRemainingMoney(fantasyTeamApiResponse.data.fantasyTeam.moneyRemaining)
         setUsedPlayer(fantasyTeamApiResponse.data.fantasyTeam.numberOfPlayers)
     }, [fantasyTeamApiResponse])
@@ -119,22 +141,26 @@ export function Transfers({subTab}: { subTab: subTab }) {
     }
 
     function deletePlayerApiCall() {
-        if (!selectedPosition) {
+        if (!transfersSelectedPosition) {
             onBaseError({myError: selectedPlayerNotFoundError})
             return
-        } else if (!myPlayers[selectedPosition]) {
+        } else if (!transfersPlayers[transfersSelectedPosition]) {
             onBaseError({myError: playerNotFoundError})
             return
         }
 
-        axiosDeletePlayer(myPlayers, selectedPosition).then(
+        axiosDeletePlayer(transfersPlayers, transfersSelectedPosition).then(
             res =>
                 onAxiosSuccess({
                     res: res, myError: deletePlayerError, onSuccess: () => {
                         if (selectedPlayer)
-                            addPlayerApiCall(selectedPlayer, selectedPosition)
+                            addPlayerApiCall(selectedPlayer, transfersSelectedPosition)
                         else
                             updateTransfersInfo()
+
+                        if (myTeamSelectedPositions.includes(transfersSelectedPosition))
+                            setMyTeamSelectedPositions(myTeamSelectedPositions
+                                .filter(position => position !== transfersSelectedPosition))
                     }
                 })
             ,
@@ -143,8 +169,8 @@ export function Transfers({subTab}: { subTab: subTab }) {
         )
     }
 
-    function addPlayerApiCall(player: playerType, selectedPosition: number) {
-        axiosAddPlayer(player, selectedPosition)
+    function addPlayerApiCall(player: playerType, transfersSelectedPosition: number) {
+        axiosAddPlayer(player, transfersSelectedPosition)
             .then(res =>
                     onAxiosSuccess({
                         res: res, myError: addPlayerError, onSuccess: updateTransfersInfo
@@ -168,7 +194,7 @@ export function Transfers({subTab}: { subTab: subTab }) {
     }
 
     function menuOnClick() {
-        const choosePlayerListStyle: CSSStyleDeclaration = document.getElementById('players-list-main-div')?.style!
+        const choosePlayerListStyle: CSSStyleDeclaration = document.getElementById('transfers-side-list')?.style!
 
         if (choosePlayerListStyle.display === 'flex')
             choosePlayerListStyle.setProperty('display', 'none')
@@ -180,7 +206,7 @@ export function Transfers({subTab}: { subTab: subTab }) {
     return (
         <div id={'transfers-main-div'}>
             <div id={'date-and-menu-container'}>
-                <DateBox dateBoxType={'date'}/>
+                <DateBox date={date?.nextWeekStartDate}/>
                 <img id={'menu-image'} src={menu} onClick={menuOnClick}
                      alt={'menu icon to show all players\' list to add'}/>
             </div>
@@ -188,11 +214,23 @@ export function Transfers({subTab}: { subTab: subTab }) {
             <TransfersSideList playerListApiCall={playerListApiCall} addPlayerApiCall={addPlayerApiCall}/>
             <div id={'transfers-game-info-div'}>
                 <RemainingPlayer/>
-                <MiddleTabBar
-                    mainTab={homeTabsEndingUrl.transfers} /*state={transfersSelectedTab} stateSetter={setTransfersSelectedTab} storageSetter={setTransfersSubTabState}*//>
+                <MiddleTabBar mainTab={homeTabsEndingUrl.transfers} subTabInitialState={getTransfersSubTabStateId()}
+                              storageSetter={setTransfersSubTabState}/>
                 <RemainingMoney/>
 
-                {subTab === 'schematic' ? <Schematic/> : <TransfersMyList/>}
+                {subTab === 'schematic' ?
+                    <Schematic gkPositions={transfersGkPositions} defPositions={transfersDefPositions}
+                               midPositions={transfersMidPositions} attPositions={transfersAttPositions}
+                               playerRender={TransfersSchematicPlayer}/>
+                    :
+                    <MyList gkPositions={transfersGkPositions} defPositions={transfersDefPositions}
+                            midPositions={transfersMidPositions} attPositions={transfersAttPositions}
+                            playerRender={TransfersMyListPlayer} showingName={() => {
+                        if (transfersSelectedPosition && transfersPlayers[transfersSelectedPosition])
+                            return transfersPlayers[transfersSelectedPosition].webName
+                        else
+                            return 'none'
+                    }}/>}
             </div>
         </div>
     )

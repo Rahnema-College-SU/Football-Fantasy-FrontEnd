@@ -7,9 +7,28 @@ import {
 } from "../Types";
 import {positionsServer, positionsUi} from "../Variables";
 
-export function convertFantasyTeamApiResponse(apiResponse: fantasyTeamApiResponseType) {
+export function convertFantasyTeamApiResponseForTransfers(apiResponse: fantasyTeamApiResponseType) {
     return apiResponse.data.playersList.reduce((map: myPlayersType, obj) => {
         map[obj.locationInTransferUI] = {
+            id: obj.id,
+            webName: obj.webName,
+            position: positionsUi[positionsServer.indexOf(obj.position.shortName)],
+            team: obj.realTeam.shortName,
+            playerWeekLog: {
+                playerCost: obj.playerWeekLog.playerCost / 10,
+                playerTotalPoints: obj.playerWeekLog.playerTotalPoints / 10
+            },
+            locationInTransferUI: obj.locationInTransferUI,
+            locationInTeamUI: obj.locationInTeamUI
+        }
+
+        return map
+    }, {})
+}
+
+export function convertFantasyTeamApiResponseForMyTeam(apiResponse: fantasyTeamApiResponseType) {
+    return apiResponse.data.playersList.reduce((map: myPlayersType, obj) => {
+        map[obj.locationInTeamUI] = {
             id: obj.id,
             webName: obj.webName,
             position: positionsUi[positionsServer.indexOf(obj.position.shortName)],
