@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import './RemovePlayerModal.css';
 import activeCloth from '../../assets/active-cloth.svg';
 import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
-import {myPlayersState} from "../Transfers";
+import {transfersPlayersState} from "../Transfers";
 import {clickOnElement, focusOnElementByRef, handleKeyboardEvent} from "../../../../global/functions/General";
 import {selectedPlayerState} from "../sideList/TransfersSideList";
 import {transfersSelectedPositionState} from "../../player/transfersPlayer/schematic/TransfersSchematicPlayer";
@@ -18,7 +18,7 @@ export const removePlayerModalDisplayState = atom<'none' | 'block'>({
 })
 
 export function RemovePlayerModal() {
-    const myPlayers = useRecoilValue(myPlayersState)
+    const transfersPlayers = useRecoilValue(transfersPlayersState)
     const transfersSelectedPosition = useRecoilValue(transfersSelectedPositionState)
     const setSelectedPlayer = useSetRecoilState(selectedPlayerState)
     const setIsDeleteConfirmClicked = useSetRecoilState(isDeleteConfirmClickedState)
@@ -44,8 +44,8 @@ export function RemovePlayerModal() {
     }
 
     function getText(transfersSelectedPosition: number) {
-        return myPlayers[transfersSelectedPosition] ? 'آیا از حذف ' +
-            myPlayers[transfersSelectedPosition].webName +
+        return transfersPlayers[transfersSelectedPosition] ? 'آیا از حذف ' +
+            transfersPlayers[transfersSelectedPosition].webName +
             ' مطمئن هستید؟'
             :
             closeModal()

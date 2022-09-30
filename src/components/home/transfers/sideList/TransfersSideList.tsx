@@ -18,7 +18,7 @@ import {
     transfersGkPositions,
     transfersMidPositions
 } from "../../../../global/Variables";
-import {myPlayersState} from "../Transfers";
+import {transfersPlayersState} from "../Transfers";
 import {addPlayerError, loadPaginationError, onBaseError, pageNotAvailableError} from "../../../../global/Errors";
 import {debounce} from "ts-debounce";
 import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
@@ -74,7 +74,7 @@ function TransfersSideList({playerListApiCall, addPlayerApiCall}: {
     const [transfersSideList, setTransfersSideList] = useRecoilState(transfersSideListState)
     const [selectedPlayer, setSelectedPlayer] = useRecoilState(selectedPlayerState)
     const [transfersSelectedPosition, setTransfersSelectedPosition] = useRecoilState(transfersSelectedPositionState)
-    const myPlayers = useRecoilValue(myPlayersState)
+    const transfersPlayers = useRecoilValue(transfersPlayersState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
 
     const [search, setSearch] = useRecoilState(searchState)
@@ -121,7 +121,7 @@ function TransfersSideList({playerListApiCall, addPlayerApiCall}: {
 
         function getFirstEmptyPosition(positions: number[]) {
             for (let i = 0; i < positions.length; i++) {
-                if (myPlayers[positions[i]] === undefined)
+                if (transfersPlayers[positions[i]] === undefined)
                     return positions[i]
             }
 
@@ -166,7 +166,7 @@ function TransfersSideList({playerListApiCall, addPlayerApiCall}: {
     function addPlayer(player: playerType) {
         if (!transfersSelectedPosition) {
             onBaseError({myError: addPlayerError})
-        } else if (myPlayers[transfersSelectedPosition] !== undefined)
+        } else if (transfersPlayers[transfersSelectedPosition] !== undefined)
             setRemovePlayerModalDisplay('block')
         else
             addPlayerApiCall(player, transfersSelectedPosition)

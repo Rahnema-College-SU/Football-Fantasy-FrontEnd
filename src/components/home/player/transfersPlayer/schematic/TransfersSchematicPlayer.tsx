@@ -15,7 +15,7 @@ import addIcon from "../../../transfers/schematic/assets/add-icon.svg";
 import {focusOnElementByRef, handleKeyboardEvent} from "../../../../../global/functions/General";
 import selectedCloth from "../../../transfers/schematic/assets/selected-cloth.svg";
 import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
-import {myPlayersState} from "../../../transfers/Transfers";
+import {transfersPlayersState} from "../../../transfers/Transfers";
 import {removePlayerModalDisplayState} from "../../../transfers/removePlayerModal/RemovePlayerModal";
 import {selectedPlayerState} from "../../../transfers/sideList/TransfersSideList";
 
@@ -25,7 +25,7 @@ export const transfersSelectedPositionState = atom<number | undefined>({
 })
 
 export function TransfersSchematicPlayer({position}: { position: number }) {
-    const myPlayers = useRecoilValue(myPlayersState)
+    const transfersPlayers = useRecoilValue(transfersPlayersState)
     const [transfersSelectedPosition, setTransfersSelectedPosition] = useRecoilState(transfersSelectedPositionState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
     const setSelectedPlayer = useSetRecoilState(selectedPlayerState)
@@ -176,7 +176,7 @@ export function TransfersSchematicPlayer({position}: { position: number }) {
 
     return (
         transfersSelectedPosition && transfersSelectedPosition === position ?
-            myPlayers[position] ? getSelectedActive(myPlayers[position]) : getSelectedInactive() :
-            myPlayers[position] ? getActive(myPlayers[position]) : getInactive(position)
+            transfersPlayers[position] ? getSelectedActive(transfersPlayers[position]) : getSelectedInactive() :
+            transfersPlayers[position] ? getActive(transfersPlayers[position]) : getInactive(position)
     )
 }

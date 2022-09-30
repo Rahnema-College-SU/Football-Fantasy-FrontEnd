@@ -1,6 +1,6 @@
 import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import './TransfersMyListPlayer.css';
-import {myPlayersState} from "../../../transfers/Transfers";
+import {transfersPlayersState} from "../../../transfers/Transfers";
 import {removePlayerModalDisplayState} from "../../../transfers/removePlayerModal/RemovePlayerModal";
 import {selectedPlayerState} from "../../../transfers/sideList/TransfersSideList";
 import React, {useRef} from "react";
@@ -19,7 +19,7 @@ import inactiveCloth from "../../../assets/inactive-cloth.svg";
 import {transfersSelectedPositionState} from "../schematic/TransfersSchematicPlayer";
 
 export function TransfersMyListPlayer({position}: { position?: number }) {
-    const myPlayers = useRecoilValue(myPlayersState)
+    const transfersPlayers = useRecoilValue(transfersPlayersState)
     const [transfersSelectedPosition, setTransfersSelectedPosition] = useRecoilState(transfersSelectedPositionState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
     const setSelectedPlayer = useSetRecoilState(selectedPlayerState)
@@ -98,10 +98,10 @@ export function TransfersMyListPlayer({position}: { position?: number }) {
         return (
             <div className={'div-my-players-info-list'}>
                 <img id={'delete-icon-players-list'} src={deleteIcon} alt={'active player'}
-                     style={{visibility: (transfersSelectedPosition && myPlayers[transfersSelectedPosition] ? 'visible' : 'hidden')}}
+                     style={{visibility: (transfersSelectedPosition && transfersPlayers[transfersSelectedPosition] ? 'visible' : 'hidden')}}
                      onClick={deletePlayer()}/>
                 <img className={'cloth-my-players-list'}
-                     src={transfersSelectedPosition ? (myPlayers[transfersSelectedPosition] ? activeCloth : inactiveCloth) : inactiveCloth}
+                     src={transfersSelectedPosition ? (transfersPlayers[transfersSelectedPosition] ? activeCloth : inactiveCloth) : inactiveCloth}
                      alt={'specific cloth of players'}/>
             </div>
         )
@@ -165,10 +165,10 @@ export function TransfersMyListPlayer({position}: { position?: number }) {
 
     function deletePlayer() {
         return () => {
-            if (!transfersSelectedPosition || !myPlayers[transfersSelectedPosition])
+            if (!transfersSelectedPosition || !transfersPlayers[transfersSelectedPosition])
                 return
 
-            setTransfersSelectedPosition(myPlayers[transfersSelectedPosition].locationInTransferUI)
+            setTransfersSelectedPosition(transfersPlayers[transfersSelectedPosition].locationInTransferUI)
             setSelectedPlayer(undefined)
             setRemovePlayerModalDisplay('block')
         }
@@ -177,7 +177,7 @@ export function TransfersMyListPlayer({position}: { position?: number }) {
     return (
         !position ? getInfoSectionPlayer() :
             (transfersSelectedPosition && transfersSelectedPosition === position ?
-                myPlayers[position] ? getSelectedActive(myPlayers[position]) : getSelectedInactive() :
-                myPlayers[position] ? getActive(myPlayers[position]) : getInactive(position))
+                transfersPlayers[position] ? getSelectedActive(transfersPlayers[position]) : getSelectedInactive() :
+                transfersPlayers[position] ? getActive(transfersPlayers[position]) : getInactive(position))
     )
 }

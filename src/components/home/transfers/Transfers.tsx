@@ -58,14 +58,14 @@ export const fantasyTeamApiResponseState = atom<fantasyTeamApiResponseType | und
     default: undefined
 })
 
-export const myPlayersState = atom<myPlayersType>({
-    key: 'myPlayersState',
+export const transfersPlayersState = atom<myPlayersType>({
+    key: 'transfersPlayersState',
     default: {}
 })
 
 export function Transfers({subTab}: { subTab: subTab }) {
     const [fantasyTeamApiResponse, setFantasyTeamApiResponse] = useRecoilState(fantasyTeamApiResponseState)
-    const [myPlayers, setMyPlayers] = useRecoilState(myPlayersState)
+    const [transfersPlayers, setTransfersPlayers] = useRecoilState(transfersPlayersState)
     const setRemainingMoney = useSetRecoilState(remainingMoneyState)
     const setUsedPlayer = useSetRecoilState(usedPlayerState)
 
@@ -112,7 +112,7 @@ export function Transfers({subTab}: { subTab: subTab }) {
         if (!fantasyTeamApiResponse)
             return
 
-        setMyPlayers(convertFantasyTeamApiResponseForTransfers(fantasyTeamApiResponse))
+        setTransfersPlayers(convertFantasyTeamApiResponseForTransfers(fantasyTeamApiResponse))
         setRemainingMoney(fantasyTeamApiResponse.data.fantasyTeam.moneyRemaining)
         setUsedPlayer(fantasyTeamApiResponse.data.fantasyTeam.numberOfPlayers)
     }, [fantasyTeamApiResponse])
@@ -144,12 +144,12 @@ export function Transfers({subTab}: { subTab: subTab }) {
         if (!transfersSelectedPosition) {
             onBaseError({myError: selectedPlayerNotFoundError})
             return
-        } else if (!myPlayers[transfersSelectedPosition]) {
+        } else if (!transfersPlayers[transfersSelectedPosition]) {
             onBaseError({myError: playerNotFoundError})
             return
         }
 
-        axiosDeletePlayer(myPlayers, transfersSelectedPosition).then(
+        axiosDeletePlayer(transfersPlayers, transfersSelectedPosition).then(
             res =>
                 onAxiosSuccess({
                     res: res, myError: deletePlayerError, onSuccess: () => {
@@ -226,8 +226,8 @@ export function Transfers({subTab}: { subTab: subTab }) {
                     <MyList gkPositions={transfersGkPositions} defPositions={transfersDefPositions}
                             midPositions={transfersMidPositions} attPositions={transfersAttPositions}
                             playerRender={TransfersMyListPlayer} showingName={() => {
-                        if (transfersSelectedPosition && myPlayers[transfersSelectedPosition])
-                            return myPlayers[transfersSelectedPosition].webName
+                        if (transfersSelectedPosition && transfersPlayers[transfersSelectedPosition])
+                            return transfersPlayers[transfersSelectedPosition].webName
                         else
                             return 'none'
                     }}/>}

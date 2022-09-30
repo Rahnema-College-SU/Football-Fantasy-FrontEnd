@@ -21,9 +21,9 @@ export const axiosWeekInf = () => customAxios.get('week_info')
 
 export const axiosFantasyTeam = () => customAxios.get('fantasyteam')
 
-export const axiosDeletePlayer = (myPlayers: myPlayersType, transfersSelectedPosition: number) => customAxios.delete(`fantasyteam/player/${myPlayers[transfersSelectedPosition].id}`, {
+export const axiosDeletePlayer = (transfersPlayers: myPlayersType, transfersSelectedPosition: number) => customAxios.delete(`fantasyteam/player/${transfersPlayers[transfersSelectedPosition].id}`, {
         data: {
-            playerId: myPlayers[transfersSelectedPosition].id
+            playerId: transfersPlayers[transfersSelectedPosition].id
         }
     }
 )
