@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import './MyTeam.css'
 import {myPlayersType, subTab} from "../../../global/Types";
-import MiddleTabBar from "../transfers/middleTabBar/MiddleTabBar";
+import MiddleTabBar from "../middleTabBar/MiddleTabBar";
 import {
     homeTabsEndingUrl,
     myTeamAttPositions,
@@ -9,7 +9,7 @@ import {
     myTeamGkPositions,
     myTeamMidPositions
 } from "../../../global/Variables";
-import DateBox, {dateState} from "../transfers/dateBox/DateBox";
+import DateBox, {dateState} from "../dateBox/DateBox";
 import {getDate} from "../../../global/functions/General";
 import {axiosFantasyTeam, axiosSubstitution} from "../../../global/ApiCalls";
 import {loadTeamError, onAxiosError, onAxiosSuccess, substitutionError} from "../../../global/Errors";

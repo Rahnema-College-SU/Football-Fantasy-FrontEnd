@@ -3,7 +3,7 @@ import './Transfers.css';
 import menu from './assets/menu.svg';
 import {RemainingPlayer, usedPlayerState} from "./remainigParts/RemainingPlayer";
 import {RemainingMoney, remainingMoneyState} from "./remainigParts/RemainingMoney";
-import MiddleTabBar from "./middleTabBar/MiddleTabBar";
+import MiddleTabBar from "../middleTabBar/MiddleTabBar";
 import {axiosAddPlayer, axiosDeletePlayer, axiosFantasyTeam, axiosPlayersList,} from "../../../global/ApiCalls";
 import {
     homeTabsEndingUrl,
@@ -12,7 +12,7 @@ import {
     transfersGkPositions,
     transfersMidPositions
 } from "../../../global/Variables";
-import DateBox, {dateState} from "./dateBox/DateBox";
+import DateBox, {dateState} from "../dateBox/DateBox";
 import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {
     fantasyTeamApiResponseType,

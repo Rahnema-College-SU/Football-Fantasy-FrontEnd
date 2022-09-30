@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import './MiddleTabBar.css';
 import logo from './assets/logo.svg';
 import {useNavigate} from "react-router-dom";
-import {homeTabsEndingUrl, subTabsEndingUrl} from "../../../../global/Variables";
+import {homeTabsEndingUrl, subTabsEndingUrl} from "../../../global/Variables";
 
 export function MiddleTabBar({mainTab, /*state, stateSetter,*/ storageSetter, widthStyle, subTabInitialState}: {
     mainTab: typeof homeTabsEndingUrl.myTeam | typeof homeTabsEndingUrl.transfers, subTabInitialState: number,

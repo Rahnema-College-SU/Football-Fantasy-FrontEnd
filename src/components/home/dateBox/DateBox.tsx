@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
 import './DateBox.css';
 import {atom, useSetRecoilState} from "recoil";
-import {dateApiType, dateType} from "../../../../global/Types";
-import {getDate} from "../../../../global/functions/General";
+import {dateApiType, dateType} from "../../../global/Types";
+import {getDate} from "../../../global/functions/General";
 
 export const dateState = atom<dateApiType | undefined>({
     key: 'dateState',
