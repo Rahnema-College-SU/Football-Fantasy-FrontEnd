@@ -20,10 +20,15 @@ import {axiosSignInWithToken} from "./global/ApiCalls";
 import {invalidToken, onAxiosError, onAxiosSuccess} from "./global/Errors";
 import {setToken} from "./global/Storages";
 import {ProfileModal, profileModalDisplayState} from './components/home/events/profileModal/profileModal';
+import {
+    SubstitutionModal,
+    substitutionModalDisplayState
+} from "./components/home/myTeam/substitutionModal/SubstitutionModal";
 
 function App() {
     const removePlayerModalDisplay = useRecoilValue(removePlayerModalDisplayState)
     const profileModalDisplay = useRecoilValue(profileModalDisplayState)
+    const substitutionModalDisplay = useRecoilValue(substitutionModalDisplayState)
     const navigate = useNavigate()
     // const [modalsDivDisplay, setModalsDivDisplay] = useState<'none' | 'block'>('none')
 
@@ -102,6 +107,9 @@ function App() {
             </div>
             <div id={'modals-div'} style={{display: profileModalDisplay}}>
                 <ProfileModal/>
+            </div>
+            <div id={'modals-div'} style={{display: substitutionModalDisplay}}>
+                <SubstitutionModal/>
             </div>
         </div>
     );

@@ -13,7 +13,7 @@ import DateBox, {dateState} from "../transfers/dateBox/DateBox";
 import {getDate} from "../../../global/functions/General";
 import {axiosFantasyTeam, axiosSubstitution} from "../../../global/ApiCalls";
 import {loadTeamError, onAxiosError, onAxiosSuccess, substitutionError} from "../../../global/Errors";
-import {atom, useRecoilState, useSetRecoilState} from "recoil";
+import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {MyTeamSideList} from "./sideList/MyTeamSideList";
 import {fantasyTeamApiResponseState} from "../transfers/Transfers";
 import {convertFantasyTeamApiResponseForMyTeam} from "../../../global/functions/Converters";
@@ -25,6 +25,7 @@ import {
 } from "../player/myTeamPlayer/schematic/MyTeamSchematicPlayer";
 import {selectedReservePlayerState} from "../player/myTeamPlayer/sideList/MyTeamSideListPlayer";
 import {MyTeamMyListPlayer} from "../player/myTeamPlayer/myList/MyTeamMyListPlayer";
+import {isSubstitutionConfirmClickedState, substitutionModalDisplayState} from "./substitutionModal/SubstitutionModal";
 
 export const myTeamPlayersState = atom<myPlayersType>({
     key: 'myTeamPlayersState',
@@ -37,6 +38,9 @@ function MyTeam({subTab}: { subTab: subTab }) {
     const [selectedReservePlayer, setSelectedReservePlayer] = useRecoilState(selectedReservePlayerState)
     const [myTeamSelectedPositions, setMyTeamSelectedPositions] = useRecoilState(myTeamSelectedPositionsState)
     const setDate = useSetRecoilState(dateState)
+
+    const isSubstitutionConfirmClicked = useRecoilValue(isSubstitutionConfirmClickedState)
+    const setSubstitutionModalDisplay = useSetRecoilState(substitutionModalDisplayState)
 
     useEffect(() => updateMyTeamInfo(), [])
 
@@ -70,12 +74,20 @@ function MyTeam({subTab}: { subTab: subTab }) {
     }, [fantasyTeamApiResponse])
 
     useEffect(() => {
-        if (selectedReservePlayer && myTeamSelectedPositions.length === 1)
-            substitutionApiCall(myTeamPlayers[myTeamSelectedPositions[0]].id, selectedReservePlayer.id)
-        else if (myTeamSelectedPositions.length > 1)
-            substitutionApiCall(myTeamPlayers[myTeamSelectedPositions[0]].id, myTeamPlayers[myTeamSelectedPositions[1]].id)
+        setSubstitutionModalDisplay('block')
 
     }, [selectedReservePlayer, myTeamSelectedPositions])
+
+    useEffect(() => {
+        setSubstitutionModalDisplay('none')
+
+        if (isSubstitutionConfirmClicked) {
+            if (selectedReservePlayer && myTeamSelectedPositions.length === 1)
+                substitutionApiCall(myTeamPlayers[myTeamSelectedPositions[0]].id, selectedReservePlayer.id)
+            else if (myTeamSelectedPositions.length > 1)
+                substitutionApiCall(myTeamPlayers[myTeamSelectedPositions[0]].id, myTeamPlayers[myTeamSelectedPositions[1]].id)
+        }
+    }, [isSubstitutionConfirmClicked])
 
     function substitutionApiCall(playerOutId: number, playerInId: number) {
         axiosSubstitution(playerOutId, playerInId).then(

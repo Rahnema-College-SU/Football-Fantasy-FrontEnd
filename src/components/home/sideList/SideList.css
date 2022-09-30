@@ -21,7 +21,7 @@
 }
 
 @media only screen and (max-width: 768px) {
-    .side-list-main-div {
+    #transfers-side-list {
         grid-column-start: 1;
         grid-column-end: 3;
         grid-row-start: 2;
@@ -29,5 +29,12 @@
         background-color: white;
 
         display: none;
+    }
+
+    #my-team-side-list {
+        grid-column-start: 1;
+        grid-row-start: 3;
+
+        background-color: white;
     }
 }

@@ -100,7 +100,6 @@ export function Transfers({subTab}: { subTab: subTab }) {
         }
     }, [transfersSelectedPosition])
 
-    // for delete confirmation modal
     useEffect(() => {
         setRemovePlayerModalDisplay('none')
 

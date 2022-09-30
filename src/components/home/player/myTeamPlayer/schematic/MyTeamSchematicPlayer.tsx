@@ -31,8 +31,11 @@ export function MyTeamSchematicPlayer({position}: { position: number }) {
         }
 
         return (
-            <div className={'my-team-schematic-active-div' + (isSelected ? ' selected-cloth-div' : '')}>
+            <div
+                className={'my-team-schematic-div my-team-schematic-active-div' + (isSelected ? ' selected-cloth-div' : '')}>
                 <div className={'cloth-icon-container'}>
+                    <img className={'substitute-icon'} src={substitute} style={{visibility: 'hidden'}}
+                         alt={'substitute icon, just an image, do not work'}/>
                     <img className={'my-team-schematic-cloth my-team-active'} src={activeCloth}
                          alt={'active my team player'}
                          onClick={activeOnClick}/>
@@ -49,7 +52,7 @@ export function MyTeamSchematicPlayer({position}: { position: number }) {
 
     function getInactive() {
         return (
-            <div className={'my-team-schematic-inactive-div'}>
+            <div className={'my-team-schematic-div my-team-schematic-inactive-div'}>
                 <img className={'my-team-schematic-cloth'} src={inactiveCloth} alt={'inactive my team player'}/>
                 <div style={{visibility: 'hidden'}}>fake</div>
             </div>

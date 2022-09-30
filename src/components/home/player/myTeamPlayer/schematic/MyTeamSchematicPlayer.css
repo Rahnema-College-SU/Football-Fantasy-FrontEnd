@@ -1,11 +1,14 @@
+.my-team-schematic-div {
+    width: 8vw;
+    min-width: 120px;
+}
+
 .my-team-schematic-active-div {
-    width: 8.5vw;
-    min-width: 80px;
+    /*min-width: 120px;*/
 }
 
 .my-team-schematic-inactive-div {
-    width: 8vw;
-    min-width: 80px;
+    /*min-width: 80px;*/
 }
 
 .cloth-icon-container {
@@ -26,7 +29,7 @@
     min-width: 18px;
     background: #ffe870;
     border-radius: 4px;
-    margin-bottom: 15px;
+    margin: 0 0 15px -20px;
     cursor: pointer;
 }
 
@@ -44,4 +47,16 @@
 .my-team-schematic-player-name-selected {
     color: #3D185B !important;
     background-color: #EBFF00 !important;
+}
+
+@media only screen and (max-width: 768px) {
+    .my-team-schematic-div {
+        width: calc(6vw + 40px);
+        min-width: 0;
+    }
+
+    .substitute-icon {
+        min-width: 13px;
+        margin-left: -10px;
+    }
 }

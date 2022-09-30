@@ -19,8 +19,9 @@ export const handleKeyboardEvent = (keys: Readonly<string[]>, onKeyEvents: Array
     }
 }
 
-export function clickOnElement(id: string) {
-    return () => document.getElementById(id)?.click()
+export function clickOnElementById(id?: string) {
+    return () => id ? document.getElementById(id)?.click() : undefined;
+
 }
 
 export async function getDate(): Promise<dateApiType> {

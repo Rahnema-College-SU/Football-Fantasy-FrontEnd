@@ -10,7 +10,7 @@ export function MyTeamSideList() {
     const myTeamPlayers = useRecoilValue(myTeamPlayersState)
 
     return (
-        <SideList headerText={'بازیکنان ذخیره'}>
+        <SideList id={'my-team-side-list'} headerText={'بازیکنان ذخیره'}>
             <div id={'reserve-container'}>
                 {
                     myTeamReservePositions.map(position =>
