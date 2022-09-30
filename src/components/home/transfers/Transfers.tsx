@@ -52,6 +52,7 @@ import {
 } from "../player/transfersPlayer/schematic/TransfersSchematicPlayer";
 import {myTeamSelectedPositionsState} from "../player/myTeamPlayer/schematic/MyTeamSchematicPlayer";
 import {TransfersMyListPlayer} from "../player/transfersPlayer/myList/TransfersMyListPlayer";
+import {getTransfersSubTabStateId, setTransfersSubTabState} from "../../../global/Storages";
 
 export const fantasyTeamApiResponseState = atom<fantasyTeamApiResponseType | undefined>({
     key: 'fantasyTeamApiResponseState',
@@ -213,8 +214,8 @@ export function Transfers({subTab}: { subTab: subTab }) {
             <TransfersSideList playerListApiCall={playerListApiCall} addPlayerApiCall={addPlayerApiCall}/>
             <div id={'transfers-game-info-div'}>
                 <RemainingPlayer/>
-                <MiddleTabBar
-                    mainTab={homeTabsEndingUrl.transfers} /*state={transfersSelectedTab} stateSetter={setTransfersSelectedTab} storageSetter={setTransfersSubTabState}*//>
+                <MiddleTabBar mainTab={homeTabsEndingUrl.transfers} subTabInitialState={getTransfersSubTabStateId()}
+                              storageSetter={setTransfersSubTabState}/>
                 <RemainingMoney/>
 
                 {subTab === 'schematic' ?

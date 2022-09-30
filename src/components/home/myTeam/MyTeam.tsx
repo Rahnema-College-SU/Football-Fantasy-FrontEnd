@@ -26,6 +26,7 @@ import {
 import {selectedReservePlayerState} from "../player/myTeamPlayer/sideList/MyTeamSideListPlayer";
 import {MyTeamMyListPlayer} from "../player/myTeamPlayer/myList/MyTeamMyListPlayer";
 import {isSubstitutionConfirmClickedState, substitutionModalDisplayState} from "./substitutionModal/SubstitutionModal";
+import {getMyTeamSubTabsStateId, setMyTeamSubTabState} from "../../../global/Storages";
 
 export const myTeamPlayersState = atom<myPlayersType>({
     key: 'myTeamPlayersState',
@@ -111,7 +112,8 @@ function MyTeam({subTab}: { subTab: subTab }) {
 
             <MyTeamSideList/>
             <div id={'my-team-game-info-div'}>
-                <MiddleTabBar mainTab={homeTabsEndingUrl.myTeam} widthStyle={'50%'}/>
+                <MiddleTabBar mainTab={homeTabsEndingUrl.myTeam} subTabInitialState={getMyTeamSubTabsStateId()}
+                              storageSetter={setMyTeamSubTabState} widthStyle={'50%'}/>
 
                 {subTab === 'schematic' ?
                     <Schematic gkPositions={myTeamGkPositions} defPositions={myTeamDefPositions}
