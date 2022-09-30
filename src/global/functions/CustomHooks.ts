@@ -1,8 +1,12 @@
+import {
+    transfersSelectedPositionState
+} from "../../components/home/player/transfersPlayer/schematic/TransfersSchematicPlayer";
+import {selectedPlayerState} from "../../components/home/transfers/sideList/TransfersSideList";
+import {useRecoilState} from "recoil";
+import {removePlayerModalDisplayState} from "../../components/home/transfers/removePlayerModal/RemovePlayerModal";
 import {useCallback} from "react";
 import {playerType} from "../Types";
-import {useRecoilState} from "recoil";
-import {selectedPositionState} from "../../components/home/transfers/schematic/Schematic";
-import {removePlayerModalDisplayState} from "../../components/home/transfers/removePlayerModal/RemovePlayerModal";
+
 
 // export function useMediaQuery(query: string, onMatch: () => any, onDoNotMatch?: () => any) {
 //     const [matches, setMatches] = useState(false);
@@ -26,17 +30,18 @@ import {removePlayerModalDisplayState} from "../../components/home/transfers/rem
 //         return () => mediaQueryList.removeEventListener("change", change)
 //     }, [matches]);
 // }
+
 //TODO
 export function useDeletePlayer() {
-    const [selectedPosition, setSelectedPosition] = useRecoilState(selectedPositionState)
-    const [selectedPlayer, setSelectedPlayer] = useRecoilState(selectedPositionState)
+    const [transfersSelectedPosition, setTransfersSelectedPosition] = useRecoilState(transfersSelectedPositionState)
+    const [selectedPlayer, setSelectedPlayer] = useRecoilState(selectedPlayerState)
     const [removePlayerModalDisplay, setRemovePlayerModalDisplay] = useRecoilState(removePlayerModalDisplayState)
 
     return useCallback((player: playerType) => {
-        console.log('before:', selectedPosition)
-        setSelectedPosition(player.locationInTransferUI)
-        console.log('after:', selectedPosition)
+        console.log('before:', transfersSelectedPosition)
+        setTransfersSelectedPosition(player.locationInTransferUI)
+        console.log('after:', transfersSelectedPosition)
         setSelectedPlayer(undefined)
         setRemovePlayerModalDisplay('block')
-    }, [setSelectedPosition]);
+    }, [setTransfersSelectedPosition]);
 }

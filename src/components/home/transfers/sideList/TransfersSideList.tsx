@@ -10,22 +10,22 @@ import previous from './assets/previous.svg'
 import nextLast from './assets/nextl.svg'
 import next from './assets/next.svg'
 import {
-    attPositions,
-    defPositions,
-    gkPositions,
-    midPositions,
     positionsServer,
     positionsUi,
-    toFarsiNumber
+    toFarsiNumber,
+    transfersAttPositions,
+    transfersDefPositions,
+    transfersGkPositions,
+    transfersMidPositions
 } from "../../../../global/Variables";
-import {selectedPositionState} from "../schematic/Schematic";
-import {myPlayersState} from "../Transfers";
+import {transfersPlayersState} from "../Transfers";
 import {addPlayerError, loadPaginationError, onBaseError, pageNotAvailableError} from "../../../../global/Errors";
 import {debounce} from "ts-debounce";
 import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
 import {TransfersSideListPlayer} from "../../player/transfersPlayer/sideList/TransfersSideListPlayer";
 import {useMediaQuery} from "@mui/material";
-// import {useMediaQuery} from "../../../../global/functions/CustomHooks";
+import {SideList} from "../../sideList/SideList";
+import {transfersSelectedPositionState} from "../../player/transfersPlayer/schematic/TransfersSchematicPlayer";
 
 const defaultSort: sortType = 'DESC'
 
@@ -67,14 +67,14 @@ export const searchTextState = atom<string>({
 
 function TransfersSideList({playerListApiCall, addPlayerApiCall}: {
     playerListApiCall: () => void,
-    addPlayerApiCall: (player: playerType, selectedPosition: number) => void
+    addPlayerApiCall: (player: playerType, transfersSelectedPosition: number) => void
 }) {
     let debounceFunction: { (this: ThisParameterType<() => void>, ...args: Parameters<() => void> & any[]): Promise<ReturnType<() => void>>; cancel: (reason?: any) => void }
 
     const [transfersSideList, setTransfersSideList] = useRecoilState(transfersSideListState)
     const [selectedPlayer, setSelectedPlayer] = useRecoilState(selectedPlayerState)
-    const [selectedPosition, setSelectedPosition] = useRecoilState(selectedPositionState)
-    const myPlayers = useRecoilValue(myPlayersState)
+    const [transfersSelectedPosition, setTransfersSelectedPosition] = useRecoilState(transfersSelectedPositionState)
+    const transfersPlayers = useRecoilValue(transfersPlayersState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
 
     const [search, setSearch] = useRecoilState(searchState)
@@ -84,7 +84,7 @@ function TransfersSideList({playerListApiCall, addPlayerApiCall}: {
     const [costsSort, setCostsSort] = useState<sortType>(defaultSort)
     const [pageNumber, setPageNumber] = useState<number>(1)
 
-    const playersListStyle = document.getElementById('players-list-main-div')?.style
+    const playersListStyle = document.getElementById('transfers-side-list')?.style
     const matches = useMediaQuery('(max-width: 768px)')
 
     useEffect(() => {
@@ -113,31 +113,31 @@ function TransfersSideList({playerListApiCall, addPlayerApiCall}: {
 
     function setSelectedPositionBySelectedFilterItem(filterItem: positionsUiType) {
         function isSelectedPositionInArray(positions: number[]) {
-            if (selectedPosition)
-                return positions.includes(selectedPosition)
+            if (transfersSelectedPosition)
+                return positions.includes(transfersSelectedPosition)
             else
                 return false
         }
 
         function getFirstEmptyPosition(positions: number[]) {
             for (let i = 0; i < positions.length; i++) {
-                if (myPlayers[positions[i]] === undefined)
+                if (transfersPlayers[positions[i]] === undefined)
                     return positions[i]
             }
 
             return positions[0]
         }
 
-        if (filterItem === 'ALL' && !selectedPosition)
-            setSelectedPosition(undefined)
-        else if (filterItem === 'GK' && !isSelectedPositionInArray(gkPositions))
-            setSelectedPosition(getFirstEmptyPosition(gkPositions))
-        else if (filterItem === 'DEF' && !isSelectedPositionInArray(defPositions))
-            setSelectedPosition(getFirstEmptyPosition(defPositions))
-        else if (filterItem === 'MID' && !isSelectedPositionInArray(midPositions))
-            setSelectedPosition(getFirstEmptyPosition(midPositions))
-        else if (filterItem === 'ATT' && !isSelectedPositionInArray(attPositions))
-            setSelectedPosition(getFirstEmptyPosition(attPositions))
+        if (filterItem === 'ALL' && !transfersSelectedPosition)
+            setTransfersSelectedPosition(undefined)
+        else if (filterItem === 'GK' && !isSelectedPositionInArray(transfersGkPositions))
+            setTransfersSelectedPosition(getFirstEmptyPosition(transfersGkPositions))
+        else if (filterItem === 'DEF' && !isSelectedPositionInArray(transfersDefPositions))
+            setTransfersSelectedPosition(getFirstEmptyPosition(transfersDefPositions))
+        else if (filterItem === 'MID' && !isSelectedPositionInArray(transfersMidPositions))
+            setTransfersSelectedPosition(getFirstEmptyPosition(transfersMidPositions))
+        else if (filterItem === 'ATT' && !isSelectedPositionInArray(transfersAttPositions))
+            setTransfersSelectedPosition(getFirstEmptyPosition(transfersAttPositions))
     }
 
     useEffect(() => {
@@ -164,25 +164,17 @@ function TransfersSideList({playerListApiCall, addPlayerApiCall}: {
     }, [selectedPlayer])
 
     function addPlayer(player: playerType) {
-        if (!selectedPosition) {
+        if (!transfersSelectedPosition) {
             onBaseError({myError: addPlayerError})
-        } else if (myPlayers[selectedPosition] !== undefined)
+        } else if (transfersPlayers[transfersSelectedPosition] !== undefined)
             setRemovePlayerModalDisplay('block')
         else
-            addPlayerApiCall(player, selectedPosition)
+            addPlayerApiCall(player, transfersSelectedPosition)
     }
 
     useEffect(() => {
         setSearch({...search, pageNumber: pageNumber})
     }, [pageNumber])
-
-    function getTitle() {
-        return (
-            <div id={'players-list-title'}>
-                انتخاب بازیکن
-            </div>
-        )
-    }
 
     function getTextBox() {
         function searchInputOnChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -316,8 +308,7 @@ function TransfersSideList({playerListApiCall, addPlayerApiCall}: {
     }
 
     return (
-        <div id={'players-list-main-div'}>
-            {getTitle()}
+        <SideList id={'transfers-side-list'} headerText={'انتخاب بازیکن'}>
             {getTextBox()}
             {getFilterBar()}
             {getNumberOfPLayers()}
@@ -327,7 +318,7 @@ function TransfersSideList({playerListApiCall, addPlayerApiCall}: {
                                                                                       setSelectedPositionBySelectedFilterItem={setSelectedPositionBySelectedFilterItem}/>)}
             </div>
             {getPageBar()}
-        </div>
+        </SideList>
     );
 }
 

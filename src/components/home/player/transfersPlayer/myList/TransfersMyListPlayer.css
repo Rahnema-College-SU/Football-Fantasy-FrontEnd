@@ -1,5 +1,5 @@
 /*info section*/
-#div-my-players-info-list {
+.div-my-players-info-list {
     display: flex;
     flex-direction: column;
     margin: auto;
@@ -15,12 +15,9 @@
     margin-right: 20px;
     cursor: pointer;
     transform: translateY(100%);
-
-    grid-row-start: 1;
-    grid-column-start: 1;
 }
 
-#cloth-my-players-list {
+.cloth-my-players-list {
     height: calc(15vw + 100px);
 
     grid-row-start: 1;
@@ -62,6 +59,7 @@
     width: fit-content;
     font-size: 14px;
     font-family: Vazirmatn, serif;
+    direction: ltr;
 }
 
 .row-number {
@@ -69,6 +67,7 @@
     justify-self: center;
     font-size: 12px;
     font-family: Vazirmatn, serif;
+    direction: ltr;
 }
 
 .active-row-name {

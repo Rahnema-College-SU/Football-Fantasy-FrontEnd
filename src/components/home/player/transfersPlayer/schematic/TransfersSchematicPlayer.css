@@ -1,7 +1,7 @@
 .schematic-cloth-div {
     display: grid;
     justify-items: center;
-    width: 6vw;
+    width: 7vw;
     min-width: 80px;
 }
 

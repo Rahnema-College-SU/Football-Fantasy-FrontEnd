@@ -5,7 +5,7 @@ import {getToken} from "./Storages";
 const customAxios = axios.create(
     {
         baseURL: 'http://178.216.248.39:8000',
-        timeout: 5000
+        timeout: 10000
     }
 );
 
@@ -21,9 +21,9 @@ export const axiosWeekInf = () => customAxios.get('week_info')
 
 export const axiosFantasyTeam = () => customAxios.get('fantasyteam')
 
-export const axiosDeletePlayer = (myPlayers: myPlayersType, selectedPosition: number) => customAxios.delete(`fantasyteam/player/${myPlayers[selectedPosition].id}`, {
+export const axiosDeletePlayer = (transfersPlayers: myPlayersType, transfersSelectedPosition: number) => customAxios.delete(`fantasyteam/player/${transfersPlayers[transfersSelectedPosition].id}`, {
         data: {
-            playerId: myPlayers[selectedPosition].id
+            playerId: transfersPlayers[transfersSelectedPosition].id
         }
     }
 )
@@ -67,3 +67,8 @@ export const axiosSignIn = (username: string, password: string) => customAxios.p
 )
 
 export const axiosSignInWithToken = () => customAxios.get('login_with_token')
+
+export const axiosSubstitution = (playerOutId: number, playerInId: number) => customAxios.post('substitution', {
+    playerOutId: playerOutId,
+    playerInId: playerInId
+})

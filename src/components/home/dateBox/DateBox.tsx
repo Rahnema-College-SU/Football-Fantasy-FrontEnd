@@ -1,21 +1,21 @@
 import React, {useEffect} from "react";
 import './DateBox.css';
-import {atom, useRecoilState} from "recoil";
-import {dateType} from "../../../../global/Types";
-import {getDate} from "../../../../global/functions/General";
+import {atom, useSetRecoilState} from "recoil";
+import {dateApiType, dateType} from "../../../global/Types";
+import {getDate} from "../../../global/functions/General";
 
-export const dateState = atom<dateType | undefined>({
+export const dateState = atom<dateApiType | undefined>({
     key: 'dateState',
     default: undefined
 })
 
 export function DateBox({
-                            dateBoxType,
+                            date,
                             placeHolder,
                             widthStyle,
                             marginStyle
-                        }: { dateBoxType: 'date' | 'deadline', placeHolder?: string, widthStyle?: string, marginStyle?: string }) {
-    const [date, setDate] = useRecoilState(dateState)
+                        }: { date: dateType | undefined, placeHolder?: string, widthStyle?: string, marginStyle?: string }) {
+    const setDate = useSetRecoilState(dateState)
 
     useEffect(() => {
         getDate()
@@ -25,13 +25,15 @@ export function DateBox({
     return (
         date ?
             <div className='date-box' style={{width: widthStyle, margin: marginStyle}}>
-                <div id='week-text'>{dateBoxType === 'date' ? date.currentWeek ?? '' : 'مهلت تغییرات'}</div>
+                <div id='week-text'>
+                    {date.title}
+                </div>
                 <div id='date-text'>
                     {date.weekDay} {date.day} {date.monthName} {date.year} - ساعت {date.hour}
                 </div>
             </div>
             :
-            <div className='loading-date-box date-box'>
+            <div className='date-box loading-date-box' style={{width: widthStyle, margin: marginStyle}}>
                 {placeHolder ?? 'دریافت تاریخ ...'}
             </div>
     );

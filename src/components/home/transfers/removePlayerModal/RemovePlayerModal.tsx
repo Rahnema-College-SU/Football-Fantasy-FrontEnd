@@ -1,11 +1,9 @@
-import React, {useEffect, useRef} from 'react';
-import './RemovePlayerModal.css';
-import activeCloth from '../schematic/assets/active-cloth.svg';
-import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
-import {selectedPositionState} from "../schematic/Schematic";
-import {myPlayersState} from "../Transfers";
-import {clickOnElement, focusOnElementByRef, handleKeyboardEvent} from "../../../../global/functions/General";
+import React from 'react';
+import {atom, useRecoilValue, useSetRecoilState} from "recoil";
+import {transfersPlayersState} from "../Transfers";
 import {selectedPlayerState} from "../sideList/TransfersSideList";
+import {transfersSelectedPositionState} from "../../player/transfersPlayer/schematic/TransfersSchematicPlayer";
+import {ConfirmationModal} from "../../confirmationModal/ConfirmationModal";
 
 export const isDeleteConfirmClickedState = atom<boolean>({
     key: 'isDeleteConfirmClickedState',
@@ -18,58 +16,35 @@ export const removePlayerModalDisplayState = atom<'none' | 'block'>({
 })
 
 export function RemovePlayerModal() {
-    const myPlayers = useRecoilValue(myPlayersState)
-    const selectedPosition = useRecoilValue(selectedPositionState)
+    const transfersPlayers = useRecoilValue(transfersPlayersState)
+    const transfersSelectedPosition = useRecoilValue(transfersSelectedPositionState)
     const setSelectedPlayer = useSetRecoilState(selectedPlayerState)
     const setIsDeleteConfirmClicked = useSetRecoilState(isDeleteConfirmClickedState)
-    const [removePlayerModalDisplay, setRemovePlayerModalDisplay] = useRecoilState(removePlayerModalDisplayState)
 
-    const deleteModalDivRef = useRef<HTMLDivElement | null>(null)
-
-    useEffect(() => {
-        if (removePlayerModalDisplay === 'none')
-            setIsDeleteConfirmClicked(false)
-    }, [removePlayerModalDisplay])
-
-    function getActionsSection(selectedPosition: number) {
-        return <div>
-            <div id={'text'}>{getText(selectedPosition)}</div>
-            <div id={'buttons-container'}>
-                <button id={'delete-button'} onClick={() => setIsDeleteConfirmClicked(true)}>
-                    حذف
-                </button>
-                <button id={'cancel-button'} onClick={cancelOnClick}>لغو</button>
-            </div>
-        </div>
+    function isModalValid() {
+        return !!(transfersSelectedPosition && transfersPlayers[transfersSelectedPosition])
     }
 
-    function getText(selectedPosition: number) {
-        return myPlayers[selectedPosition] ? 'آیا از حذف ' +
-            myPlayers[selectedPosition].webName +
+    function getText() {
+        return transfersSelectedPosition && isModalValid() ? 'آیا از حذف ' +
+            transfersPlayers[transfersSelectedPosition].webName +
             ' مطمئن هستید؟'
             :
-            closeModal()
-    }
-
-    function closeModal() {
-        setRemovePlayerModalDisplay('none')
-        return 'Unknown Player'
+            ''
     }
 
     function cancelOnClick() {
-        setRemovePlayerModalDisplay('none')
         setSelectedPlayer(undefined)
     }
 
     return (
-        <div ref={focusOnElementByRef(deleteModalDivRef)}
-             id={'delete-modal-div'} style={{display: removePlayerModalDisplay}} tabIndex={0}
-             onKeyUp={handleKeyboardEvent(['Enter', 'Escape'],
-                 [clickOnElement('delete-button'), clickOnElement('cancel-button')]
-             )}>
-            <div id='header'>حذف بازیکن</div>
-            <img id='cloth' src={activeCloth} alt={'active player'}/>
-            {selectedPosition ? getActionsSection(selectedPosition) : closeModal()}
-        </div>
+        <ConfirmationModal title={'حذف بازیکن'}
+                           text={getText()}
+                           confirmText={'حذف'} cancelText={'لغو'}
+                           confirmOnClick={() => setIsDeleteConfirmClicked(true)} cancelOnClick={cancelOnClick}
+                           confirmIdForClick={'delete-confirm-button'} cancelIdForClick={'delete-cancel-button'}
+                           confirmColor={'white'} confirmBackgroundColor={'#ED1B5D'} closeModal={!isModalValid()}
+                           isConfirmClickedState={isDeleteConfirmClickedState}
+                           modalDisplayState={removePlayerModalDisplayState}/>
     )
 }
