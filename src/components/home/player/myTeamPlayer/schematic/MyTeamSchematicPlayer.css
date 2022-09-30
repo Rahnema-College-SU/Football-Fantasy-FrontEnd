@@ -3,14 +3,6 @@
     min-width: 120px;
 }
 
-.my-team-schematic-active-div {
-    /*min-width: 120px;*/
-}
-
-.my-team-schematic-inactive-div {
-    /*min-width: 80px;*/
-}
-
 .cloth-icon-container {
     display: flex;
     align-items: end;
