@@ -1,30 +1,20 @@
 import React from "react";
 import './MyTeamSideList.css'
 import {SideList} from "../../sideList/SideList";
-import {atom, useRecoilState, useRecoilValue} from "recoil";
-import {myPlayersState} from "../../transfers/Transfers";
-import {playerType} from "../../../../global/Types";
+import {useRecoilValue} from "recoil";
 import {myTeamReservePositions} from "../../../../global/Variables";
 import {MyTeamSideListPlayer} from "../../player/myTeamPlayer/sideList/MyTeamSideListPlayer";
-
-export const selectedReservePlayerState = atom<playerType | undefined>({
-    key: 'selectedReservePlayerState',
-    default: undefined
-})
+import {myTeamPlayersState} from "../MyTeam";
 
 export function MyTeamSideList() {
-    const myPlayers = useRecoilValue(myPlayersState)
-    const [selectedReservePlayer, setSelectedReservePlayer] = useRecoilState(selectedReservePlayerState)
+    const myTeamPlayers = useRecoilValue(myTeamPlayersState)
 
     return (
         <SideList headerText={'بازیکنان ذخیره'}>
             <div id={'reserve-container'}>
                 {
-                    myTeamReservePositions.map(position => {
-                        return (
-                            <MyTeamSideListPlayer className={'reserve-div'} player={myPlayers[position]}/>
-                        )
-                    })
+                    myTeamReservePositions.map(position =>
+                        <MyTeamSideListPlayer className={'reserve-div'} player={myTeamPlayers[position]}/>)
                 }
             </div>
         </SideList>

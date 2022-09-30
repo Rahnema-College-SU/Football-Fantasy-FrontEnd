@@ -1,5 +1,5 @@
 import {KeyboardEvent, MutableRefObject} from "react";
-import {dateType} from "../Types";
+import {dateApiType} from "../Types";
 import {axiosWeekInf} from "../ApiCalls";
 import {loadDateError, onAxiosError, onAxiosSuccess} from "../Errors";
 
@@ -23,7 +23,7 @@ export function clickOnElement(id: string) {
     return () => document.getElementById(id)?.click()
 }
 
-export async function getDate(): /*Promise<dateApiType>*/Promise<dateType> {
+export async function getDate(): Promise<dateApiType> {
     return axiosWeekInf().then(
         res => {
             return onAxiosSuccess({

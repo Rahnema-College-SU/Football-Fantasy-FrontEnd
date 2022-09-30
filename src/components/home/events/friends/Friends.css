@@ -39,7 +39,7 @@
 
 }
 
-.button-bar {
+.friends-button-bar {
     display: flex;
     direction: row-reverse;
     align-items: center;

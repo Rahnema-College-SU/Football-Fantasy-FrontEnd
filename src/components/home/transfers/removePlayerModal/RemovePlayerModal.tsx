@@ -2,10 +2,10 @@ import React, {useEffect, useRef} from 'react';
 import './RemovePlayerModal.css';
 import activeCloth from '../../assets/active-cloth.svg';
 import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
-import {selectedPositionState} from "../schematic/Schematic";
 import {myPlayersState} from "../Transfers";
 import {clickOnElement, focusOnElementByRef, handleKeyboardEvent} from "../../../../global/functions/General";
 import {selectedPlayerState} from "../sideList/TransfersSideList";
+import {transfersSelectedPositionState} from "../../player/transfersPlayer/schematic/TransfersSchematicPlayer";
 
 export const isDeleteConfirmClickedState = atom<boolean>({
     key: 'isDeleteConfirmClickedState',
@@ -19,7 +19,7 @@ export const removePlayerModalDisplayState = atom<'none' | 'block'>({
 
 export function RemovePlayerModal() {
     const myPlayers = useRecoilValue(myPlayersState)
-    const selectedPosition = useRecoilValue(selectedPositionState)
+    const transfersSelectedPosition = useRecoilValue(transfersSelectedPositionState)
     const setSelectedPlayer = useSetRecoilState(selectedPlayerState)
     const setIsDeleteConfirmClicked = useSetRecoilState(isDeleteConfirmClickedState)
     const [removePlayerModalDisplay, setRemovePlayerModalDisplay] = useRecoilState(removePlayerModalDisplayState)
@@ -31,9 +31,9 @@ export function RemovePlayerModal() {
             setIsDeleteConfirmClicked(false)
     }, [removePlayerModalDisplay])
 
-    function getActionsSection(selectedPosition: number) {
+    function getActionsSection(transfersSelectedPosition: number) {
         return <div>
-            <div id={'text'}>{getText(selectedPosition)}</div>
+            <div id={'text'}>{getText(transfersSelectedPosition)}</div>
             <div id={'buttons-container'}>
                 <button id={'delete-button'} onClick={() => setIsDeleteConfirmClicked(true)}>
                     حذف
@@ -43,9 +43,9 @@ export function RemovePlayerModal() {
         </div>
     }
 
-    function getText(selectedPosition: number) {
-        return myPlayers[selectedPosition] ? 'آیا از حذف ' +
-            myPlayers[selectedPosition].webName +
+    function getText(transfersSelectedPosition: number) {
+        return myPlayers[transfersSelectedPosition] ? 'آیا از حذف ' +
+            myPlayers[transfersSelectedPosition].webName +
             ' مطمئن هستید؟'
             :
             closeModal()
@@ -69,7 +69,7 @@ export function RemovePlayerModal() {
              )}>
             <div id='header'>حذف بازیکن</div>
             <img id='cloth' src={activeCloth} alt={'active player'}/>
-            {selectedPosition ? getActionsSection(selectedPosition) : closeModal()}
+            {transfersSelectedPosition ? getActionsSection(transfersSelectedPosition) : closeModal()}
         </div>
     )
 }

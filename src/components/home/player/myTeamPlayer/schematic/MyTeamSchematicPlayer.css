@@ -1,0 +1,47 @@
+.my-team-schematic-active-div {
+    width: 8.5vw;
+    min-width: 80px;
+}
+
+.my-team-schematic-inactive-div {
+    width: 8vw;
+    min-width: 80px;
+}
+
+.cloth-icon-container {
+    display: flex;
+    align-items: end;
+}
+
+.my-team-schematic-cloth {
+    width: 100%;
+}
+
+.my-team-active {
+    cursor: pointer;
+}
+
+.substitute-icon {
+    width: 2vw;
+    min-width: 18px;
+    background: #ffe870;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.my-team-player-name {
+    font: 700 calc(0.2vw + 9px) Vazirmatn, serif;
+    color: white;
+    text-align: center;
+    background-color: #37013B;
+    width: 100%;
+    border-radius: 4px;
+    padding: 4px 0;
+    overflow: auto;
+}
+
+.my-team-schematic-player-name-selected {
+    color: #3D185B !important;
+    background-color: #EBFF00 !important;
+}

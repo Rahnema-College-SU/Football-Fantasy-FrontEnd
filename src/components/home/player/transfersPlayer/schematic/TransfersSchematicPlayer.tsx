@@ -1,6 +1,12 @@
 import React, {useRef} from "react";
 import './TransfersSchematicPlayer.css'
-import {transfersAttPositions, transfersDefPositions, transfersGkPositions, transfersMidPositions, toFarsiNumber} from "../../../../../global/Variables";
+import {
+    toFarsiNumber,
+    transfersAttPositions,
+    transfersDefPositions,
+    transfersGkPositions,
+    transfersMidPositions
+} from "../../../../../global/Variables";
 import {playerType} from "../../../../../global/Types";
 import deleteIcon from "../../../transfers/schematic/assets/delete-icon.svg";
 import activeCloth from "../../../assets/active-cloth.svg";
@@ -8,15 +14,19 @@ import inactiveCloth from "../../../assets/inactive-cloth.svg";
 import addIcon from "../../../transfers/schematic/assets/add-icon.svg";
 import {focusOnElementByRef, handleKeyboardEvent} from "../../../../../global/functions/General";
 import selectedCloth from "../../../transfers/schematic/assets/selected-cloth.svg";
-import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
+import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {myPlayersState} from "../../../transfers/Transfers";
-import {selectedPositionState} from "../../../transfers/schematic/Schematic";
 import {removePlayerModalDisplayState} from "../../../transfers/removePlayerModal/RemovePlayerModal";
 import {selectedPlayerState} from "../../../transfers/sideList/TransfersSideList";
 
+export const transfersSelectedPositionState = atom<number | undefined>({
+    key: 'selectedPositionState',
+    default: undefined
+})
+
 export function TransfersSchematicPlayer({position}: { position: number }) {
     const myPlayers = useRecoilValue(myPlayersState)
-    const [selectedPosition, setSelectedPosition] = useRecoilState(selectedPositionState)
+    const [transfersSelectedPosition, setTransfersSelectedPosition] = useRecoilState(transfersSelectedPositionState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
     const setSelectedPlayer = useSetRecoilState(selectedPlayerState)
 
@@ -38,42 +48,42 @@ export function TransfersSchematicPlayer({position}: { position: number }) {
                 return [[], []]
         }
 
-        function handleArrowLeftKey(selectedPosition: number) {
-            if (!handleArrowLeftKeyEachArray(selectedPosition, transfersGkPositions) &&
-                !handleArrowLeftKeyEachArray(selectedPosition, transfersDefPositions) &&
-                !handleArrowLeftKeyEachArray(selectedPosition, transfersMidPositions) &&
-                !handleArrowLeftKeyEachArray(selectedPosition, transfersAttPositions)
+        function handleArrowLeftKey(transfersSelectedPosition: number) {
+            if (!handleArrowLeftKeyEachArray(transfersSelectedPosition, transfersGkPositions) &&
+                !handleArrowLeftKeyEachArray(transfersSelectedPosition, transfersDefPositions) &&
+                !handleArrowLeftKeyEachArray(transfersSelectedPosition, transfersMidPositions) &&
+                !handleArrowLeftKeyEachArray(transfersSelectedPosition, transfersAttPositions)
             )
-                setSelectedPosition(selectedPosition - 1)
+                setTransfersSelectedPosition(transfersSelectedPosition - 1)
         }
 
-        function handleArrowLeftKeyEachArray(selectedPosition: number, array: Array<number>): boolean {
-            if (selectedPosition === array[0]) {
-                setSelectedPosition(getBeforeNextPositionArrays(selectedPosition)[0].at(-1))
+        function handleArrowLeftKeyEachArray(transfersSelectedPosition: number, array: Array<number>): boolean {
+            if (transfersSelectedPosition === array[0]) {
+                setTransfersSelectedPosition(getBeforeNextPositionArrays(transfersSelectedPosition)[0].at(-1))
                 return true
-            } else if (selectedPosition === array.at(-1)) {
-                setSelectedPosition(array.at(-2))
+            } else if (transfersSelectedPosition === array.at(-1)) {
+                setTransfersSelectedPosition(array.at(-2))
                 return true
             }
 
             return false
         }
 
-        function handleArrowRightKey(selectedPosition: number) {
-            if (!handleArrowRightKeyEachArray(selectedPosition, transfersGkPositions) &&
-                !handleArrowRightKeyEachArray(selectedPosition, transfersDefPositions) &&
-                !handleArrowRightKeyEachArray(selectedPosition, transfersMidPositions) &&
-                !handleArrowRightKeyEachArray(selectedPosition, transfersAttPositions)
+        function handleArrowRightKey(transfersSelectedPosition: number) {
+            if (!handleArrowRightKeyEachArray(transfersSelectedPosition, transfersGkPositions) &&
+                !handleArrowRightKeyEachArray(transfersSelectedPosition, transfersDefPositions) &&
+                !handleArrowRightKeyEachArray(transfersSelectedPosition, transfersMidPositions) &&
+                !handleArrowRightKeyEachArray(transfersSelectedPosition, transfersAttPositions)
             )
-                setSelectedPosition(selectedPosition + 1)
+                setTransfersSelectedPosition(transfersSelectedPosition + 1)
         }
 
-        function handleArrowRightKeyEachArray(selectedPosition: number, array: Array<number>): boolean {
-            if (selectedPosition === array.at(-2)) {
-                setSelectedPosition(array.at(-1))
+        function handleArrowRightKeyEachArray(transfersSelectedPosition: number, array: Array<number>): boolean {
+            if (transfersSelectedPosition === array.at(-2)) {
+                setTransfersSelectedPosition(array.at(-1))
                 return true
-            } else if (selectedPosition === array.at(-1)) {
-                setSelectedPosition(getBeforeNextPositionArrays(selectedPosition)[1][0])
+            } else if (transfersSelectedPosition === array.at(-1)) {
+                setTransfersSelectedPosition(getBeforeNextPositionArrays(transfersSelectedPosition)[1][0])
                 return true
             }
 
@@ -81,15 +91,15 @@ export function TransfersSchematicPlayer({position}: { position: number }) {
         }
 
         return () => {
-            if (selectedPosition) {
+            if (transfersSelectedPosition) {
                 if (arrowKey === 'ArrowLeft')
-                    handleArrowLeftKey(selectedPosition)
+                    handleArrowLeftKey(transfersSelectedPosition)
                 else if (arrowKey === 'ArrowRight')
-                    handleArrowRightKey(selectedPosition)
+                    handleArrowRightKey(transfersSelectedPosition)
                 else if (arrowKey === 'ArrowUp')
-                    setSelectedPosition(getBeforeNextPositionArrays(selectedPosition)[0][0])
+                    setTransfersSelectedPosition(getBeforeNextPositionArrays(transfersSelectedPosition)[0][0])
                 else if (arrowKey === 'ArrowDown')
-                    setSelectedPosition(getBeforeNextPositionArrays(selectedPosition)[1][0])
+                    setTransfersSelectedPosition(getBeforeNextPositionArrays(transfersSelectedPosition)[1][0])
             }
         }
     }
@@ -100,7 +110,7 @@ export function TransfersSchematicPlayer({position}: { position: number }) {
                 <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                      onClick={deletePlayer(player)}/>
                 <img className={'schematic-cloth'} src={activeCloth} alt={'active player'}
-                     onClick={() => setSelectedPosition(player.locationInTransferUI)}/>
+                     onClick={() => setTransfersSelectedPosition(player.locationInTransferUI)}/>
                 <div className={'player-name'}>{player.webName}</div>
                 <div className={'power'}>{toFarsiNumber(player.playerWeekLog.playerTotalPoints)}</div>
             </div>
@@ -113,9 +123,9 @@ export function TransfersSchematicPlayer({position}: { position: number }) {
                 <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                      style={{visibility: 'hidden'}}/>
                 <img className={'schematic-cloth'} src={inactiveCloth} alt={'inactive player'}
-                     onClick={() => setSelectedPosition(position)}/>
+                     onClick={() => setTransfersSelectedPosition(position)}/>
                 <img className={'add-icon'} src={addIcon} alt={'add icon'}
-                     onClick={() => setSelectedPosition(position)}/>
+                     onClick={() => setTransfersSelectedPosition(position)}/>
                 <div className={'player-name'} style={{visibility: 'hidden'}}>fake</div>
                 <div className={'power'} style={{visibility: 'hidden'}}>۰</div>
             </div>
@@ -132,7 +142,7 @@ export function TransfersSchematicPlayer({position}: { position: number }) {
                 <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                      style={{visibility: 'hidden'}}/>
                 <img className={'schematic-cloth'} src={selectedCloth} alt={'selected player'}
-                     onClick={() => setSelectedPosition(undefined)}/>
+                     onClick={() => setTransfersSelectedPosition(undefined)}/>
                 <div className={'player-name'} style={{visibility: 'hidden'}}>fake</div>
                 <div className={'power'} style={{visibility: 'hidden'}}>۰</div>
             </div>
@@ -149,7 +159,7 @@ export function TransfersSchematicPlayer({position}: { position: number }) {
                 <img className={'delete-icon'} src={deleteIcon} alt={'delete icon'}
                      onClick={deletePlayer(player)}/>
                 <img className={'schematic-cloth'} src={selectedCloth} alt={'selected player'}
-                     onClick={() => setSelectedPosition(undefined)}/>
+                     onClick={() => setTransfersSelectedPosition(undefined)}/>
                 <div className={'player-name'}>{player.webName}</div>
                 <div className={'power'}>{toFarsiNumber(player.playerWeekLog.playerTotalPoints)}</div>
             </div>
@@ -158,14 +168,14 @@ export function TransfersSchematicPlayer({position}: { position: number }) {
 
     function deletePlayer(player: playerType) {
         return () => {
-            setSelectedPosition(player.locationInTransferUI)
+            setTransfersSelectedPosition(player.locationInTransferUI)
             setSelectedPlayer(undefined)
             setRemovePlayerModalDisplay('block')
         }
     }
 
     return (
-        selectedPosition && selectedPosition === position ?
+        transfersSelectedPosition && transfersSelectedPosition === position ?
             myPlayers[position] ? getSelectedActive(myPlayers[position]) : getSelectedInactive() :
             myPlayers[position] ? getActive(myPlayers[position]) : getInactive(position)
     )

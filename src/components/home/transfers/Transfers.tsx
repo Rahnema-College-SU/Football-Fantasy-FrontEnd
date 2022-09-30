@@ -5,7 +5,13 @@ import {RemainingPlayer, usedPlayerState} from "./remainigParts/RemainingPlayer"
 import {RemainingMoney, remainingMoneyState} from "./remainigParts/RemainingMoney";
 import MiddleTabBar from "./middleTabBar/MiddleTabBar";
 import {axiosAddPlayer, axiosDeletePlayer, axiosFantasyTeam, axiosPlayersList,} from "../../../global/ApiCalls";
-import {transfersAttPositions, transfersDefPositions, transfersGkPositions, homeTabsEndingUrl, transfersMidPositions} from "../../../global/Variables";
+import {
+    homeTabsEndingUrl,
+    transfersAttPositions,
+    transfersDefPositions,
+    transfersGkPositions,
+    transfersMidPositions
+} from "../../../global/Variables";
 import DateBox, {dateState} from "./dateBox/DateBox";
 import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {
@@ -21,9 +27,12 @@ import TransfersSideList, {
     selectedPlayerState,
     transfersSideListState
 } from "./sideList/TransfersSideList";
-import {Schematic, selectedPositionState} from "./schematic/Schematic";
+import {Schematic} from "./schematic/Schematic";
 import {isDeleteConfirmClickedState, removePlayerModalDisplayState} from "./removePlayerModal/RemovePlayerModal";
-import {convertFantasyTeamApiResponse, convertPlayersListApiResponse} from "../../../global/functions/Converters";
+import {
+    convertFantasyTeamApiResponseForTransfers,
+    convertPlayersListApiResponse
+} from "../../../global/functions/Converters";
 import {getDate} from "../../../global/functions/General";
 import {
     addPlayerError,
@@ -36,7 +45,13 @@ import {
     playerNotFoundError,
     selectedPlayerNotFoundError
 } from "../../../global/Errors";
-import TransfersMyList from "./myList/TransfersMyList";
+import MyList from "./myList/MyList";
+import {
+    TransfersSchematicPlayer,
+    transfersSelectedPositionState
+} from "../player/transfersPlayer/schematic/TransfersSchematicPlayer";
+import {myTeamSelectedPositionsState} from "../player/myTeamPlayer/schematic/MyTeamSchematicPlayer";
+import {TransfersMyListPlayer} from "../player/transfersPlayer/myList/TransfersMyListPlayer";
 
 export const fantasyTeamApiResponseState = atom<fantasyTeamApiResponseType | undefined>({
     key: 'fantasyTeamApiResponseState',
@@ -62,26 +77,28 @@ export function Transfers({subTab}: { subTab: subTab }) {
 
     const setDate = useSetRecoilState(dateState)
 
-    const selectedPosition = useRecoilValue(selectedPositionState)
+    const transfersSelectedPosition = useRecoilValue(transfersSelectedPositionState)
     const isDeleteConfirmClicked = useRecoilValue(isDeleteConfirmClickedState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
+
+    const [myTeamSelectedPositions, setMyTeamSelectedPositions] = useRecoilState(myTeamSelectedPositionsState)
 
     useEffect(() => updateTransfersInfo(), [])
 
     useEffect(() => {
-        if (selectedPosition === undefined)
+        if (transfersSelectedPosition === undefined)
             setSelectedPlayer(undefined)
         else {
-            if (transfersGkPositions.includes(selectedPosition))
+            if (transfersGkPositions.includes(transfersSelectedPosition))
                 setSelectedFilterItem('GK')
-            else if (transfersDefPositions.includes(selectedPosition))
+            else if (transfersDefPositions.includes(transfersSelectedPosition))
                 setSelectedFilterItem('DEF')
-            else if (transfersMidPositions.includes(selectedPosition))
+            else if (transfersMidPositions.includes(transfersSelectedPosition))
                 setSelectedFilterItem('MID')
-            else if (transfersAttPositions.includes(selectedPosition))
+            else if (transfersAttPositions.includes(transfersSelectedPosition))
                 setSelectedFilterItem('ATT')
         }
-    }, [selectedPosition])
+    }, [transfersSelectedPosition])
 
     // for delete confirmation modal
     useEffect(() => {
@@ -95,7 +112,7 @@ export function Transfers({subTab}: { subTab: subTab }) {
         if (!fantasyTeamApiResponse)
             return
 
-        setMyPlayers(convertFantasyTeamApiResponse(fantasyTeamApiResponse))
+        setMyPlayers(convertFantasyTeamApiResponseForTransfers(fantasyTeamApiResponse))
         setRemainingMoney(fantasyTeamApiResponse.data.fantasyTeam.moneyRemaining)
         setUsedPlayer(fantasyTeamApiResponse.data.fantasyTeam.numberOfPlayers)
     }, [fantasyTeamApiResponse])
@@ -124,22 +141,26 @@ export function Transfers({subTab}: { subTab: subTab }) {
     }
 
     function deletePlayerApiCall() {
-        if (!selectedPosition) {
+        if (!transfersSelectedPosition) {
             onBaseError({myError: selectedPlayerNotFoundError})
             return
-        } else if (!myPlayers[selectedPosition]) {
+        } else if (!myPlayers[transfersSelectedPosition]) {
             onBaseError({myError: playerNotFoundError})
             return
         }
 
-        axiosDeletePlayer(myPlayers, selectedPosition).then(
+        axiosDeletePlayer(myPlayers, transfersSelectedPosition).then(
             res =>
                 onAxiosSuccess({
                     res: res, myError: deletePlayerError, onSuccess: () => {
                         if (selectedPlayer)
-                            addPlayerApiCall(selectedPlayer, selectedPosition)
+                            addPlayerApiCall(selectedPlayer, transfersSelectedPosition)
                         else
                             updateTransfersInfo()
+
+                        if (myTeamSelectedPositions.includes(transfersSelectedPosition))
+                            setMyTeamSelectedPositions(myTeamSelectedPositions
+                                .filter(position => position !== transfersSelectedPosition))
                     }
                 })
             ,
@@ -148,8 +169,8 @@ export function Transfers({subTab}: { subTab: subTab }) {
         )
     }
 
-    function addPlayerApiCall(player: playerType, selectedPosition: number) {
-        axiosAddPlayer(player, selectedPosition)
+    function addPlayerApiCall(player: playerType, transfersSelectedPosition: number) {
+        axiosAddPlayer(player, transfersSelectedPosition)
             .then(res =>
                     onAxiosSuccess({
                         res: res, myError: addPlayerError, onSuccess: updateTransfersInfo
@@ -197,7 +218,19 @@ export function Transfers({subTab}: { subTab: subTab }) {
                     mainTab={homeTabsEndingUrl.transfers} /*state={transfersSelectedTab} stateSetter={setTransfersSelectedTab} storageSetter={setTransfersSubTabState}*//>
                 <RemainingMoney/>
 
-                {subTab === 'schematic' ? <Schematic/> : <TransfersMyList/>}
+                {subTab === 'schematic' ?
+                    <Schematic gkPositions={transfersGkPositions} defPositions={transfersDefPositions}
+                               midPositions={transfersMidPositions} attPositions={transfersAttPositions}
+                               playerRender={TransfersSchematicPlayer}/>
+                    :
+                    <MyList gkPositions={transfersGkPositions} defPositions={transfersDefPositions}
+                            midPositions={transfersMidPositions} attPositions={transfersAttPositions}
+                            playerRender={TransfersMyListPlayer} showingName={() => {
+                        if (transfersSelectedPosition && myPlayers[transfersSelectedPosition])
+                            return myPlayers[transfersSelectedPosition].webName
+                        else
+                            return 'none'
+                    }}/>}
             </div>
         </div>
     )

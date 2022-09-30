@@ -19,6 +19,6 @@
 }
 
 .reserve-player-name-selected {
-    color: #3D185B;
-    background-color: #05F1FF;
+    color: #3D185B !important;
+    background-color: #05F1FF !important;
 }

@@ -10,15 +10,14 @@ import previous from './assets/previous.svg'
 import nextLast from './assets/nextl.svg'
 import next from './assets/next.svg'
 import {
+    positionsServer,
+    positionsUi,
+    toFarsiNumber,
     transfersAttPositions,
     transfersDefPositions,
     transfersGkPositions,
-    transfersMidPositions,
-    positionsServer,
-    positionsUi,
-    toFarsiNumber
+    transfersMidPositions
 } from "../../../../global/Variables";
-import {selectedPositionState} from "../schematic/Schematic";
 import {myPlayersState} from "../Transfers";
 import {addPlayerError, loadPaginationError, onBaseError, pageNotAvailableError} from "../../../../global/Errors";
 import {debounce} from "ts-debounce";
@@ -26,6 +25,7 @@ import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerMo
 import {TransfersSideListPlayer} from "../../player/transfersPlayer/sideList/TransfersSideListPlayer";
 import {useMediaQuery} from "@mui/material";
 import {SideList} from "../../sideList/SideList";
+import {transfersSelectedPositionState} from "../../player/transfersPlayer/schematic/TransfersSchematicPlayer";
 
 const defaultSort: sortType = 'DESC'
 
@@ -67,13 +67,13 @@ export const searchTextState = atom<string>({
 
 function TransfersSideList({playerListApiCall, addPlayerApiCall}: {
     playerListApiCall: () => void,
-    addPlayerApiCall: (player: playerType, selectedPosition: number) => void
+    addPlayerApiCall: (player: playerType, transfersSelectedPosition: number) => void
 }) {
     let debounceFunction: { (this: ThisParameterType<() => void>, ...args: Parameters<() => void> & any[]): Promise<ReturnType<() => void>>; cancel: (reason?: any) => void }
 
     const [transfersSideList, setTransfersSideList] = useRecoilState(transfersSideListState)
     const [selectedPlayer, setSelectedPlayer] = useRecoilState(selectedPlayerState)
-    const [selectedPosition, setSelectedPosition] = useRecoilState(selectedPositionState)
+    const [transfersSelectedPosition, setTransfersSelectedPosition] = useRecoilState(transfersSelectedPositionState)
     const myPlayers = useRecoilValue(myPlayersState)
     const setRemovePlayerModalDisplay = useSetRecoilState(removePlayerModalDisplayState)
 
@@ -113,8 +113,8 @@ function TransfersSideList({playerListApiCall, addPlayerApiCall}: {
 
     function setSelectedPositionBySelectedFilterItem(filterItem: positionsUiType) {
         function isSelectedPositionInArray(positions: number[]) {
-            if (selectedPosition)
-                return positions.includes(selectedPosition)
+            if (transfersSelectedPosition)
+                return positions.includes(transfersSelectedPosition)
             else
                 return false
         }
@@ -128,16 +128,16 @@ function TransfersSideList({playerListApiCall, addPlayerApiCall}: {
             return positions[0]
         }
 
-        if (filterItem === 'ALL' && !selectedPosition)
-            setSelectedPosition(undefined)
+        if (filterItem === 'ALL' && !transfersSelectedPosition)
+            setTransfersSelectedPosition(undefined)
         else if (filterItem === 'GK' && !isSelectedPositionInArray(transfersGkPositions))
-            setSelectedPosition(getFirstEmptyPosition(transfersGkPositions))
+            setTransfersSelectedPosition(getFirstEmptyPosition(transfersGkPositions))
         else if (filterItem === 'DEF' && !isSelectedPositionInArray(transfersDefPositions))
-            setSelectedPosition(getFirstEmptyPosition(transfersDefPositions))
+            setTransfersSelectedPosition(getFirstEmptyPosition(transfersDefPositions))
         else if (filterItem === 'MID' && !isSelectedPositionInArray(transfersMidPositions))
-            setSelectedPosition(getFirstEmptyPosition(transfersMidPositions))
+            setTransfersSelectedPosition(getFirstEmptyPosition(transfersMidPositions))
         else if (filterItem === 'ATT' && !isSelectedPositionInArray(transfersAttPositions))
-            setSelectedPosition(getFirstEmptyPosition(transfersAttPositions))
+            setTransfersSelectedPosition(getFirstEmptyPosition(transfersAttPositions))
     }
 
     useEffect(() => {
@@ -164,12 +164,12 @@ function TransfersSideList({playerListApiCall, addPlayerApiCall}: {
     }, [selectedPlayer])
 
     function addPlayer(player: playerType) {
-        if (!selectedPosition) {
+        if (!transfersSelectedPosition) {
             onBaseError({myError: addPlayerError})
-        } else if (myPlayers[selectedPosition] !== undefined)
+        } else if (myPlayers[transfersSelectedPosition] !== undefined)
             setRemovePlayerModalDisplay('block')
         else
-            addPlayerApiCall(player, selectedPosition)
+            addPlayerApiCall(player, transfersSelectedPosition)
     }
 
     useEffect(() => {
