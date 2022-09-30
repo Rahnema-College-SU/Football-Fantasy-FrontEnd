@@ -38,7 +38,7 @@ function MyTeam({subTab}: { subTab: subTab }) {
     const [myTeamPlayers, setMyTeamPlayers] = useRecoilState(myTeamPlayersState)
     const [selectedReservePlayer, setSelectedReservePlayer] = useRecoilState(selectedReservePlayerState)
     const [myTeamSelectedPositions, setMyTeamSelectedPositions] = useRecoilState(myTeamSelectedPositionsState)
-    const setDate = useSetRecoilState(dateState)
+    const [date, setDate] = useRecoilState(dateState)
 
     const isSubstitutionConfirmClicked = useRecoilValue(isSubstitutionConfirmClickedState)
     const setSubstitutionModalDisplay = useSetRecoilState(substitutionModalDisplayState)
@@ -105,9 +105,9 @@ function MyTeam({subTab}: { subTab: subTab }) {
     return (
         <div id={'my-team-main-div'}>
             <div id={'date-and-deadline-container'}>
-                <DateBox dateBoxType={'deadline'} placeHolder={'دریافت مهلت تغییرات ...'} widthStyle={'45%'}
+                <DateBox date={date?.substitutionDeadlineDate} placeHolder={'دریافت مهلت تغییرات ...'} widthStyle={'45%'}
                          marginStyle={'none'}/>
-                <DateBox dateBoxType={'date'} widthStyle={'45%'} marginStyle={'none'}/>
+                <DateBox date={date?.nextWeekStartDate} widthStyle={'45%'} marginStyle={'none'}/>
             </div>
 
             <MyTeamSideList/>

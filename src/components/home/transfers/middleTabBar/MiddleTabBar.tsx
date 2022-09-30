@@ -24,19 +24,18 @@ export function MiddleTabBar({mainTab, /*state, stateSetter,*/ storageSetter, wi
         <div id={'middle-tab-bar-main-div'}>
             <img id={'logo'} src={logo} alt={'team logo'}></img>
             <div id={'tab-bar-rectangle'} style={{width: widthStyle}}>
-                {
-                    tabs.map(tab => {
-                        return (
-                            <div
-                                className={selectedTab === tab.id ? 'tab-rectangle-select' : 'tab-rectangle-unselect'}
-                                onClick={() => {
-                                    setSelectedTab(tab.id)
-                                    navigate(`/home/${mainTab}/${tab.urlEndingName}`)
-                                }}>
-                                {tab.text}
-                            </div>
-                        )
-                    })
+                {tabs.map(tab => {
+                    return (
+                        <div
+                            className={selectedTab === tab.id ? 'tab-rectangle-select' : 'tab-rectangle-unselect'}
+                            onClick={() => {
+                                setSelectedTab(tab.id)
+                                navigate(`/home/${mainTab}/${tab.urlEndingName}`)
+                            }}>
+                            {tab.text}
+                        </div>
+                    )
+                })
                 }
             </div>
         </div>

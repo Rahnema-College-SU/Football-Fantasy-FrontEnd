@@ -76,7 +76,7 @@ export function Transfers({subTab}: { subTab: subTab }) {
     const setSelectedFilterItem = useSetRecoilState(selectedFilterItemState)
     const search = useRecoilValue(searchState)
 
-    const setDate = useSetRecoilState(dateState)
+    const [date, setDate] = useRecoilState(dateState)
 
     const transfersSelectedPosition = useRecoilValue(transfersSelectedPositionState)
     const isDeleteConfirmClicked = useRecoilValue(isDeleteConfirmClickedState)
@@ -206,7 +206,7 @@ export function Transfers({subTab}: { subTab: subTab }) {
     return (
         <div id={'transfers-main-div'}>
             <div id={'date-and-menu-container'}>
-                <DateBox dateBoxType={'date'}/>
+                <DateBox date={date?.nextWeekStartDate}/>
                 <img id={'menu-image'} src={menu} onClick={menuOnClick}
                      alt={'menu icon to show all players\' list to add'}/>
             </div>
