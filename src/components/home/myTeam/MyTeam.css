@@ -33,6 +33,6 @@
     }
 
     #date-and-deadline-container {
-        flex-direction: column;
+        flex-direction: column-reverse;
     }
 }
