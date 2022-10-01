@@ -101,7 +101,7 @@ function App() {
                 }/>
             </Routes>
 
-            {/*TODO*/}
+            {/*TODO: architecture and click away listener*/}
             <div id={'modals-div'} style={{display: removePlayerModalDisplay}}>
                 <RemovePlayerModal/>
             </div>
