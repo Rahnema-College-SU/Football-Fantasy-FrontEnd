@@ -30,7 +30,7 @@ root.render(
     <React.StrictMode>
         <RecoilRoot>
             <BrowserRouter>
-                <SnackbarProvider autoHideDuration={200000} action={snackbarKey => (
+                <SnackbarProvider action={snackbarKey => (
                     <IconButton id={'alert-button'} onClick={() => closeSnackbar(snackbarKey)}>
                         <ArrowCircleDownTwoToneIcon htmlColor={'white'}/>
                     </IconButton>
