@@ -90,12 +90,11 @@ export type searchType = {
 }
 
 export type searchResultUserType = {
-    id: string,
-    username: string,
-    imageUrl: string,
-    isFollowed: boolean
+    id: String,
+    username: String,
+    imageUrl: String,
+    isFollowed: Boolean
 }
-export type searchResultUserListType = {
-    usersList: Array<searchResultUserType>,
-    numberOfusers: number | undefined
-}
+// export type searchResultUserListType = {
+//     usersList: Array<searchResultUserType>
+// }

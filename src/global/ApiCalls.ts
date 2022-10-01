@@ -70,3 +70,24 @@ export const axiosAllUsersList = (searchText: string) => customAxios.get('user_s
         search_type:"All"
     }
 })
+
+export const axiosFollow = (id: String) => customAxios.delete('follow', {
+    params: {
+        followUserId: id
+    }
+})
+export const axiosUnfollow = (id: String) => customAxios.delete(`follow/"${id}"`)
+
+export const axiosFollowingSearch = (searchText: string) => customAxios.get('user_search', {
+    params: {
+        search: searchText,
+        search_type:"Following"
+    }
+})
+
+export const axiosFollowerSearch = (searchText: string) => customAxios.get('user_search', {
+    params: {
+        search: searchText,
+        search_type:"Follower"
+    }
+})

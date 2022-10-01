@@ -56,8 +56,7 @@
     justify-content: center;
 }
 
-.search-box {
-    margin-top: 10%;
+.friends-search-box {
     display: flex;
     direction: rtl;
     align-items: center;

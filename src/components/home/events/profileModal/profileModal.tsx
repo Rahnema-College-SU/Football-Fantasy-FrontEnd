@@ -27,7 +27,7 @@ export function ProfileModal(){
 
     return(
         <div className='back' onClick={()=>{setProfileModalDisplay('none')}}>
-        <div className='profile-modal-div' style={{display:profileModalDisplay}} onClick={e => {e.stopPropagation();}} >
+        <div className='profile-modal-div' style={{display:profileModalDisplay}} onClick={e => {e.stopPropagation();} } >
             <div className='show-info' >
             <img className="modal-profile-photo" src={profilePhoto} alt="profile photo"></img>
                 <button className='profile-modal-following-button '> دنبال کردن</button> 

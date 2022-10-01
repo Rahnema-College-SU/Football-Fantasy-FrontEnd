@@ -18,7 +18,7 @@ export function Friends() {
                     <div className="button-text">دنبال شوندگان</div>
                     </button>
                 </div>
-                <div className={'search-box'}>
+                <div className={'friends-search-box'}>
                 <img className="search-icon" src={searchIcon} alt={'magnifier'}/>
                 <input className={'search-input'} placeholder={'جستجو'}/>
                 </div>
