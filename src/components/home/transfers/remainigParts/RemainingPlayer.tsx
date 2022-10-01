@@ -1,8 +1,8 @@
 import React from "react";
 import logo from './assets/playerLogo.svg'
 import {atom, useRecoilValue} from "recoil";
-import {toFarsiNumber} from "../../../../global/Variables";
 import {Remaining} from "./Remaining";
+import {toFarsiNumber} from "../../../../global/functions/Converters";
 
 export const usedPlayerState = atom<undefined | number>({
     key: 'usedPlayerState',

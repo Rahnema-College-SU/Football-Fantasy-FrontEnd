@@ -4,8 +4,13 @@ import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
 import {homeTabsEndingUrl} from "../../global/Variables";
 import {axiosSignIn} from "../../global/ApiCalls";
-import {invalidInputError, onAxiosError, onAxiosSuccess} from "../../global/Errors";
-import {getMyTeamSubTabsStateName, setToken} from "../../global/Storages";
+import {onAxiosError, onAxiosSuccess} from "../../global/Errors";
+import {
+    getHomeTabsStateName,
+    getMyTeamSubTabsStateName,
+    getTransfersSubTabsStateName,
+    setToken
+} from "../../global/Storages";
 import {focusOnElementByRef, handleKeyboardEvent} from "../../global/functions/General";
 
 function SignInForm() {
@@ -26,15 +31,16 @@ function SignInForm() {
             axiosSignIn(signInInput.username, signInInput.password).then(
                 res => {
                     onAxiosSuccess({
-                        res: res, myError: invalidInputError, onSuccess: () => {
-                            navigate(`/home/${homeTabsEndingUrl.myTeam}/${getMyTeamSubTabsStateName()}`)
+                        res: res, onSuccess: () => {
+                            navigate(`/home/${getHomeTabsStateName()}/${getHomeTabsStateName() === homeTabsEndingUrl.myTeam ?
+                                getMyTeamSubTabsStateName() : getTransfersSubTabsStateName()}`)
                             setToken(res.data.data.accessToken)
                         }
                     })
 
                 },
                 error => {
-                    onAxiosError({axiosError: error, myError: invalidInputError})
+                    onAxiosError({axiosError: error})
                 }
             )
         }

@@ -4,7 +4,7 @@ import searchIcon from "./assets/searchicon.png";
 import {searchResultUserType} from "../../../../global/Types";
 import {atom, useRecoilState} from 'recoil';
 import {axiosFollow} from "../../../../global/ApiCalls";
-import {invalidInputError, onAxiosError, onAxiosSuccess} from "../../../../global/Errors";
+import {onAxiosError, onAxiosSuccess} from "../../../../global/Errors";
 import profilePhoto from '../latestEvents/profiles/assets/profilePhoto.jpeg'
 import {ClickAwayListener} from "@mui/material";
 
@@ -75,14 +75,14 @@ export function MainSearchBox() {
         axiosFollow(id).then(
             res => {
                 onAxiosSuccess({
-                    res: res, myError: invalidInputError, onSuccess: () => {
+                    res: res, onSuccess: () => {
                         setUsersList(res.data.data)
                     }
                 })
 
             },
             error => {
-                onAxiosError({axiosError: error, myError: invalidInputError})
+                onAxiosError({axiosError: error})
             }
         )
     }

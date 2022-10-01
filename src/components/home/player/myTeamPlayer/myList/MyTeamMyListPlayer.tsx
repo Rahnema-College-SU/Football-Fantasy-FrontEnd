@@ -1,12 +1,12 @@
 import React from "react";
 import './MyTeamMyListPlayer.css'
 import {useRecoilState, useRecoilValue} from "recoil";
-import {toFarsiNumber} from "../../../../../global/Variables";
 import activeCloth from "../../../assets/active-cloth.svg";
 import inactiveCloth from "../../../assets/inactive-cloth.svg";
 import {playerType} from "../../../../../global/Types";
 import {myTeamSelectedPositionsState} from "../schematic/MyTeamSchematicPlayer";
 import {myTeamPlayersState} from "../../../myTeam/MyTeam";
+import {toFarsiNumber} from "../../../../../global/functions/Converters";
 
 export function MyTeamMyListPlayer({position}: { position?: number }) {
     const myTeamPlayers = useRecoilValue(myTeamPlayersState)
