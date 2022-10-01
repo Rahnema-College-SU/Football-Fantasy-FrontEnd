@@ -35,15 +35,11 @@ import {
 } from "../../../global/functions/Converters";
 import {getDate} from "../../../global/functions/General";
 import {
-    addPlayerError,
-    deletePlayerError,
-    loadPlayersListError,
-    loadTeamError,
     onAxiosError,
     onAxiosSuccess,
-    onBaseError,
+    onMyError,
     playerNotFoundError,
-    selectedPlayerNotFoundError
+    transfersSelectedPositionNotFoundError
 } from "../../../global/Errors";
 import MyList from "./myList/MyList";
 import {
@@ -131,10 +127,9 @@ export function Transfers({subTab}: { subTab: subTab }) {
             res =>
                 onAxiosSuccess({
                     res: res,
-                    myError: loadTeamError,
                     onSuccess: () => setFantasyTeamApiResponse(res.data)
                 }),
-            error => onAxiosError({axiosError: error, myError: loadTeamError})
+            error => onAxiosError({axiosError: error})
         )
 
         playerListApiCall()
@@ -142,17 +137,17 @@ export function Transfers({subTab}: { subTab: subTab }) {
 
     function deletePlayerApiCall() {
         if (!transfersSelectedPosition) {
-            onBaseError({myError: selectedPlayerNotFoundError})
+            onMyError({myError: transfersSelectedPositionNotFoundError})
             return
         } else if (!transfersPlayers[transfersSelectedPosition]) {
-            onBaseError({myError: playerNotFoundError})
+            onMyError({myError: playerNotFoundError})
             return
         }
 
         axiosDeletePlayer(transfersPlayers, transfersSelectedPosition).then(
             res =>
                 onAxiosSuccess({
-                    res: res, myError: deletePlayerError, onSuccess: () => {
+                    res: res, onSuccess: () => {
                         if (selectedPlayer)
                             addPlayerApiCall(selectedPlayer, transfersSelectedPosition)
                         else
@@ -165,7 +160,7 @@ export function Transfers({subTab}: { subTab: subTab }) {
                 })
             ,
             error =>
-                onAxiosError({axiosError: error, myError: deletePlayerError})
+                onAxiosError({axiosError: error})
         )
     }
 
@@ -173,10 +168,10 @@ export function Transfers({subTab}: { subTab: subTab }) {
         axiosAddPlayer(player, transfersSelectedPosition)
             .then(res =>
                     onAxiosSuccess({
-                        res: res, myError: addPlayerError, onSuccess: updateTransfersInfo
+                        res: res, onSuccess: updateTransfersInfo
                     }),
                 err =>
-                    onAxiosError({axiosError: err, myError: addPlayerError})
+                    onAxiosError({axiosError: err})
             )
     }
 
@@ -185,11 +180,10 @@ export function Transfers({subTab}: { subTab: subTab }) {
             res =>
                 onAxiosSuccess({
                     res: res,
-                    myError: loadPlayersListError,
                     onSuccess: () => setPlayersListApiResponse(res.data)
                 }),
             error =>
-                onAxiosError({axiosError: error, myError: loadPlayersListError})
+                onAxiosError({axiosError: error})
         )
     }
 

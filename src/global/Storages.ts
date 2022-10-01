@@ -1,4 +1,4 @@
-import {subTabsEndingUrl} from "./Variables";
+import {homeTabsEndingUrl, subTabsEndingUrl} from "./Variables";
 
 const tokenKey = 'x-access-token'
 
@@ -16,9 +16,19 @@ export function setHomeTabsState(tab: number) {
     sessionStorage.setItem(homeTabsKey, String(tab))
 }
 
-export function getHomeTabsState() {
+export function getHomeTabsStateId() {
     const tab = sessionStorage.getItem(homeTabsKey)
     return tab ? Number(tab) : 1
+}
+
+export function getHomeTabsStateName() {
+    const tabsStateId = getHomeTabsStateId()
+
+    return tabsStateId === 1 ? homeTabsEndingUrl.myTeam :
+        tabsStateId === 2 ? homeTabsEndingUrl.transfers :
+            tabsStateId === 3 ? homeTabsEndingUrl.events :
+                tabsStateId === 4 ? homeTabsEndingUrl.profile :
+                    homeTabsEndingUrl.prizes
 }
 
 const myTeamSubTabKey = 'my-team-sub-tab'

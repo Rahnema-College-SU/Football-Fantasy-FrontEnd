@@ -1,9 +1,9 @@
-import {toFarsiNumber} from "../../../../../global/Variables";
 import './TransfersSideListPlayer.css'
 import React from "react";
 import {useRecoilState} from "recoil";
 import {selectedPlayerState} from "../../../transfers/sideList/TransfersSideList";
 import {playerType, positionsUiType} from "../../../../../global/Types";
+import {toFarsiNumber} from "../../../../../global/functions/Converters";
 
 export function TransfersSideListPlayer({
                                             player,

@@ -17,7 +17,7 @@ import {
 } from "./components/home/transfers/removePlayerModal/RemovePlayerModal";
 import {useRecoilValue} from "recoil";
 import {axiosSignInWithToken} from "./global/ApiCalls";
-import {invalidToken, onAxiosError, onAxiosSuccess} from "./global/Errors";
+import {invalidToken, onAxiosError, onAxiosSuccess, onInfo} from "./global/Errors";
 import {setToken} from "./global/Storages";
 import {ProfileModal, profileModalDisplayState} from './components/home/events/profileModal/profileModal';
 import {
@@ -49,15 +49,15 @@ function App() {
                 res =>
                     onAxiosSuccess({
                         res: res,
-                        myError: invalidToken,
                         onSuccess: () => setToken(res.data.data.accessToken),
+                        onError: () => onInfo(invalidToken),
                         onErrorReturnValue: false,
                         onSuccessReturnValue: true
                     }),
                 err =>
                     onAxiosError({
                         axiosError: err,
-                        myError: invalidToken,
+                        onError: () => onInfo(invalidToken),
                         onErrorReturnValue: false
                     })
             )
@@ -90,7 +90,7 @@ function App() {
                 <Route path={`/home/${homeTabsEndingUrl.transfers}/${subTabsEndingUrl.list}`} element={
                     <Home mainTab={<Transfers subTab={'list'}/>}/>
                 }/>
-                <Route path={`/home/${homeTabsEndingUrl.Events}`} element={
+                <Route path={`/home/${homeTabsEndingUrl.events}`} element={
                     <Home mainTab={<LatestEvents/>}/>
                 }/>
                 <Route path={`/home/${homeTabsEndingUrl.profile}`} element={
@@ -101,7 +101,7 @@ function App() {
                 }/>
             </Routes>
 
-            {/*TODO*/}
+            {/*TODO: architecture and click away listener*/}
             <div id={'modals-div'} style={{display: removePlayerModalDisplay}}>
                 <RemovePlayerModal/>
             </div>

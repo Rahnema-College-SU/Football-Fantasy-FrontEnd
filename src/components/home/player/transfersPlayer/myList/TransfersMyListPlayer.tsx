@@ -5,7 +5,6 @@ import {removePlayerModalDisplayState} from "../../../transfers/removePlayerModa
 import {selectedPlayerState} from "../../../transfers/sideList/TransfersSideList";
 import React, {useRef} from "react";
 import {
-    toFarsiNumber,
     transfersAttPositions,
     transfersDefPositions,
     transfersGkPositions,
@@ -17,6 +16,7 @@ import deleteIcon from "../../../transfers/myList/assets/delete-icon.svg";
 import activeCloth from "../../../assets/active-cloth.svg";
 import inactiveCloth from "../../../assets/inactive-cloth.svg";
 import {transfersSelectedPositionState} from "../schematic/TransfersSchematicPlayer";
+import {toFarsiNumber} from "../../../../../global/functions/Converters";
 
 export function TransfersMyListPlayer({position}: { position?: number }) {
     const transfersPlayers = useRecoilValue(transfersPlayersState)

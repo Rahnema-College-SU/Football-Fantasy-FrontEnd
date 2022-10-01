@@ -1,7 +1,6 @@
 import React, {useRef} from "react";
 import './TransfersSchematicPlayer.css'
 import {
-    toFarsiNumber,
     transfersAttPositions,
     transfersDefPositions,
     transfersGkPositions,
@@ -18,6 +17,7 @@ import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {transfersPlayersState} from "../../../transfers/Transfers";
 import {removePlayerModalDisplayState} from "../../../transfers/removePlayerModal/RemovePlayerModal";
 import {selectedPlayerState} from "../../../transfers/sideList/TransfersSideList";
+import {toFarsiNumber} from "../../../../../global/functions/Converters";
 
 export const transfersSelectedPositionState = atom<number | undefined>({
     key: 'selectedPositionState',

@@ -7,6 +7,14 @@ import {
 } from "../Types";
 import {positionsServer, positionsUi} from "../Variables";
 
+export function toFarsiNumber(number: number) {
+    const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+
+    return number
+        .toString()
+        .replace(/\d/g, (x: string) => farsiDigits[parseInt(x)]);
+}
+
 export function convertFantasyTeamApiResponseForTransfers(apiResponse: fantasyTeamApiResponseType) {
     return apiResponse.data.playersList.reduce((map: myPlayersType, obj) => {
         map[obj.locationInTransferUI] = {

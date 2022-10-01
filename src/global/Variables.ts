@@ -1,7 +1,7 @@
 export const homeTabsEndingUrl = {
     myTeam: 'my-team',
     transfers: 'transfers',
-    Events: 'events',
+    events: 'events',
     profile: 'profile',
     prizes: 'prizes'
 } as const
@@ -10,14 +10,6 @@ export const subTabsEndingUrl = {
     schematic: 'schematic',
     list: 'list'
 } as const
-
-export function toFarsiNumber(number: number) {
-    const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-
-    return number
-        .toString()
-        .replace(/\d/g, (x: string) => farsiDigits[parseInt(x)]);
-}
 
 export const transfersGkPositions = [1, 12]
 export const transfersDefPositions = [2, 3, 4, 5, 13]

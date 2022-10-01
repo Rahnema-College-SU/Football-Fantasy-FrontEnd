@@ -3,7 +3,7 @@ import './NavigationBar.css';
 import {Link, useNavigate} from "react-router-dom";
 import {homeTabsEndingUrl} from "../../../global/Variables";
 import {
-    getHomeTabsState,
+    getHomeTabsStateId,
     getMyTeamSubTabsStateName,
     getTransfersSubTabsStateName,
     setHomeTabsState
@@ -17,12 +17,12 @@ function NavigationBar() {
             name: 'نقل و انتقالات',
             urlEndingName: homeTabsEndingUrl.transfers + '/' + getTransfersSubTabsStateName()
         },
-        {id: 3, name: ' رویدادها', urlEndingName: homeTabsEndingUrl.Events},
+        {id: 3, name: ' رویدادها', urlEndingName: homeTabsEndingUrl.events},
         {id: 4, name: 'پروفایل', urlEndingName: homeTabsEndingUrl.profile},
         {id: 5, name: 'جوایز', urlEndingName: homeTabsEndingUrl.prizes}
     ]
 
-    const [selectedTab, setSelectedTab] = useState(getHomeTabsState())
+    const [selectedTab, setSelectedTab] = useState(getHomeTabsStateId())
     const navigate = useNavigate()
 
     useEffect(() => {

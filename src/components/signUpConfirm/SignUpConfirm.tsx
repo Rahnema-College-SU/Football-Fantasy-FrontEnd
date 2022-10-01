@@ -3,7 +3,7 @@ import "./SignUpConfirm.css";
 import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
 import {axiosSignUpConfirm} from "../../global/ApiCalls";
-import {addUserError, invalidCodeError, onAxiosError, onAxiosSuccess, onBaseError} from "../../global/Errors";
+import {addUserError, onAxiosError, onAxiosSuccess, onMyError} from "../../global/Errors";
 import {getToken} from "../../global/Storages";
 import {focusOnElementByRef, handleKeyboardEvent} from "../../global/functions/General";
 
@@ -12,6 +12,7 @@ function SignUpConfirm() {
     let code = '';
     const navigate = useNavigate()
     const confirmationCodeInputRef = useRef<HTMLDivElement | null>(null)
+
     const setCode: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         code = e.target.value
     }
@@ -19,18 +20,18 @@ function SignUpConfirm() {
     function ConfirmApi() {
         const token = getToken()
         if (!token) {
-            onBaseError({myError: addUserError})
+            onMyError({myError: addUserError})
             return
         }
 
         axiosSignUpConfirm(token, code).then(
             res => {
                 onAxiosSuccess({
-                    res: res, myError: invalidCodeError, onSuccess: () => navigate('/sign-in')
+                    res: res, onSuccess: () => navigate('/sign-in')
                 })
             },
             error =>
-                onAxiosError({axiosError: error, myError: invalidCodeError})
+                onAxiosError({axiosError: error})
         )
     }
 

@@ -1,8 +1,8 @@
 import React from 'react'
 import wallet from './assets/wallet.svg'
 import {atom, useRecoilState} from "recoil";
-import {toFarsiNumber} from "../../../../global/Variables";
 import {Remaining} from "./Remaining";
+import {toFarsiNumber} from "../../../../global/functions/Converters";
 
 export const remainingMoneyState = atom<number | undefined>({
     key: 'remainingMoneyState',
