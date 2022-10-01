@@ -12,7 +12,7 @@ import {
 import DateBox, {dateState} from "../dateBox/DateBox";
 import {getDate} from "../../../global/functions/General";
 import {axiosFantasyTeam, axiosSubstitution} from "../../../global/ApiCalls";
-import {loadTeamError, onAxiosError, onAxiosSuccess, substitutionError} from "../../../global/Errors";
+import {onAxiosError, onAxiosSuccess} from "../../../global/Errors";
 import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {MyTeamSideList} from "./sideList/MyTeamSideList";
 import {fantasyTeamApiResponseState} from "../transfers/Transfers";
@@ -52,13 +52,12 @@ function MyTeam({subTab}: { subTab: subTab }) {
             res =>
                 onAxiosSuccess({
                     res: res,
-                    myError: loadTeamError,
                     onSuccess: () => {
                         setFantasyTeamApiResponse(res.data)
                         deselectPlayers()
                     }
                 }),
-            error => onAxiosError({axiosError: error, myError: loadTeamError})
+            error => onAxiosError({axiosError: error})
         )
     }
 
@@ -94,11 +93,11 @@ function MyTeam({subTab}: { subTab: subTab }) {
         axiosSubstitution(playerOutId, playerInId).then(
             res =>
                 onAxiosSuccess({
-                    res: res, myError: substitutionError, onSuccess: () => updateMyTeamInfo(), onError: deselectPlayers
+                    res: res, onSuccess: () => updateMyTeamInfo(), onError: deselectPlayers
                 })
             ,
             error =>
-                onAxiosError({axiosError: error, myError: substitutionError, onError: deselectPlayers})
+                onAxiosError({axiosError: error, onError: deselectPlayers})
         )
     }
 

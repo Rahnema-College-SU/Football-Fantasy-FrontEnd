@@ -12,20 +12,25 @@ import next from './assets/next.svg'
 import {
     positionsServer,
     positionsUi,
-    toFarsiNumber,
     transfersAttPositions,
     transfersDefPositions,
     transfersGkPositions,
     transfersMidPositions
 } from "../../../../global/Variables";
 import {transfersPlayersState} from "../Transfers";
-import {addPlayerError, loadPaginationError, onBaseError, pageNotAvailableError} from "../../../../global/Errors";
+import {
+    onMyError,
+    pageNotAvailableError,
+    paginationError,
+    transfersSelectedPositionNotFoundError
+} from "../../../../global/Errors";
 import {debounce} from "ts-debounce";
 import {removePlayerModalDisplayState} from "../removePlayerModal/RemovePlayerModal";
 import {TransfersSideListPlayer} from "../../player/transfersPlayer/sideList/TransfersSideListPlayer";
 import {useMediaQuery} from "@mui/material";
 import {SideList} from "../../sideList/SideList";
 import {transfersSelectedPositionState} from "../../player/transfersPlayer/schematic/TransfersSchematicPlayer";
+import {toFarsiNumber} from "../../../../global/functions/Converters";
 
 const defaultSort: sortType = 'DESC'
 
@@ -164,8 +169,8 @@ function TransfersSideList({playerListApiCall, addPlayerApiCall}: {
     }, [selectedPlayer])
 
     function addPlayer(player: playerType) {
-        if (!transfersSelectedPosition) {
-            onBaseError({myError: addPlayerError})
+        if (transfersSelectedPosition === undefined) {
+            onMyError({myError: transfersSelectedPositionNotFoundError})
         } else if (transfersPlayers[transfersSelectedPosition] !== undefined)
             setRemovePlayerModalDisplay('block')
         else
@@ -180,10 +185,7 @@ function TransfersSideList({playerListApiCall, addPlayerApiCall}: {
         function searchInputOnChange(e: React.ChangeEvent<HTMLInputElement>) {
             if (debounceFunction)
                 debounceFunction.cancel()
-            debounceFunction = debounce(() => {
-                console.log('debounce')
-                setSearchText(e.target.value)
-            }, 1000)
+            debounceFunction = debounce(() => setSearchText(e.target.value), 1000)
             debounceFunction().then()
         }
 
@@ -270,10 +272,10 @@ function TransfersSideList({playerListApiCall, addPlayerApiCall}: {
         function setNewPage(newPage: number | undefined) {
             return () => {
                 if (newPage === undefined || !transfersSideList.numberOfPages)
-                    onBaseError({myError: loadPaginationError})
-                else if (newPage < 1 || newPage > transfersSideList.numberOfPages)
-                    onBaseError({myError: pageNotAvailableError})
-                else
+                    onMyError({myError: paginationError})
+                else if (newPage < 1 || newPage > transfersSideList.numberOfPages) {
+                    onMyError({myError: pageNotAvailableError})
+                } else
                     setPageNumber(newPage)
             }
         }
