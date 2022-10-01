@@ -97,3 +97,10 @@ export type searchType = {
     pageNumber: number,
     listSize: number
 }
+
+export type searchResultUserType = {
+    id: String,
+    username: String,
+    imageUrl: String,
+    isFollowed: Boolean
+}

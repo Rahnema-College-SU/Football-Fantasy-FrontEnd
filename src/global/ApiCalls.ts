@@ -5,7 +5,7 @@ import {getToken} from "./Storages";
 const customAxios = axios.create(
     {
         baseURL: 'http://178.216.248.39:8000',
-        timeout: 10000
+        timeout: 5000
     }
 );
 
@@ -66,6 +66,33 @@ export const axiosSignIn = (username: string, password: string) => customAxios.p
     }
 )
 
+export const axiosAllUsersList = (searchText: string) => customAxios.get('user_search', {
+    params: {
+        search: searchText,
+        search_type: "All"
+    }
+})
+
+export const axiosFollow = (id: String) => customAxios.delete('follow', {
+    params: {
+        followUserId: id
+    }
+})
+export const axiosUnfollow = (id: String) => customAxios.delete(`follow/"${id}"`)
+
+export const axiosFollowingSearch = (searchText: string) => customAxios.get('user_search', {
+    params: {
+        search: searchText,
+        search_type: "Following"
+    }
+})
+
+export const axiosFollowerSearch = (searchText: string) => customAxios.get('user_search', {
+    params: {
+        search: searchText,
+        search_type: "Follower"
+    }
+})
 export const axiosSignInWithToken = () => customAxios.get('login_with_token')
 
 export const axiosSubstitution = (playerOutId: number, playerInId: number) => customAxios.post('substitution', {

@@ -105,7 +105,8 @@ function MyTeam({subTab}: { subTab: subTab }) {
     return (
         <div id={'my-team-main-div'}>
             <div id={'date-and-deadline-container'}>
-                <DateBox date={date?.substitutionDeadlineDate} placeHolder={'دریافت مهلت تغییرات ...'} widthStyle={'45%'}
+                <DateBox date={date?.substitutionDeadlineDate} placeHolder={'دریافت مهلت تغییرات ...'}
+                         widthStyle={'45%'}
                          marginStyle={'none'}/>
                 <DateBox date={date?.nextWeekStartDate} widthStyle={'45%'} marginStyle={'none'}/>
             </div>
