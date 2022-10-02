@@ -82,14 +82,16 @@ function Profile() {
         if (!fileObj)
             return;
 
-        document.getElementById('upload-image-text')!.innerHTML = fileObj.name
+        document.getElementById('upload-image-text')!.innerHTML = fileObj.name;
+        (document.getElementsByClassName('profile-tab-photo')[0] as HTMLImageElement).src =
+            URL.createObjectURL(fileObj);
     }
 
     return (
         <div className={'profile-main-div'}>
             {getHeader()}
-            <img className={'profile-tab-photo'} src={a} onLoad={() => setIsImageLoaded(true)} style={{display: isImageLoaded ? '' : 'none'}} alt={'profile photo'}/>
-            <CircularProgress className={'profile-tab-photo'} style={{display: !isImageLoaded ? '' : 'none'}}/>
+            <img className={'profile-tab-photo'} src={/*'https://picsum.photos/200/200'*/a} onLoad={() => setIsImageLoaded(true)} style={{display: isImageLoaded ? '' : 'none'}} alt={'profile photo'}/>
+            <CircularProgress id={'profile-tab-circular-progress'} className={'profile-tab-photo'} style={{display: !isImageLoaded ? '' : 'none'}}/>
             <input ref={fileInputRef} style={{display: 'none'}} type={'file'}
                    accept={".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"} onChange={handleFileChange}/>
             <button id={'upload-image-button'} style={{visibility: isEdit ? 'visible' : 'hidden'}}

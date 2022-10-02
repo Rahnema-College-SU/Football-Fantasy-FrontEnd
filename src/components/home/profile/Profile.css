@@ -41,6 +41,11 @@
     height: 150px;
     border-radius: 50%;
     margin-top: 30px;
+    object-fit: cover;
+}
+
+#profile-tab-circular-progress {
+    border: #04F3F4 5px solid;
 }
 
 #upload-image-button {
