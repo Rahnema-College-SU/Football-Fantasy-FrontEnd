@@ -33,14 +33,15 @@ function App() {
     // const [modalsDivDisplay, setModalsDivDisplay] = useState<'none' | 'block'>('none')
 
     useEffect(() => {
-        if (window.location.href.includes('home'))
-            isTokenValid()
-                .then(
-                    res => res ? '' : navigate('/sign-in'),
-                    () => navigate('/sign-in')
-                )
-        else
-            navigate('/sign-in')
+        // if (window.location.href.includes('home'))
+        //     isTokenValid()
+        //         .then(
+        //             res => res ? '' : navigate('/sign-in'),
+        //             () => navigate('/sign-in')
+        //         )
+        // else
+        //     navigate('/sign-in')
+        navigate('/home/events')
     }, [])
 
     async function isTokenValid(): Promise<boolean> {

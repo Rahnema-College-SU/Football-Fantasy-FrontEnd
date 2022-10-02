@@ -1,22 +1,32 @@
 import React, {useEffect} from 'react';
 import './profileModal.css';
-import {atom, useRecoilState} from 'recoil';
+import {atom} from 'recoil';
 import profilePhoto from '../latestEvents/profiles/assets/profilePhoto.jpeg';
+import { latestEventType, userInfoType } from '../../../../global/Types';
+import { useRecoilState } from 'recoil';
+import { toFarsiNumber } from '../../../../global/functions/Converters';
+import { axiosFollow } from '../../../../global/ApiCalls';
+import { handleFollowing } from '../../../../global/functions/General'; 
 
-export const isFollowingClickedState = atom<boolean>({
-    key: 'isFollowingClickedState',
-    default: false
-})
+// export const isFollowingClickedState = atom<boolean>({
+//     key: 'isFollowingClickedState',
+//     default: false
+// })
 
 export const profileModalDisplayState = atom<'none' | 'block'>({
     key: 'profileModalDisplayState',
     default: 'none'
 })
 
+export const currentUserState = atom< undefined | userInfoType>({
+    key:'currentUserState',
+    default: undefined
+})
+
 
 export function ProfileModal() {
     const [profileModalDisplay, setProfileModalDisplay] = useRecoilState(profileModalDisplayState)
-
+    const [currentUser,setCurrentUser] = useRecoilState(currentUserState)
     useEffect(() => {
         if (profileModalDisplay === 'none')
             console.log("display none")
@@ -31,26 +41,25 @@ export function ProfileModal() {
             }}>
                 <div className='show-info'>
                     <img className="modal-profile-photo" src={profilePhoto} alt="profile photo"></img>
-                    <button className='profile-modal-following-button '> دنبال کردن</button>
+                    <button className='profile-modal-following-button' onClick={()=>handleFollowing(currentUser?currentUser.id:"")}> دنبال کردن</button>
                     <div className='modal-profile-info'>
                         <div className='info-lable'>نام:
-                            <div className='info'>اسم</div>
+                            <div className='info'>{currentUser&& currentUser.firstName }{currentUser&& currentUser.lastName }</div>
                         </div>
 
                         <div className='info-lable'>سن:
-                            <div className='info'>۵۸</div>
+                            <div className='info'>{currentUser&& toFarsiNumber(currentUser.age) }</div>
                         </div>
 
                         <div className='info-lable'>کشور:
-                            <div className='info'>ایران</div>
+                            <div className='info'>{currentUser&& currentUser.country }</div>
                         </div>
 
                         <div className='info-lable'>آخرین امتیاز:
-                            <div className='info'>۱۱۲</div>
+                            <div className='info'>{currentUser&& toFarsiNumber(currentUser.teamPoint) }</div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     )

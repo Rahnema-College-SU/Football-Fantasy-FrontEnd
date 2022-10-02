@@ -1,3 +1,5 @@
+import exp from "constants";
+import { type } from "os";
 import {positionsServer, positionsUi} from "./Variables";
 
 export type subTab = 'schematic' | 'list'
@@ -103,4 +105,34 @@ export type searchResultUserType = {
     username: String,
     imageUrl: String,
     isFollowed: Boolean
+}
+export type substitutionType={
+    playerOutId: String,
+    playerInId: String,
+}
+
+export type latestEventType={
+    eventId: string,
+    weekName: string,
+    teamPoints: number,
+    liked: boolean, 
+    firstName: string,  
+    lastName: string,  
+    fullName: string,
+    username: string,
+    imageUrl: string,
+    substitutions:substitutionType[]
+}
+
+export type userInfoType={
+    id: string,
+    username: string,
+    firstName: string,  
+    lastName: string,  
+    fullName: string,
+    country: string,
+    imageUrl: string,
+    teamPoint: number,
+    age: number,
+    followed:boolean 
 }

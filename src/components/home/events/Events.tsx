@@ -6,6 +6,8 @@ import './Events.css'
 import {profileModalDisplayState} from "./profileModal/profileModal";
 import {useSetRecoilState} from "recoil";
 
+
+
 function Events() {
     const ProfileModalDisplay = useSetRecoilState(profileModalDisplayState)
 

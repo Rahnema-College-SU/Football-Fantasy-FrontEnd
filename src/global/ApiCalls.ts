@@ -73,7 +73,7 @@ export const axiosAllUsersList = (searchText: string) => customAxios.get('user_s
     }
 })
 
-export const axiosFollow = (id: String) => customAxios.delete('follow', {
+export const axiosFollow = (id: String) => customAxios.post('follow', {
     params: {
         followUserId: id
     }
@@ -99,3 +99,19 @@ export const axiosSubstitution = (playerOutId: number, playerInId: number) => cu
     playerOutId: playerOutId,
     playerInId: playerInId
 })
+
+export const axiosUserInfo = (id: string) => customAxios.get('user_info',
+    {
+        params: {
+            user_id:id
+        }
+    }
+)
+
+export const axiosEventList = () => customAxios.get('event_list')
+
+export const axiosLike = (eventId: string) => customAxios.post('like', {
+    eventId: eventId
+})
+
+export const axiosUnlike = (eventId: string) => customAxios.delete(`unlike/${eventId}`)

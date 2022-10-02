@@ -7,7 +7,7 @@ import {axiosFollow} from "../../../../global/ApiCalls";
 import {onAxiosError, onAxiosSuccess} from "../../../../global/Errors";
 import profilePhoto from '../latestEvents/profiles/assets/profilePhoto.jpeg'
 import {ClickAwayListener} from "@mui/material";
-
+import { handleFollowing } from "../../../../global/functions/General";
 
 export const usersListState = atom<Array<searchResultUserType>>({
     key: 'usersListState',
@@ -70,23 +70,6 @@ export function MainSearchBox() {
         setResultBoxState(true)
     }
 
-    function handleFollow(id: String) {
-        ////needs to be complited
-        axiosFollow(id).then(
-            res => {
-                onAxiosSuccess({
-                    res: res, onSuccess: () => {
-                        setUsersList(res.data.data)
-                    }
-                })
-
-            },
-            error => {
-                onAxiosError({axiosError: error})
-            }
-        )
-    }
-
     function showProfileModel() {
         //TODO: needs to be complited
     }
@@ -111,7 +94,7 @@ export function MainSearchBox() {
                     {usersList.map(user => <div className="profile">
                         <img className="friends-profile-photo" src={profilePhoto} alt="profile photo"></img>
                         <div className="friends-name">{user.username}</div>
-                        <button className="follow-back" onClick={() => handleFollow(user.id)}>
+                        <button className="follow-back" onClick={() => handleFollowing(user.id.toString())}>
                             <div className="button-text"> دنبال کردن</div>
                         </button>
                     </div>)}
