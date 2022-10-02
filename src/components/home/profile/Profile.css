@@ -36,7 +36,7 @@
     text-align: center;
 }
 
-#profile-tab-photo {
+.profile-tab-photo {
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -68,7 +68,6 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin-top: 20px;
 }
 
 .profile-tab-column {

@@ -3,9 +3,11 @@ import "./Profile.css";
 import editIcon from './assets/edit-icon.svg'
 import uploadIcon from './assets/upload-icon.svg'
 import a from './assets/a.gif'
+import {CircularProgress} from "@mui/material";
 
 function Profile() {
     const [isEdit, setIsEdit] = useState<boolean>(false)
+    const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false)
     const fileInputRef = useRef<HTMLInputElement | null>(null)
 
     const [columns, setColumns] = useState<{ title: string, text: string }[][]>([
@@ -86,7 +88,8 @@ function Profile() {
     return (
         <div className={'profile-main-div'}>
             {getHeader()}
-            <img id={'profile-tab-photo'} src={a} alt={'profile photo'}/>
+            <img className={'profile-tab-photo'} src={a} onLoad={() => setIsImageLoaded(true)} style={{display: isImageLoaded ? '' : 'none'}} alt={'profile photo'}/>
+            <CircularProgress className={'profile-tab-photo'} style={{display: !isImageLoaded ? '' : 'none'}}/>
             <input ref={fileInputRef} style={{display: 'none'}} type={'file'}
                    accept={".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"} onChange={handleFileChange}/>
             <button id={'upload-image-button'} style={{visibility: isEdit ? 'visible' : 'hidden'}}
