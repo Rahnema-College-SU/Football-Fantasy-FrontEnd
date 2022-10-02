@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./LatestEvents.css"
-import Profile from "./profiles/Profiles";
+import EventItem from "./profiles/Profiles";
 // import { latestEventType } from "@testing-library/react";
 import { useState } from "react";
 import { profile } from "console";
@@ -49,12 +49,14 @@ const r = {
 
 export function LatestEvents() {
     const [events, setEvents] = useRecoilState(latestEventsListState)
-    setEvents(r.data)
+    useEffect(() => {
+      setEvents(r.data)
+    }, [setEvents])
     return (
         <div className="Latest-Events-Box">
             <div className="Latest-Events-Title"> آخرین رویداد ها</div>
             <div>
-            {events.map(e => Profile(e))  }   
+            {events.map((e,index) =><EventItem event={e} key={index}/>)  }   
             </div>
         </div>
     )

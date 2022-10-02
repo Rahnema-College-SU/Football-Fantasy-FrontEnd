@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import './Transfers.css';
 import menu from './assets/menu.svg';
 import {RemainingPlayer, usedPlayerState} from "./remainigParts/RemainingPlayer";
-import {RemainingMoney, remainingMoneyState} from "./remainigParts/RemainingMoney";
+import {RemainingMoney} from "./remainigParts/RemainingMoney";
 import MiddleTabBar from "../middleTabBar/MiddleTabBar";
 import {axiosAddPlayer, axiosDeletePlayer, axiosFantasyTeam, axiosPlayersList,} from "../../../global/ApiCalls";
 import {
@@ -63,7 +63,7 @@ export const transfersPlayersState = atom<myPlayersType>({
 export function Transfers({subTab}: { subTab: subTab }) {
     const [fantasyTeamApiResponse, setFantasyTeamApiResponse] = useRecoilState(fantasyTeamApiResponseState)
     const [transfersPlayers, setTransfersPlayers] = useRecoilState(transfersPlayersState)
-    const setRemainingMoney = useSetRecoilState(remainingMoneyState)
+    const [remainingMoney, setRemainingMoney] = useState(0)
     const setUsedPlayer = useSetRecoilState(usedPlayerState)
 
     const [playersListApiResponse, setPlayersListApiResponse] = useState<playersListApiResponseType | undefined>(undefined)
@@ -210,7 +210,7 @@ export function Transfers({subTab}: { subTab: subTab }) {
                 <RemainingPlayer/>
                 <MiddleTabBar mainTab={homeTabsEndingUrl.transfers} subTabInitialState={getTransfersSubTabStateId()}
                               storageSetter={setTransfersSubTabState}/>
-                <RemainingMoney/>
+                <RemainingMoney remainingMoney={remainingMoney}/>
 
                 {subTab === 'schematic' ?
                     <Schematic gkPositions={transfersGkPositions} defPositions={transfersDefPositions}

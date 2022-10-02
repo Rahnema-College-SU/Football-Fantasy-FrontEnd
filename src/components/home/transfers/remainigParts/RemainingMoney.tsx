@@ -4,14 +4,9 @@ import {atom, useRecoilState} from "recoil";
 import {Remaining} from "./Remaining";
 import {toFarsiNumber} from "../../../../global/functions/Converters";
 
-export const remainingMoneyState = atom<number | undefined>({
-    key: 'remainingMoneyState',
-    default: undefined
-})
 
-export function RemainingMoney() {
-    const [remainingMoney] = useRecoilState(remainingMoneyState)
-
+export function RemainingMoney({remainingMoney}: {remainingMoney: number}) {
+    
     return (
         <Remaining showingText={remainingMoney !== undefined ? toFarsiNumber(remainingMoney / 10) : undefined}
                    src={wallet}

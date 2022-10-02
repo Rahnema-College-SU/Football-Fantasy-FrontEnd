@@ -23,6 +23,18 @@ export const currentUserState = atom< undefined | userInfoType>({
     default: undefined
 })
 
+const r ={
+    "id": "ff13da9b-2302-45bd-8b64-fa62483de49d",
+    "username": "mahdi07",
+    "firstName": "mahdi",
+    "lastName": "mahdavi",
+    "fullName": "mahdi mahdavi",
+    "country": "iran",
+    "imageUrl": "",
+    "teamPoint": 11,
+    "age": 23,
+    "followed": false
+}
 
 export function ProfileModal() {
     const [profileModalDisplay, setProfileModalDisplay] = useRecoilState(profileModalDisplayState)
@@ -31,6 +43,9 @@ export function ProfileModal() {
         if (profileModalDisplay === 'none')
             console.log("display none")
     }, [profileModalDisplay])
+    useEffect(()=>{
+        setCurrentUser(r)
+    })
 
     return (
         <div className='back' onClick={() => {

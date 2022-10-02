@@ -102,9 +102,12 @@ export type searchType = {
 
 export type searchResultUserType = {
     id: String,
+    firstName: String,
+    lastName: String,
+    fullName: String,
     username: String,
     imageUrl: String,
-    isFollowed: Boolean
+    followed: Boolean
 }
 export type substitutionType={
     playerOutId: String,

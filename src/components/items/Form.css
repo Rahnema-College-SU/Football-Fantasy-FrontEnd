@@ -90,7 +90,9 @@
     border: none;
     border-radius: 8px;
 }
-
+form{
+    width: 100%;
+}
 .form-container {
     width: 60%;
     margin-bottom: 10%;
