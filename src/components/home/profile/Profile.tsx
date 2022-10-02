@@ -67,7 +67,7 @@ function Profile() {
         return (
             columns.map((column: { title: string, text: string }[]) => {
                 return (
-                    <div id={'profile-tab-left-column'} className={'profile-tab-column'}>
+                    <div className={'profile-tab-column'}>
                         {getEachColumn(column)}
                     </div>
                 )
