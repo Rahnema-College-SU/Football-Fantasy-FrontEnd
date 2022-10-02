@@ -1,6 +1,7 @@
 import {AxiosResponse} from "axios";
 import {enqueueSnackbar} from 'notistack';
 
+//TODO
 // export interface BaseError {
 //     type: string,
 //     message: string

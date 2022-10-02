@@ -64,11 +64,11 @@ function App() {
     }
 
     // useEffect(() => {
-    //     if (removePlayerModalDisplay === 'block')
+    //     if (removePlayerModalDisplay === 'block' || profileModalDisplay === 'block' || substitutionModalDisplay === 'block')
     //         setModalsDivDisplay('block')
     //     else
     //         setModalsDivDisplay('none')
-    // }, [removePlayerModalDisplay])
+    // }, [removePlayerModalDisplay, profileModalDisplay, substitutionModalDisplay])
 
     return (
         <div>
@@ -111,6 +111,17 @@ function App() {
             <div id={'modals-div'} style={{display: substitutionModalDisplay}}>
                 <SubstitutionModal/>
             </div>
+            {/*<div id={'modals-div'} style={{display: modalsDivDisplay}}>*/}
+            {/*    <RemovePlayerModal/>*/}
+            {/*    <ProfileModal/>*/}
+            {/*    <SubstitutionModal/>*/}
+            {/*</div>*/}
+            {/*<div id={'modals-div'} style={{display: profileModalDisplay}}>*/}
+            {/*    <ProfileModal/>*/}
+            {/*</div>*/}
+            {/*<div id={'modals-div'} style={{display: substitutionModalDisplay}}>*/}
+            {/*    <SubstitutionModal/>*/}
+            {/*</div>*/}
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import './profileModal.css';
 import {atom, useRecoilState} from 'recoil';
 import profilePhoto from '../latestEvents/profiles/assets/profilePhoto.jpeg';
@@ -16,11 +16,6 @@ export const profileModalDisplayState = atom<'none' | 'block'>({
 
 export function ProfileModal() {
     const [profileModalDisplay, setProfileModalDisplay] = useRecoilState(profileModalDisplayState)
-
-    useEffect(() => {
-        if (profileModalDisplay === 'none')
-            console.log("display none")
-    }, [profileModalDisplay])
 
     return (
         <div className='back' onClick={() => {

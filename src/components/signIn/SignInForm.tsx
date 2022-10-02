@@ -35,8 +35,11 @@ function SignInForm() {
                 res => {
                     onAxiosSuccess({
                         res: res, onSuccess: () => {
-                            navigate(`/home/${getHomeTabsStateName()}/${getHomeTabsStateName() === homeTabsEndingUrl.myTeam ?
-                                getMyTeamSubTabsStateName() : getTransfersSubTabsStateName()}`)
+                            const homeTabsStateName = getHomeTabsStateName()
+
+                            navigate(`/home/${getHomeTabsStateName()}/${homeTabsStateName === homeTabsEndingUrl.myTeam ?
+                                getMyTeamSubTabsStateName() : homeTabsStateName === homeTabsEndingUrl.transfers ?
+                                    getTransfersSubTabsStateName() : ''}`)
                             setToken(res.data.data.accessToken)
                         }
                     })
