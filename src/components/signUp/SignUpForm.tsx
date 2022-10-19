@@ -6,6 +6,7 @@ import {axiosSignUp} from "../../global/ApiCalls";
 import {addUserError, onAxiosError, onAxiosSuccess, userExistError} from "../../global/Errors";
 import {setToken} from "../../global/Storages";
 import {focusOnElementByRef, handleKeyboardEvent} from "../../global/functions/General";
+import {countries} from "../../global/Variables";
 
 function SignUpForm() {
     const navigate = useNavigate()
@@ -40,7 +41,7 @@ function SignUpForm() {
     }
 
     function signUpApiCall() {
-        ///remaining :check if user exist or not
+        ///TODO: remaining :check if user exist or not
         if (currentUser.first_name.length === 0) {
             return alert("نام خود را وارد کنید")
         } else if (currentUser.last_name.length === 0) {
@@ -102,9 +103,9 @@ function SignUpForm() {
                         <span className="label">کشور</span>
                         <select className="select-country" onChange={setCountry}>کشور
                             <option value="">انتخاب کشور</option>
-                            <option value="iran">iran</option>
-                            <option value="us">us</option>
-                            <option value="uk">uk</option>
+                            {countries.map((country) =>
+                                <option>{country.flag} {country.text}</option>
+                            )}
                         </select>
                     </div>
                     <div className="input-container">

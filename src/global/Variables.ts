@@ -11,6 +11,18 @@ export const subTabsEndingUrl = {
     list: 'list'
 } as const
 
+export const countries = [
+    {text: 'ایران', flag: '🇮🇷'},
+    {text: 'انگلستان', flag: '🇬🇧'},
+    {text: 'ایالات متّحده‌ی آمریکا', flag: '🇺🇸'},
+    {text: 'آلمان', flag: '🇩🇪'},
+    {text: 'برزیل', flag: '🇧🇷'},
+    {text: 'هند', flag: '🇮🇳'},
+    {text: 'چین', flag: '🇨🇳'},
+    {text: 'آرژانتین', flag: '🇦🇷'},
+    {text: 'هلند', flag: '🇳🇱'}
+]
+
 export const transfersGkPositions = [1, 12]
 export const transfersDefPositions = [2, 3, 4, 5, 13]
 export const transfersMidPositions = [6, 7, 8, 9, 14]
