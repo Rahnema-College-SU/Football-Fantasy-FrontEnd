@@ -1,6 +1,6 @@
 import {homeTabsEndingUrl, subTabsEndingUrl} from "./Variables";
 
-const tokenKey = 'x-access-token'
+const tokenKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1haGRpMSIsImlzVmVyaWZpZWQiOnRydWUsImlhdCI6MTY2NDczMzY1MiwiZXhwIjoxNjY0ODIwMDUyfQ.1YB-qN5UWmFzYhakFeRY7svqAbqKl3DXccLpYVIj-H8"
 
 export function setToken(t: string) {
     localStorage.setItem(tokenKey, t)

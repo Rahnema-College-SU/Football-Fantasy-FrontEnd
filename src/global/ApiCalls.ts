@@ -44,14 +44,8 @@ export const axiosAddPlayer = (player: playerType, position: number) => customAx
     locationInTransferUI: position
 })
 
-export const axiosSignUp = (username: string, password: string, firstName: string, lastName: string, email: string, country: string) => customAxios.post('signup',
-    {
-        username: username,
-        password: password,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        country: country,
+export const axiosSignUp = (data: {username: string, password: string, firstName: string, lastName: string, email: string, country: string}) => customAxios.post('signup',
+    {...data,
         birthDate: "2002-09-16"//TODO
     }
 )
@@ -73,7 +67,7 @@ export const axiosAllUsersList = (searchText: string) => customAxios.get('user_s
     }
 })
 
-export const axiosFollow = (id: String) => customAxios.delete('follow', {
+export const axiosFollow = (id: String) => customAxios.post('follow', {
     params: {
         followUserId: id
     }
@@ -99,3 +93,19 @@ export const axiosSubstitution = (playerOutId: number, playerInId: number) => cu
     playerOutId: playerOutId,
     playerInId: playerInId
 })
+
+export const axiosUserInfo = (id: string) => customAxios.get('user_info',
+    {
+        params: {
+            user_id:id
+        }
+    }
+)
+
+export const axiosEventList = () => customAxios.get('event_list')
+
+export const axiosLike = (eventId: string) => customAxios.post('like', {
+    eventId: eventId
+})
+
+export const axiosUnlike = (eventId: string) => customAxios.delete(`unlike/${eventId}`)

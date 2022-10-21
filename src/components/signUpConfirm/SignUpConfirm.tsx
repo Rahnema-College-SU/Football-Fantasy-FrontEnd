@@ -23,7 +23,6 @@ function SignUpConfirm() {
             onMyError({myError: addUserError})
             return
         }
-
         axiosSignUpConfirm(token, code).then(
             res => {
                 onAxiosSuccess({
@@ -36,7 +35,7 @@ function SignUpConfirm() {
     }
 
     return (
-        <Form>
+        <Form onSubmit={ConfirmApi}>
 
             <div className="sign-up-confirm">
                 <div className="header">

@@ -35,7 +35,6 @@ function NavigationBar() {
                 {
                     tabs.map(tab => {
                         const urlName = `/home/${tab.urlEndingName}`
-
                         return <li key={tab.id} onClick={() => {
                             setSelectedTab(tab.id);
                             navigate(urlName)

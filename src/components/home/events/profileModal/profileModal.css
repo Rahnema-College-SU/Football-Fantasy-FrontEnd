@@ -69,3 +69,10 @@
 .info {
     font-weight: bold;
 }
+
+@media only screen and (max-width: 38rem) {
+    .profile-modal-div {
+        width: 90%;
+    }
+
+}

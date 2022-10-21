@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./MainSearchBox.css"
 import searchIcon from "./assets/searchicon.png";
 import {searchResultUserType} from "../../../../global/Types";
@@ -7,7 +7,8 @@ import {axiosFollow} from "../../../../global/ApiCalls";
 import {onAxiosError, onAxiosSuccess} from "../../../../global/Errors";
 import profilePhoto from '../latestEvents/profiles/assets/profilePhoto.jpeg'
 import {ClickAwayListener} from "@mui/material";
-
+import { handleFollowing } from "../../../../global/functions/General";
+import { axiosAllUsersList } from "../../../../global/ApiCalls";
 
 export const usersListState = atom<Array<searchResultUserType>>({
     key: 'usersListState',
@@ -16,75 +17,82 @@ export const usersListState = atom<Array<searchResultUserType>>({
 
 
 const users =
-    {
-        "data": [
-            {
-                "id": "c6b7e186-7384-4433-91e4-78bf441d9450",
-                "username": "amir",
-                "imageUrl": "",
-                "isFollowed": false
-            },
-            {
-                "id": "7f8123fd-a049-475f-ad38-750ef9e4c84d",
-                "username": "aminsaveh80",
-                "imageUrl": "",
-                "isFollowed": false
-            },
-            {
-                "id": "57bf69e5-d210-4e7f-8b38-ab37e1e4ad89",
-                "username": "hadidortaj",
-                "imageUrl": "",
-                "isFollowed": false
-            },
-            {
-                "id": "76dc0b29-d99e-4d98-b043-e7e61211ec66",
-                "username": "hadidortaj2",
-                "imageUrl": "",
-                "isFollowed": false
-            }
-        ],
-        "success": true,
-        "errorMessage": ""
-    }
+{
+    "data": [
+        {
+            "id": "ff13da9b-2302-45bd-8b64-fa62483de49d",
+            "firstName": "mahdi",
+            "lastName": "mahdavi",
+            "fullName": "mahdi mahdavi",
+            "username": "mahdi07",
+            "imageUrl": "",
+            "followed": false
+        },
+        {
+            "id": "f2283794-4047-46c7-8b98-80b459bf5296",
+            "firstName": "amir",
+            "lastName": "amir",
+            "fullName": "amir amir",
+            "username": "amir",
+            "imageUrl": "",
+            "followed": false
+        },
+        {
+            "id": "45336d61-a50c-4c02-8649-4582366d260e",
+            "firstName": "amin",
+            "lastName": "saveh",
+            "fullName": "amin saveh",
+            "username": "aminsaveh",
+            "imageUrl": "",
+            "followed": false
+        },
+        {
+            "id": "21893705-03f3-4d05-8f5c-c45ae0b54ef3",
+            "firstName": "hadi",
+            "lastName": "dortaj",
+            "fullName": "hadi dortaj",
+            "username": "hadidortaj",
+            "imageUrl": "",
+            "followed": true
+        },
+        {
+            "id": "66e2d7fa-48cf-46ea-a02b-937eb314df4c",
+            "firstName": "hadi",
+            "lastName": "dortaj",
+            "fullName": "hadi dortaj",
+            "username": "hadidortaj3",
+            "imageUrl": "",
+            "followed": true
+        }
+    ],
+    "frontMessage": "",
+    "userMessage": ""
+}
 
 export function MainSearchBox() {
 
     const [usersList, setUsersList] = useRecoilState(usersListState)
     const [resultBoxState, setResultBoxState] = useState(false)
 
+    useEffect(() => {
+        setUsersList(users.data)
+    })
+
     function handleSearch(data: any) {
         // axiosAllUsersList(data).then(
         // res => {
         //     onAxiosSuccess({
-        //         res: res, myError: invalidInputError, onSuccess: () => {
+        //         res: res, myError: "invalidInputError", onSuccess: () => {
         //             setUsersList(res.data.data)
         //         }
         //     })
 
         // },
         // error => {
-        //     onAxiosError({axiosError: error, myError: invalidInputError})
+        //     onAxiosError({axiosError: error, myError: "invalidInputError"})
         // }
         // )
-        setUsersList(users.data)
         setResultBoxState(true)
-    }
-
-    function handleFollow(id: String) {
-        ////needs to be complited
-        axiosFollow(id).then(
-            res => {
-                onAxiosSuccess({
-                    res: res, onSuccess: () => {
-                        setUsersList(res.data.data)
-                    }
-                })
-
-            },
-            error => {
-                onAxiosError({axiosError: error})
-            }
-        )
     }
 
     function showProfileModel() {
@@ -93,11 +101,9 @@ export function MainSearchBox() {
 
     return (
         <div>
-
             <div className="main-search-box">
                 <ClickAwayListener onClickAway={() => setResultBoxState(false)}>
                     <div className={'search-box'}>
-
                         <img className="search-icon" src={searchIcon} alt={'magnifier'}/>
                         <input className={'search-input'} placeholder={'اسم دوستات رو جستجو کن و دنبالشون کن'}
                                onChange={event => {
@@ -111,7 +117,7 @@ export function MainSearchBox() {
                     {usersList.map(user => <div className="profile">
                         <img className="friends-profile-photo" src={profilePhoto} alt="profile photo"></img>
                         <div className="friends-name">{user.username}</div>
-                        <button className="follow-back" onClick={() => handleFollow(user.id)}>
+                        <button className="follow-back" onClick={() => handleFollowing(user.id.toString())}>
                             <div className="button-text"> دنبال کردن</div>
                         </button>
                     </div>)}

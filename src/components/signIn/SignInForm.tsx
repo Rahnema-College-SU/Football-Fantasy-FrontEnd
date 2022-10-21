@@ -12,13 +12,13 @@ import {
     setToken
 } from "../../global/Storages";
 import {focusOnElementByRef, handleKeyboardEvent} from "../../global/functions/General";
-import {closeSnackbar} from "notistack";
+//import {closeSnackbar} from "notistack";
 
 function SignInForm() {
     const navigate = useNavigate()
     const passwordInputRef = useRef<HTMLDivElement | null>(null)
 
-    useEffect(() => closeSnackbar(), [])
+    //useEffect(() => closeSnackbar(), [])
 
     const signInInput = {
         username: "",
@@ -60,7 +60,7 @@ function SignInForm() {
     }
 
     return (
-        <Form>
+        <Form onSubmit={signInApiCall}>
 
             <div className="sign-in-form">
                 <div className="header">
@@ -75,15 +75,12 @@ function SignInForm() {
                     <span className="label">رمز عبور</span>
                     <input className="input" type="password" onChange={setPassword}
                            ref={focusOnElementByRef(passwordInputRef)} tabIndex={0}
-                           onKeyUp={
-                               handleKeyboardEvent(['Enter'], [() =>
-                                   document.getElementById('sign-in-button-id')?.click()])
-                           }/>
+                           />
                 </div>
 
                 <div className="button-bar">
-                    <button id={'sign-in-button-id'} className="sign-in-button button"
-                            onClick={signInApiCall}>ورود
+                    <button id={'sign-in-button-id'} className="sign-in-button button" type="submit"
+                            >ورود
                     </button>
                     <button className="sign-in-button button" onClick={() => navigate('/sign-up')}>ثبت نام</button>
                 </div>

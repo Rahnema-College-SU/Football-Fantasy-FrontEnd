@@ -1,5 +1,5 @@
 import {AxiosResponse} from "axios";
-import {enqueueSnackbar} from 'notistack';
+//import {enqueueSnackbar} from 'notistack';
 
 //TODO
 // export interface BaseError {
@@ -141,9 +141,9 @@ export function onAxiosError({
     console.log(axiosError.response)
 
     if (axiosError.response.data)
-        enqueueSnackbar(axiosError.response.data.userMessage, {variant: 'error'})
-    else
-        enqueueSnackbar('خطا در ارتباط با سرور', {variant: 'error'})
+        // enqueueSnackbar(axiosError.response.data.userMessage, {variant: 'error'})
+    // else
+        // enqueueSnackbar('خطا در ارتباط با سرور', {variant: 'error'})
 
     return onMyError({
         myError: myError,
@@ -158,7 +158,7 @@ export function onMyError({
                               onErrorReturnValue
                           }: { myError?: string, onError?: () => void, onErrorReturnValue?: any }) {
     if (myError)
-        enqueueSnackbar(myError, {variant: 'error'})
+        // enqueueSnackbar(myError, {variant: 'error'})
 
     if (onError)
         onError()
@@ -167,5 +167,5 @@ export function onMyError({
 }
 
 export function onInfo(information: string) {
-    enqueueSnackbar(information, {variant: 'info'})
+    // enqueueSnackbar(information, {variant: 'info'})
 }

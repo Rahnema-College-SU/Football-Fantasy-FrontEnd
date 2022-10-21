@@ -37,6 +37,7 @@
 button {
     max-width: 22rem;
     cursor: pointer;
+    width: 80%;
 }
 
 .select-country {

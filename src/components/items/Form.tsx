@@ -3,14 +3,17 @@ import "./Form.css";
 import logo from "./assets/logo.svg";
 
 const Form: FC<{
-    children: ReactNode
-}> = ({children}): ReactElement => {
+    children: ReactNode,
+    onSubmit: () => void;
+}> = ({children, onSubmit}): ReactElement => {
     return <div className="window">
         <div className="side-picture">
             <img className="logo" src={logo} alt=""/>
         </div>
         <div className="form-container">
-            {children}
+            <form onSubmit={(e) => {e.preventDefault(); onSubmit()}}>
+            {children}           
+            </form>
         </div>
 
     </div>
