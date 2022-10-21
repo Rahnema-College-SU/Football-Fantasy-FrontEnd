@@ -21,7 +21,7 @@ export const countries = [
     {text: 'چین', flag: '🇨🇳'},
     {text: 'آرژانتین', flag: '🇦🇷'},
     {text: 'هلند', flag: '🇳🇱'}
-]
+].sort((a, b) => a.text.localeCompare(b.text))
 
 export const transfersGkPositions = [1, 12]
 export const transfersDefPositions = [2, 3, 4, 5, 13]

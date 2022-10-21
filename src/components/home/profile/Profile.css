@@ -36,12 +36,29 @@
     text-align: center;
 }
 
-.profile-tab-photo {
+.profile-tab-photo-part {
     width: 150px;
     height: 150px;
     border-radius: 50%;
     margin-top: 30px;
     object-fit: cover;
+}
+
+#profile-tab-photo {
+    cursor: pointer;
+}
+
+#profile-tab-photo:hover {
+    border-radius: 0;
+    object-fit: contain;
+
+    transform: scale(1.2);
+    transition: transform 0.4s;
+}
+
+#profile-tab-photo:not(:hover) {
+    transform: scale(1);
+    transition: transform 0.4s;
 }
 
 #profile-tab-circular-progress {
@@ -100,45 +117,6 @@
     color: #333333;
     width: 100%;
     text-align: center;
-}
-
-.profile-tab-row-text {
-    font: 800 16px Vazirmatn, serif;
-    color: #3D195B;
-    text-align: center;
-    width: 100%;
-    border: none;
-    overflow: auto;
-}
-
-.profile-tab-row-text-edit {
-    background: #F4F4F4;
-    padding: 10px 0;
-    margin-top: 10px;
-    color: #333333;
-    border-radius: 8px;
-}
-
-.profile-tab-password {
-    display: inline;
-    overflow: auto;
-    align-items: center;
-    justify-content: center;
-    font-size: 50px;
-    margin: -20px 0;
-}
-
-#profile-tab-select {
-    display: flex;
-
-    direction: rtl;
-}
-
-.profile-tab-option {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    direction: rtl;
 }
 
 .profile-tab-button {

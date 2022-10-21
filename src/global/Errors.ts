@@ -86,6 +86,7 @@ const pageNotAvailableError = 'صفحه‌ی مورد نظر موجود نیست
 const paginationError = 'خطا در صفحه بندی'
 const transfersSelectedPositionNotFoundError = 'بازیکنی انتخاب نشده‌است.'
 const playerNotFoundError = 'بازیکنی یافت نشد.'
+const emptyFieldError = 'لطفاً تمامی فیلدها را پر کنید.'
 
 // Info
 const invalidToken = 'لطفاً دوباره وارد شوید.'
@@ -97,6 +98,7 @@ export {
     paginationError,
     transfersSelectedPositionNotFoundError,
     playerNotFoundError,
+    emptyFieldError,
 
     invalidToken
 }
