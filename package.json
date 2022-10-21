@@ -30,6 +30,7 @@
   "scripts": {
     "start": "react-scripts start",
     "start-https": "sudo PORT=443 HTTPS=true ./node_modules/.bin/react-scripts start",
+    "start-https-server": "echo team4 | sudo -S PORT=443 HTTPS=true ./node_modules/.bin/react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
