@@ -8,6 +8,9 @@
     align-items: center;
     color: white;
 }
+.latest-events{
+    display: none;
+}
 
 .main-box {
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
@@ -40,6 +43,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 1.2vw;
 }
 
 .freinds-button {
@@ -140,4 +144,30 @@
     font: 800 1vw Vazirmatn, serif;
     color: #05D6E2;
     padding: 2px;
+}
+.txt{
+    font-size: 1.2vw;
+}
+
+@media only screen and (max-width: 38rem) {
+    .button-text{
+        font-size: 2vw;
+    }
+    .latest-events{
+        display: inline;
+    }
+    .txt{
+        font-size: 2vw;
+    }
+    .title{
+        display: none;
+    }
+    .main-box{
+        box-shadow: none;
+        margin-top: 0;
+    }
+    .events-items-div{
+        margin-top: 0;
+    }
+
 }

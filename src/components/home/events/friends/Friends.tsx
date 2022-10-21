@@ -68,7 +68,7 @@ export const usersListState = atom<Array<searchResultUserType>>({
 
 export function Friends() {
 
-    const [selectedTab, setSelectedTab] = useState<"follower" | "following">("follower")
+    const [selectedTab, setSelectedTab] = useState<"follower" | "following"|"latest-events">("follower")
     const [usersList, setUsersList] = useState<Array<searchResultUserType>>([])
     const ProfileModalDisplay = useSetRecoilState(profileModalDisplayState)
     function handleSearch(id: any,state:string) {
@@ -125,11 +125,14 @@ export function Friends() {
             <div className="title"> دوستان شما</div>
             <div className="friends-box">
                 <div className="friends-button-bar">
+                    <button className={selectedTab === "latest-events" ? "selected-button":"latest-events"} onClick={()=>setSelectedTab('following')}>
+                        <div className={selectedTab === "latest-events" ?  "button-text":"txt"}> آخرین رویدادها</div>
+                    </button>
                     <button className={selectedTab === "follower" ?  "selected-button":"freinds-button"} onClick={()=>setSelectedTab('follower')}>
-                        <div className={selectedTab === "follower" ?  "button-text":""}>دنبال کنندگان</div>
+                        <div className={selectedTab === "follower" ? "txt" :"button-text"}>دنبال کنندگان</div>
                     </button>
                     <button className={selectedTab === "following" ? "selected-button":"freinds-button"} onClick={()=>setSelectedTab('following')}>
-                        <div className={selectedTab === "following" ?  "button-text":""}>دنبال شوندگان</div>
+                        <div className={selectedTab === "following" ? "txt" :"button-text"}>دنبال شوندگان</div>
                     </button>
                 </div>
                 <div className={'friends-search-box'}>      

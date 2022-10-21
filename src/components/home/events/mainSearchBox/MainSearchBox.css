@@ -7,14 +7,14 @@
     margin: auto;
     /* background: #FFFFFF; */
     /* border-bottom: 1px solid #E4E4E4; */
-    font: normal 300 14px Vazirmatn, monospace;
+    font: normal 300 1.3vw Vazirmatn, monospace;
     color: rgba(61, 25, 91, 0.67);
     /* direction: rtl; */
     border: none;
 }
 
-.placeholder {
-    font: normal 300 1vw Vazirmatn, monospace;
+::placeholder {
+    font: normal 300 1.3vw Vazirmatn, monospace;
     color: rgba(61, 25, 91, 0.67);
     margin-right: 10px;
     display: flex;
@@ -29,9 +29,9 @@
     color: rgba(61, 25, 91, 0.67);
     width: 80%;
 } */
-::placeholder {
+/* ::placeholder {
     color: rgba(61, 25, 91, 0.67);
-}
+} */
 
 .search-icon {
     margin-right: 3px;
