@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import './profileModal.css';
 import {atom} from 'recoil';
 import profilePhoto from '../latestEvents/profiles/assets/profilePhoto.jpeg';
