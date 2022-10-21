@@ -39,13 +39,13 @@ const r ={
 export function ProfileModal() {
     const [profileModalDisplay, setProfileModalDisplay] = useRecoilState(profileModalDisplayState)
     const [currentUser,setCurrentUser] = useRecoilState(currentUserState)
-    useEffect(() => {
-        if (profileModalDisplay === 'none')
-            console.log("display none")
-    }, [profileModalDisplay])
-    useEffect(()=>{
-        setCurrentUser(r)
-    })
+    // useEffect(() => {
+    //     if (profileModalDisplay === 'none')
+    //         console.log("display none")
+    // }, [profileModalDisplay])
+    // useEffect(()=>{
+    //     setCurrentUser(r)
+    // })
 
     return (
         <div className='back' onClick={() => {

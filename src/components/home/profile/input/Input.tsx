@@ -18,7 +18,7 @@ export function Input({
 
     function getPlainText() {
         return (
-            <div className={'profile-tab-row-text'}>{text}</div>
+            <div className={'profile-tab-row-text'} dir={'auto'}>{text}</div>
         )
     }
 

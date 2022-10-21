@@ -2,18 +2,18 @@
     font: 800 16px Vazirmatn, serif;
     color: #3D195B;
     text-align: center;
-    width: 100%;
     border: none;
     overflow: auto;
 }
 
 .profile-tab-row-text-edit {
+    box-sizing: border-box;
     background: #F4F4F4;
     padding: 10px 5px;
-    margin-top: 10px;
+    margin: 10px 5px 5px;
     color: #333333;
     border-radius: 8px;
-    height: 41px;
+    height: 61px;
 }
 
 .profile-tab-password {
@@ -27,7 +27,6 @@
 
 #profile-tab-country {
     appearance: none;
-    box-sizing: content-box;
 
     direction: rtl;
     cursor: pointer;

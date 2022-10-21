@@ -11,14 +11,16 @@ import {Input} from "./input/Input";
 import {emptyFieldError, onMyError} from "../../../global/Errors";
 
 function Profile() {
-    const leftColumnKeys = ['lastName', 'country', 'password'] as const
-    const rightColumnKeys = ['firstName', 'email', 'username'] as const
-    const columnKeys = [leftColumnKeys, rightColumnKeys]
+    const firstRowKeys = ['firstName', 'lastName'] as const
+    const secondRowKeys = ['email', 'country'] as const
+    const thirdRowKeys = ['username', 'password'] as const
+    const rowKeys = [firstRowKeys, secondRowKeys, thirdRowKeys]
 
-    type leftColumnKeysType = typeof leftColumnKeys[number]
-    type rightColumnKeysType = typeof rightColumnKeys[number]
-    type columnKeysType = leftColumnKeysType | rightColumnKeysType
-    type columnType = { [key in columnKeysType]: string }
+    type firstRowKeysType = typeof firstRowKeys[number]
+    type secondRowKeysType = typeof secondRowKeys[number]
+    type thirdRowKeysType = typeof thirdRowKeys[number]
+    type rowKeysType = firstRowKeysType | secondRowKeysType | thirdRowKeysType
+    type rowType = { [key in rowKeysType]: string }
 
     const [isEdit, setIsEdit] = useState<boolean>(false)
     const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false)
@@ -27,16 +29,16 @@ function Profile() {
     const fileInputRef = useRef<HTMLInputElement | null>(null)
     const navigate = useNavigate()
 
-    const inputData: { [key in columnKeysType]: { title: string, kind: 'text' | 'password' | 'country' } } = {
+    const inputData: { [key in rowKeysType]: { title: string, kind: 'text' | 'password' | 'country' } } = {
         firstName: {title: 'نام', kind: 'text'},
-        email: {title: 'ایمیل', kind: 'text'},
-        username: {title: 'نام کاربری', kind: 'text'},
         lastName: {title: 'نام خانوادگی', kind: 'text'},
+        email: {title: 'ایمیل', kind: 'text'},
         country: {title: 'کشور', kind: 'country'},
+        username: {title: 'نام کاربری', kind: 'text'},
         password: {title: 'رمز عبور', kind: 'password'}
     }
 
-    const [columns, setColumns] = useState<columnType>({
+    const [columns, setColumns] = useState<rowType>({
         firstName: 'امیر',
         lastName: 'فخیمی',
         email: 'fakhimi.amirmohamfghjkl;fgdhfdsghjfdsfgkuhjgfdsdfghjgfhdgfghkjghfdsfghfd@gmail.com',
@@ -45,7 +47,7 @@ function Profile() {
         password: '1234'
     })
 
-    const [editedColumns, setEditedColumns] = useState<columnType>({
+    const [editedColumns, setEditedColumns] = useState<rowType>({
         firstName: 'امیر',
         lastName: 'فخیمی',
         email: 'fakhimi.amirmohamfghjkl;fgdhfdsghjfdsfgkuhjgfdsdfghjgfhdgfghkjghfdsfghfd@gmail.com',
@@ -89,17 +91,7 @@ function Profile() {
     }
 
     function getInfo() {
-        return (
-            columnKeys.map((columnKey) => {
-                return (
-                    <div className={'profile-tab-column'}>
-                        {columnKey.map((key: typeof columnKey[number]) => getEachInput(key))}
-                    </div>
-                )
-            })
-        )
-
-        function getEachInput(key: columnKeysType) {
+        function getEachInput(key: rowKeysType) {
             return (
                 <div className={'profile-tab-info-row'}>
                     <div className={'profile-tab-row-title'}>{inputData[key].title}</div>
@@ -112,6 +104,16 @@ function Profile() {
                 </div>
             )
         }
+
+        return (
+            rowKeys.map((columnKey) => {
+                return (
+                    <div className={'profile-tab-row'}>
+                        {columnKey.map((key: typeof columnKey[number]) => getEachInput(key))}
+                    </div>
+                )
+            })
+        )
     }
 
     function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
