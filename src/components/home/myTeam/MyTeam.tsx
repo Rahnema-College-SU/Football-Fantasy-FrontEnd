@@ -123,15 +123,8 @@ function MyTeam({subTab}: { subTab: subTab }) {
                     <MyList gkPositions={myTeamGkPositions} defPositions={myTeamDefPositions}
                             midPositions={myTeamMidPositions} attPositions={myTeamAttPositions}
                             playerRender={MyTeamMyListPlayer} showingName={() => {
-                        if (myTeamSelectedPositions.length !== 0) {
-                            if (myTeamSelectedPositions.length === 1 && myTeamPlayers[myTeamSelectedPositions[0]])
-                                return myTeamPlayers[myTeamSelectedPositions[0]].webName
-                            else if (myTeamPlayers[myTeamSelectedPositions[0]] && myTeamPlayers[myTeamSelectedPositions[1]])
-                                return myTeamPlayers[myTeamSelectedPositions[0]].webName + ', ' + myTeamPlayers[myTeamSelectedPositions[1]].webName
-                            else
-                                return 'Error'
-                        } else
-                            return 'none'
+                        const value = myTeamSelectedPositions.map(x => myTeamPlayers[x].webName).join(",")
+                        return value == '' ? 'none' : value
                     }}/>}
             </div>
 

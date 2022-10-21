@@ -1,30 +1,205 @@
 .profile-main-div {
-    width: 90%;
-    margin: 3.125rem auto 0 auto;
-    display: grid;
-    grid-column-gap: 10%;
-    grid-template-columns:1.8fr 1fr;
-    direction: rtl;
-}
-
-.upload-photo {
-
-}
-
-.profile-button-bar {
     display: flex;
     flex-direction: column;
+    align-items: center;
+
+    width: 70%;
+    margin: 50px auto 100px auto;
 }
 
-.profile-button {
-    width: 45%;
-    height: 40px;
-    margin-top: 10%;
-    background: linear-gradient(269.48deg, #04F5EC -30.14%, #03FBB8 109.7%);
-    border-radius: 4px;
-    border: none;
-    font: 800 1.2vw Vazirmatn, serif;
+#profile-header {
+    display: flex;
     align-items: center;
-    text-align: center;
+    width: 100%;
+}
+
+.profile-header-line {
+    width: 37%;
+    height: fit-content;
+    border-width: 2px;
+    border-style: solid;
+}
+
+#profile-header-left-line {
+    border-color: #00FF87;
+    margin-left: 0;
+}
+
+#profile-header-right-line {
+    border-color: #04F5EC;
+    margin-right: 0;
+}
+
+#profile-header-text {
+    font: 800 20px Vazirmatn, serif;
     color: #3D195B;
+    text-align: center;
+}
+
+.profile-tab-photo-part {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-top: 30px;
+    object-fit: cover;
+}
+
+#profile-tab-photo {
+    cursor: pointer;
+}
+
+#profile-tab-photo:hover {
+    border-radius: 0;
+    object-fit: contain;
+
+    transform: scale(1.2);
+    transition: transform 0.4s;
+}
+
+#profile-tab-photo:not(:hover) {
+    transform: scale(1);
+    transition: transform 0.4s;
+}
+
+#profile-tab-circular-progress {
+    border: #04F3F4 5px solid;
+}
+
+#upload-image-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font: 400 14px Vazirmatn, serif;
+    background: #EBFF00;
+    border: 1px solid #EBFF00;
+    border-radius: 4px;
+    margin-top: 20px;
+    padding: 5px 40px;
+}
+
+#upload-image-button:hover {
+    background: rgba(235, 255, 0, 0.6);
+}
+
+#upload-image-icon {
+    margin-right: 10px;
+}
+
+#profile-tab-info-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.profile-tab-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 49%;
+}
+
+.profile-tab-info-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.profile-tab-row-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font: 400 16px Vazirmatn, serif;
+    color: #333333;
+    width: 100%;
+    text-align: center;
+}
+
+.profile-tab-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font: 600 16px Vazirmatn, serif;
+    color: #3D195B;
+    border-radius: 8px;
+    margin-top: 50px;
+    padding: 10px 0;
+    width: 100%;
+}
+
+#profile-tab-edit-button {
+    background: white;
+    border: 1px solid #3D195B;
+}
+
+#profile-tab-edit-button:hover {
+    background: rgba(61, 25, 91, 0.3);
+}
+
+#profile-tab-confirm-button {
+    background: #00FF87;
+    border: none;
+}
+
+#profile-tab-confirm-button:hover {
+    background: rgba(0, 255, 135, 0.5);
+}
+
+.profile-tab-button-icon {
+    margin-left: 10px;
+}
+
+#profile-tab-exit-button {
+    background: #FF0000;
+    border: none;
+    color: white;
+    margin-top: 10px;
+}
+
+#profile-tab-exit-button:hover {
+    background: rgba(255, 0, 0, 0.8);
+}
+
+#profile-tab-cancel-button {
+    background: #FF0000;
+    border: none;
+    color: white;
+    margin-top: 10px;
+}
+
+#profile-tab-cancel-button:hover {
+    background: rgba(255, 0, 0, 0.8);
+}
+
+#profile-tab-country-select {
+    width: 100%;
+    margin-top: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+    .profile-main-div {
+        width: 90%;
+    }
+
+    .profile-header-line {
+        display: none;
+    }
+
+    #profile-header-text {
+        display: none;
+    }
+
+    #profile-tab-info-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-tab-column {
+        width: 80%;
+    }
 }
