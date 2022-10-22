@@ -1,5 +1,3 @@
-import exp from "constants";
-import { type } from "os";
 import {positionsServer, positionsUi} from "./Variables";
 
 export type subTab = 'schematic' | 'list'
@@ -109,33 +107,33 @@ export type searchResultUserType = {
     imageUrl: String,
     followed: Boolean
 }
-export type substitutionType={
+export type substitutionType = {
     playerOutId: String,
     playerInId: String,
 }
 
-export type latestEventType={
+export type latestEventType = {
     eventId: string,
     weekName: string,
     teamPoints: number,
-    liked: boolean, 
-    firstName: string,  
-    lastName: string,  
+    liked: boolean,
+    firstName: string,
+    lastName: string,
     fullName: string,
     username: string,
     imageUrl: string,
-    substitutions:substitutionType[]
+    substitutions: substitutionType[]
 }
 
-export type userInfoType={
+export type userInfoType = {
     id: string,
     username: string,
-    firstName: string,  
-    lastName: string,  
+    firstName: string,
+    lastName: string,
     fullName: string,
     country: string,
     imageUrl: string,
     teamPoint: number,
     age: number,
-    followed:boolean 
+    followed: boolean
 }

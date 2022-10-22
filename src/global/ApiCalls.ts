@@ -44,7 +44,7 @@ export const axiosAddPlayer = (player: playerType, position: number) => customAx
     locationInTransferUI: position
 })
 
-export const axiosSignUp = (Username: string, Password: string, First_name: string, Last_name: string, Email: string, Country: string,date:string) => customAxios.post('signup',
+export const axiosSignUp = (Username: string, Password: string, First_name: string, Last_name: string, Email: string, Country: string, date: string) => customAxios.post('signup',
     {
         username: Username,
         password: Password,
@@ -103,7 +103,7 @@ export const axiosSubstitution = (playerOutId: number, playerInId: number) => cu
 export const axiosUserInfo = (id: string) => customAxios.get('user_info',
     {
         params: {
-            user_id:id
+            user_id: id
         }
     }
 )

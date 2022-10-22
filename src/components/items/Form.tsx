@@ -11,8 +11,11 @@ const Form: FC<{
             <img className="logo" src={logo} alt=""/>
         </div>
         <div className="form-container">
-            <form onSubmit={(e) => {e.preventDefault(); onSubmit()}}>
-            {children}           
+            <form onSubmit={(e) => {
+                e.preventDefault();
+                onSubmit()
+            }}>
+                {children}
             </form>
         </div>
 

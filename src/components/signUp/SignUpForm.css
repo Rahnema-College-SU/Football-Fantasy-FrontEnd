@@ -33,6 +33,7 @@
     flex-direction: column;
     width: 100%;
 }
+
 .email-container {
     display: flex;
     flex-direction: column;
@@ -54,7 +55,8 @@ button {
     color: white;
     cursor: pointer;
 }
-#datePicker{
+
+#datePicker {
     background: #3D185B;
     border: 1px solid #A057DB;
     border-radius: 8px;
@@ -63,19 +65,23 @@ button {
     color: white;
     width: 100%;
 }
-.JDatePicker{
+
+.JDatePicker {
     background: #3D185B !important;
     border: 1px solid #A057DB;
     color: white;
 }
-.JDatePicker .JC-days{
+
+.JDatePicker .JC-days {
     background: #3D185B !important;
 }
+
 .day-items:hover {
-    background: #A057DB !important;    
+    background: #A057DB !important;
 }
-.day-items.selected{
-    background: #A057DB !important;  
+
+.day-items.selected {
+    background: #A057DB !important;
 }
 
 @media only screen and (max-width: 51.875rem) {
@@ -84,7 +90,7 @@ button {
         margin-left: auto;
         margin-right: auto;
     }
-   
+
 }
 
 @media only screen and (max-width: 35.625rem) {
@@ -96,10 +102,12 @@ button {
         grid-template-columns: auto;
         gap: 0;
     }
-    .email-container{
+
+    .email-container {
         width: 100%;
     }
-    .JDatePicker{
+
+    .JDatePicker {
         position: relative !important;
     }
 }

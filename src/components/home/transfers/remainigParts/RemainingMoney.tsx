@@ -1,12 +1,11 @@
 import React from 'react'
 import wallet from './assets/wallet.svg'
-import {atom, useRecoilState} from "recoil";
 import {Remaining} from "./Remaining";
 import {toFarsiNumber} from "../../../../global/functions/Converters";
 
 
-export function RemainingMoney({remainingMoney}: {remainingMoney: number}) {
-    
+export function RemainingMoney({remainingMoney}: { remainingMoney: number }) {
+
     return (
         <Remaining showingText={remainingMoney !== undefined ? toFarsiNumber(remainingMoney / 10) : undefined}
                    src={wallet}

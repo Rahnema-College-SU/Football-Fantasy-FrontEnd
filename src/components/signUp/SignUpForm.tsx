@@ -1,13 +1,12 @@
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import "./SignUpForm.css";
 import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
-import { axiosSignUp } from "../../global/ApiCalls";
+import {axiosSignUp} from "../../global/ApiCalls";
 import {addUserError, onAxiosError, onAxiosSuccess, userExistError} from "../../global/Errors";
 import {setToken} from "../../global/Storages";
-import {focusOnElementByRef, handleKeyboardEvent} from "../../global/functions/General";
 import {countries} from "../../global/Variables";
-import { DatePicker } from "react-advance-jalaali-datepicker";
+import {DatePicker} from "react-advance-jalaali-datepicker";
 
 function SignUpForm() {
     const navigate = useNavigate()
@@ -19,44 +18,47 @@ function SignUpForm() {
         last_name: "",
         email: "",
         country: "",
-        birthDate:""
+        birthDate: ""
     })
-    
 
-    const setField = (key: keyof typeof currentUser):React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement> => (e) => {
-        setCurrentUser( x => ({...x, [key]: e.target.value}))
+
+    const setField = (key: keyof typeof currentUser): React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement> => (e) => {
+        setCurrentUser(x => ({...x, [key]: e.target.value}))
     }
 
-     class ChooseDate extends React.Component {
+    class ChooseDate extends React.Component {
         change(unix: any, formatted: any) {
-          console.log(unix); // returns timestamp of the selected value, for example.
-          console.log(formatted); // returns the selected value in the format you've entered, forexample, "تاریخ: 1396/02/24 ساعت: 18:30".
-            currentUser.birthDate=formatted;
+            console.log(unix); // returns timestamp of the selected value, for example.
+            console.log(formatted); // returns the selected value in the format you've entered, forexample, "تاریخ: 1396/02/24 ساعت: 18:30".
+            currentUser.birthDate = formatted;
             console.log(currentUser);
         }
+
         DatePickerInput(props: JSX.IntrinsicAttributes & React.ClassAttributes<HTMLInputElement> & React.InputHTMLAttributes<HTMLInputElement>) {
-          return <input {...props} />;
+            return <input {...props} />;
         }
+
         render() {
-          return (
-            <div className="datePicker">
-              <DatePicker
-                inputComponent={this.DatePickerInput}
-                placeholder="انتخاب تاریخ"
-                format="jYYYY-jMM-jDD"
-                onChange={this.change }
-                id="datePicker"
-                preSelected="----/--/--"
-                
-              />
-            </div>
-          );
+            return (
+                <div className="datePicker">
+                    <DatePicker
+                        inputComponent={this.DatePickerInput}
+                        placeholder="انتخاب تاریخ"
+                        format="jYYYY-jMM-jDD"
+                        onChange={this.change}
+                        id="datePicker"
+                        preSelected="----/--/--"
+
+                    />
+                </div>
+            );
         }
-      }
-    function signUpApiCall(){
+    }
+
+    function signUpApiCall() {
         ///remaining :check if user exist or not
         console.log(currentUser)
-        if(currentUser.first_name.length==0){
+        if (currentUser.first_name.length == 0) {
             return alert("نام خود را وارد کنید")
         } else if (currentUser.last_name.length === 0) {
             return alert("نام خانوادگی خود را وارد کنید")
@@ -64,13 +66,13 @@ function SignUpForm() {
             return alert("ایمیل معتبر وارد کنید")
         } else if (currentUser.country.length === 0) {
             return alert("کشور را انتخاب کنید")
-        }else if(currentUser.username.length===0){
+        } else if (currentUser.username.length === 0) {
             return alert("نام کاربری را وارد کنید")
         } else if (currentUser.password.length < 8) {
             return alert("رمز عبوری با حداقل ۸ کاراکتر وارد کنید")
         }
-        axiosSignUp(currentUser.username,currentUser.password,currentUser.first_name,currentUser.last_name,currentUser.email,currentUser.country,currentUser.birthDate).then(
-            res =>{
+        axiosSignUp(currentUser.username, currentUser.password, currentUser.first_name, currentUser.last_name, currentUser.email, currentUser.country, currentUser.birthDate).then(
+            res => {
                 onAxiosSuccess({
                     res: res, onSuccess: () => {
                         navigate('/sign-up-confirm')
@@ -103,7 +105,8 @@ function SignUpForm() {
                 <div className="input-bar">
                     <div className="input-container">
                         <span className="label">نام</span>
-                        <input className="input" type="text" value={currentUser.first_name} onChange={setField("first_name")}/>
+                        <input className="input" type="text" value={currentUser.first_name}
+                               onChange={setField("first_name")}/>
                     </div>
                     <div className="input-container">
                         <span className="label">نام خانوادگی</span>
@@ -111,7 +114,7 @@ function SignUpForm() {
                     </div>
                     <div className="input-container">
                         <span className="label"> ایمیل</span>
-                        <input className="input" type="text" onChange={setField("email")}/>
+                        <input className="input" type="email" onChange={setField("email")}/>
                     </div>
                     <div className="input-container">
                         <span className="label">کشور</span>
@@ -124,7 +127,7 @@ function SignUpForm() {
                     </div>
                     <div className="input-container">
                         <span className="label">تاریخ تولد </span>
-                        <ChooseDate />
+                        <ChooseDate/>
                     </div>
 
                     <div></div>
@@ -136,11 +139,14 @@ function SignUpForm() {
                         <span className="label">رمز عبور</span>
                         <input className="input" type="password" onChange={setField("password")}
                             //    ref={focusOnElementByRef(passwordInputRef)} tabIndex={0}
-                            />
+                        />
                     </div>
-                    
+
                 </div>
-                <button className="button" id="sign-up-button" type="submit" onClick={()=>{signUpApiCall()}}>ثبت نام</button>
+                <button className="button" id="sign-up-button" type="submit" onClick={() => {
+                    signUpApiCall()
+                }}>ثبت نام
+                </button>
             </div>
         </Form>
     );

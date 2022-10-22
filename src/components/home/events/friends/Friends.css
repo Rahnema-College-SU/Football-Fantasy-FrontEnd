@@ -8,7 +8,8 @@
     align-items: center;
     color: white;
 }
-.latest-events{
+
+.latest-events {
     display: none !important;
     width: 45%;
     height: 30px;
@@ -42,7 +43,8 @@
     text-align: center;
     color: #3D195B;
 }
-.selected-button-text{
+
+.selected-button-text {
     background-color: transparent;
     height: 90%;
     width: 100%;
@@ -162,36 +164,44 @@
     color: #05D6E2;
     padding: 2px;
 }
-.txt{
+
+.txt {
     font-size: 1.2vw;
 }
-.hidden{
+
+.hidden {
     display: none;
 }
 
 @media only screen and (max-width: 38rem) {
-    .button-text{
+    .button-text {
         font-size: 2vw;
     }
-    .latest-events{
+
+    .latest-events {
         display: inline !important;
     }
-    .selected-button-text{
+
+    .selected-button-text {
         font-size: 2vw;
     }
-    .title{
+
+    .title {
         display: none;
     }
-    .main-box{
+
+    .main-box {
         box-shadow: none;
         margin-top: 0;
     }
-    .events-items-div{
+
+    .events-items-div {
         margin-top: 0;
     }
 }
+
 @media only screen and (min-width: 38rem) {
-    .latest-events{
+    .latest-events {
         display: none !important;
     }
 

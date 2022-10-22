@@ -34,12 +34,13 @@ export async function getDate(): Promise<dateApiType> {
         error => onAxiosError({axiosError: error})
     )
 }
-export function handleFollowing(id:string){
+
+export function handleFollowing(id: string) {
     // axiosFollow(id).then(
     //     res => {
     //         onAxiosSuccess({
     //             res: res, myError: invalidInputError, onSuccess: () => {
-                    
+
     //             }
     //         })
 
