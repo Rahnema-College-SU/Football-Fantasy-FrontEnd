@@ -47,13 +47,19 @@ const r = {
     default: []
 })
 
+export const latestEventsDisplayState = atom<"none" | "show">({
+  key: 'latestEventsDisplayState',
+  default: "show"
+})
+
 export function LatestEvents() {
     const [events, setEvents] = useRecoilState(latestEventsListState)
+    const [showBox, setShowBox] = useRecoilState(latestEventsDisplayState)
     useEffect(() => {
       setEvents(r.data)
     }, [setEvents])
     return (
-        <div className="Latest-Events-Box">
+        <div className={showBox=="show"?"Latest-Events-Box":"Hidden-Latest-Events-Box"} >
             <div className="Latest-Events-Title"> آخرین رویداد ها</div>
             <div>
             {events.map((e,index) =><EventItem event={e} key={index}/>)  }   

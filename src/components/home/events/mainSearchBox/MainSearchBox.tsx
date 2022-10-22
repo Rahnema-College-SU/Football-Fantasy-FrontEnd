@@ -9,6 +9,8 @@ import profilePhoto from '../latestEvents/profiles/assets/profilePhoto.jpeg'
 import {ClickAwayListener} from "@mui/material";
 import { handleFollowing } from "../../../../global/functions/General";
 import { axiosAllUsersList } from "../../../../global/ApiCalls";
+import { profileModalDisplayState } from "../profileModal/profileModal";
+import { useSetRecoilState } from "recoil";
 
 export const usersListState = atom<Array<searchResultUserType>>({
     key: 'usersListState',
@@ -73,6 +75,7 @@ export function MainSearchBox() {
 
     const [usersList, setUsersList] = useRecoilState(usersListState)
     const [resultBoxState, setResultBoxState] = useState(false)
+    const ProfileModalDisplay = useSetRecoilState(profileModalDisplayState)
 
     useEffect(() => {
         setUsersList(users.data)
@@ -95,8 +98,22 @@ export function MainSearchBox() {
         setResultBoxState(true)
     }
 
-    function showProfileModel() {
-        //TODO: needs to be complited
+    function showProfileModal(id:string){
+        // axiosUserInfo(event.userId)then(
+        // res => {
+        //     onAxiosSuccess({
+        //         res: res, myError: "invalidInputError", onSuccess: () => {
+        //             currentUserForModal(res.data.data)
+        //         }
+        //     })
+
+        // },
+        // error => {
+        //     onAxiosError({axiosError: error, myError: "invalidInputError"})
+        // }
+        // )
+        
+        ProfileModalDisplay('block')
     }
 
     return (
@@ -115,10 +132,10 @@ export function MainSearchBox() {
                 </ClickAwayListener>
                 <div className="result-box" hidden={!resultBoxState}>
                     {usersList.map(user => <div className="profile">
-                        <img className="friends-profile-photo" src={profilePhoto} alt="profile photo"></img>
+                        <img className="friends-profile-photo" src={profilePhoto} alt="profile photo" onClick={() => {user.followed===false?handleFollowing(user.id.toString()):showProfileModal(user.id.toString())}}></img>
                         <div className="friends-name">{user.username}</div>
-                        <button className="follow-back" onClick={() => handleFollowing(user.id.toString())}>
-                            <div className="button-text"> دنبال کردن</div>
+                        <button className={user.followed===false?"follow-back":"see-profile"} onClick={() => {user.followed===false?handleFollowing(user.id.toString()):showProfileModal(user.id.toString())}}>
+                            <div className="button-text">{user.followed===false?"دنبال کردن":"مشاهده"} </div>
                         </button>
                     </div>)}
                 </div>

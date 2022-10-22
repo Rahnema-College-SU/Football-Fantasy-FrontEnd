@@ -12,6 +12,7 @@ import { onAxiosError } from "../../../../global/Errors";
 import { handleFollowing } from "../../../../global/functions/General";
 import { useSetRecoilState } from "recoil";
 import { profileModalDisplayState } from "../profileModal/profileModal";
+import { latestEventsDisplayState } from "../latestEvents/LatestEvents";
 
 const r=[
         {
@@ -66,11 +67,17 @@ export const usersListState = atom<Array<searchResultUserType>>({
     default: []
 })
 
+// export const latestEventBoxState = atom<boolean>({
+//     key: 'latestEventBoxState',
+//     default: false
+// })
+
 export function Friends() {
 
-    const [selectedTab, setSelectedTab] = useState<"follower" | "following"|"latest-events">("follower")
+    const [selectedTab, setSelectedTab] = useState<"follower" | "following"|"latest-events">("latest-events")
     const [usersList, setUsersList] = useState<Array<searchResultUserType>>([])
     const ProfileModalDisplay = useSetRecoilState(profileModalDisplayState)
+    const latestEventBoxState = useSetRecoilState(latestEventsDisplayState)
     function handleSearch(id: any,state:string) {
         // if(state==="following"){
         // axiosFollowingSearch(id).then(
@@ -125,23 +132,23 @@ export function Friends() {
             <div className="title"> دوستان شما</div>
             <div className="friends-box">
                 <div className="friends-button-bar">
-                    <button className={selectedTab === "latest-events" ? "selected-button":"latest-events"} onClick={()=>setSelectedTab('following')}>
-                        <div className={selectedTab === "latest-events" ?  "button-text":"txt"}> آخرین رویدادها</div>
+                    <button className={selectedTab === "latest-events" ? "selected-button"&&"latest-events":"tipical-button"&&"latest-events"} onClick={()=>{setSelectedTab("latest-events");latestEventBoxState("show");}}>
+                        <div className={selectedTab === "latest-events" ?  "selected-button-text" :"button-text"}> آخرین رویدادها</div>
                     </button>
-                    <button className={selectedTab === "follower" ?  "selected-button":"freinds-button"} onClick={()=>setSelectedTab('follower')}>
-                        <div className={selectedTab === "follower" ? "txt" :"button-text"}>دنبال کنندگان</div>
+                    <button className={selectedTab === "follower" ?  "selected-button":"tipical-button"} onClick={()=>{setSelectedTab("follower");latestEventBoxState("none");}}>
+                        <div className={selectedTab === "follower" ? "selected-button-text" :"button-text"}>دنبال کنندگان</div>
                     </button>
-                    <button className={selectedTab === "following" ? "selected-button":"freinds-button"} onClick={()=>setSelectedTab('following')}>
-                        <div className={selectedTab === "following" ? "txt" :"button-text"}>دنبال شوندگان</div>
+                    <button className={selectedTab === "following" ? "selected-button":"tipical-button"} onClick={()=>{setSelectedTab("following");latestEventBoxState("none");}}>
+                        <div className={selectedTab === "following" ? "selected-button-text" :"button-text"}>دنبال شوندگان</div>
                     </button>
                 </div>
-                <div className={'friends-search-box'}>      
+                <div className={'friends-search-box'} >      
                     <img className="search-icon" src={searchIcon} alt={'magnifier'}/>
                     <input className={'search-input'} placeholder={'جستجو'} onChange={event => {selectedTab === "follower" ?  handleSearch(event.target,'follower'):handleSearch(event.target,'following')}}/>
                 </div>
                 <div className="profiles-box">
                     {usersList.map(user => <div className="profile">
-                        <img className="friends-profile-photo" src={profilePhoto} alt="profile photo"></img>
+                        <img className="friends-profile-photo" src={profilePhoto} alt="profile photo" onClick={()=>showProfileModal(user.id.toString())}></img>
                         <div className="friends-name">{user.username}</div>
                         <button className={user.followed===false?"follow-back":"see-profile"} onClick={() => {user.followed===false?handleFollowing(user.id.toString()):showProfileModal(user.id.toString())}}>
                             <div className="button-text">{user.followed===false?"دنبال کردن":"مشاهده"} </div>
