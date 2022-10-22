@@ -76,6 +76,7 @@ export function Friends() {
 
     const [selectedTab, setSelectedTab] = useState<"follower" | "following"|"latest-events">("latest-events")
     const [usersList, setUsersList] = useState<Array<searchResultUserType>>([])
+    const [searchInput, setSearchInput] = useState('');
     const ProfileModalDisplay = useSetRecoilState(profileModalDisplayState)
     const latestEventBoxState = useSetRecoilState(latestEventsDisplayState)
     function handleSearch(id: any,state:string) {
@@ -135,16 +136,17 @@ export function Friends() {
                     <button className={selectedTab === "latest-events" ? "selected-button"&&"latest-events":"tipical-button"&&"latest-events"} onClick={()=>{setSelectedTab("latest-events");latestEventBoxState("show");}}>
                         <div className={selectedTab === "latest-events" ?  "selected-button-text" :"button-text"}> آخرین رویدادها</div>
                     </button>
-                    <button className={selectedTab === "follower" ?  "selected-button":"tipical-button"} onClick={()=>{setSelectedTab("follower");latestEventBoxState("none");}}>
+                    <button className={selectedTab === "follower" ?  "selected-button":"tipical-button"} onClick={()=>{setSelectedTab("follower");latestEventBoxState("none");setSearchInput(' ');setUsersList([]);}}>
                         <div className={selectedTab === "follower" ? "selected-button-text" :"button-text"}>دنبال کنندگان</div>
                     </button>
-                    <button className={selectedTab === "following" ? "selected-button":"tipical-button"} onClick={()=>{setSelectedTab("following");latestEventBoxState("none");}}>
+                    <button className={selectedTab === "following" ? "selected-button":"tipical-button"} onClick={()=>{setSelectedTab("following");latestEventBoxState("none");setSearchInput(' ');setUsersList([]);}}>
                         <div className={selectedTab === "following" ? "selected-button-text" :"button-text"}>دنبال شوندگان</div>
                     </button>
-                </div>
-                <div className={'friends-search-box'} >      
+                </div >
+                <div className={selectedTab != "latest-events" ? "":"hidden"}>
+                <div className="friends-search-box">      
                     <img className="search-icon" src={searchIcon} alt={'magnifier'}/>
-                    <input className={'search-input'} placeholder={'جستجو'} onChange={event => {selectedTab === "follower" ?  handleSearch(event.target,'follower'):handleSearch(event.target,'following')}}/>
+                    <input className={'search-input'} placeholder={'جستجو'} value={searchInput} onChange={event => {setSearchInput(event.target.value);selectedTab === "follower" ?  handleSearch(event.target,'follower'):handleSearch(event.target,'following')}}/>
                 </div>
                 <div className="profiles-box">
                     {usersList.map(user => <div className="profile">
@@ -154,7 +156,9 @@ export function Friends() {
                             <div className="button-text">{user.followed===false?"دنبال کردن":"مشاهده"} </div>
                         </button>
                     </div>)}
+                </div>    
                 </div>
+                
                 
             </div>
         </div>

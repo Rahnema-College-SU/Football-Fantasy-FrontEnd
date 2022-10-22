@@ -22,6 +22,11 @@
         display: none ;
         direction: rtl;
     }
-    
+    .Latest-Events-Title{
+        display: none;
+    }
+    .Latest-Events-Box{
+        margin-top: 10%;
+    }
 
 }
