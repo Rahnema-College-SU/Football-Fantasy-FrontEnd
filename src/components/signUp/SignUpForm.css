@@ -12,7 +12,7 @@
 .input-bar {
     width: 60%;
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr;
     grid-gap: 1.25rem;
     box-sizing: border-box;
 }
@@ -33,6 +33,11 @@
     flex-direction: column;
     width: 100%;
 }
+.email-container {
+    display: flex;
+    flex-direction: column;
+    width: 200%;
+}
 
 button {
     max-width: 22rem;
@@ -49,6 +54,29 @@ button {
     color: white;
     cursor: pointer;
 }
+#datePicker{
+    background: #3D185B;
+    border: 1px solid #A057DB;
+    border-radius: 8px;
+    height: 3rem;
+    font: 300 14px Vazirmatn, serif;
+    color: white;
+    width: 100%;
+}
+.JDatePicker{
+    background: #3D185B !important;
+    border: 1px solid #A057DB;
+    color: white;
+}
+.JDatePicker .JC-days{
+    background: #3D185B !important;
+}
+.day-items:hover {
+    background: #A057DB !important;    
+}
+.day-items.selected{
+    background: #A057DB !important;  
+}
 
 @media only screen and (max-width: 51.875rem) {
     .input-bar {
@@ -56,6 +84,7 @@ button {
         margin-left: auto;
         margin-right: auto;
     }
+   
 }
 
 @media only screen and (max-width: 35.625rem) {
@@ -66,6 +95,12 @@ button {
     .input-bar {
         grid-template-columns: auto;
         gap: 0;
+    }
+    .email-container{
+        width: 100%;
+    }
+    .JDatePicker{
+        position: relative !important;
     }
 }
 

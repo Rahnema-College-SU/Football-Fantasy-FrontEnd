@@ -7,28 +7,56 @@ import {addUserError, onAxiosError, onAxiosSuccess, userExistError} from "../../
 import {setToken} from "../../global/Storages";
 import {focusOnElementByRef, handleKeyboardEvent} from "../../global/functions/General";
 import {countries} from "../../global/Variables";
+import { DatePicker } from "react-advance-jalaali-datepicker";
 
 function SignUpForm() {
     const navigate = useNavigate()
-    const passwordInputRef = useRef<HTMLDivElement | null>(null)
-
+    const inputs = ["نام", "نام خانوادگی", "ایمیل", "کشور", "نام کاربری", "رمز عبور"]
     const [currentUser, setCurrentUser] = useState({
         username: "",
         password: "",
         first_name: "",
         last_name: "",
         email: "",
-        country: ""
+        country: "",
+        birthDate:""
     })
+    
 
     const setField = (key: keyof typeof currentUser):React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement> => (e) => {
         setCurrentUser( x => ({...x, [key]: e.target.value}))
     }
 
-
-    function signUpApiCall() {
-        ///TODO: remaining :check if user exist or not
-        if (currentUser.first_name.length === 0) {
+     class ChooseDate extends React.Component {
+        change(unix: any, formatted: any) {
+          console.log(unix); // returns timestamp of the selected value, for example.
+          console.log(formatted); // returns the selected value in the format you've entered, forexample, "تاریخ: 1396/02/24 ساعت: 18:30".
+            currentUser.birthDate=formatted;
+            console.log(currentUser);
+        }
+        DatePickerInput(props: JSX.IntrinsicAttributes & React.ClassAttributes<HTMLInputElement> & React.InputHTMLAttributes<HTMLInputElement>) {
+          return <input {...props} />;
+        }
+        render() {
+          return (
+            <div className="datePicker">
+              <DatePicker
+                inputComponent={this.DatePickerInput}
+                placeholder="انتخاب تاریخ"
+                format="jYYYY-jMM-jDD"
+                onChange={this.change }
+                id="datePicker"
+                preSelected="----/--/--"
+                
+              />
+            </div>
+          );
+        }
+      }
+    function signUpApiCall(){
+        ///remaining :check if user exist or not
+        console.log(currentUser)
+        if(currentUser.first_name.length==0){
             return alert("نام خود را وارد کنید")
         } else if (currentUser.last_name.length === 0) {
             return alert("نام خانوادگی خود را وارد کنید")
@@ -36,14 +64,13 @@ function SignUpForm() {
             return alert("ایمیل معتبر وارد کنید")
         } else if (currentUser.country.length === 0) {
             return alert("کشور را انتخاب کنید")
-        } else if (currentUser.username.length === 0) {
+        }else if(currentUser.username.length===0){
             return alert("نام کاربری را وارد کنید")
         } else if (currentUser.password.length < 8) {
             return alert("رمز عبوری با حداقل ۸ کاراکتر وارد کنید")
         }
-        const {username, first_name: firstName, password, last_name: lastName, email, country} = currentUser;
-        axiosSignUp({username, firstName, lastName,email,country, password}).then(
-            res => {
+        axiosSignUp(currentUser.username,currentUser.password,currentUser.first_name,currentUser.last_name,currentUser.email,currentUser.country,currentUser.birthDate).then(
+            res =>{
                 onAxiosSuccess({
                     res: res, onSuccess: () => {
                         navigate('/sign-up-confirm')
@@ -96,6 +123,12 @@ function SignUpForm() {
                         </select>
                     </div>
                     <div className="input-container">
+                        <span className="label">تاریخ تولد </span>
+                        <ChooseDate />
+                    </div>
+
+                    <div></div>
+                    <div className="input-container">
                         <span className="label">نام کاربری</span>
                         <input className="input" type="text" onChange={setField("username")}/>
                     </div>
@@ -105,6 +138,7 @@ function SignUpForm() {
                             //    ref={focusOnElementByRef(passwordInputRef)} tabIndex={0}
                             />
                     </div>
+                    
                 </div>
                 <button className="button" id="sign-up-button" type="submit" onClick={()=>{signUpApiCall()}}>ثبت نام</button>
             </div>
@@ -114,3 +148,5 @@ function SignUpForm() {
 }
 
 export default SignUpForm;
+
+
