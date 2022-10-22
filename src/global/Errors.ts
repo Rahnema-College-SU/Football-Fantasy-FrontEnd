@@ -62,10 +62,10 @@ export function onAxiosError({
     console.log('axiosError.response:')
     console.log(axiosError.response)
 
-    if (axiosError.response.data)
-        enqueueSnackbar(axiosError.response.data.userMessage, {variant: 'error'})
-    else
+    if (!axiosError.response || !axiosError.response.data)
         enqueueSnackbar('خطا در ارتباط با سرور', {variant: 'error'})
+    else
+        enqueueSnackbar(axiosError.response.data.userMessage, {variant: 'error'})
 
     return onMyError({
         myError: myError,
