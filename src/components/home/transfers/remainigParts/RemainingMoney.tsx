@@ -3,7 +3,6 @@ import wallet from './assets/wallet.svg'
 import {Remaining} from "./Remaining";
 import {toFarsiNumber} from "../../../../global/functions/Converters";
 
-
 export function RemainingMoney({remainingMoney}: { remainingMoney: number }) {
 
     return (

@@ -117,12 +117,6 @@ function App() {
             {/*    <ProfileModal/>*/}
             {/*    <SubstitutionModal/>*/}
             {/*</div>*/}
-            {/*<div id={'modals-div'} style={{display: profileModalDisplay}}>*/}
-            {/*    <ProfileModal/>*/}
-            {/*</div>*/}
-            {/*<div id={'modals-div'} style={{display: substitutionModalDisplay}}>*/}
-            {/*    <SubstitutionModal/>*/}
-            {/*</div>*/}
         </div>
     );
 }
