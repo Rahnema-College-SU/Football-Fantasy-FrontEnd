@@ -1,0 +1,35 @@
+#prizes-main-div {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+#prizes-winner-cup-image {
+    width: 50%;
+    margin-top: -100px;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+
+#prizes-coming-soon-image {
+    width: calc(10px + 8%);
+    transform: translateY(-210%);
+    margin-left: -2%;
+    border-radius: 50%;
+
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+
+@media only screen and (max-width: 768px) {
+    #prizes-winner-cup-image {
+        width: 80%;
+        margin-top: -50px;
+    }
+
+    #prizes-coming-soon-image {
+        width: 15%;
+        transform: translateY(-180%);
+        margin-left: -3%;
+    }
+}
