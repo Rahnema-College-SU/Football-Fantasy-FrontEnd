@@ -112,10 +112,12 @@ function SignUpForm() {
                         <span className="label">نام خانوادگی</span>
                         <input className="input" type="text" onChange={setField("last_name")}/>
                     </div>
-                    <div className="input-container">
+                    <div className="email-container">
                         <span className="label"> ایمیل</span>
                         <input className="input" type="email" onChange={setField("email")}/>
                     </div>
+                    </div>
+                    <div className="input-bar">
                     <div className="input-container">
                         <span className="label">کشور</span>
                         <select className="select-country" onChange={setField("country")}>کشور
@@ -125,12 +127,12 @@ function SignUpForm() {
                             )}
                         </select>
                     </div>
-                    <div className="input-container">
+                    <div className="date-container">
                         <span className="label">تاریخ تولد </span>
                         <ChooseDate/>
                     </div>
 
-                    <div></div>
+                    
                     <div className="input-container">
                         <span className="label">نام کاربری</span>
                         <input className="input" type="text" onChange={setField("username")}/>
