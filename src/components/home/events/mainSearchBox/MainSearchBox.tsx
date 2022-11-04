@@ -115,7 +115,7 @@ export function MainSearchBox() {
     return (
         <div>
             <div className="main-search-box">
-                <ClickAwayListener onClickAway={() => setResultBoxState(false)}>
+                
                     <div className={'search-box'}>
                         <img className="search-icon" src={searchIcon} alt={'magnifier'}/>
                         <input className={'search-input'} placeholder={'اسم دوستات رو جستجو کن و دنبالشون کن'}
@@ -125,20 +125,21 @@ export function MainSearchBox() {
                             handleSearch(event.target)
                         }}/>
                     </div>
-                </ClickAwayListener>
-                <div className="result-box" hidden={!resultBoxState}>
+                <ClickAwayListener onClickAway={() => setResultBoxState(false)}>
+                <div className="result-box" hidden={!resultBoxState} >
                     {usersList.map(user => <div className="profile">
                         <img className="friends-profile-photo" src={profilePhoto} alt="profile photo" onClick={() => {
                             user.followed === false ? handleFollowing(user.id.toString()) : showProfileModal(user.id.toString())
                         }}></img>
                         <div className="friends-name">{user.username}</div>
                         <button className={user.followed === false ? "follow-back" : "see-profile"} onClick={() => {
-                            user.followed === false ? handleFollowing(user.id.toString()) : showProfileModal(user.id.toString())
+                            user.followed === false ? handleFollowing(user.id.toString()) :showProfileModal(user.id.toString())
                         }}>
                             <div className="button-text">{user.followed === false ? "دنبال کردن" : "مشاهده"} </div>
                         </button>
                     </div>)}
                 </div>
+                </ClickAwayListener>
             </div>
         </div>
     )

@@ -63,7 +63,7 @@
     border-radius: 0 0 16px 16px;
     /* height: 120px; */
     position: relative;
-    z-index: 9999;
+    z-index: 2;
     overflow-y: auto;
     height: auto;
     max-height: 150px;
