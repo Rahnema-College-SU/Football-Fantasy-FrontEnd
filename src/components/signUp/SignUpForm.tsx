@@ -100,7 +100,7 @@ function SignUpForm() {
                 <div className="header">
                     <hr className="line"/>
                     <div className="header-text">فرم ثبت نام</div>
-                    <hr className="line"/>
+                    <hr className="left-line"/>
                 </div>
                 <div className="input-bar">
                     <div className="input-container">

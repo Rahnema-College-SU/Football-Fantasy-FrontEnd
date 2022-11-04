@@ -67,7 +67,7 @@ function SignInForm() {
                 <div className="header">
                     <hr className="line"/>
                     <div className="header-text">ورود به فانتزی</div>
-                    <hr className="line"/>
+                    <hr className="left-line"/>
                 </div>
 
                 <div className="sign-in-input-bar">

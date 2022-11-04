@@ -41,7 +41,7 @@ function SignUpConfirm() {
                 <div className="header">
                     <hr className="line"/>
                     <div className="header-text">تایید ثبت نام</div>
-                    <hr className="line"/>
+                    <hr className="left-line"/>
                 </div>
                 <div className="container">
                     <div className="label">لطفا کدی که به ایمیلتان ارسال شده را در کادر زیر وارد کنید</div>

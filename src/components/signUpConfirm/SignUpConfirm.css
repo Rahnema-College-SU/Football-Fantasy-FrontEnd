@@ -22,3 +22,8 @@
     left: 41.875rem;
     top: 9.0625rem;
 }
+
+#confirmation-code-button{
+    margin-right: auto;
+    margin-left: auto;
+}
