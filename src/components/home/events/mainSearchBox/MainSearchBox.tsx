@@ -7,6 +7,11 @@ import profilePhoto from '../latestEvents/profiles/assets/profilePhoto.jpeg'
 import {ClickAwayListener} from "@mui/material";
 import {handleFollowing} from "../../../../global/functions/General";
 import {profileModalDisplayState} from "../profileModal/profileModal";
+import { currentUserState } from "../profileModal/profileModal";
+import { axiosAllUsersList } from "../../../../global/ApiCalls";
+import { onAxiosError } from "../../../../global/Errors";
+import { onAxiosSuccess } from "../../../../global/Errors";
+import { axiosUserInfo } from "../../../../global/ApiCalls";
 
 export const usersListState = atom<Array<searchResultUserType>>({
     key: 'usersListState',
@@ -72,42 +77,43 @@ export function MainSearchBox() {
     const [usersList, setUsersList] = useRecoilState(usersListState)
     const [resultBoxState, setResultBoxState] = useState(false)
     const ProfileModalDisplay = useSetRecoilState(profileModalDisplayState)
-
+    const [currentUser, setCurrentUser] = useRecoilState(currentUserState)
     useEffect(() => {
         setUsersList(users.data)
     })
 
     function handleSearch(data: any) {
-        // axiosAllUsersList(data).then(
-        // res => {
-        //     onAxiosSuccess({
-        //         res: res, myError: "invalidInputError", onSuccess: () => {
-        //             setUsersList(res.data.data)
-        //         }
-        //     })
+        axiosAllUsersList(data).then(
+        res => {
+            onAxiosSuccess({
+                res: res, myError: "invalidInputError", onSuccess: () => {
+                    setUsersList(res.data.data)
+                    console.log(usersList)
+                }
+            })
 
-        // },
-        // error => {
-        //     onAxiosError({axiosError: error, myError: "invalidInputError"})
-        // }
-        // )
+        },
+        error => {
+            onAxiosError({axiosError: error, myError: "invalidInputError"})
+        }
+        )
         setResultBoxState(true)
     }
 
     function showProfileModal(id: string) {
-        // axiosUserInfo(event.userId)then(
-        // res => {
-        //     onAxiosSuccess({
-        //         res: res, myError: "invalidInputError", onSuccess: () => {
-        //             currentUserForModal(res.data.data)
-        //         }
-        //     })
+        axiosUserInfo(id).then(
+        res => {
+            onAxiosSuccess({
+                res: res, myError: "invalidInputError", onSuccess: () => {
+                    setCurrentUser(res.data)
+                }
+            })
 
-        // },
-        // error => {
-        //     onAxiosError({axiosError: error, myError: "invalidInputError"})
-        // }
-        // )
+        },
+        error => {
+            onAxiosError({axiosError: error, myError: "invalidInputError"})
+        }
+        )
 
         ProfileModalDisplay('block')
     }
@@ -115,12 +121,11 @@ export function MainSearchBox() {
     return (
         <div>
             <div className="main-search-box">
-                
                     <div className={'search-box'}>
                         <img className="search-icon" src={searchIcon} alt={'magnifier'}/>
                         <input className={'search-input'} placeholder={'اسم دوستات رو جستجو کن و دنبالشون کن'}
                                onChange={event => {
-                                   handleSearch(event.target)
+                                   handleSearch(event.target.value)
                                }} onClick={event => {
                             handleSearch(event.target)
                         }}/>

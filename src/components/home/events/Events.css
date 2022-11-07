@@ -10,13 +10,6 @@
     margin: 50px auto 1.875rem auto;
 }
 
-/*
-@media only screen and (max-width: 51.875rem) {
-    .events-main-div {
-        width: 20%;
-    }
-} */
-
 @media only screen and (max-width: 38rem) {
     .events-main-div {
         width: 90%;

@@ -1,15 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './profileModal.css';
 import {atom, useRecoilState} from 'recoil';
 import profilePhoto from '../latestEvents/profiles/assets/profilePhoto.jpeg';
 import {userInfoType} from '../../../../global/Types';
 import {toFarsiNumber} from '../../../../global/functions/Converters';
 import {handleFollowing} from '../../../../global/functions/General';
-
-// export const isFollowingClickedState = atom<boolean>({
-//     key: 'isFollowingClickedState',
-//     default: false
-// })
+import { handleUnfollow } from '../../../../global/functions/General';
 
 export const profileModalDisplayState = atom<'none' | 'block'>({
     key: 'profileModalDisplayState',
@@ -31,12 +27,13 @@ const r = {
     "imageUrl": "",
     "teamPoint": 11,
     "age": 23,
-    "followed": false
+    "followed": true
 }
 
 export function ProfileModal() {
     const [profileModalDisplay, setProfileModalDisplay] = useRecoilState(profileModalDisplayState)
     const [currentUser, setCurrentUser] = useRecoilState(currentUserState)
+    //useEffect(()=>{setCurrentUser(r)})
     // useEffect(() => {
     //     if (profileModalDisplay === 'none')
     //         console.log("display none")
@@ -54,8 +51,9 @@ export function ProfileModal() {
             }}>
                 <div className='show-info'>
                     <img className="modal-profile-photo" src={profilePhoto} alt="profile photo"></img>
-                    <button className='profile-modal-following-button'
-                            onClick={() => handleFollowing(currentUser ? currentUser.id : "")}> دنبال کردن
+                    <button className={currentUser?.followed?"profile-modal-unfollow-button":"profile-modal-following-button"}
+                            onClick={() => currentUser?.followed ?handleUnfollow(currentUser.id): handleFollowing( currentUser?currentUser.id :" ")}> 
+                            {currentUser?.followed?"دنبال نکردن":"دنبال کردن"}
                     </button>
                     <div className='modal-profile-info'>
                         <div className='info-lable'>نام:
@@ -65,6 +63,7 @@ export function ProfileModal() {
 
                         <div className='info-lable'>سن:
                             <div className='info'>{currentUser && toFarsiNumber(currentUser.age)}</div>
+                            سال
                         </div>
 
                         <div className='info-lable'>کشور:

@@ -40,8 +40,8 @@ function App() {
                     () => navigate('/sign-in')
                 )
         else
-            //navigate('/sign-in')
-        navigate('/home/profile')
+            navigate('/sign-in')
+        //navigate('/home/profile')
     }, [])
 
     async function isTokenValid(): Promise<boolean> {

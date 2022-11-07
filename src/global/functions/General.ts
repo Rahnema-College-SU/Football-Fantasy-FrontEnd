@@ -1,3 +1,4 @@
+import { axiosUnfollow } from './../ApiCalls';
 import {KeyboardEvent, MutableRefObject} from "react";
 import {dateApiType} from "../Types";
 import {axiosWeekInf} from "../ApiCalls";
@@ -49,4 +50,19 @@ export function handleFollowing(id: string) {
     //         onAxiosError({axiosError: error, myError: invalidInputError})
     //     }
     //     )
+}
+export function handleUnfollow(id: string) {
+    axiosUnfollow(id).then(
+        // res => {
+        //     onAxiosSuccess({
+        //         res: res, myError: invalidInputError, onSuccess: () => {
+
+        //         }
+        //     })
+
+        // },
+        // error => {
+        //     onAxiosError({axiosError: error, myError: invalidInputError})
+        // }
+        )
 }

@@ -40,6 +40,19 @@
     color: #FFFFFF;
     margin-top: 10%;
 }
+.profile-modal-unfollow-button{
+    width: 60%;
+    height: 30px;
+    background:#FFFFFF;
+    border-radius: 4px;
+    border: 1px solid #ED1B5D;;
+    font: 800 12px Vazirmatn, serif;
+    align-items: center;
+    text-align: center;
+    color: #ED1B5D;
+    margin-top: 10%;
+}
+
 
 .modal-profile-photo {
     height: 8rem;
