@@ -9,6 +9,11 @@ const paginationError = 'خطا در صفحه بندی'
 const transfersSelectedPositionNotFoundError = 'بازیکنی انتخاب نشده‌است.'
 const playerNotFoundError = 'بازیکنی یافت نشد.'
 const emptyFieldError = 'لطفاً تمامی فیلدها را پر کنید.'
+const emptyNameError='نام خود را وارد کنید'
+const emptyFamilyNameError="نام خانوادگی خود را وارد کنید"
+const emptyEmailError = "ایمیل معتبر وارد کنید"
+const emptyCountryError = "کشور را انتخاب کنید"
+const emptyUsernameError = "نام کاربری را وارد کنید"
 
 // Info
 const invalidToken = 'لطفاً دوباره وارد شوید.'
@@ -21,6 +26,11 @@ export {
     transfersSelectedPositionNotFoundError,
     playerNotFoundError,
     emptyFieldError,
+    emptyNameError,
+    emptyCountryError,
+    emptyFamilyNameError,
+    emptyEmailError,
+    emptyUsernameError,
 
     invalidToken
 }

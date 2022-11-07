@@ -48,13 +48,14 @@ export const axiosSignUp = (Username: string, Password: string, First_name: stri
     {
         username: Username,
         password: Password,
-        first_name: First_name,
-        last_name: Last_name,
+        firstName: First_name,
+        lastName: Last_name,
         email: Email,
         country: Country,
         birthDate: date
     }
 )
+
 export const axiosSignUpConfirm = (token: string, code: string) => customAxios.post('verification', {
         verificationCode: code
     }
@@ -115,3 +116,4 @@ export const axiosLike = (eventId: string) => customAxios.post('like', {
 })
 
 export const axiosUnlike = (eventId: string) => customAxios.delete(`unlike/${eventId}`)
+//export const axiosLatestEvents=

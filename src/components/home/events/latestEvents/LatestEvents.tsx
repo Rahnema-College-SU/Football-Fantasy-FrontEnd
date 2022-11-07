@@ -4,6 +4,8 @@ import "./LatestEvents.css"
 import EventItem from "./profiles/Profiles";
 import {latestEventType} from "../../../../global/Types";
 import {atom, useRecoilState} from "recoil";
+import { axiosEventList } from "../../../../global/ApiCalls";
+import { onAxiosSuccess ,onAxiosError} from "../../../../global/Errors";
 
 const r = {
     data: [
@@ -11,7 +13,7 @@ const r = {
             eventId: "071393e3-ed93-4b86-b8bf-82b1acdc40f3",
             weekName: "هفته_هشتم#",
             teamPoints: 132,
-            liked: true,
+            liked: false,
             firstName: "mahdi",
             lastName: "ranginkaman",
             fullName: "mahdi ranginkaman",
@@ -50,12 +52,32 @@ export const latestEventsDisplayState = atom<"none" | "show">({
     default: "show"
 })
 
+
+
 export function LatestEvents() {
     const [events, setEvents] = useRecoilState(latestEventsListState)
     const [showBox, setShowBox] = useRecoilState(latestEventsDisplayState)
+
+    function letastEventsApiCall(){
+        // axiosEventList().then(
+        //     res => {
+        //         onAxiosSuccess({
+        //             res: res, myError: "invalidInputError", onSuccess: () => {
+        //                 setEvents(res.data)
+        //             }
+        //         })
+    
+        //     },
+        //     error => {
+        //         onAxiosError({axiosError: error, myError: "invalidInputError"})
+        //     }
+        //     )
+    }
+    
+
     useEffect(() => {
-        setEvents(r.data)
-    }, [setEvents])
+        letastEventsApiCall()
+    })
     return (
         <div className={showBox == "show" ? "Latest-Events-Box" : "Hidden-Latest-Events-Box"}>
             <div className="Latest-Events-Title"> آخرین رویداد ها</div>

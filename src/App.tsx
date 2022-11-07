@@ -41,7 +41,7 @@ function App() {
                 )
         else
             navigate('/sign-in')
-        // navigate('/home/profile')
+        //navigate('/home/profile')
     }, [])
 
     async function isTokenValid(): Promise<boolean> {

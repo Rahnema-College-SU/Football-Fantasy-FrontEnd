@@ -26,7 +26,7 @@ function SignInForm() {
         password: ""
     }
 
-    function signInApiCall() {
+    function handleSignIn() {
         if (signInInput.username.length === 0) {
             return alert("نام کاربری را وارد کنید")
         } else if (signInInput.password.length === 0) {
@@ -61,7 +61,7 @@ function SignInForm() {
     }
 
     return (
-        <Form onSubmit={signInApiCall}>
+        <Form onSubmit={handleSignIn}>
 
             <div className="sign-in-form">
                 <div className="header">

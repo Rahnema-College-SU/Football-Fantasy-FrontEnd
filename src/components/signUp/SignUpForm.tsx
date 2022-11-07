@@ -3,10 +3,12 @@ import "./SignUpForm.css";
 import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
 import {axiosSignUp} from "../../global/ApiCalls";
-import {addUserError, onAxiosError, onAxiosSuccess, userExistError} from "../../global/Errors";
+import {addUserError, emptyCountryError, emptyEmailError, emptyFamilyNameError, emptyUsernameError, onAxiosError, onAxiosSuccess, userExistError} from "../../global/Errors";
 import {setToken} from "../../global/Storages";
 import {countries} from "../../global/Variables";
 import {DatePicker} from "react-advance-jalaali-datepicker";
+import { onMyError } from "../../global/Errors";
+import { emptyNameError } from "../../global/Errors";
 
 function SignUpForm() {
     const navigate = useNavigate()
@@ -20,8 +22,7 @@ function SignUpForm() {
         country: "",
         birthDate: ""
     })
-
-
+    
     const setField = (key: keyof typeof currentUser): React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement> => (e) => {
         setCurrentUser(x => ({...x, [key]: e.target.value}))
     }
@@ -59,17 +60,20 @@ function SignUpForm() {
         ///remaining :check if user exist or not
         console.log(currentUser)
         if (currentUser.first_name.length == 0) {
-            return alert("نام خود را وارد کنید")
+            onMyError({myError: emptyNameError})
+                    return
         } else if (currentUser.last_name.length === 0) {
-            return alert("نام خانوادگی خود را وارد کنید")
+            onMyError({myError: emptyFamilyNameError})
+            return
         } else if (!/\S+@\S+\.\S+/.test(currentUser.email)) {
-            return alert("ایمیل معتبر وارد کنید")
+            onMyError({myError: emptyEmailError})
+                    return
         } else if (currentUser.country.length === 0) {
-            return alert("کشور را انتخاب کنید")
+            onMyError({myError: emptyCountryError})
+            return
         } else if (currentUser.username.length === 0) {
-            return alert("نام کاربری را وارد کنید")
-        } else if (currentUser.password.length < 8) {
-            return alert("رمز عبوری با حداقل ۸ کاراکتر وارد کنید")
+            onMyError({myError: emptyUsernameError})
+                    return
         }
         axiosSignUp(currentUser.username, currentUser.password, currentUser.first_name, currentUser.last_name, currentUser.email, currentUser.country, currentUser.birthDate).then(
             res => {
@@ -145,9 +149,8 @@ function SignUpForm() {
                     </div>
 
                 </div>
-                <button className="button" id="sign-up-button" type="submit" onClick={() => {
-                    signUpApiCall()
-                }}>ثبت نام
+                <button className="button" id="sign-up-button" type="submit"
+                >ثبت نام
                 </button>
             </div>
         </Form>
