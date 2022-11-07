@@ -13,6 +13,7 @@ import { emptyNameError } from "../../global/Errors";
 function SignUpForm() {
     const navigate = useNavigate()
     const inputs = ["نام", "نام خانوادگی", "ایمیل", "کشور", "نام کاربری", "رمز عبور"]
+    const [d, setD] = useState("----/--/--")
     const [currentUser, setCurrentUser] = useState({
         username: "",
         password: "",
@@ -32,7 +33,9 @@ function SignUpForm() {
             console.log(unix); // returns timestamp of the selected value, for example.
             console.log(formatted); // returns the selected value in the format you've entered, forexample, "تاریخ: 1396/02/24 ساعت: 18:30".
             currentUser.birthDate = formatted;
+            setD(formatted);
             console.log(currentUser);
+            
         }
 
         DatePickerInput(props: JSX.IntrinsicAttributes & React.ClassAttributes<HTMLInputElement> & React.InputHTMLAttributes<HTMLInputElement>) {
@@ -48,8 +51,8 @@ function SignUpForm() {
                         format="jYYYY-jMM-jDD"
                         onChange={this.change}
                         id="datePicker"
-                        preSelected="----/--/--"
-
+                        preSelected={d}
+                        
                     />
                 </div>
             );
@@ -58,7 +61,7 @@ function SignUpForm() {
 
     function signUpApiCall() {
         ///remaining :check if user exist or not
-        console.log(currentUser)
+        console.log(currentUser.birthDate)
         if (currentUser.first_name.length == 0) {
             onMyError({myError: emptyNameError})
                     return
@@ -82,9 +85,7 @@ function SignUpForm() {
                         navigate('/sign-up-confirm')
                         setToken(res.data.data.accessToken)
                     }
-
                 })
-
             }
             ,
             error => {
@@ -133,10 +134,8 @@ function SignUpForm() {
                     </div>
                     <div className="date-container">
                         <span className="label">تاریخ تولد </span>
-                        <ChooseDate/>
+                        <ChooseDate />
                     </div>
-
-                    
                     <div className="input-container">
                         <span className="label">نام کاربری</span>
                         <input className="input" type="text" onChange={setField("username")}/>
@@ -144,7 +143,6 @@ function SignUpForm() {
                     <div className="input-container">
                         <span className="label">رمز عبور</span>
                         <input className="input" type="password" onChange={setField("password")}
-                            //    ref={focusOnElementByRef(passwordInputRef)} tabIndex={0}
                         />
                     </div>
 
