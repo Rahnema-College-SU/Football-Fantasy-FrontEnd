@@ -10,7 +10,7 @@ import {useSetRecoilState} from "recoil";
 import {currentUserState, profileModalDisplayState} from "../../profileModal/profileModal";
 import {latestEventType} from "../../../../../global/Types";
 import {toFarsiNumber} from "../../../../../global/functions/Converters";
-import { axiosLike, axiosUnlike } from "../../../../../global/ApiCalls";
+import { axiosGetProfileImageUrl, axiosLike, axiosUnlike } from "../../../../../global/ApiCalls";
 import { eventNames } from "process";
 
 export function EventItem({event}: { event: latestEventType }) {
@@ -62,6 +62,7 @@ export function EventItem({event}: { event: latestEventType }) {
                 showProfileModal("")
             }}>
                 <img className="profile-photo" src={profilePhoto} alt="profile photo"></img>
+                {/* <img className="profile-photo" src={axiosGetProfileImageUrl(event.imageUrl)} alt="profile photo"></img> */}
                 <div className="name">{event.firstName} {event.lastName}</div>
                 <img className="like" src={event.liked?liked:like} alt="like" onClick={function(x) {event.liked?axiosUnlike(event.eventId):axiosLike(event.eventId)}}></img>
             </div>
