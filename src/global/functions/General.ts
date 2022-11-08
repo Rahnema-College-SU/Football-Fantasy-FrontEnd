@@ -1,10 +1,7 @@
-import { axiosUnfollow } from './../ApiCalls';
+import {axiosFollow, axiosUnfollow, axiosWeekInf} from '../ApiCalls';
 import {KeyboardEvent, MutableRefObject} from "react";
 import {dateApiType} from "../Types";
-import {axiosWeekInf} from "../ApiCalls";
-import {onAxiosError, onAxiosSuccess, onS} from "../Errors";
-import { axiosFollow } from './../ApiCalls';
-import { actionError } from '../Errors';
+import {actionError, onAxiosError, onAxiosSuccess, onS} from "../Errors";
 
 export const focusOnElementByRef = <T extends HTMLElement>(refName: MutableRefObject<T | null>) => {
     return (e: T | null) => {
@@ -44,15 +41,16 @@ export function handleFollowing(id: any) {
         res => {
             onAxiosSuccess({
                 res: res, myError: actionError, onSuccess: () => {
-                onS("به دنبال شوندگان افزوده شد")
+                    onS("به دنبال شوندگان افزوده شد")
                 }
             })
         },
         error => {
             onAxiosError({axiosError: error, myError: actionError})
         }
-        )
+    )
 }
+
 export function handleUnfollow(id: string) {
     axiosUnfollow(id).then(
         res => {

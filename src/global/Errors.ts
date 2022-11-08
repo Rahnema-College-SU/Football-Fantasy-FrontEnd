@@ -9,12 +9,12 @@ const paginationError = 'خطا در صفحه بندی'
 const transfersSelectedPositionNotFoundError = 'بازیکنی انتخاب نشده‌است.'
 const playerNotFoundError = 'بازیکنی یافت نشد.'
 const emptyFieldError = 'لطفاً تمامی فیلدها را پر کنید.'
-const emptyNameError='نام خود را وارد کنید'
-const emptyFamilyNameError="نام خانوادگی خود را وارد کنید"
+const emptyNameError = 'نام خود را وارد کنید'
+const emptyFamilyNameError = "نام خانوادگی خود را وارد کنید"
 const emptyEmailError = "ایمیل معتبر وارد کنید"
 const emptyCountryError = "کشور را انتخاب کنید"
 const emptyUsernameError = "نام کاربری را وارد کنید"
-const actionError="خطایی رخ داد "
+const actionError = "خطایی رخ داد "
 
 
 // Info
@@ -39,12 +39,12 @@ export {
 }
 
 export function onAxiosSuccess({
-                            res,
-                            myError,
-                            onSuccess,
-                            onError,
-                            onSuccessReturnValue,
-                            onErrorReturnValue
+                                   res,
+                                   myError,
+                                   onSuccess,
+                                   onError,
+                                   onSuccessReturnValue,
+                                   onErrorReturnValue
                                }: {
     res: AxiosResponse, myError?: string,
     onSuccess?: () => void, onError?: () => void, onSuccessReturnValue?: any, onErrorReturnValue?: any
@@ -104,6 +104,7 @@ export function onMyError({
 export function onInfo(information: string) {
     enqueueSnackbar(information, {variant: 'info'})
 }
+
 export function onS(information: string) {
     enqueueSnackbar(information, {variant: 'success'})
 }

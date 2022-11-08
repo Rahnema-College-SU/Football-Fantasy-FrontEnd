@@ -152,7 +152,7 @@ export type profileType = {
 }
 
 export type profileApiCallType = {
-    profileImage: File,
+    profileImage: FormData,
     firstName: string,
     lastName: string,
     country: string,

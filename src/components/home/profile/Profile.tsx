@@ -29,7 +29,7 @@ function Profile() {
     const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false)
     const [profileImageUrl, setProfileImageUrl] = useState<string>(defaultProfileImage)
     const [editedProfileImageUrl, setEditedProfileImageUrl] = useState<string>(defaultProfileImage)
-    const [editedProfileFile, setEditedProfileFile] = useState<File | undefined>(undefined)
+    const [editedProfileFile, setEditedProfileFile] = useState<FormData | undefined>(undefined)
 
     const fileInputRef = useRef<HTMLInputElement | null>(null)
     const navigate = useNavigate()
@@ -156,7 +156,10 @@ function Profile() {
             return
 
         document.getElementById('upload-image-text')!.innerHTML = fileObj.name
-        setEditedProfileFile(fileObj)
+
+        const formData = new FormData();
+        formData.append('files', fileObj);
+        setEditedProfileFile(formData)
         setEditedProfileImageUrl(URL.createObjectURL(fileObj))
     }
 
@@ -238,8 +241,11 @@ function Profile() {
         <div className={'profile-main-div'}>
             {getHeader()}
             {getProfileImagePart()}
-            <input ref={fileInputRef} style={{display: 'none'}} type={'file'}
-                   accept={".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"} onChange={handleFileChange}/>
+            <form encType={'multipart/form-data'}>
+                <input ref={fileInputRef} style={{display: 'none'}} type={'file'}
+                       accept={".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"} onChange={handleFileChange}
+                       multiple={true}/>
+            </form>
             {getUploadImageButton()}
             <div id={'profile-tab-info-container'}>
                 {isDataLoaded ? getInfo() : <CircularProgress id={'data-circular-progress'}/>}

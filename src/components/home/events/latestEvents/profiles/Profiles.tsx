@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import "./Profiles.css"
 import star from './assets/star.svg'
 import addIcon from './assets/addIcon.svg'
@@ -7,20 +7,16 @@ import like from './assets/heart.svg'
 import liked from './assets/heart-1.svg'
 import profilePhoto from './assets/profilePhoto.jpeg'
 import {useSetRecoilState} from "recoil";
-import {currentUserState, profileModalDisplayState} from "../../profileModal/profileModal";
+import {profileModalDisplayState} from "../../profileModal/profileModal";
 import {latestEventType} from "../../../../../global/Types";
 import {toFarsiNumber} from "../../../../../global/functions/Converters";
-import { axiosGetProfileImageUrl, axiosLike, axiosUnlike } from "../../../../../global/ApiCalls";
-import { eventNames } from "process";
-import { axiosUserInfo } from "../../../../../global/ApiCalls";
-import { onAxiosSuccess, onInfo, onS } from "../../../../../global/Errors";
-import { onAxiosError } from "../../../../../global/Errors";
+import {axiosLike, axiosUnlike} from "../../../../../global/ApiCalls";
+import {onAxiosError, onAxiosSuccess, onInfo, onS} from "../../../../../global/Errors";
 
 export function EventItem({event}: { event: latestEventType }) {
     const ProfileModalDisplay = useSetRecoilState(profileModalDisplayState)
-    const currentUserForModal = useSetRecoilState(currentUserState)
-   
-    function handleLike(id:string){
+
+    function handleLike(id: string) {
         axiosLike(id).then(
             res => {
                 onAxiosSuccess({
@@ -29,14 +25,15 @@ export function EventItem({event}: { event: latestEventType }) {
                         ProfileModalDisplay('none')
                     }
                 })
-    
+
             },
             error => {
                 onAxiosError({axiosError: error, myError: "invalidInputError"})
             }
-            )
+        )
     }
-    function handleUnLike(id:string){
+
+    function handleUnLike(id: string) {
         axiosUnlike(id).then(
             res => {
                 onAxiosSuccess({
@@ -44,12 +41,12 @@ export function EventItem({event}: { event: latestEventType }) {
                         onInfo("‍دیگر پ‍سندیده نخواهد بود")
                     }
                 })
-    
+
             },
             error => {
                 onAxiosError({axiosError: error, myError: "invalidInputError"})
             }
-            )
+        )
     }
 
     return (
@@ -74,11 +71,13 @@ export function EventItem({event}: { event: latestEventType }) {
                     )}
                 </div>
             </div>
-            <div className="profile-info" >
+            <div className="profile-info">
                 <img className="profile-photo" src={profilePhoto} alt="profile photo"></img>
                 {/* <img className="profile-photo" src={axiosGetProfileImageUrl(event.imageUrl)} alt="profile photo"></img> */}
                 <div className="name">{event.firstName} {event.lastName}</div>
-                <img className="like" src={event.liked?liked:like} alt="like" onClick={function(x) {event.liked?handleUnLike(event.eventId):handleLike(event.eventId)}}></img>
+                <img className="like" src={event.liked ? liked : like} alt="like" onClick={function () {
+                    event.liked ? handleUnLike(event.eventId) : handleLike(event.eventId)
+                }}></img>
             </div>
         </div>
     )

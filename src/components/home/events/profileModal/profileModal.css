@@ -1,8 +1,7 @@
 .profile-modal-div {
     position: relative;
     top: 20%;
-    margin: auto;
-    margin-top: 0%;
+    margin: 0 auto auto;
     width: 40%;
     height: 70%;
     background: #FFFFFF;
@@ -40,10 +39,11 @@
     color: #FFFFFF;
     margin-top: 10%;
 }
-.profile-modal-unfollow-button{
+
+.profile-modal-unfollow-button {
     width: 60%;
     height: 30px;
-    background:#FFFFFF;
+    background: #FFFFFF;
     border-radius: 4px;
     border: 1px solid #ED1B5D;;
     font: 800 12px Vazirmatn, serif;

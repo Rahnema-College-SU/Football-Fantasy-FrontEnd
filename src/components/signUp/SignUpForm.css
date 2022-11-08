@@ -76,16 +76,20 @@ button {
 .JDatePicker .JC-days {
     background: #3D185B !important;
 }
+
 .JDatePicker .month-items.selected {
     background: aliceblue;
     color: #b056c2 !important;
 }
-.JDatePicker .month-items{
+
+.JDatePicker .month-items {
     color: rgb(82, 80, 80);
 }
-.JDatePicker .month-items:hover{
+
+.JDatePicker .month-items:hover {
     color: rgb(240, 106, 240) !important;
 }
+
 .day-items:hover {
     background: #A057DB !important;
 }

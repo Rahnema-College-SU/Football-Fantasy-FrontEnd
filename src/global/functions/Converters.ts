@@ -3,7 +3,8 @@ import {
     fantasyTeamApiResponseType,
     myPlayersType,
     playersListApiResponseType,
-    playerType, profileType
+    playerType,
+    profileType
 } from "../Types";
 import {positionsServer, positionsUi} from "../Variables";
 
