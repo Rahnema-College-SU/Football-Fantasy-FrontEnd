@@ -1,5 +1,5 @@
 import React from "react";
-import "./Profiles.css"
+import "./EventItem.css"
 import star from './assets/star.svg'
 import addIcon from './assets/addIcon.svg'
 import removeIcon from './assets/removeIcon.svg'
@@ -13,7 +13,7 @@ import {toFarsiNumber} from "../../../../../global/functions/Converters";
 import {axiosLike, axiosUnlike} from "../../../../../global/ApiCalls";
 import {onAxiosError, onAxiosSuccess, onInfo, onS} from "../../../../../global/Errors";
 
-export function EventItem({event}: { event: latestEventType }) {
+function EventItem({event}: { event: latestEventType }) {
     const ProfileModalDisplay = useSetRecoilState(profileModalDisplayState)
 
     function handleLike(id: string) {
@@ -21,7 +21,7 @@ export function EventItem({event}: { event: latestEventType }) {
             res => {
                 onAxiosSuccess({
                     res: res, myError: "invalidInputError", onSuccess: () => {
-                        onS("‍پسندیده شد")
+                        onS("پسندیده شد")
                         ProfileModalDisplay('none')
                     }
                 })
@@ -73,7 +73,6 @@ export function EventItem({event}: { event: latestEventType }) {
             </div>
             <div className="profile-info">
                 <img className="profile-photo" src={profilePhoto} alt="profile photo"></img>
-                {/* <img className="profile-photo" src={axiosGetProfileImageUrl(event.imageUrl)} alt="profile photo"></img> */}
                 <div className="name">{event.firstName} {event.lastName}</div>
                 <img className="like" src={event.liked ? liked : like} alt="like" onClick={function () {
                     event.liked ? handleUnLike(event.eventId) : handleLike(event.eventId)

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import "./MainSearchBox.css"
 import searchIcon from "./assets/searchicon.png";
 import {searchResultUserType} from "../../../../global/Types";
@@ -21,9 +21,6 @@ export function MainSearchBox() {
     const [resultBoxState, setResultBoxState] = useState(false)
     const ProfileModalDisplay = useSetRecoilState(profileModalDisplayState)
     const setCurrentUser = useSetRecoilState(currentUserState)
-    useEffect(() => {
-        //setUsersList(users.data)
-    })
 
     function handleSearch(data: any) {
         axiosAllUsersList(data).then(

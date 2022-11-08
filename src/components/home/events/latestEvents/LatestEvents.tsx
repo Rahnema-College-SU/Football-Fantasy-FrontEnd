@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import "./LatestEvents.css"
-import EventItem from "./profiles/Profiles";
+import EventItem from "./profiles/EventItem";
 import {latestEventType} from "../../../../global/Types";
 import {atom, useRecoilState, useRecoilValue} from "recoil";
 import {axiosEventList} from "../../../../global/ApiCalls";
@@ -20,7 +20,7 @@ export function LatestEvents() {
     const [events, setEvents] = useRecoilState(latestEventsListState)
     const showBox = useRecoilValue(latestEventsDisplayState)
 
-    function letastEventsApiCall() {
+    function latestEventsApiCall() {
         axiosEventList().then(
             res => {
                 onAxiosSuccess({
@@ -37,7 +37,7 @@ export function LatestEvents() {
     }
 
     useEffect(() => {
-        letastEventsApiCall()
+        latestEventsApiCall()
     })
 
     return (
