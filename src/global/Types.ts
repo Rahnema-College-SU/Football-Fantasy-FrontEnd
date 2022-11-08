@@ -150,3 +150,11 @@ export type profileType = {
     frontMessage: string,
     userMessage: string
 }
+
+export type profileApiCallType = {
+    profileImage: File,
+    firstName: string,
+    lastName: string,
+    country: string,
+    password: string
+}

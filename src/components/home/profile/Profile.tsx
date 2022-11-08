@@ -2,14 +2,14 @@ import React, {ChangeEvent, useEffect, useRef, useState} from "react";
 import "./Profile.css";
 import editIcon from './assets/edit-icon.svg'
 import uploadIcon from './assets/upload-icon.svg'
-import a from './assets/a.gif'
+import defaultProfileImage from './assets/defaultProfileImage.gif'
 import {CircularProgress} from "@mui/material";
 import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
 import {useNavigate} from "react-router-dom";
 import {setHomeTabsState, setMyTeamSubTabState, setToken, setTransfersSubTabState} from "../../../global/Storages";
 import {Input} from "./input/Input";
 import {emptyFieldError, onAxiosError, onAxiosSuccess, onMyError} from "../../../global/Errors";
-import {axiosGetProfile, axiosGetProfileImageUrl} from "../../../global/ApiCalls";
+import {axiosGetProfile, axiosGetProfileImageUrl, axiosUpdateProfile} from "../../../global/ApiCalls";
 import {convertProfileApiResponse} from "../../../global/functions/Converters";
 
 function Profile() {
@@ -27,36 +27,37 @@ function Profile() {
     const [isEdit, setIsEdit] = useState<boolean>(false)
     const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false)
     const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false)
-    const [profileImageUrl, setProfileImageUrl] = useState<string>(a)
-    const [editedProfileImageUrl, setEditedProfileImageUrl] = useState<string>(a)
-    // let profileImageUrl = 'https://picsum.photos/200/200'
+    const [profileImageUrl, setProfileImageUrl] = useState<string>(defaultProfileImage)
+    const [editedProfileImageUrl, setEditedProfileImageUrl] = useState<string>(defaultProfileImage)
+    const [editedProfileFile, setEditedProfileFile] = useState<File | undefined>(undefined)
+
     const fileInputRef = useRef<HTMLInputElement | null>(null)
     const navigate = useNavigate()
 
-    const inputData: { [key in rowKeysType]: { title: string, kind: 'text' | 'password' | 'country' } } = {
-        firstName: {title: 'نام', kind: 'text'},
-        lastName: {title: 'نام خانوادگی', kind: 'text'},
-        email: {title: 'ایمیل', kind: 'text'},
-        country: {title: 'کشور', kind: 'country'},
-        username: {title: 'نام کاربری', kind: 'text'},
-        password: {title: 'رمز عبور', kind: 'password'}
+    const inputData: { [key in rowKeysType]: { title: string, kind: 'text' | 'password' | 'country', isDisabled: boolean } } = {
+        firstName: {title: 'نام', kind: 'text', isDisabled: false},
+        lastName: {title: 'نام خانوادگی', kind: 'text', isDisabled: false},
+        email: {title: 'ایمیل', kind: 'text', isDisabled: true},
+        country: {title: 'کشور', kind: 'country', isDisabled: false},
+        username: {title: 'نام کاربری', kind: 'text', isDisabled: true},
+        password: {title: 'رمز عبور', kind: 'password', isDisabled: false}
     }
 
     const [columns, setColumns] = useState<rowType>({
-        firstName: 'امیر',
-        lastName: 'فخیمی',
-        email: 'fakhimi.amirmohamfghjkl;fgdhfdsghjfdsfgkuhjgfdsdfghjgfhdgfghkjghfdsfghfd@gmail.com',
-        country: 'ایران',
-        username: 'abcd',
+        firstName: '',
+        lastName: '',
+        email: '',
+        country: '',
+        username: '',
         password: '1234'
     })
 
     const [editedColumns, setEditedColumns] = useState<rowType>({
-        firstName: 'امیر',
-        lastName: 'فخیمی',
-        email: 'fakhimi.amirmohamfghjkl;fgdhfdsghjfdsfgkuhjgfdsdfghjgfhdgfghkjghfdsfghfd@gmail.com',
-        country: 'ایران',
-        username: 'abcd',
+        firstName: '',
+        lastName: '',
+        email: '',
+        country: '',
+        username: '',
         password: '1234'
     })
 
@@ -81,6 +82,7 @@ function Profile() {
                     setEditedColumns(profile.info)
 
                     setIsDataLoaded(true)
+                    setIsEdit(false)
                 }
             }),
             error => onAxiosError({axiosError: error})
@@ -127,6 +129,7 @@ function Profile() {
                 <div className={'profile-tab-info-row'}>
                     <div className={'profile-tab-row-title'}>{inputData[key].title}</div>
                     <Input isEdit={isEdit} kind={inputData[key].kind} text={editedColumns[key]}
+                           isDisabled={inputData[key].isDisabled}
                            onChange={(e: ChangeEvent<HTMLInputElement>) => {
                                const newEditedColumns = {...editedColumns}
                                newEditedColumns[key] = e.target.value
@@ -153,6 +156,7 @@ function Profile() {
             return
 
         document.getElementById('upload-image-text')!.innerHTML = fileObj.name
+        setEditedProfileFile(fileObj)
         setEditedProfileImageUrl(URL.createObjectURL(fileObj))
     }
 
@@ -171,9 +175,24 @@ function Profile() {
                 }
             }
 
-            setIsEdit(false)
-            setColumns({...editedColumns})
-            setProfileImageUrl(editedProfileImageUrl)
+            updateProfile()
+        }
+
+        function updateProfile() {
+            axiosUpdateProfile({
+                profileImage: editedProfileFile!,
+                firstName: editedColumns.firstName,
+                lastName: editedColumns.lastName,
+                country: editedColumns.country,
+                password: editedColumns.password === columns.password ? '' : editedColumns.password
+            }).then(
+                res => onAxiosSuccess({
+                    res: res,
+                    onSuccess: () => getProfile()
+
+                }),
+                error => onAxiosError({axiosError: error})
+            )
         }
 
         function cancelOnClick() {
