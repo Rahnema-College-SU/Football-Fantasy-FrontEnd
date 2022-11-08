@@ -14,6 +14,8 @@ const emptyFamilyNameError="نام خانوادگی خود را وارد کنی�
 const emptyEmailError = "ایمیل معتبر وارد کنید"
 const emptyCountryError = "کشور را انتخاب کنید"
 const emptyUsernameError = "نام کاربری را وارد کنید"
+const actionError="خطایی رخ داد "
+
 
 // Info
 const invalidToken = 'لطفاً دوباره وارد شوید.'
@@ -31,17 +33,18 @@ export {
     emptyFamilyNameError,
     emptyEmailError,
     emptyUsernameError,
+    actionError,
 
     invalidToken
 }
 
 export function onAxiosSuccess({
-                                   res,
-                                   myError,
-                                   onSuccess,
-                                   onError,
-                                   onSuccessReturnValue,
-                                   onErrorReturnValue
+                            res,
+                            myError,
+                            onSuccess,
+                            onError,
+                            onSuccessReturnValue,
+                            onErrorReturnValue
                                }: {
     res: AxiosResponse, myError?: string,
     onSuccess?: () => void, onError?: () => void, onSuccessReturnValue?: any, onErrorReturnValue?: any
@@ -100,4 +103,7 @@ export function onMyError({
 
 export function onInfo(information: string) {
     enqueueSnackbar(information, {variant: 'info'})
+}
+export function onS(information: string) {
+    enqueueSnackbar(information, {variant: 'success'})
 }

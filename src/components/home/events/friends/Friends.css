@@ -116,6 +116,11 @@
     flex-direction: column;
     gap: 10px;
     margin-top: 15%;
+    color: gray;
+    font-size: 13px;
+    text-align: center;
+    
+
 }
 
 .profile {

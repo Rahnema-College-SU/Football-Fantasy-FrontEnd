@@ -12,28 +12,44 @@ import {latestEventType} from "../../../../../global/Types";
 import {toFarsiNumber} from "../../../../../global/functions/Converters";
 import { axiosGetProfileImageUrl, axiosLike, axiosUnlike } from "../../../../../global/ApiCalls";
 import { eventNames } from "process";
+import { axiosUserInfo } from "../../../../../global/ApiCalls";
+import { onAxiosSuccess, onInfo, onS } from "../../../../../global/Errors";
+import { onAxiosError } from "../../../../../global/Errors";
 
 export function EventItem({event}: { event: latestEventType }) {
     const ProfileModalDisplay = useSetRecoilState(profileModalDisplayState)
     const currentUserForModal = useSetRecoilState(currentUserState)
-   // const [likePhotoPath, setLikePhotoPath] = useState<string>(like)
-
-    function showProfileModal(id: string) {
-        // axiosUserInfo(event.userId)then(
-        // res => {
-        //     onAxiosSuccess({
-        //         res: res, myError: "invalidInputError", onSuccess: () => {
-        //             currentUserForModal(res.data.data)
-        //         }
-        //     })
-
-        // },
-        // error => {
-        //     onAxiosError({axiosError: error, myError: "invalidInputError"})
-        // }
-        // )
-
-        ProfileModalDisplay('block')
+   
+    function handleLike(id:string){
+        axiosLike(id).then(
+            res => {
+                onAxiosSuccess({
+                    res: res, myError: "invalidInputError", onSuccess: () => {
+                        onS("‍پسندیده شد")
+                        ProfileModalDisplay('none')
+                    }
+                })
+    
+            },
+            error => {
+                onAxiosError({axiosError: error, myError: "invalidInputError"})
+            }
+            )
+    }
+    function handleUnLike(id:string){
+        axiosUnlike(id).then(
+            res => {
+                onAxiosSuccess({
+                    res: res, myError: "invalidInputError", onSuccess: () => {
+                        onInfo("‍دیگر پ‍سندیده نخواهد بود")
+                    }
+                })
+    
+            },
+            error => {
+                onAxiosError({axiosError: error, myError: "invalidInputError"})
+            }
+            )
     }
 
     return (
@@ -58,13 +74,11 @@ export function EventItem({event}: { event: latestEventType }) {
                     )}
                 </div>
             </div>
-            <div className="profile-info" onClick={() => {
-                showProfileModal("")
-            }}>
+            <div className="profile-info" >
                 <img className="profile-photo" src={profilePhoto} alt="profile photo"></img>
                 {/* <img className="profile-photo" src={axiosGetProfileImageUrl(event.imageUrl)} alt="profile photo"></img> */}
                 <div className="name">{event.firstName} {event.lastName}</div>
-                <img className="like" src={event.liked?liked:like} alt="like" onClick={function(x) {event.liked?axiosUnlike(event.eventId):axiosLike(event.eventId)}}></img>
+                <img className="like" src={event.liked?liked:like} alt="like" onClick={function(x) {event.liked?handleUnLike(event.eventId):handleLike(event.eventId)}}></img>
             </div>
         </div>
     )

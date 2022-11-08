@@ -74,12 +74,13 @@ export const axiosAllUsersList = (searchText: string) => customAxios.get('user_s
     }
 })
 
-export const axiosFollow = (id: String) => customAxios.post('follow', {
-    params: {
+export const axiosFollow = (id: any) => customAxios.post('follow', {
+    
         followUserId: id
-    }
+    
 })
-export const axiosUnfollow = (id: String) => customAxios.delete(`follow/"${id}"`)
+export const axiosUnfollow = (id: String) => 
+    customAxios.delete(`follow/${id}`)
 
 export const axiosFollowingSearch = (searchText: string) => customAxios.get('user_search', {
     params: {
