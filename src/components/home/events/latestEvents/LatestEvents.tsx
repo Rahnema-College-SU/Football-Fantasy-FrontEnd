@@ -52,31 +52,29 @@ export const latestEventsDisplayState = atom<"none" | "show">({
     default: "show"
 })
 
-
-
 export function LatestEvents() {
     const [events, setEvents] = useRecoilState(latestEventsListState)
     const [showBox, setShowBox] = useRecoilState(latestEventsDisplayState)
 
     function letastEventsApiCall(){
-        // axiosEventList().then(
-        //     res => {
-        //         onAxiosSuccess({
-        //             res: res, myError: "invalidInputError", onSuccess: () => {
-        //                 setEvents(res.data)
-        //             }
-        //         })
+        axiosEventList().then(
+            res => {
+                onAxiosSuccess({
+                    res: res, myError: "invalidInputError", onSuccess: () => {
+                        setEvents(res.data.data)
+                    }
+                })
     
-        //     },
-        //     error => {
-        //         onAxiosError({axiosError: error, myError: "invalidInputError"})
-        //     }
-        //     )
+            },
+            error => {
+                onAxiosError({axiosError: error, myError: "invalidInputError"})
+            }
+            )
     }
-    
 
     useEffect(() => {
         letastEventsApiCall()
+        //setEvents(r.data)
     })
     return (
         <div className={showBox == "show" ? "Latest-Events-Box" : "Hidden-Latest-Events-Box"}>

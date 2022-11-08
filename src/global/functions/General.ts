@@ -2,7 +2,9 @@ import { axiosUnfollow } from './../ApiCalls';
 import {KeyboardEvent, MutableRefObject} from "react";
 import {dateApiType} from "../Types";
 import {axiosWeekInf} from "../ApiCalls";
-import {onAxiosError, onAxiosSuccess} from "../Errors";
+import {onAxiosError, onAxiosSuccess, onS} from "../Errors";
+import { axiosFollow } from './../ApiCalls';
+import { actionError } from '../Errors';
 
 export const focusOnElementByRef = <T extends HTMLElement>(refName: MutableRefObject<T | null>) => {
     return (e: T | null) => {
@@ -36,33 +38,34 @@ export async function getDate(): Promise<dateApiType> {
     )
 }
 
-export function handleFollowing(id: string) {
-    // axiosFollow(id).then(
-    //     res => {
-    //         onAxiosSuccess({
-    //             res: res, myError: invalidInputError, onSuccess: () => {
-
-    //             }
-    //         })
-
-    //     },
-    //     error => {
-    //         onAxiosError({axiosError: error, myError: invalidInputError})
-    //     }
-    //     )
+export function handleFollowing(id: any) {
+    console.log(id);
+    axiosFollow(id).then(
+        res => {
+            onAxiosSuccess({
+                res: res, myError: actionError, onSuccess: () => {
+                onS("به دنبال شوندگان افزوده شد")
+                }
+            })
+        },
+        error => {
+            onAxiosError({axiosError: error, myError: actionError})
+        }
+        )
 }
 export function handleUnfollow(id: string) {
     axiosUnfollow(id).then(
-        // res => {
-        //     onAxiosSuccess({
-        //         res: res, myError: invalidInputError, onSuccess: () => {
+        res => {
+            onAxiosSuccess({
+                res: res, myError: actionError, onSuccess: () => {
+                    onS("از دنبال شوندگان حذف شد")
+                }
 
-        //         }
-        //     })
+            })
 
-        // },
-        // error => {
-        //     onAxiosError({axiosError: error, myError: invalidInputError})
-        // }
-        )
+        },
+        error => {
+            onAxiosError({axiosError: error, myError: actionError})
+        }
+    )
 }

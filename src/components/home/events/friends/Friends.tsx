@@ -7,6 +7,13 @@ import {searchResultUserType} from "../../../../global/Types";
 import {handleFollowing} from "../../../../global/functions/General";
 import {profileModalDisplayState} from "../profileModal/profileModal";
 import {latestEventsDisplayState} from "../latestEvents/LatestEvents";
+import { onAxiosError  } from "../../../../global/Errors";
+import { onAxiosSuccess } from "../../../../global/Errors";
+import { axiosFollowingSearch } from "../../../../global/ApiCalls";
+import { axiosFollowerSearch } from "../../../../global/ApiCalls";
+import { axiosUserInfo } from "../../../../global/ApiCalls";
+import { useRecoilState } from "recoil";
+import { currentUserState } from "../profileModal/profileModal";
 
 const r = [
     {
@@ -72,57 +79,59 @@ const tabs=[
     const [searchInput, setSearchInput] = useState('');
     const ProfileModalDisplay = useSetRecoilState(profileModalDisplayState)
     const latestEventBoxState = useSetRecoilState(latestEventsDisplayState)
-    
-    function handleSearch(id: any, state: string) {
-        // if(state==="following"){
-        // axiosFollowingSearch(id).then(
-        // res => {
-        //     onAxiosSuccess({
-        //         res: res, myError: "invalidInputError", onSuccess: () => {
-        //             setUsersList(res.data.data)
-        //         }
-        //     })
+    const [currentUser, setCurrentUser] = useRecoilState(currentUserState)
 
-        // },
-        // error => {
-        //     onAxiosError({axiosError: error, myError: "invalidInputError"})
-        // }
-        // )
-        // }else{
-        // axiosFollowerSearch(id).then(
-        // res => {
-        //     onAxiosSuccess({
-        //         res: res, myError: "invalidInputError", onSuccess: () => {
-        //             setUsersList(res.data.data)
-        //         }
-        //     })
+    function handleSearch(txt: any, state: string) {
+        if(state==="following"){
+        axiosFollowingSearch(txt).then(
+        res => {
+            onAxiosSuccess({
+                res: res, myError: "invalidInputError", onSuccess: () => {
+                    console.log(res.data.data)
+                    setUsersList(res.data.data)
+                    
+                }
+            })
+        },
+        error => {
+            onAxiosError({axiosError: error, myError: "invalidInputError"})
+        }
+        )
+        }else{
+        axiosFollowerSearch(txt).then(
+        res => {
+            onAxiosSuccess({
+                res: res, myError: "invalidInputError", onSuccess: () => {
+                    setUsersList(res.data.data)
+                }
+            })
 
-        // },
-        // error => {
-        //     onAxiosError({axiosError: error, myError: "invalidInputError"})
-        // }
-        // )
-        // }
-        setUsersList(r)
+        },
+        error => {
+            onAxiosError({axiosError: error, myError: "invalidInputError"})
+        }
+        )
+        }
     }
 
     function showProfileModal(id: string) {
-        // axiosUserInfo(event.userId)then(
-        // res => {
-        //     onAxiosSuccess({
-        //         res: res, myError: "invalidInputError", onSuccess: () => {
-        //             currentUserForModal(res.data.data)
-        //         }
-        //     })
+        axiosUserInfo(id).then(
+        res => {
+            onAxiosSuccess({
+                res: res, myError: "invalidInputError", onSuccess: () => {
+                    //console.log(res.data.data)
+                    setCurrentUser(res.data.data)
+                }
+            })
 
-        // },
-        // error => {
-        //     onAxiosError({axiosError: error, myError: "invalidInputError"})
-        // }
-        // )
+        },
+        error => {
+            onAxiosError({axiosError: error, myError: "invalidInputError"})
+        }
+        )
+
         ProfileModalDisplay('block')
     }
-
     return (
         <div className="main-box">
             <div className="title"> دوستان شما</div>
@@ -138,60 +147,46 @@ const tabs=[
                             رویدادها
                         </div>
                     </button>
-                    {tabs.slice(0,2).map(tab=>{
-                        return(
-                            <button className={selectedTab === tab ? "selected-button" : "tipical-button"}
+                    <button className={selectedTab.name === "follower" ? "selected-button" : "tipical-button"}
                             onClick={() => {
-                                setSelectedTab(tab);
+                                setSelectedTab({name:"follower",text:"دنبال کنندگان"});
                                 latestEventBoxState("none");
                                 setSearchInput(' ');
                                 setUsersList([]);
                             }}>
-                        <div className={selectedTab === tab ? "selected-button-text" : "button-text"}>
-                            {tab.text}
-                        </div>
-                    </button>
-                        )
-                    })}
-                    {/* <button className={selectedTab === "follower" ? "selected-button" : "tipical-button"}
-                            onClick={() => {
-                                setSelectedTab("follower");
-                                latestEventBoxState("none");
-                                setSearchInput(' ');
-                                setUsersList([]);
-                            }}>
-                        <div className={selectedTab === "follower" ? "selected-button-text" : "button-text"}>دنبال
+                        <div className={selectedTab.name === "follower" ? "selected-button-text" : "button-text"}>دنبال
                             کنندگان
                         </div>
-                    </button>
-                    <button className={selectedTab === "following" ? "selected-button" : "tipical-button"}
+                        </button>
+                    <button className={selectedTab.name === "following" ? "selected-button" : "tipical-button"}
                             onClick={() => {
-                                setSelectedTab("following");
+                                setSelectedTab({name:"following",text:"دنبال شوندگان"});
                                 latestEventBoxState("none");
                                 setSearchInput(' ');
                                 setUsersList([]);
                             }}>
-                        <div className={selectedTab === "following" ? "selected-button-text" : "button-text"}>دنبال
+                        <div className={selectedTab.name === "following" ? "selected-button-text" : "button-text"}>دنبال
                             شوندگان
                         </div>
-                    </button> */}
+                    </button>
                 </div>
                 <div className={selectedTab.name != "latest-events" ? "" : "hidden"}>
                     <div className="friends-search-box">
                         <img className="search-icon" src={searchIcon} alt={'magnifier'}/>
                         <input className={'search-input'} placeholder={'جستجو'} value={searchInput} onChange={event => {
                             setSearchInput(event.target.value);
-                            selectedTab.name === "follower" ? handleSearch(event.target, 'follower') : handleSearch(event.target, 'following')
+                            handleSearch(event.target.value,selectedTab.name) 
                         }}/>
                     </div>
                     <div className="profiles-box">
-                        {usersList.map(user => <div className="profile">
+                        {usersList.length==0?"کاربری با این نام یافت نشد":
+                        usersList.map(user => <div className="profile">
                             <img className="friends-profile-photo" src={profilePhoto} alt="profile photo"
                                  onClick={() => showProfileModal(user.id.toString())}></img>
                             <div className="friends-name">{user.username}</div>
                             <button className={user.followed === false ? "follow-back" : "see-profile"} onClick={() => {
                                 user.followed === false ? handleFollowing(user.id.toString()) : showProfileModal(user.id.toString())
-                            }}>
+                            }}> 
                                 <div className="button-text">{user.followed === false ? "دنبال کردن" : "مشاهده"} </div>
                             </button>
                         </div>)}

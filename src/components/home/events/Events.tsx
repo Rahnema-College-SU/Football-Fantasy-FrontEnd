@@ -17,9 +17,7 @@ function Events() {
             <div className="events-items-div">
                 <Friends/>
                 <LatestEvents/>
-
             </div>
-
         </div>
     )
 }

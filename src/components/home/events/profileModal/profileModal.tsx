@@ -34,13 +34,13 @@ export function ProfileModal() {
     const [profileModalDisplay, setProfileModalDisplay] = useRecoilState(profileModalDisplayState)
     const [currentUser, setCurrentUser] = useRecoilState(currentUserState)
     //useEffect(()=>{setCurrentUser(r)})
-    // useEffect(() => {
-    //     if (profileModalDisplay === 'none')
-    //         console.log("display none")
-    // }, [profileModalDisplay])
-    // useEffect(()=>{
-    //     setCurrentUser(r)
-    // })
+    useEffect(() => {
+        if (profileModalDisplay === 'none')
+            console.log("display none")
+    }, [profileModalDisplay])
+    useEffect(()=>{
+        console.log(currentUser)
+    })
 
     return (
         <div className='back' onClick={() => {
@@ -58,20 +58,21 @@ export function ProfileModal() {
                     <div className='modal-profile-info'>
                         <div className='info-lable'>نام:
                             <div
-                                className='info'>{currentUser && currentUser.firstName}{currentUser && currentUser.lastName}</div>
+                                className='info'>{currentUser?.fullName}</div>
                         </div>
 
                         <div className='info-lable'>سن:
                             <div className='info'>{currentUser && toFarsiNumber(currentUser.age)}</div>
+                            {/* <div className='info'>{currentUser && currentUser.age}</div> */}
                             سال
                         </div>
-
                         <div className='info-lable'>کشور:
                             <div className='info'>{currentUser && currentUser.country}</div>
                         </div>
 
                         <div className='info-lable'>آخرین امتیاز:
                             <div className='info'>{currentUser && toFarsiNumber(currentUser.teamPoint)}</div>
+                            {/* <div className='info'>{currentUser && currentUser.teamPoint}</div> */}
                         </div>
                     </div>
                 </div>

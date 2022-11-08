@@ -79,7 +79,7 @@ export function MainSearchBox() {
     const ProfileModalDisplay = useSetRecoilState(profileModalDisplayState)
     const [currentUser, setCurrentUser] = useRecoilState(currentUserState)
     useEffect(() => {
-        setUsersList(users.data)
+        //setUsersList(users.data)
     })
 
     function handleSearch(data: any) {
@@ -88,7 +88,7 @@ export function MainSearchBox() {
             onAxiosSuccess({
                 res: res, myError: "invalidInputError", onSuccess: () => {
                     setUsersList(res.data.data)
-                    console.log(usersList)
+                    //console.log(usersList)
                 }
             })
 
@@ -105,7 +105,8 @@ export function MainSearchBox() {
         res => {
             onAxiosSuccess({
                 res: res, myError: "invalidInputError", onSuccess: () => {
-                    setCurrentUser(res.data)
+                    //console.log(res.data.data)
+                    setCurrentUser(res.data.data)
                 }
             })
 
@@ -126,19 +127,17 @@ export function MainSearchBox() {
                         <input className={'search-input'} placeholder={'اسم دوستات رو جستجو کن و دنبالشون کن'}
                                onChange={event => {
                                    handleSearch(event.target.value)
-                               }} onClick={event => {
-                            handleSearch(event.target)
-                        }}/>
+                               }} />
                     </div>
                 <ClickAwayListener onClickAway={() => setResultBoxState(false)}>
                 <div className="result-box" hidden={!resultBoxState} >
                     {usersList.map(user => <div className="profile">
                         <img className="friends-profile-photo" src={profilePhoto} alt="profile photo" onClick={() => {
-                            user.followed === false ? handleFollowing(user.id.toString()) : showProfileModal(user.id.toString())
+                           showProfileModal(user.id.toString())
                         }}></img>
                         <div className="friends-name">{user.username}</div>
                         <button className={user.followed === false ? "follow-back" : "see-profile"} onClick={() => {
-                            user.followed === false ? handleFollowing(user.id.toString()) :showProfileModal(user.id.toString())
+                            user.followed === false ? handleFollowing(user.id) :showProfileModal(user.id.toString())
                         }}>
                             <div className="button-text">{user.followed === false ? "دنبال کردن" : "مشاهده"} </div>
                         </button>
