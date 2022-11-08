@@ -10,7 +10,6 @@
 .side-picture {
     min-width: 12.5rem;
     width: 40%;
-    direction: ltr;
     display: flex;
     background-image: url("./assets/cover.svg");
     background-size: cover;

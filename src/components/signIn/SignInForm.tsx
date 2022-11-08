@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React from "react";
 import "./SignInForm.css";
 import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
@@ -11,15 +11,9 @@ import {
     getTransfersSubTabsStateName,
     setToken
 } from "../../global/Storages";
-import {focusOnElementByRef} from "../../global/functions/General";
-
-//import {closeSnackbar} from "notistack";
 
 function SignInForm() {
     const navigate = useNavigate()
-    const passwordInputRef = useRef<HTMLDivElement | null>(null)
-
-    //useEffect(() => closeSnackbar(), [])
 
     const signInInput = {
         username: "",
@@ -74,9 +68,7 @@ function SignInForm() {
                     <span className="label">نام کاربری</span>
                     <input className="input" type="text" onChange={setUsername}/>
                     <span className="label">رمز عبور</span>
-                    <input className="input" type="password" onChange={setPassword}
-                           ref={focusOnElementByRef(passwordInputRef)} tabIndex={0}
-                    />
+                    <input className="input" type="password" onChange={setPassword}/>
                 </div>
 
                 <div className="button-bar">

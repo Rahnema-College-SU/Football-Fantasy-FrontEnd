@@ -6,8 +6,9 @@ export function Input({
                           isEdit,
                           kind,
                           text,
+                          isDisabled,
                           onChange
-                      }: { isEdit: boolean, kind: 'text' | 'password' | 'country', text: string, onChange: ChangeEventHandler }) {
+                      }: { isEdit: boolean, kind: 'text' | 'password' | 'country', text: string, isDisabled: boolean, onChange: ChangeEventHandler }) {
     function getPassword() {
         return (
             <div className={'profile-tab-row-text profile-tab-password'}>
@@ -38,7 +39,7 @@ export function Input({
     function getPlainTextEdit() {
         return (
             <input className={'profile-tab-row-text profile-tab-row-text-edit'} dir={'auto'} value={text}
-                   onChange={onChange}/>
+                   disabled={isDisabled} onChange={onChange}/>
         )
     }
 

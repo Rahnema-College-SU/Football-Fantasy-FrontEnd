@@ -30,7 +30,6 @@ function App() {
     const profileModalDisplay = useRecoilValue(profileModalDisplayState)
     const substitutionModalDisplay = useRecoilValue(substitutionModalDisplayState)
     const navigate = useNavigate()
-    // const [modalsDivDisplay, setModalsDivDisplay] = useState<'none' | 'block'>('none')
 
     useEffect(() => {
         if (window.location.href.includes('home'))
@@ -41,7 +40,6 @@ function App() {
                 )
         else
             navigate('/sign-in')
-        //navigate('/home/profile')
     }, [])
 
     async function isTokenValid(): Promise<boolean> {
@@ -63,13 +61,6 @@ function App() {
                     })
             )
     }
-
-    // useEffect(() => {
-    //     if (removePlayerModalDisplay === 'block' || profileModalDisplay === 'block' || substitutionModalDisplay === 'block')
-    //         setModalsDivDisplay('block')
-    //     else
-    //         setModalsDivDisplay('none')
-    // }, [removePlayerModalDisplay, profileModalDisplay, substitutionModalDisplay])
 
     return (
         <div>
@@ -102,7 +93,6 @@ function App() {
                 }/>
             </Routes>
 
-            {/*TODO: architecture and click away listener*/}
             <div id={'modals-div'} style={{display: removePlayerModalDisplay}}>
                 <RemovePlayerModal/>
             </div>
@@ -112,11 +102,6 @@ function App() {
             <div id={'modals-div'} style={{display: substitutionModalDisplay}}>
                 <SubstitutionModal/>
             </div>
-            {/*<div id={'modals-div'} style={{display: modalsDivDisplay}}>*/}
-            {/*    <RemovePlayerModal/>*/}
-            {/*    <ProfileModal/>*/}
-            {/*    <SubstitutionModal/>*/}
-            {/*</div>*/}
         </div>
     );
 }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {myPlayersType, playerType, searchType} from "./Types";
+import {myPlayersType, playerType, profileApiCallType, searchType} from "./Types";
 import {getToken} from "./Storages";
 
 const customAxios = axios.create(
@@ -116,5 +116,16 @@ export const axiosLike = (eventId: string) => customAxios.post('like', {
     eventId: eventId
 })
 
-export const axiosUnlike = (eventId: string) => customAxios.delete(`like/${eventId}`)
-//export const axiosLatestEvents=
+export const axiosUnlike = (eventId: string) => customAxios.delete(`unlike/${eventId}`)
+
+export const axiosGetProfile = () => customAxios.get('profile')
+
+export const axiosGetProfileImageUrl = (imageUrl: string) => `${customAxios.getUri()}/profile/image/${imageUrl}`
+
+export const axiosUpdateProfile = (profile: profileApiCallType) => customAxios.post('profile', {
+    profileImage: profile.profileImage,
+    firstName: profile.firstName,
+    lastName: profile.lastName,
+    country: profile.country,
+    password: profile.password
+})

@@ -1,14 +1,16 @@
-import React, {ChangeEvent, useRef, useState} from "react";
+import React, {ChangeEvent, useEffect, useRef, useState} from "react";
 import "./Profile.css";
 import editIcon from './assets/edit-icon.svg'
 import uploadIcon from './assets/upload-icon.svg'
-import a from './assets/a.gif'
+import defaultProfileImage from './assets/defaultProfileImage.gif'
 import {CircularProgress} from "@mui/material";
 import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
 import {useNavigate} from "react-router-dom";
 import {setHomeTabsState, setMyTeamSubTabState, setToken, setTransfersSubTabState} from "../../../global/Storages";
 import {Input} from "./input/Input";
-import {emptyFieldError, onMyError} from "../../../global/Errors";
+import {emptyFieldError, onAxiosError, onAxiosSuccess, onMyError} from "../../../global/Errors";
+import {axiosGetProfile, axiosGetProfileImageUrl, axiosUpdateProfile} from "../../../global/ApiCalls";
+import {convertProfileApiResponse} from "../../../global/functions/Converters";
 
 function Profile() {
     const firstRowKeys = ['firstName', 'lastName'] as const
@@ -24,37 +26,68 @@ function Profile() {
 
     const [isEdit, setIsEdit] = useState<boolean>(false)
     const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false)
-    const [profileImageUrl, setProfileImageUrl] = useState<string>(a)
-    // let profileImageUrl = 'https://picsum.photos/200/200'
+    const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false)
+    const [profileImageUrl, setProfileImageUrl] = useState<string>(defaultProfileImage)
+    const [editedProfileImageUrl, setEditedProfileImageUrl] = useState<string>(defaultProfileImage)
+    const [editedProfileFile, setEditedProfileFile] = useState<File | undefined>(undefined)
+
     const fileInputRef = useRef<HTMLInputElement | null>(null)
     const navigate = useNavigate()
 
-    const inputData: { [key in rowKeysType]: { title: string, kind: 'text' | 'password' | 'country' } } = {
-        firstName: {title: 'نام', kind: 'text'},
-        lastName: {title: 'نام خانوادگی', kind: 'text'},
-        email: {title: 'ایمیل', kind: 'text'},
-        country: {title: 'کشور', kind: 'country'},
-        username: {title: 'نام کاربری', kind: 'text'},
-        password: {title: 'رمز عبور', kind: 'password'}
+    const inputData: { [key in rowKeysType]: { title: string, kind: 'text' | 'password' | 'country', isDisabled: boolean } } = {
+        firstName: {title: 'نام', kind: 'text', isDisabled: false},
+        lastName: {title: 'نام خانوادگی', kind: 'text', isDisabled: false},
+        email: {title: 'ایمیل', kind: 'text', isDisabled: true},
+        country: {title: 'کشور', kind: 'country', isDisabled: false},
+        username: {title: 'نام کاربری', kind: 'text', isDisabled: true},
+        password: {title: 'رمز عبور', kind: 'password', isDisabled: false}
     }
 
     const [columns, setColumns] = useState<rowType>({
-        firstName: 'امیر',
-        lastName: 'فخیمی',
-        email: 'fakhimi.amirmohamfghjkl;fgdhfdsghjfdsfgkuhjgfdsdfghjgfhdgfghkjghfdsfghfd@gmail.com',
-        country: 'ایران',
-        username: 'abcd',
+        firstName: '',
+        lastName: '',
+        email: '',
+        country: '',
+        username: '',
         password: '1234'
     })
 
     const [editedColumns, setEditedColumns] = useState<rowType>({
-        firstName: 'امیر',
-        lastName: 'فخیمی',
-        email: 'fakhimi.amirmohamfghjkl;fgdhfdsghjfdsfgkuhjgfdsdfghjgfhdgfghkjghfdsfghfd@gmail.com',
-        country: 'ایران',
-        username: 'abcd',
+        firstName: '',
+        lastName: '',
+        email: '',
+        country: '',
+        username: '',
         password: '1234'
     })
+
+    useEffect(() => {
+        getProfile()
+    }, [])
+
+    function getProfile() {
+        setIsDataLoaded(false)
+        setIsImageLoaded(false)
+
+        axiosGetProfile().then(
+            res => onAxiosSuccess({
+                res: res,
+                onSuccess: () => {
+                    const profile = convertProfileApiResponse(res.data)
+
+                    setProfileImageUrl(axiosGetProfileImageUrl(profile.imageUrl))
+                    setEditedProfileImageUrl(axiosGetProfileImageUrl(profile.imageUrl))
+
+                    setColumns(profile.info)
+                    setEditedColumns(profile.info)
+
+                    setIsDataLoaded(true)
+                    setIsEdit(false)
+                }
+            }),
+            error => onAxiosError({axiosError: error})
+        )
+    }
 
     function getHeader() {
         return (
@@ -69,8 +102,8 @@ function Profile() {
     function getProfileImagePart() {
         return (
             [
-                <a download={'Fantasy Football Profile Image.png'} href={profileImageUrl}>
-                    <img className={'profile-tab-photo-part'} id={'profile-tab-photo'} src={profileImageUrl}
+                <a download={'Fantasy Football Profile Image.png'} href={editedProfileImageUrl}>
+                    <img className={'profile-tab-photo-part'} id={'profile-tab-photo'} src={editedProfileImageUrl}
                          onLoad={() => setIsImageLoaded(true)} style={{display: isImageLoaded ? '' : 'none'}}
                          alt={'profile photo'}/>
                 </a>,
@@ -96,6 +129,7 @@ function Profile() {
                 <div className={'profile-tab-info-row'}>
                     <div className={'profile-tab-row-title'}>{inputData[key].title}</div>
                     <Input isEdit={isEdit} kind={inputData[key].kind} text={editedColumns[key]}
+                           isDisabled={inputData[key].isDisabled}
                            onChange={(e: ChangeEvent<HTMLInputElement>) => {
                                const newEditedColumns = {...editedColumns}
                                newEditedColumns[key] = e.target.value
@@ -122,13 +156,15 @@ function Profile() {
             return
 
         document.getElementById('upload-image-text')!.innerHTML = fileObj.name
-        setProfileImageUrl(URL.createObjectURL(fileObj))
+        setEditedProfileFile(fileObj)
+        setEditedProfileImageUrl(URL.createObjectURL(fileObj))
     }
 
     function getButtons() {
         function editOnClick() {
             setIsEdit(true)
             setColumns({...editedColumns})
+            setProfileImageUrl(editedProfileImageUrl)
         }
 
         function confirmOnClick() {
@@ -139,13 +175,30 @@ function Profile() {
                 }
             }
 
-            setIsEdit(false)
-            setColumns({...editedColumns})
+            updateProfile()
+        }
+
+        function updateProfile() {
+            axiosUpdateProfile({
+                profileImage: editedProfileFile!,
+                firstName: editedColumns.firstName,
+                lastName: editedColumns.lastName,
+                country: editedColumns.country,
+                password: editedColumns.password === columns.password ? '' : editedColumns.password
+            }).then(
+                res => onAxiosSuccess({
+                    res: res,
+                    onSuccess: () => getProfile()
+
+                }),
+                error => onAxiosError({axiosError: error})
+            )
         }
 
         function cancelOnClick() {
             setIsEdit(false)
             setEditedColumns({...columns})
+            setEditedProfileImageUrl(profileImageUrl)
         }
 
         function signOut() {
@@ -189,7 +242,7 @@ function Profile() {
                    accept={".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"} onChange={handleFileChange}/>
             {getUploadImageButton()}
             <div id={'profile-tab-info-container'}>
-                {getInfo()}
+                {isDataLoaded ? getInfo() : <CircularProgress id={'data-circular-progress'}/>}
             </div>
 
             {getButtons()}
