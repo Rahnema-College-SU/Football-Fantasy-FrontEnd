@@ -116,7 +116,7 @@ export const axiosLike = (eventId: string) => customAxios.post('like', {
     eventId: eventId
 })
 
-export const axiosUnlike = (eventId: string) => customAxios.delete(`unlike/${eventId}`)
+export const axiosUnlike = (eventId: string) => customAxios.delete(`like/${eventId}`)
 
 export const axiosGetProfile = () => customAxios.get('profile')
 
