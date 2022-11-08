@@ -13,16 +13,18 @@ import {toFarsiNumber} from "../../../../../global/functions/Converters";
 import {axiosLike, axiosUnlike} from "../../../../../global/ApiCalls";
 import {onAxiosError, onAxiosSuccess, onInfo, onS} from "../../../../../global/Errors";
 
-function EventItem({event}: { event: latestEventType }) {
+function EventItem({event, updateEvents}: { event: latestEventType, updateEvents: () => void }) {
     const ProfileModalDisplay = useSetRecoilState(profileModalDisplayState)
 
     function handleLike(id: string) {
         axiosLike(id).then(
             res => {
                 onAxiosSuccess({
-                    res: res, myError: "invalidInputError", onSuccess: () => {
+                    res: res, myError: "invalidInputError",
+                    onSuccess: () => {
                         onS("پسندیده شد")
                         ProfileModalDisplay('none')
+                        updateEvents()
                     }
                 })
 
@@ -37,15 +39,16 @@ function EventItem({event}: { event: latestEventType }) {
         axiosUnlike(id).then(
             res => {
                 onAxiosSuccess({
-                    res: res, myError: "invalidInputError", onSuccess: () => {
-                        onInfo("‍دیگر پ‍سندیده نخواهد بود")
+                    res: res,
+                    myError: "invalidInputError",
+                    onSuccess: () => {
+                        onInfo("دیگر پ‍سندیده نخواهد بود")
+                        updateEvents()
                     }
                 })
-
             },
-            error => {
+            error =>
                 onAxiosError({axiosError: error, myError: "invalidInputError"})
-            }
         )
     }
 

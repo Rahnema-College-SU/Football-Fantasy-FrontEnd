@@ -38,13 +38,13 @@ export function LatestEvents() {
 
     useEffect(() => {
         latestEventsApiCall()
-    })
+    }, [])
 
     return (
         <div className={showBox == "show" ? "Latest-Events-Box" : "Hidden-Latest-Events-Box"}>
             <div className="Latest-Events-Title"> آخرین رویداد ها</div>
             <div>
-                {events.map((e, index) => <EventItem event={e} key={index}/>)}
+                {events.map((e) => <EventItem event={e} updateEvents={latestEventsApiCall}/>)}
             </div>
         </div>
     )
