@@ -116,4 +116,7 @@ export const axiosLike = (eventId: string) => customAxios.post('like', {
 })
 
 export const axiosUnlike = (eventId: string) => customAxios.delete(`unlike/${eventId}`)
-//export const axiosLatestEvents=
+
+export const axiosGetProfile = () => customAxios.get('profile')
+
+export const axiosGetProfileImageUrl = (imageUrl: string) => `${customAxios.getUri()}/profile/image/${imageUrl}`

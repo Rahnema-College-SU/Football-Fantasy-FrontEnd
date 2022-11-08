@@ -3,7 +3,7 @@ import {
     fantasyTeamApiResponseType,
     myPlayersType,
     playersListApiResponseType,
-    playerType
+    playerType, profileType
 } from "../Types";
 import {positionsServer, positionsUi} from "../Variables";
 
@@ -73,5 +73,21 @@ export function convertPlayersListApiResponse(apiResponse: playersListApiRespons
         playersList: playersList,
         numberOfPlayers: apiResponse.data.numberOfPlayers,
         numberOfPages: apiResponse.data.numberOfPages
+    }
+}
+
+export function convertProfileApiResponse(apiResponse: profileType) {
+    const apiResponseData = apiResponse.data
+
+    return {
+        info: {
+            firstName: apiResponseData.firstName,
+            lastName: apiResponseData.lastName,
+            email: apiResponseData.email,
+            country: apiResponseData.country,
+            username: apiResponseData.username,
+            password: '123'
+        },
+        imageUrl: apiResponseData.imageUrl
     }
 }

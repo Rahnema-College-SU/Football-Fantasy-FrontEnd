@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useRef, useState} from "react";
+import React, {ChangeEvent, useEffect, useRef, useState} from "react";
 import "./Profile.css";
 import editIcon from './assets/edit-icon.svg'
 import uploadIcon from './assets/upload-icon.svg'
@@ -8,7 +8,9 @@ import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
 import {useNavigate} from "react-router-dom";
 import {setHomeTabsState, setMyTeamSubTabState, setToken, setTransfersSubTabState} from "../../../global/Storages";
 import {Input} from "./input/Input";
-import {emptyFieldError, onMyError} from "../../../global/Errors";
+import {emptyFieldError, onAxiosError, onAxiosSuccess, onMyError} from "../../../global/Errors";
+import {axiosGetProfile, axiosGetProfileImageUrl} from "../../../global/ApiCalls";
+import {convertProfileApiResponse} from "../../../global/functions/Converters";
 
 function Profile() {
     const firstRowKeys = ['firstName', 'lastName'] as const
@@ -24,7 +26,9 @@ function Profile() {
 
     const [isEdit, setIsEdit] = useState<boolean>(false)
     const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false)
+    const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false)
     const [profileImageUrl, setProfileImageUrl] = useState<string>(a)
+    const [editedProfileImageUrl, setEditedProfileImageUrl] = useState<string>(a)
     // let profileImageUrl = 'https://picsum.photos/200/200'
     const fileInputRef = useRef<HTMLInputElement | null>(null)
     const navigate = useNavigate()
@@ -56,6 +60,33 @@ function Profile() {
         password: '1234'
     })
 
+    useEffect(() => {
+        getProfile()
+    }, [])
+
+    function getProfile() {
+        setIsDataLoaded(false)
+        setIsImageLoaded(false)
+
+        axiosGetProfile().then(
+            res => onAxiosSuccess({
+                res: res,
+                onSuccess: () => {
+                    const profile = convertProfileApiResponse(res.data)
+
+                    setProfileImageUrl(axiosGetProfileImageUrl(profile.imageUrl))
+                    setEditedProfileImageUrl(axiosGetProfileImageUrl(profile.imageUrl))
+
+                    setColumns(profile.info)
+                    setEditedColumns(profile.info)
+
+                    setIsDataLoaded(true)
+                }
+            }),
+            error => onAxiosError({axiosError: error})
+        )
+    }
+
     function getHeader() {
         return (
             <div id={'profile-header'}>
@@ -69,8 +100,8 @@ function Profile() {
     function getProfileImagePart() {
         return (
             [
-                <a download={'Fantasy Football Profile Image.png'} href={profileImageUrl}>
-                    <img className={'profile-tab-photo-part'} id={'profile-tab-photo'} src={profileImageUrl}
+                <a download={'Fantasy Football Profile Image.png'} href={editedProfileImageUrl}>
+                    <img className={'profile-tab-photo-part'} id={'profile-tab-photo'} src={editedProfileImageUrl}
                          onLoad={() => setIsImageLoaded(true)} style={{display: isImageLoaded ? '' : 'none'}}
                          alt={'profile photo'}/>
                 </a>,
@@ -122,13 +153,14 @@ function Profile() {
             return
 
         document.getElementById('upload-image-text')!.innerHTML = fileObj.name
-        setProfileImageUrl(URL.createObjectURL(fileObj))
+        setEditedProfileImageUrl(URL.createObjectURL(fileObj))
     }
 
     function getButtons() {
         function editOnClick() {
             setIsEdit(true)
             setColumns({...editedColumns})
+            setProfileImageUrl(editedProfileImageUrl)
         }
 
         function confirmOnClick() {
@@ -141,11 +173,13 @@ function Profile() {
 
             setIsEdit(false)
             setColumns({...editedColumns})
+            setProfileImageUrl(editedProfileImageUrl)
         }
 
         function cancelOnClick() {
             setIsEdit(false)
             setEditedColumns({...columns})
+            setEditedProfileImageUrl(profileImageUrl)
         }
 
         function signOut() {
@@ -189,7 +223,7 @@ function Profile() {
                    accept={".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"} onChange={handleFileChange}/>
             {getUploadImageButton()}
             <div id={'profile-tab-info-container'}>
-                {getInfo()}
+                {isDataLoaded ? getInfo() : <CircularProgress id={'data-circular-progress'}/>}
             </div>
 
             {getButtons()}

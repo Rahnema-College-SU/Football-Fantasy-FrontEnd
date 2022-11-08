@@ -181,6 +181,10 @@
     margin-top: 10px;
 }
 
+#data-circular-progress {
+    align-self: center;
+}
+
 @media only screen and (max-width: 768px) {
     .profile-main-div {
         width: 90%;
