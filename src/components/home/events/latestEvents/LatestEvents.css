@@ -7,3 +7,30 @@
     color: #3D195B;
 
 }
+
+.Hidden-Latest-Events-Box {
+    display: none;
+}
+
+@media only screen and (min-width: 38rem) {
+    .Hidden-Latest-Events-Box {
+        display: block;
+        direction: rtl;
+    }
+}
+
+@media only screen and (max-width: 38rem) {
+    .Hidden-Latest-Events-Box {
+        display: none;
+        direction: rtl;
+    }
+
+    .Latest-Events-Title {
+        display: none;
+    }
+
+    .Latest-Events-Box {
+        margin-top: 10%;
+    }
+
+}

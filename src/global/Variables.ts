@@ -1,38 +1,38 @@
 export const homeTabsEndingUrl = {
     myTeam: 'my-team',
     transfers: 'transfers',
-    Events: 'events',
+    events: 'events',
     profile: 'profile',
     prizes: 'prizes'
-}
+} as const
 
-let token: string;
-
-export function setToken(t: string) {
-    token = t
-}
-
-export function getToken() {
-    return token
-}
-
-export const showingMyTeamTabsEndingUrl = {
+export const subTabsEndingUrl = {
     schematic: 'schematic',
     list: 'list'
-}
+} as const
 
-export function toFarsiNumber(number: number) {
-    const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+export const countries = [
+    {text: 'ایران', flag: '🇮🇷'},
+    {text: 'انگلستان', flag: '🇬🇧'},
+    {text: 'ایالات متّحده‌ی آمریکا', flag: '🇺🇸'},
+    {text: 'آلمان', flag: '🇩🇪'},
+    {text: 'برزیل', flag: '🇧🇷'},
+    {text: 'هند', flag: '🇮🇳'},
+    {text: 'چین', flag: '🇨🇳'},
+    {text: 'آرژانتین', flag: '🇦🇷'},
+    {text: 'هلند', flag: '🇳🇱'}
+].sort((a, b) => a.text.localeCompare(b.text))
 
-    return number
-        .toString()
-        .replace(/\d/g, (x: string) => farsiDigits[parseInt(x)]);
-}
+export const transfersGkPositions = [1, 12]
+export const transfersDefPositions = [2, 3, 4, 5, 13]
+export const transfersMidPositions = [6, 7, 8, 9, 14]
+export const transfersAttPositions = [10, 11, 15]
 
-export const gkPositions = [1, 2]
-export const defPositions = [3, 4, 5, 6, 7]
-export const midPositions = [8, 9, 10, 11, 12]
-export const attPositions = [13, 14, 15]
+export const myTeamGkPositions = [1]
+export const myTeamDefPositions = [2, 3, 4, 5]
+export const myTeamMidPositions = [6, 7, 8, 9]
+export const myTeamAttPositions = [10, 11]
+export const myTeamReservePositions = [12, 13, 14, 15]
 
 //They should have the same order as the tabs in the home page
 export const positionsServer = ['ALL', 'GKP', 'DEF', 'MID', 'FWD'] as const

@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    row-gap: 1rem;
+    row-gap: 0;
     flex-wrap: nowrap;
     box-sizing: border-box;
 }
@@ -12,7 +12,7 @@
 .input-bar {
     width: 60%;
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr;
     grid-gap: 1.25rem;
     box-sizing: border-box;
 }
@@ -34,9 +34,17 @@
     width: 100%;
 }
 
+.email-container {
+    display: flex;
+    flex-direction: column;
+    width: 210%;
+}
+
 button {
+    margin-top: 1rem;
     max-width: 22rem;
     cursor: pointer;
+    width: 80%;
 }
 
 .select-country {
@@ -49,12 +57,50 @@ button {
     cursor: pointer;
 }
 
+#datePicker {
+    background: #3D185B;
+    border: 1px solid #A057DB;
+    border-radius: 8px;
+    height: 3rem;
+    font: 300 14px Vazirmatn, serif;
+    color: white;
+    width: 100%;
+}
+
+.JDatePicker {
+    background: #3D185B !important;
+    border: 1px solid #A057DB;
+    color: white;
+}
+
+.JDatePicker .JC-days {
+    background: #3D185B !important;
+}
+.JDatePicker .month-items.selected {
+    background: aliceblue;
+    color: #b056c2 !important;
+}
+.JDatePicker .month-items{
+    color: rgb(82, 80, 80);
+}
+.JDatePicker .month-items:hover{
+    color: rgb(240, 106, 240) !important;
+}
+.day-items:hover {
+    background: #A057DB !important;
+}
+
+.day-items.selected {
+    background: #A057DB !important;
+}
+
 @media only screen and (max-width: 51.875rem) {
     .input-bar {
         width: 80%;
         margin-left: auto;
         margin-right: auto;
     }
+
 }
 
 @media only screen and (max-width: 35.625rem) {
@@ -65,6 +111,14 @@ button {
     .input-bar {
         grid-template-columns: auto;
         gap: 0;
+    }
+
+    .email-container {
+        width: 100%;
+    }
+
+    .JDatePicker {
+        position: relative !important;
     }
 }
 

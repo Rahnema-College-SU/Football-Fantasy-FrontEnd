@@ -1,4 +1,4 @@
-.main-div {
+#header-main-div {
     background: linear-gradient(269.18deg, #04F3F4 0.06%, #01FC9D 47.08%, #05F4F1 99.26%);
     display: flex;
     justify-content: space-between;
@@ -7,23 +7,55 @@
 
 .three-players-image {
     border-radius: 0 0 0 16px;
-    margin-left: 3.8799%;
 }
 
-.curve-lines {
-    position: absolute;
-    right: 0;
+.four-players-image {
+    display: none;
 }
 
 .logo-container {
+    background-image: url('assets/curve-lines.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
-    margin-right: 100px;
+    padding-right: 3%;
+    width: 50%;
 }
 
 .logo-text {
-    margin-right: 24px;
-    font: 900 58px Vazirmatn, serif;
+    margin: 0 24px 0 0;
+    font: 900 4vw Vazirmatn, serif;
     color: #37013B;
+    text-align: end;
+}
+
+@media only screen and (max-width: 768px) {
+    .logo-container {
+        flex-direction: column;
+        padding-right: 50px;
+        background-image: none;
+        align-self: center;
+        width: auto;
+    }
+
+    .logo-image {
+        height: 100px;
+    }
+
+    .logo-text {
+        margin-right: 0;
+        margin-top: 10px;
+    }
+
+    .three-players-image {
+        display: none;
+    }
+
+    .four-players-image {
+        display: block;
+        margin-top: 30px;
+        width: 60%;
+    }
 }

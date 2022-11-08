@@ -1,0 +1,52 @@
+#transfers-main-div {
+    width: 90%;
+    display: grid;
+    grid-column-gap: 25px;
+    grid-row-gap: 30px;
+    grid-template-columns: 3fr 1fr;
+
+    margin: 50px auto 30px auto;
+}
+
+#date-and-menu-container {
+    display: flex;
+    align-items: center;
+}
+
+#transfers-game-info-div {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: fit-content(100%) auto;
+
+    grid-column-start: 1;
+    grid-row-start: 2;
+}
+
+#header-of-game-info-div {
+    grid-auto-flow: row;
+}
+
+#menu-image {
+    display: none;
+    border: 2px solid #3D195B;
+    border-radius: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+    #transfers-main-div {
+        grid-column-gap: 0;
+        grid-template-columns: 1fr;
+    }
+
+    #menu-image {
+        display: block;
+        cursor: pointer;
+    }
+
+    #transfers-game-info-div {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: fit-content(100%) fit-content(100%) auto;
+
+        grid-column-gap: 20px;
+    }
+}

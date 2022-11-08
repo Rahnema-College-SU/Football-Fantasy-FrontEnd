@@ -1,0 +1,64 @@
+#middle-tab-bar-main-div {
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px 30px 10px;
+    height: fit-content;
+    align-self: end;
+}
+
+#tab-bar-rectangle {
+    display: flex;
+    direction: rtl;
+    background: #F7F7F7;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+
+    border-radius: 8px;
+    padding: 5px 10px;
+}
+
+#tab-bar-rectangle > div {
+    width: 100%;
+
+    text-align: center;
+    align-items: center;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    padding: 2px 0;
+    cursor: pointer;
+    font-size: calc(12px + 0.25vw);
+}
+
+#tab-bar-rectangle > div:first-child {
+    margin-left: 5px;
+}
+
+#tab-bar-rectangle > div:last-child {
+    margin-right: 5px;
+}
+
+.tab-rectangle-select {
+    background: #FFFFFF;
+}
+
+.tab-rectangle-unselect:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+#logo {
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: fit-content;
+    margin: auto auto -15px;
+}
+
+@media only screen and (max-width: 768px) {
+    #middle-tab-bar-main-div {
+        margin-bottom: 20px;
+        grid-column: 1 / 3;
+    }
+}

@@ -2,38 +2,46 @@ import React from "react";
 import "./SignInForm.css";
 import Form from "../items/Form";
 import {useNavigate} from "react-router-dom";
-import {homeTabsEndingUrl, setToken, showingMyTeamTabsEndingUrl} from "../../global/Variables";
+import {homeTabsEndingUrl} from "../../global/Variables";
 import {axiosSignIn} from "../../global/ApiCalls";
-import {invalidInputError, onAxiosError, onAxiosSuccess} from "../../global/Errors";
+import {onAxiosError, onAxiosSuccess} from "../../global/Errors";
+import {
+    getHomeTabsStateName,
+    getMyTeamSubTabsStateName,
+    getTransfersSubTabsStateName,
+    setToken
+} from "../../global/Storages";
 
 function SignInForm() {
     const navigate = useNavigate()
 
-    class Input {
-        username = ""
-        password = ""
+    const signInInput = {
+        username: "",
+        password: ""
     }
 
-    var signInInput = new Input
-
-    function signInApiCall() {
-        setToken('')
-        if (signInInput.password.length != 8) {
-            return alert("رمز عبوری با ۸ کاراکتر وارد کنید")
+    function handleSignIn() {
+        if (signInInput.username.length === 0) {
+            return alert("نام کاربری را وارد کنید")
+        } else if (signInInput.password.length === 0) {
+            return alert("رمز عبور را وارد کنید")
         } else {
             axiosSignIn(signInInput.username, signInInput.password).then(
                 res => {
                     onAxiosSuccess({
-                        res: res, myError: invalidInputError, onSuccess: () => {
-                            navigate(`/home/${homeTabsEndingUrl.myTeam}/${showingMyTeamTabsEndingUrl.schematic}`)
-                            setToken(res.data.data.access_token)
+                        res: res, onSuccess: () => {
+                            const homeTabsStateName = getHomeTabsStateName()
+
+                            navigate(`/home/${getHomeTabsStateName()}/${homeTabsStateName === homeTabsEndingUrl.myTeam ?
+                                getMyTeamSubTabsStateName() : homeTabsStateName === homeTabsEndingUrl.transfers ?
+                                    getTransfersSubTabsStateName() : ''}`)
+                            setToken(res.data.data.accessToken)
                         }
                     })
 
-                }
-                ,
+                },
                 error => {
-                    onAxiosError({axiosError: error, myError: invalidInputError})
+                    onAxiosError({axiosError: error})
                 }
             )
         }
@@ -47,13 +55,13 @@ function SignInForm() {
     }
 
     return (
-        <Form>
+        <Form onSubmit={handleSignIn}>
 
             <div className="sign-in-form">
                 <div className="header">
                     <hr className="line"/>
                     <div className="header-text">ورود به فانتزی</div>
-                    <hr className="line"/>
+                    <hr className="left-line"/>
                 </div>
 
                 <div className="sign-in-input-bar">
@@ -64,8 +72,8 @@ function SignInForm() {
                 </div>
 
                 <div className="button-bar">
-                    <button className="sign-in-button button"
-                            onClick={signInApiCall}>ورود
+                    <button id={'sign-in-button-id'} className="sign-in-button button" type="submit"
+                    >ورود
                     </button>
                     <button className="sign-in-button button" onClick={() => navigate('/sign-up')}>ثبت نام</button>
                 </div>

@@ -1,6 +1,7 @@
 .sign-in-form {
     width: 80%;
-    margin-top: 7%;
+    margin-top: 7% !important;
+    margin: auto;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -35,8 +36,14 @@
 
 .button-bar {
     display: flex;
-    flex-direction: row;
+    justify-content: center;
     width: 100%;
     gap: 4%;
-    justify-content: center;
+}
+
+@media only screen and (max-width: 35.625rem) {
+    .sign-in-form{
+        width: 100%;
+    }
+  
 }

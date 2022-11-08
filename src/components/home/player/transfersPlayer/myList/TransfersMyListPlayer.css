@@ -1,0 +1,98 @@
+/*info section*/
+.div-my-players-info-list {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: end;
+    padding: 0 5px;
+}
+
+#delete-icon-players-list {
+    width: calc(2vw + 7px);
+    border: 1px solid white;
+    border-radius: 50%;
+    z-index: 1;
+    margin-right: 20px;
+    cursor: pointer;
+    transform: translateY(100%);
+}
+
+.cloth-my-players-list {
+    height: calc(15vw + 100px);
+
+    grid-row-start: 1;
+    grid-column-start: 1;
+}
+
+/*list section*/
+.selected-row-div {
+    background-color: #04F3F4;
+    border-radius: 10px;
+}
+
+.row-div {
+    display: grid;
+    direction: rtl;
+    grid-template-columns: 2fr 1fr 1fr;
+    align-items: center;
+    border-bottom: 1px solid #EFEFEF;
+    padding-top: 12px;
+    padding-bottom: 5px;
+    cursor: pointer;
+
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+.row-div:hover:not(.selected-row-div) {
+    background-color: #EFEFEF;
+    border-radius: 10px;
+}
+
+.row-div:focus {
+    outline: none;
+}
+
+.row-name {
+    color: #3D195B;
+    padding-right: 15px;
+    width: fit-content;
+    font-size: 14px;
+    font-family: Vazirmatn, serif;
+    direction: ltr;
+}
+
+.row-number {
+    color: #3D195B;
+    justify-self: center;
+    font-size: 12px;
+    font-family: Vazirmatn, serif;
+    direction: ltr;
+}
+
+.active-row-name {
+    font-weight: 500;
+}
+
+.active-row-number {
+    font-weight: 700;
+    justify-self: center;
+}
+
+.inactive-row-name {
+    font-weight: 300;
+}
+
+.inactive-row-number {
+    font-weight: 500;
+}
+
+@media only screen and (max-width: 768px) {
+    .row-name {
+        font-size: 12px;
+    }
+
+    .row-number {
+        font-size: 10px;
+    }
+}

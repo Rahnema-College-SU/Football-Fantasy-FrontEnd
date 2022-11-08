@@ -4,45 +4,210 @@
     background: #3D195B;
     justify-content: center;
     border-radius: 16px 16px 0 0;
-    font: 800 18px Vazirmatn, serif;
+    font: 800 1.125rem Vazirmatn, serif;
     align-items: center;
     color: white;
 }
 
+.latest-events {
+    display: none !important;
+    width: 45%;
+    height: 30px;
+    border-radius: 4px;
+    background: linear-gradient(269.48deg, #04F5EC -30.14%, #03FBB8 109.7%);
+    border: none;
+    font: 800 1vw Vazirmatn, serif;
+    color: #3D195B;
+    padding: 2px;
+}
+
 .main-box {
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 16px 16px 0 0;
 }
 
 .friends-box {
     display: flex;
     flex-direction: column;
-} 
-.selected-button{
+    margin-top: 10%;
+}
+
+.selected-button {
     width: 45%;
     height: 30px;
     background: linear-gradient(269.48deg, #04F5EC -30.14%, #03FBB8 109.7%);
     border-radius: 4px;
     border: none;
-    font: 800 12px Vazirmatn, serif;
+    font: 800 1.2vw Vazirmatn, serif;
     align-items: center;
     text-align: center;
     color: #3D195B;
 }
 
-.following-button {
+.selected-button-text {
+    background-color: transparent;
+    height: 90%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2vw;
+}
+
+.button-text {
+    background-color: white;
+    border-radius: 2px;
+    height: 90%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2vw;
+}
+
+.tipical-button {
     width: 45%;
     height: 30px;
-    background: #FFFFFF;
     border-radius: 4px;
-    /*border: */
-    /*        Gradient Button*/
-    /*rgba(4, 245, 236, 1)*/
-    /*rgba(3, 251, 184, 1);*/
-
+    background: linear-gradient(269.48deg, #04F5EC -30.14%, #03FBB8 109.7%);
+    border: none;
+    font: 800 1.2vw Vazirmatn, serif;
+    color: #3D195B;
+    padding: 2px;
 }
-.button-bar{
+
+.friends-button-bar {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
     justify-content: center;
+    gap: 3%;
+}
+
+.friends-search-box {
+    display: flex;
+    direction: rtl;
+    align-items: center;
+    background: #FFFFFF;
+    width: 80%;
+    border-bottom: 1px solid #E4E4E4;
+    margin: auto;
+    margin-top: 10%;
+}
+
+.search-icon {
+    scale: 1.1;
+}
+
+.search-input {
+    all: unset;
+    font: 300 14px Vazirmatn, serif;
+    margin-right: 15px;
+    color: rgba(61, 25, 91, 0.67);
+    width: 100%;
+}
+
+::placeholder {
+    color: rgba(61, 25, 91, 0.67);
+}
+
+.profiles-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15%;
+    color: gray;
+    font-size: 13px;
+    text-align: center;
+    
+
+}
+
+.profile {
+    display: flex;
+    flex-direction: row-reverse;
+    font: 400 12px Vazirmatn, serif;
+    color: #3D195B;
+    align-items: center;
+    /* column-gap: 10px; */
+}
+
+.friends-profile-photo {
+    height: 3.125rem;
+    width: 3.125rem;
+    border-radius: 1.5625rem;
+    justify-content: center;
+    margin-right: 5%;
+}
+
+.friends-name {
+    margin-right: 10px;
+}
+
+.see-profile {
+    margin-left: 5%;
+    margin-right: auto;
+    width: 22%;
+    height: 30px;
+    border-radius: 4px;
+    /* background: linear-gradient(269.48deg, #04F5EC -30.14%, #03FBB8 109.7%); */
+    border: none;
+    font: 800 1vw Vazirmatn, serif;
+    color: #3D195B;
+    padding: 2px;
+}
+
+.follow-back {
+    margin-left: 5%;
+    margin-right: auto;
+    width: 22%;
+    height: 30px;
+    border-radius: 4px;
+    background: linear-gradient(269.48deg, #04F5EC -30.14%, #03FBB8 109.7%);
+    border: none;
+    font: 800 1vw Vazirmatn, serif;
+    color: #05D6E2;
+    padding: 2px;
+}
+
+.txt {
+    font-size: 1.2vw;
+}
+
+.hidden {
+    display: none;
+}
+
+@media only screen and (max-width: 38rem) {
+    .button-text {
+        font-size: 2vw;
+    }
+
+    .latest-events {
+        display: inline !important;
+    }
+
+    .selected-button-text {
+        font-size: 2vw;
+    }
+
+    .title {
+        display: none;
+    }
+
+    .main-box {
+        box-shadow: none;
+        margin-top: 0;
+    }
+
+    .events-items-div {
+        margin-top: 0;
+    }
+}
+
+@media only screen and (min-width: 38rem) {
+    .latest-events {
+        display: none !important;
+    }
+
 }

@@ -8,10 +8,15 @@
     margin: 50px auto 30px auto;
 }
 
-#game-info-div {
+#date-and-deadline-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#my-team-game-info-div {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-flow: row;
+    grid-template-columns: 1fr;
+    grid-template-rows: fit-content(100%) auto;
 
     grid-column-start: 1;
     grid-row-start: 2;
@@ -19,4 +24,15 @@
 
 #header-of-game-info-div {
     grid-auto-flow: row;
+}
+
+@media only screen and (max-width: 768px) {
+    #my-team-main-div {
+        grid-column-gap: 0;
+        grid-template-columns: 1fr;
+    }
+
+    #date-and-deadline-container {
+        flex-direction: column-reverse;
+    }
 }

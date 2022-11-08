@@ -10,7 +10,6 @@
 .side-picture {
     min-width: 12.5rem;
     width: 40%;
-    direction: ltr;
     display: flex;
     background-image: url("./assets/cover.svg");
     background-size: cover;
@@ -42,6 +41,11 @@
     max-width: 12.5rem;
     width: 35%;
     border: 0.1875rem solid #9B3AF9;
+}
+.left-line {
+    max-width: 12.5rem;
+    width: 35%;
+    border: 0.1875rem solid #933087;
 }
 
 .header-text {
@@ -89,6 +93,10 @@
     color: #FFFFFF;
     border: none;
     border-radius: 8px;
+}
+
+form {
+    width: 100%;
 }
 
 .form-container {
