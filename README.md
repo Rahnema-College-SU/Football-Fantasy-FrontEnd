@@ -1,128 +1,83 @@
-# Football Fantasy FrontEndxsw3
+# Football Fantasy FrontEnd
+It's a simple sample from [FPL](https://fantasy.premierleague.com).
 
-## Getting started
+## Table of Contents
+- [Explanation](#explanation)
+- [How to Run](#how-to-run)
+- [Features](#features)
+  - [Sign Up](#sign-up)
+  - [Sign In](#sign-in)
+  - [My Team](#my-team)
+  - [Transfers](#transfers)
+  - [Events](#events)
+  - [Profile](#profile)
+  - [Prizes](#prizes)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Explanation
+**FPL** is stands for **F**antasy **P**remier **L**eague. It's a sample of real soccer with data updated weekly, with many players, and points related to their weekly performance. This project is a simple sample of **FPL**. It was our project in *Software Development Internship* at [Rahnema College](https://rahnemacollege.com). Our project is also responsive in a good way!
 
-Already a pro? Just edit this README.md and make it your own. Want to make it
-easy? [Use the template at the bottom](#editing-this-readme)!
+## How to Run
+- First, open the latest release of the project.
+- `npm install`
+- You can start the project locally and over HTTP using `npm start` or locally and over HTTPS using `npm start-https`.
 
-## Add your files
+## Features
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file)
-  or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line)
-  or push an existing Git repository with the following command:
+#### Sign Up
+<img width="1680" alt="Sign Up 1" src="https://user-images.githubusercontent.com/79265203/228976583-47ad68d9-1c54-46ab-94b5-e676c9700f6f.png">
+<img width="1680" alt="Sign Up 2" src="https://user-images.githubusercontent.com/79265203/228976549-dbbe515a-c12d-4d1c-bfc8-f0c12b56fa12.png">
 
-```
-cd existing_repo
-git remote add origin https://hamgit.ir/rc-dev-bootcamp-1401-team-4/football-fantasy-frontendxsw3.git
-git branch -M main
-git push -uf origin main
-```
+#### Sign In
+<img width="1680" alt="Sign In" src="https://user-images.githubusercontent.com/79265203/228976486-16651ad8-c45b-42ee-a818-15b07a67bf56.png">
 
-## Integrate with your tools
+#### My Team
+- Schematic
+<img width="1680" alt="My Team 1" src="https://user-images.githubusercontent.com/79265203/228976530-d877aa17-b4bb-4fcb-863a-305b43f5b9f4.png">
+<img width="1680" alt="My Team 2" src="https://user-images.githubusercontent.com/79265203/228976383-e099bb15-57d7-4d03-a772-af96447256ae.png">
 
-- [ ] [Set up project integrations](https://hamgit.ir/rc-dev-bootcamp-1401-team-4/football-fantasy-frontendxsw3/-/settings/integrations)
+- List
+<img width="1680" alt="My Team 3" src="https://user-images.githubusercontent.com/79265203/228976345-1bf0ab73-39ec-4e18-988a-bb724fab0772.png">
+<img width="1680" alt="My Team 4" src="https://user-images.githubusercontent.com/79265203/228976333-55a0098d-50fd-4d07-887f-0db8a4eca2ba.png">
 
-## Collaborate with your team
+- Substitution
+  - You can use `return` instead of `yes` or `esc` instead of `no` directly from your keyboard.
+<img width="1680" alt="My Team 5" src="https://user-images.githubusercontent.com/79265203/228976322-4c7f3799-22f6-4346-ac8f-a015eaff16b6.png">
+<img width="1680" alt="My Team 6" src="https://user-images.githubusercontent.com/79265203/228976304-21d8bbcd-211d-4a84-80bd-a00b3c9a7ed5.png">
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+#### Transfers
+- Schematic
+  - Arrow keys work for switching between players in the ground.
+<img width="1680" alt="Transfer 1" src="https://user-images.githubusercontent.com/79265203/228976291-75520556-7934-49be-936e-0c73007cc09a.png">
 
-## Test and Deploy
+- List
+  - Arrow keys work for switching between players' rows in the list.
+<img width="1680" alt="Transfer 4" src="https://user-images.githubusercontent.com/79265203/228976464-01b82257-a9b5-4e9c-9aa4-7df8b3e68062.png">
 
-Use the built-in continuous integration in GitLab.
+- Deletion
+  - You can use `return` instead of `deletion` or `esc` instead of `cancellation` directly from your keyboard.
+<img width="1680" alt="Transfer 2" src="https://user-images.githubusercontent.com/79265203/228976522-51cea436-e2fd-42d0-8346-47b76790851e.png">
+<img width="1680" alt="Transfer 3" src="https://user-images.githubusercontent.com/79265203/228976472-84d33cd0-711c-4f72-b0f0-86fab669c027.png">
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+#### Events
+- Like & Dislike
+<img width="1680" alt="Events 1" src="https://user-images.githubusercontent.com/79265203/228976443-a91d4ae1-f2ff-4764-ac2f-c1df27778d81.png">
+<img width="1680" alt="Events 2" src="https://user-images.githubusercontent.com/79265203/228976435-1481b75a-d06f-4375-a684-a40efeea1d78.png">
 
-***
+- Seeing Profile
+<img width="1680" alt="Events 3" src="https://user-images.githubusercontent.com/79265203/228976426-567ae540-a964-4dfc-9f02-6fcce5d2939e.png">
 
-# Editing this README
+- Search
+<img width="1680" alt="Events 4" src="https://user-images.githubusercontent.com/79265203/228976421-95b5b356-465b-40d3-807a-67f0d1946483.png">
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to
-structure it however you want - this is just a starting point!). Thank you
-to [makeareadme.com](https://www.makeareadme.com/) for this template.
+#### Profile
+- Seeing Profile
+<img width="1680" alt="Profile 1" src="https://user-images.githubusercontent.com/79265203/228976419-b90319b8-8897-4174-bbb1-09177d607342.png">
 
-## Suggestions for a good README
+- Editing Profile
+<img width="1680" alt="Profile 2" src="https://user-images.githubusercontent.com/79265203/228976412-3cca64a8-e501-4aa7-b543-4813e0a28bea.png">
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are
-suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long
-is better than too short. If you think your README is too long, consider utilizing another form of documentation rather
-than cutting out information.
+- A simple animation when you hover over your profile photo.
+<img width="1680" alt="Profile 3" src="https://user-images.githubusercontent.com/79265203/228976410-c4734bcc-43b1-4860-8f70-f99b3134e228.png">
 
-## Name
-
-Choose a self-explaining name for your project.
-
-## Description
-
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be
-unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your
-project, this is a good place to list differentiating factors.
-
-## Badges
-
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the
-project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see
-GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew.
-However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing
-specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a
-specific context like a particular programming language version or operating system or has dependencies that have to be
-installed manually, also add a Requirements subsection.
-
-## Usage
-
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of
-usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably
-include in the README.
-
-## Support
-
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address,
-etc.
-
-## Roadmap
-
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started.
-Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps
-explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce
-the likelihood that the changes inadvertently break something. Having instructions for running tests is especially
-helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-
-Show your appreciation to those who have contributed to the project.
-
-## License
-
-For open source projects, say how it is licensed.
-
-## Project status
-
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has
-slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or
-owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+#### Prizes
+<img width="1680" alt="Prize" src="https://user-images.githubusercontent.com/79265203/228976393-d2034dab-b1b9-41cd-920b-87a7f2dc3e69.png">
