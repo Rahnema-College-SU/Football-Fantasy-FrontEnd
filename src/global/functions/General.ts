@@ -36,7 +36,6 @@ export async function getDate(): Promise<dateApiType> {
 }
 
 export function handleFollowing(id: any) {
-    console.log(id);
     axiosFollow(id).then(
         res => {
             onAxiosSuccess({

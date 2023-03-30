@@ -17,9 +17,9 @@ export const usersListState = atom<Array<searchResultUserType>>({
 
 export function Friends() {
     const tabs = [
-        {name: "follower", text: "دنبال کنندگان"}
-        , {name: "following", text: "دنبال شوندگان"}
-        , {name: "latest-events", text: " "}
+        {name: "follower", text: "دنبال کنندگان"},
+        {name: "following", text: "دنبال شوندگان"},
+        {name: "latest-events", text: " "}
     ]
     const [selectedTab, setSelectedTab] = useState<typeof tabs[0]>(tabs[2])
     const [usersList, setUsersList] = useState<Array<searchResultUserType>>([])
@@ -64,7 +64,6 @@ export function Friends() {
             res => {
                 onAxiosSuccess({
                     res: res, myError: "invalidInputError", onSuccess: () => {
-                        //console.log(res.data.data)
                         setCurrentUser(res.data.data)
                     }
                 })

@@ -38,12 +38,8 @@ function SignUpForm() {
 
     class ChooseDate extends React.Component {
         change(unix: any, formatted: any) {
-            console.log(unix); // returns timestamp of the selected value, for example.
-            console.log(formatted); // returns the selected value in the format you've entered, forexample, "تاریخ: 1396/02/24 ساعت: 18:30".
             currentUser.birthDate = formatted;
             setD(formatted);
-            console.log(currentUser);
-
         }
 
         DatePickerInput(props: JSX.IntrinsicAttributes & React.ClassAttributes<HTMLInputElement> & React.InputHTMLAttributes<HTMLInputElement>) {

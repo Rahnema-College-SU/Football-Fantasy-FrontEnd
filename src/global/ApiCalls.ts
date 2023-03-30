@@ -4,7 +4,8 @@ import {getToken} from "./Storages";
 
 const customAxios = axios.create(
     {
-        baseURL: 'http://178.216.248.39:8000',
+        // baseURL: 'http://178.216.248.39:8000',
+        baseURL: 'http://localhost:8000',
         timeout: 5000
     }
 );
@@ -44,7 +45,8 @@ export const axiosAddPlayer = (player: playerType, position: number) => customAx
     locationInTransferUI: position
 })
 
-export const axiosSignUp = (Username: string, Password: string, First_name: string, Last_name: string, Email: string, Country: string, date: string) => customAxios.post('signup',
+export const axiosSignUp = (Username: string, Password: string, First_name: string, Last_name: string, Email: string,
+                            Country: string, date: string) => customAxios.post('signup',
     {
         username: Username,
         password: Password,

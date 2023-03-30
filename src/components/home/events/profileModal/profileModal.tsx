@@ -49,7 +49,8 @@ export function ProfileModal() {
                         </div>
 
                         <div className='info-lable'>آخرین امتیاز:
-                            <div className='info'>{currentUser && toFarsiNumber(currentUser.teamPoint)}</div>
+                            <div className='info'>{currentUser && currentUser.teamPoint &&
+                                toFarsiNumber(currentUser.teamPoint)}</div>
                         </div>
                     </div>
                 </div>

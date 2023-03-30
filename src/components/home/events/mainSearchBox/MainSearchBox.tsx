@@ -28,7 +28,6 @@ export function MainSearchBox() {
                 onAxiosSuccess({
                     res: res, myError: "invalidInputError", onSuccess: () => {
                         setUsersList(res.data.data)
-                        //console.log(usersList)
                     }
                 })
 
@@ -45,7 +44,6 @@ export function MainSearchBox() {
             res => {
                 onAxiosSuccess({
                     res: res, myError: "invalidInputError", onSuccess: () => {
-                        //console.log(res.data.data)
                         setCurrentUser(res.data.data)
                     }
                 })
